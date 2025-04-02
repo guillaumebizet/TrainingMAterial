@@ -1,0 +1,170 @@
+async function saveQuestionsToGitHub() {
+  if (questions.length === 0) {
+    alert("Aucune question à sauvegarder. Veuillez charger les questions d'abord.");
+    return;
+  }
+
+  const token = prompt("Veuillez entrer votre token d'accès personnel GitHub :");
+  if (!token) {
+    alert("Token requis pour sauvegarder les modifications");
+    return;
+  }
+
+  const repo = "guillaumebizet/TrainingMATERIAL";
+  const branch = "main";
+  const path = "questions.json";
+
+  try {
+    const response = await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`, {
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      }
+    });
+
+    let sha = null;
+    if (response.ok) {
+      const data = await response.json();
+      sha = data.sha;
+    } else if (response.status !== 404) {
+      throw new Error(`Erreur lors de la récupération du fichier : ${response.status} ${response.statusText}`);
+    }
+
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(questions, null, 2))));
+    const updateResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      },
+      body: JSON.stringify({
+        message: "Mise à jour de questions.json via l'interface d'édition",
+        content: content,
+        sha: sha,
+        branch: branch
+      })
+    });
+
+    if (updateResponse.ok) {
+      alert("Modifications sauvegardées avec succès !");
+      await fetchQuestions();
+    } else {
+      const errorData = await updateResponse.json();
+      throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
+    }
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde des questions :", error);
+    alert("Erreur lors de la sauvegarde : " + error.message);
+  }
+}
+
+async function saveScoresToGitHub(token) {
+  const repo = "guillaumebizet/TrainingMATERIAL";
+  const branch = "main";
+  const path = "scores.json";
+
+  try {
+    let sha = null;
+    const response = await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`, {
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      sha = data.sha;
+    } else if (response.status !== 404) {
+      throw new Error(`Erreur lors de la récupération du fichier scores.json : ${response.status} ${response.statusText}`);
+    }
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
+    const updateResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      },
+      body: JSON.stringify({
+        message: "Mise à jour de scores.json via l'interface",
+        content: content,
+        sha: sha,
+        branch: branch
+      })
+    });
+
+    if (updateResponse.ok) {
+      alert("Scores sauvegardés avec succès sur GitHub !");
+    } else {
+      const errorData = await updateResponse.json();
+      throw new Error(`Erreur lors de la sauvegarde des scores : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
+    }
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde des scores :", error);
+    alert("Erreur lors de la sauvegarde des scores : " + error.message + ". Les scores seront stockés localement.");
+    localStorage.setItem('scores', JSON.stringify(scores));
+  }
+}
+
+async function fetchQuestions() {
+  try {
+    const response = await fetch('questions.json');
+    if (!response.ok) {
+      throw new Error(`Erreur lors du chargement de questions.json : ${response.status} ${response.statusText}`);
+    }
+    const text = await response.text();
+    try {
+      questions = JSON.parse(text);
+    } catch (parseError) {
+      throw new Error(`Erreur lors du parsing de questions.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
+    }
+    console.log('Questions chargées avec succès :', questions);
+    generateAdditionalQuestions();
+    loadLotSelection();
+    loadQuestionList();
+  } catch (error) {
+    console.error('Erreur lors du chargement des questions:', error);
+    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
+    questions = [];
+  }
+}
+
+async function loadScores() {
+  const repo = "guillaumebizet/TrainingMATERIAL";
+  const branch = "main";
+  const path = "scores.json";
+
+  try {
+    const response = await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`, {
+      headers: {
+        Accept: "application/vnd.github.v3+json"
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const content = atob(data.content);
+      scores = JSON.parse(content);
+    } else if (response.status === 404) {
+      scores = [];
+    } else {
+      throw new Error(`Erreur lors du chargement des scores : ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error("Erreur lors du chargement des scores :", error);
+    scores = JSON.parse(localStorage.getItem('scores')) || [];
+  }
+
+  const tbody = document.getElementById('scores-body');
+  tbody.innerHTML = '';
+  scores.forEach(score => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${score.name}</td>
+      <td>${score.date}</td>
+      <td>${score.score}</td>
+      <td>${score.time}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
