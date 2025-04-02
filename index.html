@@ -656,17 +656,7 @@ function updateCorrect(index, input) {
     if (updateResponse.ok) {
       alert("Modifications sauvegardées avec succès !");
       // Recharger les questions pour s'assurer que l'état est à jour
-  await fetchQuestions();
 
-    } else {
-      const errorData = await updateResponse.json();
-      throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
-    }
-  } catch (error) {
-    console.error("Erreur lors de la sauvegarde des questions :", error);
-    alert("Erreur lors de la sauvegarde : " + error.message);
-  }
-}
 
 async function fetchQuestions() {
   try {
