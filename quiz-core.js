@@ -79,6 +79,7 @@ function validateAnswer(index) {
     saveScore();
     showResult();
   }
+  
 }
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
@@ -96,7 +97,12 @@ function showTab(tabId) {
     activeTab.classList.add('active');
   }
   if (tabId === 'edit-container') {
-    fetchQuestions().then(() => loadQuestionList());
+    // Attendre que fetchQuestions soit défini
+    if (typeof fetchQuestions === 'function') {
+      fetchQuestions().then(() => loadQuestionList());
+    } else {
+      console.error("fetchQuestions n'est pas défini. Attendez que github.js soit chargé.");
+    }
   }
   if (tabId === 'scores-container') loadScores();
 }
@@ -123,6 +129,12 @@ async function startQuiz() {
   const selectedLot = document.getElementById('lot-selection').value;
   if (!selectedLot) {
     alert('Veuillez sélectionner un lot de questions');
+    return;
+  }
+
+  // Attendre que fetchQuestions soit défini
+  if (typeof fetchQuestions !== 'function') {
+    alert("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
     return;
   }
 
@@ -229,6 +241,3 @@ function saveScore() {
     saveScoresToGitHub(token);
   }
 }
-
-// Chargement initial des lots
-fetchQuestions().then(() => loadLotSelection());
