@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Onboarding</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #score-counter {
+      padding: 15px;
+      background-color: #3498db;
+      color: white;
+      border-radius: 10px;
+      font-size: 1.2em;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    #timer {
+      padding: 10px;
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    #quiz-container, #edit-container, #scores-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      display: none;
+    }
+    .question {
+      border-bottom: 1px solid #eee;
+      padding: 20px 0;
+    }
+    .question:last-child {
+      border-bottom: none;
+    }
+    .question h3 {
+      color: #2c3e50;
+      margin: 0 0 15px 0;
+      font-size: 1.2em;
+    }
+    .options {
+      margin-left: 20px;
+    }
+    .option {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+    }
+    .option input {
+      margin-right: 10px;
+    }
+    .option label {
+      color: #34495e;
+      font-size: 1em;
+    }
+    .question-actions {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    button {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+    .validate-btn {
+      background-color: #3498db;
+      color: white;
+    }
+    .validate-btn:hover:not(:disabled) {
+      background-color: #2980b9;
+    }
+    .validate-btn:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+    .feedback {
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 3px;
+      display: none;
+    }
+    .feedback.correct {
+      color: #27ae60;
+      background-color: #e8f5e9;
+      display: inline-block;
+    }
+    .feedback.incorrect {
+      color: #c0392b;
+      background-color: #ffebee;
+      display: inline-block;
+    }
+    #result {
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #ecf0f1;
+      border-radius: 10px;
+    }
+    #result h2 {
+      color: #2c3e50;
+      margin: 0;
+    }
+    #start-screen {
+      text-align: center;
+      padding: 20px;
+    }
+    #tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 20px;
+      background-color: #ecf0f1;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .tab.active {
+      background-color: #3498db;
+      color: white;
+    }
+    #edit-form, #question-selection {
+      margin-bottom: 20px;
+    }
+    #edit-form input, #edit-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #edit-form button, #question-selection button {
+      margin-top: 10px;
+    }
+    .question-item {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #scores-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #scores-table th, #scores-table td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    #scores-table th {
+      background-color: #3498db;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="tabs">
+    <div class="tab active" onclick="showTab('start-screen')">Démarrer</div>
+    <div class="tab" onclick="showTab('edit-container')">Éditer Questions</div>
+    <div class="tab" onclick="showTab('scores-container')">Scores</div>
+  </div>
+  <div id="header">
+    <div id="score-counter">Score : <span id="current-score">0</span> / <span id="total-questions">0</span> | Bonnes: <span id="correct-count">0</span> | Mauvaises: <span id="incorrect-count">0</span></div>
+    <div id="timer">Temps : 00:00</div>
+  </div>
+  <div id="start-screen">
+    <h2>Quiz Onboarding</h2>
+    <label for="candidate-name">Nom du candidat :</label>
+    <input type="text" id="candidate-name" placeholder="Entrez votre nom">
+    <p>Date : <span id="current-date"></span></p>
+    <div id="question-selection">
+      <h3>Sélectionner les questions :</h3>
+      <div id="question-checkboxes"></div>
+      <button onclick="startQuiz()">Démarrer le quiz</button>
+    </div>
+  </div>
+  <div id="quiz-container"></div>
+  <div id="edit-container">
+    <h2>Éditer les Questions</h2>
+    <div id="edit-form">
+      <input type="text" id="edit-question" placeholder="Question">
+      <textarea id="edit-options" placeholder="Options (une par ligne)"></textarea>
+      <input type="number" id="edit-correct" placeholder="Index de la bonne réponse (0-based)">
+      <button onclick="addQuestion()">Ajouter Question</button>
+    </div>
+    <h3>Liste des Questions</h3>
+    <div id="question-list"></div>
+  </div>
+  <div id="scores-container">
+    <h2>Scores</h2>
+    <table id="scores-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Date</th>
+          <th>Score</th>
+          <th>Temps</th>
+        </tr>
+      </thead>
+      <tbody id="scores-body"></tbody>
+    </table>
+  </div>
+  <div id="result" style="display:none;">
+    <h2>Votre score final : <span id="score"></span> / <span id="total-questions-result"></span></h2>
+  </div>
+
+  <script>
+    let questions = [];
+    let selectedQuestions = [];
+    let score = 0;
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let timerInterval;
+    let timeElapsed = 0;
+    let candidateName = '';
+    let scores = [];
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function updateScoreCounter() {
+      document.getElementById('current-score').textContent = score;
+      document.getElementById('total-questions').textContent = selectedQuestions.length;
+      document.getElementById('correct-count').textContent = correctCount;
+      document.getElementById('incorrect-count').textContent = incorrectCount;
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(timeElapsed / 60);
+      const seconds = timeElapsed % 60;
+      document.getElementById('timer').textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timeElapsed++;
+        updateTimer();
+      }, 1000);
+    }
+
+    function loadQuestions() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+      selectedQuestions.forEach((q, index) => {
+        const shuffledOptions = shuffle([...q.options]);
+        const correctIndex = q.options.indexOf(q.options[q.correct]);
+        q.correct = shuffledOptions.indexOf(q.options[correctIndex]);
+
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'question';
+        questionDiv.innerHTML = `
+          <h3>Question ${index + 1} : ${q.question}</h3>
+          <div class="options" id="options-${index}"></div>
+          <div class="question-actions">
+            <button class="validate-btn" onclick="validateAnswer(${index})">Valider</button>
+            <span class="feedback" id="feedback-${index}"></span>
+          </div>
+        `;
+        container.appendChild(questionDiv);
+
+        const optionsDiv = document.getElementById(`options-${index}`);
+        shuffledOptions.forEach((option, i) => {
+          const optionDiv = document.createElement('div');
+          optionDiv.className = 'option';
+          optionDiv.innerHTML = `
+            <input type="radio" name="option-${index}" id="option-${index}-${i}" value="${i}">
+            <label for="option-${index}-${i}">${option}</label>
+          `;
+          optionsDiv.appendChild(optionDiv);
+        });
+      });
+      updateScoreCounter();
+    }
+
+    function validateAnswer(index) {
+      const selected = document.querySelector(`input[name="option-${index}"]:checked`);
+      if (!selected) {
+        alert('Veuillez sélectionner une réponse');
+        return;
+      }
+      const answer = parseInt(selected.value);
+      const correct = selectedQuestions[index].correct;
+      const feedback = document.getElementById(`feedback-${index}`);
+      const validateBtn = document.querySelectorAll('.validate-btn')[index];
+
+      if (answer === correct) {
+        score++;
+        correctCount++;
+        feedback.textContent = 'Correct !';
+        feedback.className = 'feedback correct';
+      } else {
+        incorrectCount++;
+        feedback.textContent = 'Incorrect';
+        feedback.className = 'feedback incorrect';
+      }
+      updateScoreCounter();
+
+      document.querySelectorAll(`input[name="option-${index}"]`).forEach(input => input.disabled = true);
+      validateBtn.disabled = true;
+
+      const allValidated = Array.from(document.querySelectorAll('.validate-btn')).every(btn => btn.disabled);
+      if (allValidated) {
+        clearInterval(timerInterval);
+        saveScore();
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('quiz-container').style.display = 'none';
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      document.getElementById('score').textContent = score;
+      document.getElementById('total-questions-result').textContent = selectedQuestions.length;
+    }
+
+    function showTab(tabId) {
+      document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+
+      if (tabId === 'edit-container') loadQuestionList();
+      if (tabId === 'scores-container') loadScores();
+    }
+
+    function loadQuestionSelection() {
+      const container = document.getElementById('question-checkboxes');
+      container.innerHTML = '';
+      questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <input type="checkbox" id="q-${index}" value="${index}">
+          <label for="q-${index}">${q.question}</label>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function startQuiz() {
+      candidateName = document.getElementById('candidate-name').value.trim();
+      if (!candidateName) {
+        alert('Veuillez entrer votre nom');
+        return;
+      }
+      const selected = Array.from(document.querySelectorAll('#question-checkboxes input:checked')).map(input => parseInt(input.value));
+      if (selected.length === 0) {
+        alert('Veuillez sélectionner au moins une question');
+        return;
+      }
+      selectedQuestions = selected.map(index => questions[index]);
+      score = 0;
+      correctCount = 0;
+      incorrectCount = 0;
+      timeElapsed = 0;
+      updateScoreCounter();
+      updateTimer();
+      showTab('quiz-container');
+      loadQuestions();
+      startTimer();
+    }
+
+    function loadQuestionList() {
+      const container = document.getElementById('question-list');
+      container.innerHTML = '';
+      questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = 'question-item';
+        div.innerHTML = `
+          <span>${q.question}</span>
+          <div>
+            <button onclick="editQuestion(${index})">Modifier</button>
+            <button onclick="deleteQuestion(${index})">Supprimer</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addQuestion() {
+      const question = document.getElementById('edit-question').value;
+      const options = document.getElementById('edit-options').value.split('\n').filter(opt => opt.trim());
+      const correct = parseInt(document.getElementById('edit-correct').value);
+
+      if (!question || options.length < 2 || isNaN(correct) || correct < 0 || correct >= options.length) {
+        alert('Veuillez remplir tous les champs correctement');
+        return;
+      }
+
+      questions.push({ question, options, correct });
+      loadQuestionList();
+      document.getElementById('edit-question').value = '';
+      document.getElementById('edit-options').value = '';
+      document.getElementById('edit-correct').value = '';
+    }
+
+    function editQuestion(index) {
+      const q = questions[index];
+      document.getElementById('edit-question').value = q.question;
+      document.getElementById('edit-options').value = q.options.join('\n');
+      document.getElementById('edit-correct').value = q.correct;
+      deleteQuestion(index);
+    }
+
+    function deleteQuestion(index) {
+      questions.splice(index, 1);
+      loadQuestionList();
+    }
+
+    function saveScore() {
+      const scoreEntry = {
+        name: candidateName,
+        date: new Date().toLocaleString('fr-FR'),
+        score: `${score}/${selectedQuestions.length}`,
+        time: document.getElementById('timer').textContent.replace('Temps : ', '')
+      };
+      scores.push(scoreEntry);
+      // Simulation d'enregistrement sur GitHub (voir note ci-dessous)
+      localStorage.setItem('scores', JSON.stringify(scores));
+    }
+
+    function loadScores() {
+      scores = JSON.parse(localStorage.getItem('scores')) || [];
+      const tbody = document.getElementById('scores-body');
+      tbody.innerHTML = '';
+      scores.forEach(score => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${score.name}</td>
+          <td>${score.date}</td>
+          <td>${score.score}</td>
+          <td>${score.time}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Génération de questions supplémentaires
+    function generateAdditionalQuestions() {
+      const additionalQuestions = [
+        {
+          question: "Quelle est la capitale de la France ?",
+          options: ["Paris", "Londres", "Berlin", "Madrid", "Rome"],
+          correct: 0
+        },
+        {
+          question: "Quel est le résultat de 2 + 2 ?",
+          options: ["3", "4", "5", "6", "7"],
+          correct: 1
+        },
+        {
+          question: "Quel langage est principalement utilisé pour le web ?",
+          options: ["Python", "Java", "JavaScript", "C++", "Ruby"],
+          correct: 2
+        },
+        {
+          question: "Quelle est la couleur du ciel par temps clair ?",
+          options: ["Vert", "Rouge", "Bleu", "Jaune", "Noir"],
+          correct: 2
+        },
+        {
+          question: "Combien de planètes dans le système solaire ?",
+          options: ["7", "8", "9", "10", "11"],
+          correct: 1
+        }
+      ];
+      questions.push(...additionalQuestions);
+    }
+
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR');
+
+    fetch('questions.json')
+      .then(response => response.json())
+      .then(data => {
+        questions = data;
+        generateAdditionalQuestions(); // Ajout des questions supplémentaires
+        loadQuestionSelection();
+        loadQuestionList();
+      })
+      .catch(error => console.error('Erreur lors du chargement des questions:', error));
+  </script>
+</body>
+</html>
