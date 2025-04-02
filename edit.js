@@ -1,5 +1,8 @@
 async function loadQuestionList() {
-  await fetchQuestions();
+  // Charger les questions une seule fois si elles ne sont pas déjà chargées
+  if (!questions || questions.length === 0) {
+    await fetchQuestions();
+  }
 
   const container = document.getElementById('question-list');
   if (!container) return;
@@ -55,12 +58,9 @@ function updateQuestionType(index, value) {
   const previousType = q.type;
   q.type = value;
 
-  // Ajuster q.correct lors du changement de type
   if (previousType === 'QCM' && value === 'Choix simple') {
-    // Passer de QCM à Choix simple : prendre le premier indice correct ou 0 par défaut
     q.correct = Array.isArray(q.correct) && q.correct.length > 0 ? q.correct[0] : 0;
   } else if (previousType === 'Choix simple' && value === 'QCM') {
-    // Passer de Choix simple à QCM : convertir en tableau
     q.correct = typeof q.correct === 'number' ? [q.correct] : [];
   }
 
@@ -75,7 +75,6 @@ function addOption(index) {
 
 function deleteOption(index, optIndex) {
   questions[index].options.splice(optIndex, 1);
-  // Ajuster q.correct si nécessaire
   const q = questions[index];
   if (q.type === 'QCM') {
     q.correct = q.correct.filter(idx => idx !== optIndex).map(idx => idx > optIndex ? idx - 1 : idx);
