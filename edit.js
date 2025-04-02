@@ -1,5 +1,5 @@
 async function loadQuestionList() {
-  await fetchQuestions(); // Charger les questions avant d'afficher
+  await fetchQuestions();
 
   const container = document.getElementById('question-list');
   if (!container) return;
@@ -17,7 +17,7 @@ async function loadQuestionList() {
       <label>Lot :</label>
       <input type="text" value="${q.lot || ''}" onchange="updateQuestion(${index}, 'lot', this.value)">
       <label>Type :</label>
-      <select onchange="updateQuestion(${index}, 'type', this.value); loadQuestionList();">
+      <select onchange="updateQuestion(${index}, 'type', this.value)">
         <option value="Choix simple" ${q.type === 'Choix simple' ? 'selected' : ''}>Choix simple</option>
         <option value="QCM" ${q.type === 'QCM' ? 'selected' : ''}>QCM</option>
       </select>
@@ -42,7 +42,7 @@ async function loadQuestionList() {
     btn.textContent = "Ajouter une option";
     btn.onclick = () => {
       q.options.push("Nouvelle option");
-      loadQuestionList();
+      // loadQuestionList(); // Supprimé pour éviter la boucle infinie
     };
     optionsList.appendChild(btn);
   });
@@ -84,11 +84,9 @@ function addNewQuestion() {
     type: "Choix simple"
   });
   loadQuestionList();
-  loadLotSelection();
 }
 
 function deleteQuestion(index) {
   questions.splice(index, 1);
   loadQuestionList();
-  loadLotSelection();
 }
