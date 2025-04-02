@@ -80,7 +80,6 @@ function validateAnswer(index) {
     showResult();
   }
 }
-
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('result').style.display = 'block';
@@ -96,7 +95,9 @@ function showTab(tabId) {
   if (activeTab) {
     activeTab.classList.add('active');
   }
-  if (tabId === 'edit-container') loadQuestionList();
+  if (tabId === 'edit-container') {
+    fetchQuestions().then(() => loadQuestionList());
+  }
   if (tabId === 'scores-container') loadScores();
 }
 
@@ -124,6 +125,8 @@ async function startQuiz() {
     alert('Veuillez sélectionner un lot de questions');
     return;
   }
+
+  await fetchQuestions();
 
   if (!questions || questions.length === 0) {
     alert('Aucune question chargée. Vérifiez le chargement initial.');
@@ -223,6 +226,9 @@ function saveScore() {
 
   const token = prompt("Veuillez entrer votre token d'accès personnel GitHub pour sauvegarder les scores sur GitHub (laisser vide pour ignorer) :");
   if (token) {
-    saveScoresToGitHub(token); // Correction : saveScoresRearrange -> saveScoresToGitHub
+    saveScoresToGitHub(token);
   }
 }
+
+// Chargement initial des lots
+fetchQuestions().then(() => loadLotSelection());
