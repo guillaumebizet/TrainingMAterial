@@ -1,14 +1,93 @@
 [
-  {
-    "question": "Nouvelle question",
+ {
+    "question": "Quelle est la différence entre `git merge` et `git rebase` ?",
     "options": [
-      "Option 1",
-      "Option 2",
-      "Option 3",
-      "Option 4"
+      "Merge combine les branches en créant un commit de fusion, rebase réécrit l'historique en appliquant les commits sur une autre base.",
+      "Rebase combine les branches en créant un commit de fusion, merge réécrit l'historique.",
+      "Les deux font la même chose.",
+      "Merge est pour les branches locales, rebase pour les branches distantes.",
+      "Aucune des précédentes."
     ],
     "correct": 0,
-    "lot": "GENERAL",
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Comment annuler le dernier commit dans Git sans perdre les changements ?",
+    "options": [
+      "git revert HEAD",
+      "git reset --soft HEAD~1",
+      "git reset --hard HEAD~1",
+      "git commit --amend",
+      "git checkout ."
+    ],
+    "correct": 1,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Lequel des énoncés décrit correctement le concept de branchement dans Git ?",
+    "options": [
+      "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
+      "Une branche est une copie complète du repository.",
+      "Les branches sont pour les versions stables uniquement.",
+      "Le branchement n'est pas supporté dans Git.",
+      "Les branches ne peuvent pas être fusionnées."
+    ],
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Quelle est la complexité temporelle d'un algorithme de recherche binaire ?",
+    "options": [
+      "O(log n)",
+      "O(n)",
+      "O(n log n)",
+      "O(1)",
+      "O(n^2)"
+    ],
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Quelle est la principale différence entre une pile et une file ?",
+    "options": [
+      "Une pile est LIFO, une file est FIFO.",
+      "Une pile est FIFO, une file est LIFO.",
+      "Les piles sont plus rapides que les files.",
+      "Les files sont pour les données temporaires, les piles pour les données permanentes.",
+      "Il n'y a pas de différence."
+    ],
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Laquelle des affirmations décrit correctement la récursivité ?",
+    "options": [
+      "La récursivité est une technique où une fonction s'appelle elle-même pour résoudre un problème.",
+      "La récursivité est utilisée pour boucler à travers des tableaux.",
+      "La récursivité est une façon d'optimiser la mémoire.",
+      "La récursivité ne peut pas être utilisée en programmation.",
+      "La récursivité est uniquement pour les langages fonctionnels."
+    ],
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Lequel des énoncés décrit correctement IaaS, PaaS, et SaaS ?",
+    "options": [
+      "IaaS fournit l'infrastructure, PaaS la plateforme, SaaS les applications.",
+      "IaaS est pour les applications, PaaS pour l'infrastructure, SaaS pour la plateforme.",
+      "Tous sont des types de services cloud avec le même niveau d'abstraction.",
+      "IaaS est gratuit, PaaS et SaaS sont payants.",
+      "SaaS ne nécessite pas de maintenance, IaaS et PaaS si."
+    ],
+    "correct": 0,
+    "lot": "CIBOX",
     "type": "Choix simple"
   }
 ]
