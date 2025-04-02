@@ -1,4 +1,6 @@
-function loadQuestionList() {
+async function loadQuestionList() {
+  await fetchQuestions(); // Charger les questions avant d'afficher
+
   const container = document.getElementById('question-list');
   if (!container) return;
   container.innerHTML = '';
