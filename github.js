@@ -168,3 +168,53 @@ async function loadScores() {
     tbody.appendChild(row);
   });
 }
+function generateAdditionalQuestions() {
+  const additionalQuestions = [
+    {
+      question: "Quelle est la capitale de la France ?",
+      options: ["Paris", "Londres", "Berlin", "Madrid", "Rome"],
+      correct: 0,
+      lot: "GENERAL",
+      type: "Choix simple"
+    },
+    {
+      question: "Quel est le résultat de 2 + 2 ?",
+      options: ["3", "4", "5", "6", "7"],
+      correct: 1,
+      lot: "GENERAL",
+      type: "Choix simple"
+    },
+    {
+      question: "Quel langage est principalement utilisé pour le web ?",
+      options: ["Python", "Java", "JavaScript", "C++", "Ruby"],
+      correct: 2,
+      lot: "GENERAL",
+      type: "Choix simple"
+    },
+    {
+      question: "Quelle est la couleur du ciel par temps clair ?",
+      options: ["Vert", "Rouge", "Bleu", "Jaune", "Noir"],
+      correct: 2,
+      lot: "GENERAL",
+      type: "Choix simple"
+    },
+    {
+      question: "Combien de planètes dans le système solaire ?",
+      options: ["7", "8", "9", "10", "11"],
+      correct: 1,
+      lot: "GENERAL",
+      type: "Choix simple"
+    }
+  ];
+  questions.push(...additionalQuestions);
+}
+
+// Initialisation
+const currentDateElement = document.getElementById('current-date');
+if (currentDateElement) {
+  currentDateElement.textContent = new Date().toLocaleDateString('fr-FR');
+} else {
+  console.error("Élément 'current-date' non trouvé.");
+}
+
+fetchQuestions();
