@@ -1103,7 +1103,7 @@
     "correct": 0,
     "lot": "SYD",
     "type": "Choix simple"
-  },[
+  },
   {
     "question": "Qu'est-ce que XL Deploy, et quelles sont ses fonctionnalités clés ?",
     "options": [
