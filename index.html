@@ -437,7 +437,7 @@ async function startQuiz() {
   startTimer();
 }
 
-function loadQuestions() {
+function function loadQuestions() {
   const container = document.getElementById('quiz-container');
   container.innerHTML = '';
   if (!selectedQuestions || selectedQuestions.length === 0) {
@@ -445,6 +445,12 @@ function loadQuestions() {
     return;
   }
   selectedQuestions.forEach((q, index) => {
+    // Vérifier que la question est bien formatée
+    if (!q.options || !Array.isArray(q.options) || q.options.length === 0 || q.correct === undefined) {
+      console.error('Question mal formatée :', q);
+      return;
+    }
+
     // Mélanger les options
     const shuffledOptions = shuffle([...q.options]);
 
@@ -805,7 +811,12 @@ async function loadScores() {
       questions.push(...additionalQuestions);
     }
 
-    document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR');
+  const currentDateElement = document.getElementById('current-date');
+if (currentDateElement) {
+  currentDateElement.textContent = new Date().toLocaleDateString('fr-FR');
+} else {
+  console.error("Élément 'current-date' non trouvé.");
+}
 
 fetchQuestions();
   </script>
