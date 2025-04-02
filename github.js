@@ -108,11 +108,13 @@ async function saveScoresToGitHub(token) {
 
 async function fetchQuestions() {
   try {
+    console.log("Tentative de chargement de questions.json...");
     const response = await fetch('questions.json');
     if (!response.ok) {
       throw new Error(`Erreur lors du chargement de questions.json : ${response.status} ${response.statusText}`);
     }
     const text = await response.text();
+    console.log("Contenu brut de questions.json :", text);
     try {
       questions = JSON.parse(text);
     } catch (parseError) {
@@ -128,7 +130,6 @@ async function fetchQuestions() {
     questions = [];
   }
 }
-
 async function loadScores() {
   const repo = "guillaumebizet/TrainingMATERIAL";
   const branch = "main";
@@ -168,6 +169,7 @@ async function loadScores() {
     tbody.appendChild(row);
   });
 }
+
 function generateAdditionalQuestions() {
   const additionalQuestions = [
     {
@@ -216,5 +218,3 @@ if (currentDateElement) {
 } else {
   console.error("Élément 'current-date' non trouvé.");
 }
-
-fetchQuestions();
