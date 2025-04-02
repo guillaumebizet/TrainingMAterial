@@ -1,6 +1,6 @@
 [
   {
-    "question": "Quelle est la différence entre `git merge` et `git rebase` ? coucou",
+    "question": "Quelle est la différence entre `git merge` et `git rebase` ?",
     "options": [
       "Merge combine les branches en créant un commit de fusion, rebase réécrit l'historique en appliquant les commits sur une autre base.",
       "Rebase combine les branches en créant un commit de fusion, merge réécrit l'historique.",
@@ -9,7 +9,7 @@
       "Aucune des précédentes."
     ],
     "correct": 0,
-    "lot": "SYD",
+    "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
@@ -22,11 +22,11 @@
       "git checkout ."
     ],
     "correct": 1,
-    "lot": "SYD",
+    "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Lequel des énoncés décrit correctement le concept de branchement dans Git ?",
+    "question": "Expliquez le concept de branchement dans Git.",
     "options": [
       "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
       "Une branche est une copie complète du repository.",
@@ -35,7 +35,7 @@
       "Les branches ne peuvent pas être fusionnées."
     ],
     "correct": 0,
-    "lot": "SYD",
+    "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
@@ -48,11 +48,11 @@
       "O(n^2)"
     ],
     "correct": 0,
-    "lot": "SRE",
+    "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Quelle est la principale différence entre une pile et une file ?",
+    "question": "Expliquez la différence entre une pile et une file.",
     "options": [
       "Une pile est LIFO, une file est FIFO.",
       "Une pile est FIFO, une file est LIFO.",
@@ -61,11 +61,11 @@
       "Il n'y a pas de différence."
     ],
     "correct": 0,
-    "lot": "SRE",
+    "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Laquelle des affirmations décrit correctement la récursivité ?",
+    "question": "Qu'est-ce que la récursivité, et quand l'utiliseriez-vous ?",
     "options": [
       "La récursivité est une technique où une fonction s'appelle elle-même pour résoudre un problème.",
       "La récursivité est utilisée pour boucler à travers des tableaux.",
@@ -74,11 +74,11 @@
       "La récursivité est uniquement pour les langages fonctionnels."
     ],
     "correct": 0,
-    "lot": "SRE",
+    "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Lequel des énoncés décrit correctement IaaS, PaaS, et SaaS ?",
+    "question": "Quelles sont les principales différences entre IaaS, PaaS, et SaaS ?",
     "options": [
       "IaaS fournit l'infrastructure, PaaS la plateforme, SaaS les applications.",
       "IaaS est pour les applications, PaaS pour l'infrastructure, SaaS pour la plateforme.",
@@ -87,72 +87,500 @@
       "SaaS ne nécessite pas de maintenance, IaaS et PaaS si."
     ],
     "correct": 0,
-    "lot": "CIBOX",
+    "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Quelle est la capitale de la France ?",
+    "question": "Expliquez ce qu'est une machine virtuelle.",
     "options": [
-      "Paris",
-      "Londres",
-      "Berlin",
-      "Madrid",
-      "Rome"
+      "Un logiciel qui émule un système d'exploitation complet sur un hôte physique.",
+      "Un type de conteneur pour applications.",
+      "Un serveur physique dédié.",
+      "Un service cloud pour stocker des données.",
+      "Un outil de gestion de version."
     ],
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Quel est le résultat de 2 + 2 ?",
+    "question": "Quel est le but de l'équilibrage de charge dans les environnements cloud ?",
     "options": [
-      "3",
-      "4",
-      "5",
-      "6",
-      "7"
+      "Distribuer le trafic réseau uniformément sur plusieurs serveurs.",
+      "Augmenter la vitesse de traitement des données.",
+      "Réduire la latence des applications.",
+      "Améliorer la sécurité des données.",
+      "Optimiser l'utilisation du stockage."
     ],
-    "correct": 1,
+    "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Quel langage est principalement utilisé pour le web ?",
+    "question": "Qu'est-ce qu'une injection SQL, et comment peut-elle être prévenue ?",
     "options": [
-      "Python",
-      "Java",
-      "JavaScript",
-      "C++",
-      "Ruby"
+      "Une technique d'attaque où du code SQL malveillant est inséré dans une requête, prévenue par des requêtes paramétrées.",
+      "Un type de virus qui affecte les bases de données, prévenu par un antivirus.",
+      "Une erreur de syntaxe dans les requêtes SQL, prévenue par des tests.",
+      "Une méthode pour optimiser les performances des bases de données, prévenue par des index.",
+      "Un outil pour tester la sécurité des applications, prévenu par des audits."
     ],
-    "correct": 2,
+    "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Quelle est la couleur du ciel par temps clair ?",
+    "question": "Expliquez le principe de moindre privilège.",
     "options": [
-      "Vert",
-      "Rouge",
-      "Bleu",
-      "Jaune",
-      "Noir"
+      "Accorder uniquement les permissions nécessaires pour une tâche spécifique.",
+      "Donner tous les accès pour simplifier la gestion.",
+      "Limiter les accès uniquement aux administrateurs.",
+      "Augmenter les privilèges pour améliorer la productivité.",
+      "Ne pas utiliser de privilèges pour éviter les erreurs."
     ],
-    "correct": 2,
+    "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Combien de planètes dans le système solaire ?",
+    "question": "Qu'est-ce que l'authentification à deux facteurs, et pourquoi est-elle importante ?",
     "options": [
-      "7",
-      "8",
-      "9",
-      "10",
-      "11"
+      "Une méthode utilisant deux formes d'identification pour renforcer la sécurité.",
+      "Un système pour gérer les mots de passe.",
+      "Une technique pour accélérer les connexions.",
+      "Un outil pour stocker les données sensibles.",
+      "Une pratique pour réduire les coûts de sécurité."
     ],
-    "correct": 1,
+    "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
-  }
-]
+  },
+  {
+    "question": "Décrivez le processus de pipeline CI/CD.",
+    "options": [
+      "Intégration continue et déploiement continu automatisé pour livrer du code rapidement.",
+      "Un processus manuel pour tester le code avant déploiement.",
+      "Une méthode pour stocker les versions du code.",
+      "Un outil pour gérer les branches dans Git.",
+      "Une technique pour sécuriser les données."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce qu'un conteneur, et en quoi diffère-t-il d'une machine virtuelle ?",
+    "options": [
+      "Un conteneur partage le noyau de l'OS hôte, une VM inclut un OS complet.",
+      "Un conteneur inclut un OS complet, une VM partage le noyau de l'OS hôte.",
+      "Les conteneurs sont plus lourds que les VM.",
+      "Les VM sont plus portables que les conteneurs.",
+      "Il n'y a pas de différence."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Expliquez le concept d'Infrastructure as Code (IaC).",
+    "options": [
+      "Gérer l'infrastructure via des fichiers de configuration versionnés.",
+      "Écrire du code pour gérer les bases de données.",
+      "Utiliser des scripts pour tester les applications.",
+      "Créer des machines virtuelles manuellement.",
+      "Automatiser les tests unitaires."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce que les microservices, et quels sont leurs avantages ?",
+    "options": [
+      "Une architecture où les applications sont divisées en petits services indépendants, favorisant la scalabilité.",
+      "Une méthode pour écrire des applications monolithiques plus rapidement.",
+      "Un type de conteneur pour les bases de données.",
+      "Une technique pour centraliser les données.",
+      "Un outil pour gérer les pipelines CI/CD."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Comment gérez-vous les erreurs en Python ?",
+    "options": [
+      "Avec des blocs try/except.",
+      "Avec des blocs if/else.",
+      "Avec des boucles for.",
+      "Avec des fonctions récursives.",
+      "En utilisant des décorateurs."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Quelle est la différence entre `==` et `===` en JavaScript ?",
+    "options": [
+      "`==` compare les valeurs avec conversion de type, `===` compare les valeurs et les types.",
+      "`==` compare les types, `===` compare les valeurs.",
+      "`==` est plus strict que `===`.",
+      "`===` est utilisé pour les chaînes, `==` pour les nombres.",
+      "Il n'y a pas de différence."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Expliquez ce que sont les API RESTful.",
+    "options": [
+      "Des interfaces pour interagir avec des services web via HTTP, utilisant des méthodes comme GET, POST.",
+      "Des bases de données pour stocker des données REST.",
+      "Des outils pour tester les performances des applications.",
+      "Des bibliothèques pour écrire des tests unitaires.",
+      "Des frameworks pour gérer les pipelines CI/CD."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Quel est le but des tests unitaires ?",
+    "options": [
+      "Vérifier que les unités de code fonctionnent correctement de manière isolée.",
+      "Tester l'intégration entre différents modules.",
+      "Mesurer les performances d'une application.",
+      "Vérifier la sécurité des données.",
+      "Automatiser le déploiement."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Décrivez la méthodologie de développement Agile.",
+    "options": [
+      "Un processus itératif et collaboratif axé sur la livraison continue et l'adaptabilité.",
+      "Un processus linéaire avec des étapes fixes comme le modèle en cascade.",
+      "Une méthode pour écrire des tests unitaires.",
+      "Un outil pour gérer les pipelines CI/CD.",
+      "Une technique pour centraliser les données."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce qu'un sprint dans Scrum ?",
+    "options": [
+      "Une période fixe (généralement 2-4 semaines) pour livrer un incrément de produit.",
+      "Une réunion quotidienne pour planifier les tâches.",
+      "Un outil pour gérer les branches dans Git.",
+      "Une méthode pour tester les performances.",
+      "Un type de conteneur."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Expliquez le rôle d'un product owner dans Agile.",
+    "options": [
+      "Définir les priorités du produit et représenter les parties prenantes.",
+      "Écrire le code pour les fonctionnalités.",
+      "Gérer les pipelines CI/CD.",
+      "Tester les performances de l'application.",
+      "Créer des machines virtuelles."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce que la programmation en binôme, et quels sont ses avantages ?",
+    "options": [
+      "Deux développeurs travaillent ensemble sur le même code, favorisant la qualité et le partage de connaissances.",
+      "Un développeur écrit le code, l'autre teste les performances.",
+      "Une méthode pour gérer les branches dans Git.",
+      "Un outil pour automatiser les tests.",
+      "Une technique pour centraliser les données."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Comment gérez-vous les dépendances dans un projet ?",
+    "options": [
+      "Avec un gestionnaire de dépendances comme npm, Maven ou pip.",
+      "En copiant manuellement les bibliothèques dans le projet.",
+      "En utilisant des conteneurs.",
+      "En écrivant tout le code from scratch.",
+      "En évitant les dépendances."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Quelle est la différence entre authentification et autorisation ?",
+    "options": [
+      "L'authentification vérifie l'identité, l'autorisation détermine les permissions.",
+      "L'authentification détermine les permissions, l'autorisation vérifie l'identité.",
+      "Les deux sont identiques.",
+      "L'authentification est pour les utilisateurs, l'autorisation pour les admins.",
+      "Il n'y a pas de différence."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Expliquez ce qu'est OAuth.",
+    "options": [
+      "Un protocole d'autorisation pour permettre à des applications d'accéder à des ressources au nom d'un utilisateur.",
+      "Un protocole d'authentification pour gérer les mots de passe.",
+      "Un outil pour tester les performances.",
+      "Une méthode pour gérer les branches dans Git.",
+      "Un type de conteneur."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce qu'un pare-feu, et comment fonctionne-t-il ?",
+    "options": [
+      "Un dispositif de sécurité qui filtre le trafic réseau selon des règles.",
+      "Un outil pour gérer les pipelines CI/CD.",
+      "Un type de conteneur.",
+      "Une méthode pour tester les performances.",
+      "Un protocole pour gérer les mots de passe."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Décrivez le concept de chiffrement.",
+    "options": [
+      "Transformer des données en un format illisible sans clé pour assurer la confidentialité.",
+      "Compresser des données pour économiser de l'espace.",
+      "Tester les performances d'une application.",
+      "Gérer les branches dans Git.",
+      "Centraliser les données."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce qu'un VPN, et quand l'utiliseriez-vous ?",
+    "options": [
+      "Un réseau privé virtuel pour sécuriser les connexions sur des réseaux publics.",
+      "Un outil pour gérer les pipelines CI/CD.",
+      "Un type de conteneur.",
+      "Une méthode pour tester les performances.",
+      "Un protocole pour gérer les mots de passe."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Expliquez la différence entre HTTP et HTTPS.",
+    "options": [
+      "HTTPS utilise SSL/TLS pour chiffrer les communications, HTTP est non sécurisé.",
+      "HTTP utilise SSL/TLS, HTTPS est non sécurisé.",
+      "HTTP est plus rapide que HTTPS.",
+      "HTTPS est pour les sites web, HTTP pour les API.",
+      "Il n'y a pas de différence."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce qu'une attaque DDoS ?",
+    "options": [
+      "Une attaque qui inonde un serveur de requêtes pour le rendre indisponible.",
+      "Une attaque qui vole des données sensibles.",
+      "Une attaque qui modifie le code source.",
+      "Une attaque qui teste les performances.",
+      "Une attaque qui gère les branches dans Git."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Comment sécurisez-vous les données sensibles dans le code ?",
+    "options": [
+      "En utilisant des variables d'environnement et des secrets managers.",
+      "En les stockant directement dans le code source.",
+      "En utilisant des conteneurs.",
+      "En désactivant les tests.",
+      "En évitant les dépendances."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Quel est le but des revues de code ?",
+    "options": [
+      "Améliorer la qualité du code et partager les connaissances.",
+      "Tester les performances de l'application.",
+      "Gérer les branches dans Git.",
+      "Centraliser les données.",
+      "Automatiser le déploiement."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Expliquez le concept de dette technique.",
+    "options": [
+      "Les compromis techniques qui accumulent des coûts futurs pour des gains à court terme.",
+      "Les erreurs de syntaxe dans le code.",
+      "Les tests unitaires manquants.",
+      "Les dépendances non gérées.",
+      "Les performances lentes."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce que le refactoring, et pourquoi est-il important ?",
+    "options": [
+      "Améliorer la structure du code sans changer son comportement, pour faciliter la maintenance.",
+      "Ajouter de nouvelles fonctionnalités au code.",
+      "Tester les performances de l'application.",
+      "Gérer les branches dans Git.",
+      "Centraliser les données."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Décrivez les principes SOLID en conception orientée objet.",
+    "options": [
+      "Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.",
+      "Simple Operations, Limited Dependencies, Open Interfaces, Dynamic Systems.",
+      "Structured Objects, Linear Development, Independent Layers, Dynamic Systems.",
+      "Single Operations, Linear Dependencies, Open Systems, Independent Development.",
+      "Structured Operations, Limited Interfaces, Dynamic Layers, Simple Development."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Quelle est la différence entre programmation synchrone et asynchrone ?",
+    "options": [
+      "Synchrone bloque l'exécution jusqu'à ce que l'opération soit terminée, asynchrone permet de continuer.",
+      "Asynchrone bloque l'exécution, synchrone permet de continuer.",
+      "Synchrone est plus rapide qu'asynchrone.",
+      "Asynchrone est utilisé pour les bases de données, synchrone pour les API.",
+      "Il n'y a pas de différence."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Expliquez ce qu'est une promesse en JavaScript.",
+    "options": [
+      "Un objet qui représente une opération asynchrone et son résultat éventuel.",
+      "Un outil pour gérer les branches dans Git.",
+      "Une méthode pour tester les performances.",
+      "Un type de conteneur.",
+      "Une fonction pour gérer les erreurs."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce que la boucle d'événements en Node.js ?",
+    "options": [
+      "Un mécanisme qui gère les opérations asynchrones en exécutant des callbacks dans un ordre spécifique.",
+      "Un outil pour gérer les branches dans Git.",
+      "Une méthode pour tester les performances.",
+      "Un type de conteneur.",
+      "Une fonction pour gérer les erreurs."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Comment optimisez-vous les requêtes de base de données ?",
+    "options": [
+      "En utilisant des index, en limitant les données récupérées, et en évitant les jointures inutiles.",
+      "En augmentant la taille des tables.",
+      "En désactivant les index.",
+      "En utilisant des conteneurs.",
+      "En évitant les bases de données."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce que la normalisation dans les bases de données ?",
+    "options": [
+      "Organiser les données pour réduire la redondance et améliorer l'intégrité.",
+      "Augmenter la redondance pour améliorer les performances.",
+      "Supprimer les index pour simplifier les requêtes.",
+      "Utiliser des conteneurs pour stocker les données.",
+      "Éviter les bases de données relationnelles."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Expliquez le théorème CAP.",
+    "options": [
+      "Dans un système distribué, on ne peut garantir que deux des trois propriétés : Consistance, Disponibilité, Tolérance au partitionnement.",
+      "Un théorème pour optimiser les performances des bases de données.",
+      "Un théorème pour gérer les branches dans Git.",
+      "Un théorème pour tester les performances.",
+      "Un théorème pour centraliser les données."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Qu'est-ce que le sharding dans les bases de données ?",
+    "options": [
+      "Diviser une base de données en sous-ensembles pour améliorer la scalabilité.",
+      "Centraliser les données pour améliorer les performances.",
+      "Supprimer les index pour simplifier les requêtes.",
+      "Utiliser des conteneurs pour stocker les données.",
+      "Éviter les bases de données relationnelles."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": "Décrivez les différences entre les bases de données SQL et NoSQL.",
+    "options": [
+      "SQL utilise des schémas fixes et des tables, NoSQL est plus flexible avec des documents ou des graphes.",
+      "SQL est plus flexible, NoSQL utilise des schémas fixes.",
+      "SQL est pour les petites bases, NoSQL pour les grandes bases.",
+      "NoSQL est plus lent que SQL.",
+      "Il n'y a pas de différence."
+    ],
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  }]
