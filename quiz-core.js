@@ -79,7 +79,6 @@ function validateAnswer(index) {
     saveScore();
     showResult();
   }
-  
 }
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
@@ -97,7 +96,6 @@ function showTab(tabId) {
     activeTab.classList.add('active');
   }
   if (tabId === 'edit-container') {
-    // Attendre que fetchQuestions soit défini
     if (typeof fetchQuestions === 'function') {
       fetchQuestions().then(() => loadQuestionList());
     } else {
@@ -120,51 +118,55 @@ function loadLotSelection() {
 }
 
 async function startQuiz() {
-  candidateName = document.getElementById('candidate-name').value.trim();
-  if (!candidateName) {
-    alert('Veuillez entrer votre nom');
-    return;
+  try {
+    candidateName = document.getElementById('candidate-name').value.trim();
+    if (!candidateName) {
+      alert('Veuillez entrer votre nom');
+      return;
+    }
+
+    const selectedLot = document.getElementById('lot-selection').value;
+    if (!selectedLot) {
+      alert('Veuillez sélectionner un lot de questions');
+      return;
+    }
+
+    if (typeof fetchQuestions !== 'function') {
+      alert("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
+      return;
+    }
+
+    await fetchQuestions();
+
+    if (!questions || questions.length === 0) {
+      alert('Aucune question chargée. Vérifiez le chargement initial.');
+      return;
+    }
+
+    selectedQuestions = questions.filter(q =>
+      q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
+    );
+
+    if (selectedQuestions.length === 0) {
+      alert('Aucune question disponible pour ce lot');
+      return;
+    }
+
+    selectedQuestions = shuffle([...selectedQuestions]);
+    score = 0;
+    correctCount = 0;
+    incorrectCount = 0;
+    timeElapsed = 0;
+
+    updateScoreCounter();
+    updateTimer();
+    showTab('quiz-container');
+    loadQuestions();
+    startTimer();
+  } catch (error) {
+    console.error("Erreur dans startQuiz :", error);
+    alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
   }
-
-  const selectedLot = document.getElementById('lot-selection').value;
-  if (!selectedLot) {
-    alert('Veuillez sélectionner un lot de questions');
-    return;
-  }
-
-  // Attendre que fetchQuestions soit défini
-  if (typeof fetchQuestions !== 'function') {
-    alert("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
-    return;
-  }
-
-  await fetchQuestions();
-
-  if (!questions || questions.length === 0) {
-    alert('Aucune question chargée. Vérifiez le chargement initial.');
-    return;
-  }
-
-  selectedQuestions = questions.filter(q =>
-    q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
-  );
-
-  if (selectedQuestions.length === 0) {
-    alert('Aucune question disponible pour ce lot');
-    return;
-  }
-
-  selectedQuestions = shuffle([...selectedQuestions]);
-  score = 0;
-  correctCount = 0;
-  incorrectCount = 0;
-  timeElapsed = 0;
-
-  updateScoreCounter();
-  updateTimer();
-  showTab('quiz-container');
-  loadQuestions();
-  startTimer();
 }
 
 function loadQuestions() {
@@ -241,3 +243,13 @@ function saveScore() {
     saveScoresToGitHub(token);
   }
 }
+
+// Attacher un écouteur d'événements au bouton "Démarrer le quiz"
+document.addEventListener('DOMContentLoaded', () => {
+  const startQuizButton = document.getElementById('start-quiz-button');
+  if (startQuizButton) {
+    startQuizButton.addEventListener('click', startQuiz);
+  } else {
+    console.error("Bouton 'start-quiz-button' non trouvé.");
+  }
+});
