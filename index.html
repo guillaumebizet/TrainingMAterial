@@ -309,3 +309,216 @@
         return;
       }
       const answer = parseInt(selected.value);
+      const correct = selectedQuestions[index].correct;
+      const feedback = document.getElementById(`feedback-${index}`);
+      const validateBtn = document.querySelectorAll('.validate-btn')[index];
+
+      if (answer === correct) {
+        score++;
+        correctCount++;
+        feedback.textContent = 'Correct !';
+        feedback.className = 'feedback correct';
+      } else {
+        incorrectCount++;
+        feedback.textContent = 'Incorrect';
+        feedback.className = 'feedback incorrect';
+      }
+      updateScoreCounter();
+
+      document.querySelectorAll(`input[name="option-${index}"]`).forEach(input => input.disabled = true);
+      validateBtn.disabled = true;
+
+      const allValidated = Array.from(document.querySelectorAll('.validate-btn')).every(btn => btn.disabled);
+      if (allValidated) {
+        clearInterval(timerInterval);
+        saveScore();
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('quiz-container').style.display = 'none';
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      document.getElementById('score').textContent = score;
+      document.getElementById('total-questions-result').textContent = selectedQuestions.length;
+    }
+
+    function showTab(tabId) {
+      document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+
+      if (tabId === 'edit-container') loadQuestionList();
+      if (tabId === 'scores-container') loadScores();
+    }
+
+    function loadLotSelection() {
+      const lots = [...new Set(questions.map(q => q.lot).filter(lot => lot))]; // Liste unique des lots, exclut les valeurs undefined/null
+      const select = document.getElementById('lot-selection');
+      select.innerHTML = '<option value="">Choisir un lot</option>'; // Réinitialiser la liste
+      lots.forEach(lot => {
+        const option = document.createElement('option');
+        option.value = lot;
+        option.textContent = lot;
+        select.appendChild(option);
+      });
+    }
+
+    function startQuiz() {
+      candidateName = document.getElementById('candidate-name').value.trim();
+      if (!candidateName) {
+        alert('Veuillez entrer votre nom');
+        return;
+      }
+      const selectedLot = document.getElementById('lot-selection').value;
+      if (!selectedLot) {
+        alert('Veuillez sélectionner un lot de questions');
+        return;
+      }
+      selectedQuestions = questions.filter(q => q.lot === selectedLot);
+      if (selectedQuestions.length === 0) {
+        alert('Aucune question disponible pour ce lot');
+        return;
+      }
+      score = 0;
+      correctCount = 0;
+      incorrectCount = 0;
+      timeElapsed = 0;
+      updateScoreCounter();
+      updateTimer();
+      showTab('quiz-container');
+      loadQuestions();
+      startTimer();
+    }
+
+    function loadQuestionList() {
+      const container = document.getElementById('question-list');
+      container.innerHTML = '';
+      questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = 'question-item';
+        div.innerHTML = `
+          <span>${q.question} (Lot: ${q.lot || 'Non défini'})</span>
+          <div>
+            <button onclick="editQuestion(${index})">Modifier</button>
+            <button onclick="deleteQuestion(${index})">Supprimer</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addQuestion() {
+      const question = document.getElementById('edit-question').value;
+      const options = document.getElementById('edit-options').value.split('\n').filter(opt => opt.trim());
+      const correct = parseInt(document.getElementById('edit-correct').value);
+      const lot = document.getElementById('edit-lot').value.trim();
+
+      if (!question || options.length < 2 || isNaN(correct) || correct < 0 || correct >= options.length || !lot) {
+        alert('Veuillez remplir tous les champs correctement');
+        return;
+      }
+
+      questions.push({ question, options, correct, lot });
+      loadQuestionList();
+      loadLotSelection(); // Mettre à jour la liste des lots
+      document.getElementById('edit-question').value = '';
+      document.getElementById('edit-options').value = '';
+      document.getElementById('edit-correct').value = '';
+      document.getElementById('edit-lot').value = '';
+    }
+
+    function editQuestion(index) {
+      const q = questions[index];
+      document.getElementById('edit-question').value = q.question;
+      document.getElementById('edit-options').value = q.options.join('\n');
+      document.getElementById('edit-correct').value = q.correct;
+      document.getElementById('edit-lot').value = q.lot || '';
+      deleteQuestion(index);
+    }
+
+    function deleteQuestion(index) {
+      questions.splice(index, 1);
+      loadQuestionList();
+      loadLotSelection(); // Mettre à jour la liste des lots
+    }
+
+    function saveScore() {
+      const scoreEntry = {
+        name: candidateName,
+        date: new Date().toLocaleString('fr-FR'),
+        score: `${score}/${selectedQuestions.length}`,
+        time: document.getElementById('timer').textContent.replace('Temps : ', '')
+      };
+      scores.push(scoreEntry);
+      localStorage.setItem('scores', JSON.stringify(scores));
+    }
+
+    function loadScores() {
+      scores = JSON.parse(localStorage.getItem('scores')) || [];
+      const tbody = document.getElementById('scores-body');
+      tbody.innerHTML = '';
+      scores.forEach(score => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${score.name}</td>
+          <td>${score.date}</td>
+          <td>${score.score}</td>
+          <td>${score.time}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function generateAdditionalQuestions() {
+      const additionalQuestions = [
+        {
+          question: "Quelle est la capitale de la France ?",
+          options: ["Paris", "Londres", "Berlin", "Madrid", "Rome"],
+          correct: 0,
+          lot: "GENERAL"
+        },
+        {
+          question: "Quel est le résultat de 2 + 2 ?",
+          options: ["3", "4", "5", "6", "7"],
+          correct: 1,
+          lot: "GENERAL"
+        },
+        {
+          question: "Quel langage est principalement utilisé pour le web ?",
+          options: ["Python", "Java", "JavaScript", "C++", "Ruby"],
+          correct: 2,
+          lot: "GENERAL"
+        },
+        {
+          question: "Quelle est la couleur du ciel par temps clair ?",
+          options: ["Vert", "Rouge", "Bleu", "Jaune", "Noir"],
+          correct: 2,
+          lot: "GENERAL"
+        },
+        {
+          question: "Combien de planètes dans le système solaire ?",
+          options: ["7", "8", "9", "10", "11"],
+          correct: 1,
+          lot: "GENERAL"
+        }
+      ];
+      questions.push(...additionalQuestions);
+    }
+
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR');
+
+    fetch('questions.json')
+      .then(response => response.json())
+      .then(data => {
+        questions = data;
+        generateAdditionalQuestions();
+        loadLotSelection();
+        loadQuestionList();
+      })
+      .catch(error => console.error('Erreur lors du chargement des questions:', error));
+  </script>
+</body>
+</html>
