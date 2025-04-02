@@ -17,35 +17,40 @@ async function loadQuestionList() {
       <label>Lot :</label>
       <input type="text" value="${q.lot || ''}" onchange="updateQuestion(${index}, 'lot', this.value)">
       <label>Type :</label>
-      <select onchange="updateQuestion(${index}, 'type', this.value)">
+      <select id="type-select-${index}" onchange="updateQuestion(${index}, 'type', this.value); updateOptionsDisplay(${index})">
         <option value="Choix simple" ${q.type === 'Choix simple' ? 'selected' : ''}>Choix simple</option>
         <option value="QCM" ${q.type === 'QCM' ? 'selected' : ''}>QCM</option>
       </select>
       <div class="actions">
         <button onclick="deleteQuestion(${index})">Supprimer</button>
+        <button onclick="addOption(${index})">Ajouter une option</button>
       </div>
     `;
     container.appendChild(div);
 
-    const optionsList = document.getElementById(`options-list-${index}`);
-    q.options.forEach((opt, optIdx) => {
-      const isCorrect = q.type === 'QCM' ? q.correct.includes(optIdx) : q.correct === optIdx;
-      optionsList.insertAdjacentHTML('beforeend', `
-        <div class="option">
-          <input type="text" value="${opt}" onchange="updateOption(${index}, ${optIdx}, this.value)">
-          <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="correct-${index}" value="${optIdx}" ${isCorrect ? 'checked' : ''} onchange="updateCorrect(${index}, this)">
-        </div>
-      `);
-    });
-
-    const btn = document.createElement('button');
-    btn.textContent = "Ajouter une option";
-    btn.onclick = () => {
-      q.options.push("Nouvelle option");
-      // loadQuestionList(); // Supprimé pour éviter la boucle infinie
-    };
-    optionsList.appendChild(btn);
+    updateOptionsDisplay(index);
   });
+}
+
+function updateOptionsDisplay(index) {
+  const q = questions[index];
+  const optionsList = document.getElementById(`options-list-${index}`);
+  optionsList.innerHTML = '';
+
+  q.options.forEach((opt, optIdx) => {
+    const isCorrect = q.type === 'QCM' ? q.correct.includes(optIdx) : q.correct === optIdx;
+    optionsList.insertAdjacentHTML('beforeend', `
+      <div class="option">
+        <input type="text" value="${opt}" onchange="updateOption(${index}, ${optIdx}, this.value)">
+        <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="correct-${index}" value="${optIdx}" ${isCorrect ? 'checked' : ''} onchange="updateCorrect(${index}, this)">
+      </div>
+    `);
+  });
+}
+
+function addOption(index) {
+  questions[index].options.push("Nouvelle option");
+  updateOptionsDisplay(index);
 }
 
 function updateOption(index, optIndex, value) {
