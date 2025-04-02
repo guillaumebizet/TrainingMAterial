@@ -1,111 +1,14 @@
 [
   {
-    "question": "Quelle est la différence entre `git merge` et `git rebase` ?",
+    "question": "Nouvelle question",
     "options": [
-      "Merge combine les branches en créant un commit de fusion, rebase réécrit l'historique en appliquant les commits sur une autre base.",
-      "Rebase combine les branches en créant un commit de fusion, merge réécrit l'historique.",
-      "Les deux font la même chose.",
-      "Merge est pour les branches locales, rebase pour les branches distantes.",
-      "Aucune des précédentes."
+      "Option 1",
+      "Option 2",
+      "Option 3",
+      "Option 4"
     ],
     "correct": 0,
-    "lot": "SYD"
-  },
-  {
-    "question": "Comment annuler le dernier commit dans Git sans perdre les changements ?",
-    "options": [
-      "git revert HEAD",
-      "git reset --soft HEAD~1",
-      "git reset --hard HEAD~1",
-      "git commit --amend",
-      "git checkout ."
-    ],
-    "correct": 1,
-    "lot": "SYD"
-  },
-  {
-    "question": "Lequel des énoncés décrit correctement le concept de branchement dans Git ?",
-    "options": [
-      "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-      "Une branche est une copie complète du repository.",
-      "Les branches sont pour les versions stables uniquement.",
-      "Le branchement n'est pas supporté dans Git.",
-      "Les branches ne peuvent pas être fusionnées."
-    ],
-    "correct": 0,
-    "lot": "SYD"
-  },
-  {
-    "question": "Quelle est la complexité temporelle d'un algorithme de recherche binaire ?",
-    "options": [
-      "O(log n)",
-      "O(n)",
-      "O(n log n)",
-      "O(1)",
-      "O(n^2)"
-    ],
-    "correct": 0,
-    "lot": "SRE"
-  },
-  {
-    "question": "Quelle est la principale différence entre une pile et une file ?",
-    "options": [
-      "Une pile est LIFO, une file est FIFO.",
-      "Une pile est FIFO, une file est LIFO.",
-      "Les piles sont plus rapides que les files.",
-      "Les files sont pour les données temporaires, les piles pour les données permanentes.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "SRE"
-  },
-  {
-    "question": "Laquelle des affirmations décrit correctement la récursivité ?",
-    "options": [
-      "La récursivité est une technique où une fonction s'appelle elle-même pour résoudre un problème.",
-      "La récursivité est utilisée pour boucler à travers des tableaux.",
-      "La récursivité est une façon d'optimiser la mémoire.",
-      "La récursivité ne peut pas être utilisée en programmation.",
-      "La récursivité est uniquement pour les langages fonctionnels."
-    ],
-    "correct": 0,
-    "lot": "SRE"
-  },
-  {
-    "question": "Lequel des énoncés décrit correctement IaaS, PaaS, et SaaS ?",
-    "options": [
-      "IaaS fournit l'infrastructure, PaaS la plateforme, SaaS les applications.",
-      "IaaS est pour les applications, PaaS pour l'infrastructure, SaaS pour la plateforme.",
-      "Tous sont des types de services cloud avec le même niveau d'abstraction.",
-      "IaaS est gratuit, PaaS et SaaS sont payants.",
-      "SaaS ne nécessite pas de maintenance, IaaS et PaaS si."
-    ],
-    "correct": 0,
-    "lot": "CIBOX"
-  },
-  {
-    "question": "Qu'est-ce qu'une machine virtuelle ?",
-    "options": [
-      "Un logiciel qui émule un système d'exploitation complet sur un hôte physique.",
-      "Un type de conteneur pour applications.",
-      "Un serveur physique dédié.",
-      "Un service cloud pour stocker des données.",
-      "Un outil de gestion de version."
-    ],
-    "correct": 0,
-    "lot": "CIBOX"
-  },
-  {
-    "question": "Quel est le but principal de l'équilibrage de charge ?",
-    "options": [
-      "Distribuer le trafic réseau uniformément sur plusieurs serveurs.",
-      "Augmenter la vitesse de traitement des données.",
-      "Réduire la latence des applications.",
-      "Améliorer la sécurité des données.",
-      "Optimiser l'utilisation du stockage."
-    ],
-    "correct": 0,
-    "lot": "CIBOX"
+    "lot": "GENERAL",
+    "type": "Choix simple"
   }
-  // ... Ajoutez les autres questions avec leurs lots (SYD, SRE, CIBOX, GENERAL, etc.)
 ]
