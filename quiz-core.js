@@ -223,6 +223,6 @@ function saveScore() {
 
   const token = prompt("Veuillez entrer votre token d'accès personnel GitHub pour sauvegarder les scores sur GitHub (laisser vide pour ignorer) :");
   if (token) {
-    saveScoresRearrange();
+    saveScoresToGitHub(token); // Correction : saveScoresRearrange -> saveScoresToGitHub
   }
 }
