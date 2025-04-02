@@ -656,11 +656,8 @@ function updateCorrect(index, input) {
     if (updateResponse.ok) {
       alert("Modifications sauvegardées avec succès !");
       // Recharger les questions pour s'assurer que l'état est à jour
-<script>
-(async () => {
   await fetchQuestions();
-})();
-</script>
+
     } else {
       const errorData = await updateResponse.json();
       throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
