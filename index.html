@@ -365,15 +365,17 @@
       document.getElementById('total-questions-result').textContent = selectedQuestions.length;
     }
 
-    function showTab(tabId) {
-      document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
-      document.getElementById(tabId).style.display = 'block';
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-
-      if (tabId === 'edit-container') loadQuestionList();
-      if (tabId === 'scores-container') loadScores();
-    }
+function showTab(tabId) {
+  document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  const activeTab = document.querySelector(`.tab[onclick="showTab('${tabId}')"]`);
+  if (activeTab) {
+    activeTab.classList.add('active');
+  }
+  if (tabId === 'edit-container') loadQuestionList();
+  if (tabId === 'scores-container') loadScores();
+}
 
     function loadLotSelection() {
       const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
