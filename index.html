@@ -444,27 +444,22 @@ function loadQuestions() {
     container.innerHTML = '<p>Aucune question à afficher pour ce lot.</p>';
     return;
   }
-  selectedQuestions.forEach((q, index) => {
-    // Vérifier que la question est bien formatée
-    if (!q.options || !Array.isArray(q.options) || q.options.length === 0 || q.correct === undefined) {
-      console.error('Question mal formatée :', q);
-      return;
-    }
 
-    // Mélanger les options
-    const shuffledOptions = shuffle([...q.options]);
+  selectedQuestions = selectedQuestions.map((q) => {
+    const cloned = structuredClone(q);
+    const shuffledOptions = shuffle([...cloned.options]);
 
-    // Ajuster l'indice correct après le mélange
-    let correctIndex;
-    if (Array.isArray(q.correct)) {
-      // Cas QCM : plusieurs réponses correctes
-      correctIndex = q.correct.map(c => shuffledOptions.indexOf(q.options[c]));
+    if (Array.isArray(cloned.correct)) {
+      cloned.correct = cloned.correct.map(c => shuffledOptions.indexOf(cloned.options[c]));
     } else {
-      // Cas Choix simple : une seule réponse correcte
-      correctIndex = shuffledOptions.indexOf(q.options[q.correct]);
+      cloned.correct = shuffledOptions.indexOf(cloned.options[cloned.correct]);
     }
-    q.correct = correctIndex;
 
+    cloned.options = shuffledOptions;
+    return cloned;
+  });
+
+  selectedQuestions.forEach((q, index) => {
     const questionDiv = document.createElement('div');
     questionDiv.className = 'question';
     questionDiv.innerHTML = `
@@ -478,7 +473,7 @@ function loadQuestions() {
     container.appendChild(questionDiv);
 
     const optionsDiv = document.getElementById(`options-${index}`);
-    shuffledOptions.forEach((option, i) => {
+    q.options.forEach((option, i) => {
       const optionDiv = document.createElement('div');
       optionDiv.className = 'option';
       optionDiv.innerHTML = `
@@ -488,8 +483,10 @@ function loadQuestions() {
       optionsDiv.appendChild(optionDiv);
     });
   });
+
   updateScoreCounter();
 }
+
 
    function loadQuestionList() {
   const container = document.getElementById('question-list');
