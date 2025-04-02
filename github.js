@@ -78,7 +78,8 @@ async function saveScoresToGitHub(token) {
     } else if (response.status !== 404) {
       throw new Error(`Erreur lors de la récupération du fichier scores.json : ${response.status} ${response.statusText}`);
     }
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
+
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
     const updateResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
       method: 'PUT',
       headers: {
@@ -123,13 +124,14 @@ async function fetchQuestions() {
     console.log('Questions chargées avec succès :', questions);
     generateAdditionalQuestions();
     loadLotSelection();
-    loadQuestionList();
+    // Supprimé : loadQuestionList() pour éviter la boucle infinie
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
     alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
     questions = [];
   }
 }
+
 async function loadScores() {
   const repo = "guillaumebizet/TrainingMATERIAL";
   const branch = "main";
@@ -219,7 +221,4 @@ if (currentDateElement) {
   console.error("Élément 'current-date' non trouvé.");
 }
 
-// Charger les questions au démarrage
 fetchQuestions();
-
-  
