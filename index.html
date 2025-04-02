@@ -658,27 +658,6 @@ function updateCorrect(index, input) {
       // Recharger les questions pour s'assurer que l'état est à jour
 
 
-async function fetchQuestions() {
-  try {
-    const response = await fetch('questions.json');
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const text = await response.text();
-    try {
-      questions = JSON.parse(text);
-    } catch (parseError) {
-      throw new Error(`Erreur parsing : ${parseError.message}\nContenu : ${text.slice(0, 100)}...`);
-    }
-
-    generateAdditionalQuestions(); // facultatif
-    loadLotSelection();
-    loadQuestionList();
-  } catch (error) {
-    console.error('Erreur questions:', error);
-    alert('Chargement échoué : ' + error.message);
-    questions = [];
-  }
-}
 
 
 // Remplacer le bloc fetch initial par un appel à fetchQuestions
