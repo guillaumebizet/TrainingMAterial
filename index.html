@@ -314,65 +314,60 @@ function startTimer() {
   }, 1000);
 }
 
+function validateAnswer(index) {
+  const question = selectedQuestions[index];
+  const selected = document.querySelectorAll(`input[name="option-${index}"]:checked`);
+  const feedback = document.getElementById(`feedback-${index}`);
+  const validateBtn = document.querySelectorAll('.validate-btn')[index];
 
-    function validateAnswer(index) {
-      const question = selectedQuestions[index];
-      const inputs = document.querySelectorAll(`input[name="option-${index}"]:checked`);
-      if (inputs.length === 0) {
-        alert('Veuillez sélectionner une réponse');
-        return;
-      }
-      const answers = Array.from(inputs).map(input => parseInt(input.value));
-      const feedback = document.getElementById(`feedback-${index}`);
-      const validateBtn = document.querySelectorAll('.validate-btn')[index];
+  if (!selected.length) {
+    alert('Veuillez sélectionner une réponse');
+    return;
+  }
 
-      if (question.type === 'QCM') {
-        const correctAnswers = Array.isArray(question.correct) ? question.correct : [question.correct];
-        const isCorrect = answers.length === correctAnswers.length && answers.every(answer => correctAnswers.includes(answer));
-        if (isCorrect) {
-          score++;
-          correctCount++;
-          feedback.textContent = 'Correct !';
-          feedback.className = 'feedback correct';
-        } else {
-          incorrectCount++;
-          feedback.textContent = 'Incorrect';
-          feedback.className = 'feedback incorrect';
-        }
-      } else {
-        const answer = answers[0];
-        const correct = Array.isArray(question.correct) ? question.correct[0] : question.correct;
-        if (answer === correct) {
-          score++;
-          correctCount++;
-          feedback.textContent = 'Correct !';
-          feedback.className = 'feedback correct';
-        } else {
-          incorrectCount++;
-          feedback.textContent = 'Incorrect';
-          feedback.className = 'feedback incorrect';
-        }
-      }
-      updateScoreCounter();
+  const answers = Array.from(selected).map(i => parseInt(i.value, 10));
+  const correct = Array.isArray(question.correct) ? question.correct : [question.correct];
 
-      document.querySelectorAll(`input[name="option-${index}"]`).forEach(input => input.disabled = true);
-      validateBtn.disabled = true;
+  const isCorrect = (
+    answers.length === correct.length &&
+    answers.every(ans => correct.includes(ans))
+  );
 
-      const allValidated = Array.from(document.querySelectorAll('.validate-btn')).every(btn => btn.disabled);
-      if (allValidated) {
-        clearInterval(timerInterval);
-        saveScore();
-        showResult();
-      }
-    }
+  if (isCorrect) {
+    score++;
+    correctCount++;
+    feedback.textContent = "Correct !";
+    feedback.className = 'feedback correct';
+  } else {
+    incorrectCount++;
+    feedback.textContent = "Incorrect";
+    feedback.className = 'feedback incorrect';
+  }
+
+  feedback.style.display = 'inline-block';
+  updateScoreCounter();
+  selected.forEach(input => input.disabled = true);
+  validateBtn.disabled = true;
+
+  const allValidated = [...document.querySelectorAll('.validate-btn')].every(btn => btn.disabled);
+  if (allValidated) {
+    clearInterval(timerInterval);
+    saveScore();
+    showResult();
+  }
+}
+
+
+
+
 
     function showResult() {
-      document.getElementById('quiz-container').style.display = 'none';
-      const resultDiv = document.getElementById('result');
-      resultDiv.style.display = 'block';
-      document.getElementById('score').textContent = score;
-      document.getElementById('total-questions-result').textContent = selectedQuestions.length;
-    }
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('score').textContent = score;
+  document.getElementById('total-questions-result').textContent = selectedQuestions.length;
+}
+
 
     function showTab(tabId) {
       document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
@@ -384,17 +379,17 @@ function startTimer() {
       if (tabId === 'scores-container') loadScores();
     }
 
-    function loadLotSelection() {
-      const lots = [...new Set(questions.map(q => q.lot).filter(lot => lot))];
-      const select = document.getElementById('lot-selection');
-      select.innerHTML = '<option value="">Choisir un lot</option>';
-      lots.forEach(lot => {
-        const option = document.createElement('option');
-        option.value = lot;
-        option.textContent = lot;
-        select.appendChild(option);
-      });
-    }
+function loadLotSelection() {
+  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
+  const select = document.getElementById('lot-selection');
+  select.innerHTML = '<option value="">Choisir un lot</option>';
+  lots.forEach(lot => {
+    const option = document.createElement('option');
+    option.value = lot;
+    option.textContent = lot;
+    select.appendChild(option);
+  });
+}
 
 async function startQuiz() {
   candidateName = document.getElementById('candidate-name').value.trim();
@@ -402,64 +397,71 @@ async function startQuiz() {
     alert('Veuillez entrer votre nom');
     return;
   }
+
   const selectedLot = document.getElementById('lot-selection').value;
   if (!selectedLot) {
     alert('Veuillez sélectionner un lot de questions');
     return;
   }
 
-  // Attendre que les questions soient chargées
-  await fetchQuestions();
+  if (!questions || questions.length === 0) {
+    alert('Aucune question chargée. Vérifiez le chargement initial.');
+    return;
+  }
 
-  console.log('Lot sélectionné :', selectedLot);
-  console.log('Questions disponibles :', questions);
-
-  // Normaliser la comparaison des lots (ignorer la casse et les espaces)
-  selectedQuestions = questions.filter(q => q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase());
-
-  console.log('Questions filtrées pour le lot', selectedLot, ':', selectedQuestions);
+  // Filtrer les questions du lot sélectionné
+  selectedQuestions = questions.filter(q =>
+    q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
+  );
 
   if (selectedQuestions.length === 0) {
     alert('Aucune question disponible pour ce lot');
     return;
   }
 
-  // Mélanger les questions pour éviter la triche
+  // Mélanger les questions
   selectedQuestions = shuffle([...selectedQuestions]);
+
+  // Réinitialisation des scores
   score = 0;
   correctCount = 0;
   incorrectCount = 0;
   timeElapsed = 0;
+
   updateScoreCounter();
   updateTimer();
   showTab('quiz-container');
-  loadQuestions();
+  loadQuestions(); // charge les questions affichables
   startTimer();
 }
+
 
 function loadQuestions() {
   const container = document.getElementById('quiz-container');
   container.innerHTML = '';
+
   if (!selectedQuestions || selectedQuestions.length === 0) {
     container.innerHTML = '<p>Aucune question à afficher pour ce lot.</p>';
     return;
   }
 
-  selectedQuestions = selectedQuestions.map((q) => {
-    const cloned = structuredClone(q);
-    const shuffledOptions = shuffle([...cloned.options]);
+  const shuffledSet = selectedQuestions.map((q) => {
+    const clone = structuredClone(q);
+    const shuffled = shuffle([...clone.options]);
 
-    if (Array.isArray(cloned.correct)) {
-      cloned.correct = cloned.correct.map(c => shuffledOptions.indexOf(cloned.options[c]));
+    if (Array.isArray(clone.correct)) {
+      clone.correct = clone.correct.map(c => shuffled.indexOf(clone.options[c]));
     } else {
-      cloned.correct = shuffledOptions.indexOf(cloned.options[cloned.correct]);
+      clone.correct = shuffled.indexOf(clone.options[clone.correct]);
     }
 
-    cloned.options = shuffledOptions;
-    return cloned;
+    clone.options = shuffled;
+    return clone;
   });
 
-  selectedQuestions.forEach((q, index) => {
+  selectedQuestions = shuffledSet;
+
+  shuffledSet.forEach((q, index) => {
     const questionDiv = document.createElement('div');
     questionDiv.className = 'question';
     questionDiv.innerHTML = `
@@ -474,13 +476,13 @@ function loadQuestions() {
 
     const optionsDiv = document.getElementById(`options-${index}`);
     q.options.forEach((option, i) => {
-      const optionDiv = document.createElement('div');
-      optionDiv.className = 'option';
-      optionDiv.innerHTML = `
-        <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="option-${index}" id="option-${index}-${i}" value="${i}">
-        <label for="option-${index}-${i}">${option}</label>
+      const optionHTML = `
+        <div class="option">
+          <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="option-${index}" id="option-${index}-${i}" value="${i}">
+          <label for="option-${index}-${i}">${option}</label>
+        </div>
       `;
-      optionsDiv.appendChild(optionDiv);
+      optionsDiv.insertAdjacentHTML('beforeend', optionHTML);
     });
   });
 
@@ -488,9 +490,30 @@ function loadQuestions() {
 }
 
 
-   function loadQuestionList() {
+function saveScore() {
+  const scoreData = {
+    name: candidateName,
+    date: new Date().toLocaleDateString('fr-FR'),
+    score: `${score} / ${selectedQuestions.length}`,
+    time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`
+  };
+  scores.push(scoreData);
+
+  try {
+    localStorage.setItem('scores', JSON.stringify(scores));
+    debugLog("Score sauvegardé localement :", scoreData);
+  } catch (e) {
+    console.error("Erreur de sauvegarde dans localStorage :", e);
+  }
+}
+
+
+
+ function loadQuestionList() {
   const container = document.getElementById('question-list');
+  if (!container) return;
   container.innerHTML = '';
+
   questions.forEach((q, index) => {
     const div = document.createElement('div');
     div.className = 'question-item';
@@ -499,9 +522,9 @@ function loadQuestions() {
       <label>Question :</label>
       <input type="text" value="${q.question}" onchange="updateQuestion(${index}, 'question', this.value)">
       <label>Options :</label>
-      <div class="options-list" id="options-list-${index}"></div>
+      <div id="options-list-${index}"></div>
       <label>Lot :</label>
-      <input type="text" value="${q.lot || ''}" onchange="updateQuestion(${index}, 'lot', this.value)" placeholder="Lot (ex. SYD, SRE, CIBOX)">
+      <input type="text" value="${q.lot || ''}" onchange="updateQuestion(${index}, 'lot', this.value)">
       <label>Type :</label>
       <select onchange="updateQuestion(${index}, 'type', this.value); loadQuestionList();">
         <option value="Choix simple" ${q.type === 'Choix simple' ? 'selected' : ''}>Choix simple</option>
@@ -514,26 +537,26 @@ function loadQuestions() {
     container.appendChild(div);
 
     const optionsList = document.getElementById(`options-list-${index}`);
-    q.options.forEach((option, optIndex) => {
-      const optionDiv = document.createElement('div');
-      optionDiv.className = 'option';
-      const isCorrect = q.type === 'QCM' ? (Array.isArray(q.correct) && q.correct.includes(optIndex)) : (q.correct === optIndex);
-      optionDiv.innerHTML = `
-        <input type="text" value="${option}" onchange="updateOption(${index}, ${optIndex}, this.value)">
-        <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="correct-${index}" value="${optIndex}" ${isCorrect ? 'checked' : ''} onchange="updateCorrect(${index}, this)">
-      `;
-      optionsList.appendChild(optionDiv);
+    q.options.forEach((opt, optIdx) => {
+      const isCorrect = q.type === 'QCM' ? q.correct.includes(optIdx) : q.correct === optIdx;
+      optionsList.insertAdjacentHTML('beforeend', `
+        <div class="option">
+          <input type="text" value="${opt}" onchange="updateOption(${index}, ${optIdx}, this.value)">
+          <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="correct-${index}" value="${optIdx}" ${isCorrect ? 'checked' : ''} onchange="updateCorrect(${index}, this)">
+        </div>
+      `);
     });
 
-    const addOptionBtn = document.createElement('button');
-    addOptionBtn.textContent = 'Ajouter une option';
-    addOptionBtn.onclick = () => {
-      q.options.push('Nouvelle option');
+    const btn = document.createElement('button');
+    btn.textContent = "Ajouter une option";
+    btn.onclick = () => {
+      q.options.push("Nouvelle option");
       loadQuestionList();
     };
-    optionsList.appendChild(addOptionBtn);
+    optionsList.appendChild(btn);
   });
 }
+
 
 function updateOption(index, optIndex, value) {
   questions[index].options[optIndex] = value;
@@ -646,18 +669,25 @@ function updateCorrect(index, input) {
 async function fetchQuestions() {
   try {
     const response = await fetch('questions.json');
-    if (!response.ok) throw new Error('Erreur lors du chargement de questions.json : ' + response.status + ' ' + response.statusText);
-    questions = await response.json();
-    console.log('Questions chargées avec succès :', questions); // Log pour déboguer
-    generateAdditionalQuestions();
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const text = await response.text();
+    try {
+      questions = JSON.parse(text);
+    } catch (parseError) {
+      throw new Error(`Erreur parsing : ${parseError.message}\nContenu : ${text.slice(0, 100)}...`);
+    }
+
+    generateAdditionalQuestions(); // facultatif
     loadLotSelection();
     loadQuestionList();
   } catch (error) {
-    console.error('Erreur lors du chargement des questions:', error);
-    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
+    console.error('Erreur questions:', error);
+    alert('Chargement échoué : ' + error.message);
     questions = [];
   }
 }
+
 
 // Remplacer le bloc fetch initial par un appel à fetchQuestions
 async function fetchQuestions() {
