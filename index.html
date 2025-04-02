@@ -646,39 +646,45 @@ function updateCorrect(index, input) {
   }
 }
 
-// Nouvelle fonction pour charger les questions
 async function fetchQuestions() {
   try {
     const response = await fetch('questions.json');
-    if (!response.ok) throw new Error('Erreur lors du chargement de questions.json');
+    if (!response.ok) throw new Error('Erreur lors du chargement de questions.json : ' + response.status + ' ' + response.statusText);
     questions = await response.json();
+    console.log('Questions chargées avec succès :', questions); // Log pour déboguer
     generateAdditionalQuestions();
     loadLotSelection();
     loadQuestionList();
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
-    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible.');
+    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
     questions = [];
   }
 }
 
 // Remplacer le bloc fetch initial par un appel à fetchQuestions
-fetchQuestions();
-async function saveScore() {
-  const scoreEntry = {
-    name: candidateName,
-    date: new Date().toLocaleString('fr-FR'),
-    score: `${score}/${selectedQuestions.length}`,
-    time: document.getElementById('timer').textContent.replace('Temps : ', '')
-  };
-  scores.push(scoreEntry);
-
-  const token = prompt("Veuillez entrer votre token d'accès personnel GitHub pour sauvegarder les scores :");
-  if (!token) {
-    alert("Token requis pour sauvegarder les scores. Les scores seront stockés localement.");
-    localStorage.setItem('scores', JSON.stringify(scores));
-    return;
+async function fetchQuestions() {
+  try {
+    const response = await fetch('questions.json');
+    if (!response.ok) {
+      throw new Error(`Erreur lors du chargement de questions.json : ${response.status} ${response.statusText}`);
+    }
+    const text = await response.text(); // Récupérer le texte brut pour déboguer
+    try {
+      questions = JSON.parse(text);
+    } catch (parseError) {
+      throw new Error(`Erreur lors du parsing de questions.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
+    }
+    console.log('Questions chargées avec succès :', questions);
+    generateAdditionalQuestions();
+    loadLotSelection();
+    loadQuestionList();
+  } catch (error) {
+    console.error('Erreur lors du chargement des questions:', error);
+    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
+    questions = [];
   }
+}
 
   const repo = "guillaumebizet/TrainingMATERIAL";
   const branch = "main";
