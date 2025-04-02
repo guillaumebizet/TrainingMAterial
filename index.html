@@ -314,7 +314,7 @@
       const validateBtn = document.querySelectorAll('.validate-btn')[index];
 
       if (question.type === 'QCM') {
-        const correctAnswers = question.correct;
+        const correctAnswers = Array.isArray(question.correct) ? question.correct : [question.correct];
         const isCorrect = answers.length === correctAnswers.length && answers.every(answer => correctAnswers.includes(answer));
         if (isCorrect) {
           score++;
@@ -328,7 +328,8 @@
         }
       } else {
         const answer = answers[0];
-        if (answer === question.correct) {
+        const correct = Array.isArray(question.correct) ? question.correct[0] : question.correct;
+        if (answer === correct) {
           score++;
           correctCount++;
           feedback.textContent = 'Correct !';
@@ -419,7 +420,7 @@
           <h3>Question ${index + 1}</h3>
           <input type="text" value="${q.question}" onchange="updateQuestion(${index}, 'question', this.value)">
           <textarea onchange="updateQuestion(${index}, 'options', this.value)">${q.options.join('\n')}</textarea>
-          <input type="text" value="${q.correct}" onchange="updateQuestion(${index}, 'correct', this.value)" placeholder="Index de la bonne réponse (ou indices séparés par des virgules pour QCM)">
+          <input type="text" value="${Array.isArray(q.correct) ? q.correct.join(',') : q.correct}" onchange="updateQuestion(${index}, 'correct', this.value)" placeholder="Index de la bonne réponse (ou indices séparés par des virgules pour QCM)">
           <input type="text" value="${q.lot || ''}" onchange="updateQuestion(${index}, 'lot', this.value)" placeholder="Lot (ex. SYD, SRE, CIBOX)">
           <select onchange="updateQuestion(${index}, 'type', this.value)">
             <option value="Choix simple" ${q.type === 'Choix simple' ? 'selected' : ''}>Choix simple</option>
@@ -484,6 +485,11 @@
             Accept: "application/vnd.github.v3+json"
           }
         });
+
+        if (!response.ok) {
+          throw new Error(`Erreur lors de la récupération du fichier : ${response.status} ${response.statusText}`);
+        }
+
         const data = await response.json();
         const sha = data.sha;
 
@@ -506,9 +512,11 @@
         if (updateResponse.ok) {
           alert("Modifications sauvegardées avec succès !");
         } else {
-          alert("Erreur lors de la sauvegarde : " + updateResponse.statusText);
+          const errorData = await updateResponse.json();
+          throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
         }
       } catch (error) {
+        console.error("Erreur lors de la sauvegarde :", error);
         alert("Erreur lors de la sauvegarde : " + error.message);
       }
     }
