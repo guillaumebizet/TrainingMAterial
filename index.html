@@ -306,12 +306,13 @@
       document.getElementById('timer').textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
 
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        timeElapsed++;
-        updateTimer();
-      }, 1000);
-    }
+function startTimer() {
+  console.log('Démarrage du timer'); // Ajout d'un log pour déboguer
+  timerInterval = setInterval(() => {
+    timeElapsed++;
+    updateTimer();
+  }, 1000);
+}
 
 
     function validateAnswer(index) {
@@ -395,7 +396,7 @@
       });
     }
 
-function startQuiz() {
+async function startQuiz() {
   candidateName = document.getElementById('candidate-name').value.trim();
   if (!candidateName) {
     alert('Veuillez entrer votre nom');
@@ -406,13 +407,23 @@ function startQuiz() {
     alert('Veuillez sélectionner un lot de questions');
     return;
   }
-  selectedQuestions = questions.filter(q => q.lot === selectedLot);
+
+  // Attendre que les questions soient chargées
+  await fetchQuestions();
+
+  console.log('Lot sélectionné :', selectedLot);
+  console.log('Questions disponibles :', questions);
+
+  // Normaliser la comparaison des lots (ignorer la casse et les espaces)
+  selectedQuestions = questions.filter(q => q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase());
+
+  console.log('Questions filtrées pour le lot', selectedLot, ':', selectedQuestions);
+
   if (selectedQuestions.length === 0) {
     alert('Aucune question disponible pour ce lot');
-    console.log('Questions disponibles :', questions);
-    console.log('Lot sélectionné :', selectedLot);
     return;
   }
+
   // Mélanger les questions pour éviter la triche
   selectedQuestions = shuffle([...selectedQuestions]);
   score = 0;
@@ -434,9 +445,19 @@ function loadQuestions() {
     return;
   }
   selectedQuestions.forEach((q, index) => {
+    // Mélanger les options
     const shuffledOptions = shuffle([...q.options]);
-    const correctIndex = Array.isArray(q.correct) ? q.correct.map(c => q.options.indexOf(q.options[c])) : q.options.indexOf(q.options[q.correct]);
-    q.correct = Array.isArray(correctIndex) ? correctIndex.map(i => shuffledOptions.indexOf(q.options[i])) : shuffledOptions.indexOf(q.options[correctIndex]);
+
+    // Ajuster l'indice correct après le mélange
+    let correctIndex;
+    if (Array.isArray(q.correct)) {
+      // Cas QCM : plusieurs réponses correctes
+      correctIndex = q.correct.map(c => shuffledOptions.indexOf(q.options[c]));
+    } else {
+      // Cas Choix simple : une seule réponse correcte
+      correctIndex = shuffledOptions.indexOf(q.options[q.correct]);
+    }
+    q.correct = correctIndex;
 
     const questionDiv = document.createElement('div');
     questionDiv.className = 'question';
@@ -786,22 +807,7 @@ async function loadScores() {
 
     document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR');
 
-fetch('questions.json')
-  .then(response => {
-    if (!response.ok) throw new Error(`Erreur lors du chargement de questions.json : ${response.status} ${response.statusText}`);
-    return response.json();
-  })
-  .then(data => {
-    console.log('Questions chargées :', data);
-    questions = data;
-    generateAdditionalQuestions();
-    loadLotSelection();
-    loadQuestionList();
-  })
-  .catch(error => {
-    console.error('Erreur lors du chargement des questions:', error);
-    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible et correctement formaté.');
-  });
+fetchQuestions();
   </script>
 </body>
 </html>
