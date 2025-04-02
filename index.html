@@ -313,39 +313,6 @@
       }, 1000);
     }
 
-    function loadQuestions() {
-      const container = document.getElementById('quiz-container');
-      container.innerHTML = '';
-      selectedQuestions.forEach((q, index) => {
-        const shuffledOptions = shuffle([...q.options]);
-        const correctIndex = q.options.indexOf(q.options[q.correct]);
-        q.correct = shuffledOptions.indexOf(q.options[correctIndex]);
-
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'question';
-        questionDiv.innerHTML = `
-          <h3>Question ${index + 1} : ${q.question}</h3>
-          <div class="options" id="options-${index}"></div>
-          <div class="question-actions">
-            <button class="validate-btn" onclick="validateAnswer(${index})">Valider</button>
-            <span class="feedback" id="feedback-${index}"></span>
-          </div>
-        `;
-        container.appendChild(questionDiv);
-
-        const optionsDiv = document.getElementById(`options-${index}`);
-        shuffledOptions.forEach((option, i) => {
-          const optionDiv = document.createElement('div');
-          optionDiv.className = 'option';
-          optionDiv.innerHTML = `
-            <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="option-${index}" id="option-${index}-${i}" value="${i}">
-            <label for="option-${index}-${i}">${option}</label>
-          `;
-          optionsDiv.appendChild(optionDiv);
-        });
-      });
-      updateScoreCounter();
-    }
 
     function validateAnswer(index) {
       const question = selectedQuestions[index];
@@ -428,34 +395,76 @@
       });
     }
 
-    function startQuiz() {
-      candidateName = document.getElementById('candidate-name').value.trim();
-      if (!candidateName) {
-        alert('Veuillez entrer votre nom');
-        return;
-      }
-      const selectedLot = document.getElementById('lot-selection').value;
-      if (!selectedLot) {
-        alert('Veuillez sélectionner un lot de questions');
-        return;
-      }
-      selectedQuestions = questions.filter(q => q.lot === selectedLot);
-      if (selectedQuestions.length === 0) {
-        alert('Aucune question disponible pour ce lot');
-        return;
-      }
-      score = 0;
-      correctCount = 0;
-      incorrectCount = 0;
-      timeElapsed = 0;
-      updateScoreCounter();
-      updateTimer();
-      showTab('quiz-container');
-      loadQuestions();
-      startTimer();
-    }
+function startQuiz() {
+  candidateName = document.getElementById('candidate-name').value.trim();
+  if (!candidateName) {
+    alert('Veuillez entrer votre nom');
+    return;
+  }
+  const selectedLot = document.getElementById('lot-selection').value;
+  if (!selectedLot) {
+    alert('Veuillez sélectionner un lot de questions');
+    return;
+  }
+  selectedQuestions = questions.filter(q => q.lot === selectedLot);
+  if (selectedQuestions.length === 0) {
+    alert('Aucune question disponible pour ce lot');
+    console.log('Questions disponibles :', questions);
+    console.log('Lot sélectionné :', selectedLot);
+    return;
+  }
+  // Mélanger les questions pour éviter la triche
+  selectedQuestions = shuffle([...selectedQuestions]);
+  score = 0;
+  correctCount = 0;
+  incorrectCount = 0;
+  timeElapsed = 0;
+  updateScoreCounter();
+  updateTimer();
+  showTab('quiz-container');
+  loadQuestions();
+  startTimer();
+}
 
-    function loadQuestionList() {
+function loadQuestions() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  if (!selectedQuestions || selectedQuestions.length === 0) {
+    container.innerHTML = '<p>Aucune question à afficher pour ce lot.</p>';
+    return;
+  }
+  selectedQuestions.forEach((q, index) => {
+    const shuffledOptions = shuffle([...q.options]);
+    const correctIndex = Array.isArray(q.correct) ? q.correct.map(c => q.options.indexOf(q.options[c])) : q.options.indexOf(q.options[q.correct]);
+    q.correct = Array.isArray(correctIndex) ? correctIndex.map(i => shuffledOptions.indexOf(q.options[i])) : shuffledOptions.indexOf(q.options[correctIndex]);
+
+    const questionDiv = document.createElement('div');
+    questionDiv.className = 'question';
+    questionDiv.innerHTML = `
+      <h3>Question ${index + 1} : ${q.question}</h3>
+      <div class="options" id="options-${index}"></div>
+      <div class="question-actions">
+        <button class="validate-btn" onclick="validateAnswer(${index})">Valider</button>
+        <span class="feedback" id="feedback-${index}"></span>
+      </div>
+    `;
+    container.appendChild(questionDiv);
+
+    const optionsDiv = document.getElementById(`options-${index}`);
+    shuffledOptions.forEach((option, i) => {
+      const optionDiv = document.createElement('div');
+      optionDiv.className = 'option';
+      optionDiv.innerHTML = `
+        <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="option-${index}" id="option-${index}-${i}" value="${i}">
+        <label for="option-${index}-${i}">${option}</label>
+      `;
+      optionsDiv.appendChild(optionDiv);
+    });
+  });
+  updateScoreCounter();
+}
+
+   function loadQuestionList() {
   const container = document.getElementById('question-list');
   container.innerHTML = '';
   questions.forEach((q, index) => {
@@ -465,10 +474,8 @@
       <h3>Question ${index + 1}</h3>
       <label>Question :</label>
       <input type="text" value="${q.question}" onchange="updateQuestion(${index}, 'question', this.value)">
-      <label>Options (une par ligne) :</label>
-      <textarea onchange="updateQuestion(${index}, 'options', this.value)">${q.options.join('\n')}</textarea>
-      <label>Bonne(s) réponse(s) :</label>
-      <div class="correct-options" id="correct-options-${index}"></div>
+      <label>Options :</label>
+      <div class="options-list" id="options-list-${index}"></div>
       <label>Lot :</label>
       <input type="text" value="${q.lot || ''}" onchange="updateQuestion(${index}, 'lot', this.value)" placeholder="Lot (ex. SYD, SRE, CIBOX)">
       <label>Type :</label>
@@ -482,27 +489,38 @@
     `;
     container.appendChild(div);
 
-    // Ajouter les cases à cocher pour les bonnes réponses
-    const correctOptionsDiv = document.getElementById(`correct-options-${index}`);
-    q.options.forEach((option, i) => {
+    const optionsList = document.getElementById(`options-list-${index}`);
+    q.options.forEach((option, optIndex) => {
       const optionDiv = document.createElement('div');
       optionDiv.className = 'option';
-      const isChecked = q.type === 'QCM' ? (Array.isArray(q.correct) && q.correct.includes(i)) : (i === q.correct);
+      const isCorrect = q.type === 'QCM' ? (Array.isArray(q.correct) && q.correct.includes(optIndex)) : (q.correct === optIndex);
       optionDiv.innerHTML = `
-        <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="correct-${index}" value="${i}" ${isChecked ? 'checked' : ''} onchange="updateCorrect(${index}, this)">
-        <label>${option}</label>
+        <input type="text" value="${option}" onchange="updateOption(${index}, ${optIndex}, this.value)">
+        <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="correct-${index}" value="${optIndex}" ${isCorrect ? 'checked' : ''} onchange="updateCorrect(${index}, this)">
       `;
-      correctOptionsDiv.appendChild(optionDiv);
+      optionsList.appendChild(optionDiv);
     });
+
+    const addOptionBtn = document.createElement('button');
+    addOptionBtn.textContent = 'Ajouter une option';
+    addOptionBtn.onclick = () => {
+      q.options.push('Nouvelle option');
+      loadQuestionList();
+    };
+    optionsList.appendChild(addOptionBtn);
   });
 }
+
+function updateOption(index, optIndex, value) {
+  questions[index].options[optIndex] = value;
+}
+
 function updateCorrect(index, input) {
-  const question = questions[index];
-  if (question.type === 'QCM') {
-    const checkedInputs = document.querySelectorAll(`input[name="correct-${index}"]:checked`);
-    question.correct = Array.from(checkedInputs).map(input => parseInt(input.value));
+  if (questions[index].type === 'QCM') {
+    const correctInputs = document.querySelectorAll(`input[name="correct-${index}"]:checked`);
+    questions[index].correct = Array.from(correctInputs).map(inp => parseInt(inp.value));
   } else {
-    question.correct = parseInt(input.value);
+    questions[index].correct = parseInt(input.value);
   }
 }
 
@@ -768,21 +786,22 @@ async function loadScores() {
 
     document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR');
 
-    fetch('questions.json')
-      .then(response => {
-        if (!response.ok) throw new Error('Erreur lors du chargement de questions.json');
-        return response.json();
-      })
-      .then(data => {
-        questions = data;
-        generateAdditionalQuestions();
-        loadLotSelection();
-        loadQuestionList();
-      })
-      .catch(error => {
-        console.error('Erreur lors du chargement des questions:', error);
-        alert('Impossible de charger les questions. Vérifiez que questions.json est accessible.');
-      });
+fetch('questions.json')
+  .then(response => {
+    if (!response.ok) throw new Error(`Erreur lors du chargement de questions.json : ${response.status} ${response.statusText}`);
+    return response.json();
+  })
+  .then(data => {
+    console.log('Questions chargées :', data);
+    questions = data;
+    generateAdditionalQuestions();
+    loadLotSelection();
+    loadQuestionList();
+  })
+  .catch(error => {
+    console.error('Erreur lors du chargement des questions:', error);
+    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible et correctement formaté.');
+  });
   </script>
 </body>
 </html>
