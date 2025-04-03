@@ -18,7 +18,7 @@ function shuffle(array) {
 }
 
 function updateScoreCounter() {
-  document.getElementById('current-score').textContent = score;
+  document.getElementById('score-counter').textContent = `Score : ${score}`;
   document.getElementById('total-questions').textContent = selectedQuestions.length;
   document.getElementById('correct-count').textContent = correctCount;
   document.getElementById('incorrect-count').textContent = incorrectCount;
@@ -83,26 +83,24 @@ function validateAnswer(index) {
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('result').style.display = 'block';
-  document.getElementById('score').textContent = score;
-  document.getElementById('total-questions-result').textContent = selectedQuestions.length;
+  document.getElementById('result-container').innerHTML = `
+    <p>Score final : <span id="score">${score}</span> / <span id="total-questions-result">${selectedQuestions.length}</span></p>
+    <p>Temps écoulé : ${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}</p>
+  `;
 }
 
-function showTab(tabId) {
-  document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
-  document.getElementById(tabId).style.display = 'block';
-  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-  const activeTab = document.querySelector(`.tab[onclick="showTab('${tabId}')"]`);
-  if (activeTab) {
-    activeTab.classList.add('active');
-  }
-  if (tabId === 'edit-container') {
+function showSection(sectionId) {
+  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+
+  if (sectionId === 'edit') {
     if (typeof fetchQuestions === 'function') {
       fetchQuestions().then(() => loadQuestionList());
     } else {
       console.error("fetchQuestions n'est pas défini. Attendez que github.js soit chargé.");
     }
   }
-  if (tabId === 'scores-container') loadScores();
+  if (sectionId === 'scores') loadScores();
 }
 
 function loadLotSelection() {
@@ -119,7 +117,7 @@ function loadLotSelection() {
 
 async function startQuiz() {
   try {
-    candidateName = document.getElementById('candidate-name').value.trim();
+    candidateName = document.getElementById('user-name').value.trim();
     if (!candidateName) {
       alert('Veuillez entrer votre nom');
       return;
@@ -160,7 +158,7 @@ async function startQuiz() {
 
     updateScoreCounter();
     updateTimer();
-    showTab('quiz-container');
+    showSection('quiz');
     loadQuestions();
     startTimer();
   } catch (error) {
@@ -168,7 +166,6 @@ async function startQuiz() {
     alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
   }
 }
-
 function loadQuestions() {
   const container = document.getElementById('quiz-container');
   container.innerHTML = '';
@@ -179,7 +176,7 @@ function loadQuestions() {
   }
 
   const shuffledSet = selectedQuestions.map((q) => {
-    const clone = structuredClone(q);
+    const clone = JSON.parse(JSON.stringify(q)); // Remplacement de structuredClone
     const shuffled = shuffle([...clone.options]);
 
     if (Array.isArray(clone.correct)) {
@@ -225,8 +222,10 @@ function loadQuestions() {
 function saveScore() {
   const scoreData = {
     name: candidateName,
+    lot: document.getElementById('lot-selection').value,
+    score: score,
+    total: selectedQuestions.length,
     date: new Date().toLocaleDateString('fr-FR'),
-    score: `${score} / ${selectedQuestions.length}`,
     time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`
   };
   scores.push(scoreData);
@@ -238,10 +237,8 @@ function saveScore() {
     console.error("Erreur de sauvegarde dans localStorage :", e);
   }
 
-  const token = prompt("Veuillez entrer votre token d'accès personnel GitHub pour sauvegarder les scores sur GitHub (laisser vide pour ignorer) :");
-  if (token) {
-    saveScoresToGitHub(token);
-  }
+  // Sauvegarde sur GitHub via OAuth
+  saveScoresToGitHub();
 }
 
 // Attacher un écouteur d'événements au bouton "Démarrer le quiz"
