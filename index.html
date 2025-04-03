@@ -69,44 +69,47 @@
       const code = urlParams.get("code");
       const error = urlParams.get("error");
 
-      if (error) {
-        alert("Erreur lors de l'authentification avec GitHub : " + urlParams.get("error_description"));
-        window.location.href = "/";
-        return;
-      }
+      // Gérer la route /callback
+      if (window.location.pathname === "/TrainingMATERIAL/callback" || code || error) {
+        if (error) {
+          alert("Erreur lors de l'authentification avec GitHub : " + urlParams.get("error_description"));
+          window.location.href = "/TrainingMATERIAL/";
+          return;
+        }
 
-      if (code) {
-        try {
-          const tokenResponse = await fetch(githubConfig.tokenUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "Accept": "application/json"
-            },
-            body: new URLSearchParams({
-              client_id: githubConfig.clientId,
-              redirect_uri: githubConfig.redirectUri,
-              code: code,
-              code_verifier: localStorage.getItem("code_verifier"),
-              grant_type: "authorization_code"
-            })
-          });
+        if (code) {
+          try {
+            const tokenResponse = await fetch(githubConfig.tokenUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json"
+              },
+              body: new URLSearchParams({
+                client_id: githubConfig.clientId,
+                redirect_uri: githubConfig.redirectUri,
+                code: code,
+                code_verifier: localStorage.getItem("code_verifier"),
+                grant_type: "authorization_code"
+              })
+            });
 
-          const tokenData = await tokenResponse.json();
-          if (tokenData.error) {
-            throw new Error(tokenData.error_description || "Erreur lors de l'obtention du token");
+            const tokenData = await tokenResponse.json();
+            if (tokenData.error) {
+              throw new Error(tokenData.error_description || "Erreur lors de l'obtention du token");
+            }
+
+            const accessToken = tokenData.access_token;
+            if (accessToken) {
+              localStorage.setItem("github_access_token", accessToken);
+              window.location.href = "/TrainingMATERIAL/";
+            } else {
+              throw new Error("Aucun token d'accès reçu");
+            }
+          } catch (error) {
+            alert("Erreur lors de l'authentification avec GitHub : " + error.message);
+            window.location.href = "/TrainingMATERIAL/";
           }
-
-          const accessToken = tokenData.access_token;
-          if (accessToken) {
-            localStorage.setItem("github_access_token", accessToken);
-            window.location.href = "/";
-          } else {
-            throw new Error("Aucun token d'accès reçu");
-          }
-        } catch (error) {
-          alert("Erreur lors de l'authentification avec GitHub : " + error.message);
-          window.location.href = "/";
         }
       }
     };
