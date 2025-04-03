@@ -1,6 +1,29 @@
-// Charger la configuration dynamiquement
-const env = "github.com"; // Changez à "github.com" pour GitHub.com / socgen
-const githubConfig = env === "socgen" ? (await import("./config.github.socgen.js")).githubConfig : (await import("./config.github.com.js")).githubConfig;
+// Configurations statiques
+const env = "socgen"; // Changez à "github.com" pour GitHub.com
+
+const githubConfig = env === "socgen" ? {
+  apiUrl: "https://sgithub.fr.world.socgen/api/v3",
+  authUrl: "https://sgithub.fr.world.socgen/login/oauth/authorize",
+  tokenUrl: "https://sgithub.fr.world.socgen/login/oauth/access_token",
+  clientId: "VOTRE_CLIENT_ID_SOCGEN",
+  redirectUri: "URL_DE_REDIRECTION_SOCGEN",
+  repo: "a474881/training",
+  branch: "coding-main",
+  questionsPath: "questions.json",
+  scoresPath: "scores.json",
+  scope: "repo"
+} : {
+  apiUrl: "https://api.github.com",
+  authUrl: "https://github.com/login/oauth/authorize",
+  tokenUrl: "https://github.com/login/oauth/access_token",
+  clientId: "Ov23liQj7MXBgBOqNVAE",
+  redirectUri: "https://guillaumebizet.github.io/TrainingMATERIAL/callback",
+  repo: "guillaumebizet/TrainingMATERIAL",
+  branch: "main",
+  questionsPath: "questions.json",
+  scoresPath: "scores.json",
+  scope: "repo"
+};
 
 // Fonctions pour le flux OAuth
 function generateCodeVerifier() {
@@ -47,6 +70,24 @@ function isAuthenticated() {
   return !!token;
 }
 
+function updateAuthStatus() {
+  const authStatus = document.getElementById("auth-status");
+  const loginBtn = document.getElementById("login-btn");
+  const logoutBtn = document.getElementById("logout-btn");
+
+  if (isAuthenticated()) {
+    authStatus.textContent = "Connecté";
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+  } else {
+    authStatus.textContent = "Non connecté";
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+  }
+}
+
+// Exécuter updateAuthStatus après le chargement
+document.addEventListener("DOMContentLoaded", updateAuthStatus);
 async function checkTeamMembership() {
   const token = localStorage.getItem("github_access_token");
   if (!token) return false;
@@ -75,6 +116,7 @@ async function checkTeamMembership() {
     return false;
   }
 }
+
 async function checkUserPermissions() {
   const token = localStorage.getItem("github_access_token");
   if (!token) return false;
