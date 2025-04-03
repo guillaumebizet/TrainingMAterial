@@ -89,7 +89,7 @@
           if (!state || state !== storedState) {
             console.error("Échec de la vérification du state - state reçu:", state, "state attendu:", storedState);
             alert("Erreur de sécurité : Échec de la vérification du state.");
-            window.location.href = "/TrainingMATERIAL/";
+            window.location.href = "/TrainingMAterial/";
             return;
           }
 
@@ -97,7 +97,7 @@
           if (error) {
             console.error("Erreur OAuth:", urlParams.get("error_description"));
             alert("Erreur lors de l'authentification avec GitHub : " + urlParams.get("error_description"));
-            window.location.href = "/TrainingMATERIAL/";
+            window.location.href = "/TrainingMAterial/";
             return;
           }
 
@@ -131,14 +131,14 @@
                 console.log("Token d'accès obtenu:", accessToken);
                 localStorage.setItem("github_access_token", accessToken);
                 localStorage.removeItem("oauth_state"); // Nettoyer le state après utilisation
-                window.location.href = "/TrainingMATERIAL/"; // Rediriger pour nettoyer l'URL
+                window.location.href = "/TrainingMAterial/"; // Rediriger pour nettoyer l'URL
               } else {
                 throw new Error("Aucun token d'accès reçu");
               }
             } catch (error) {
               console.error("Erreur lors de l'authentification:", error.message);
               alert("Erreur lors de l'authentification avec GitHub : " + error.message);
-              window.location.href = "/TrainingMATERIAL/";
+              window.location.href = "/TrainingMAterial/";
             }
           }
         } else {
