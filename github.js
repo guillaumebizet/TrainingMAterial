@@ -53,15 +53,18 @@ async function sha256(str) {
 function loginWithGitHub() {
   const codeVerifier = generateCodeVerifier();
   const codeChallenge = generateCodeChallenge(codeVerifier);
+  const state = "oauth_redirect_" + Date.now(); // Ajout d'un state unique
 
   localStorage.setItem("code_verifier", codeVerifier);
+  localStorage.setItem("oauth_state", state); // Stocker le state pour vérification
 
-  const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${githubConfig.redirectUri}&scope=${githubConfig.scope}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+  const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${githubConfig.redirectUri}&scope=${githubConfig.scope}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&state=${state}`;
   window.location.href = authUrl;
 }
 
 function logout() {
   localStorage.removeItem("github_access_token");
+  localStorage.removeItem("oauth_state"); // Nettoyer le state
   window.location.reload();
 }
 
@@ -91,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateAuthStatus();
   fetchQuestions(); // Charger les questions au démarrage pour remplir la liste des lots
 });
+
 async function checkTeamMembership() {
   const token = localStorage.getItem("github_access_token");
   if (!token) return false;
@@ -277,6 +281,7 @@ async function saveQuestionsToGitHub() {
     alert("Erreur lors de la sauvegarde : " + error.message);
   }
 }
+
 async function saveScoresToGitHub() {
   const token = localStorage.getItem("github_access_token");
   if (!token) {
@@ -406,6 +411,7 @@ async function saveScoresToGitHub() {
     alert("Erreur lors de la sauvegarde des scores : " + error.message);
   }
 }
+
 async function fetchQuestions() {
   try {
     console.log("Tentative de chargement de questions.json...");
