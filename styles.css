@@ -260,7 +260,19 @@ button {
 #scores-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+/* Nouveaux styles pour les boutons OAuth */
+nav button.oauth-btn {
+  background-color: #24292e; /* Couleur GitHub */
+}
 
+nav button.oauth-btn:hover {
+  background-color: #1b1f23;
+}
+
+#auth-status {
+  margin: 0 10px;
+  font-weight: bold;
+}
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
