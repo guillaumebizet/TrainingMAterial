@@ -263,12 +263,14 @@ button {
 }
 
 /* Nouveaux styles pour les boutons OAuth */
-nav button.oauth-btn {
-  background-color: #24292e; /* Couleur GitHub */
+nav button {
+  background-color: #007bff;
+  color: white;
+  margin: 0 5px;
 }
 
-nav button.oauth-btn:hover {
-  background-color: #1b1f23;
+nav button:hover {
+  background-color: #0056b3;
 }
 
 #auth-status {
