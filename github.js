@@ -18,10 +18,16 @@ const githubConfig = {
 
 // Fonctions pour le flux OAuth (flux implicite)
 function loginWithGitHub() {
+  // Vérifiez si une authentification est déjà en cours
+  const existingState = localStorage.getItem("oauth_state");
+  if (existingState) {
+    console.log("Une authentification est déjà en cours avec state :", existingState);
+    return;
+  }
+
   const state = `oauth_redirect_${Date.now()}`;
   localStorage.setItem("oauth_state", state);
 
-  // Utilisation du flux implicite : response_type=token
   const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${githubConfig.redirectUri}&scope=${githubConfig.scope}&response_type=token&state=${state}`;
   window.location.href = authUrl;
 }
@@ -59,7 +65,9 @@ function updateAuthStatus() {
 
 // Exécuter updateAuthStatus et fetchQuestions après le chargement
 document.addEventListener("DOMContentLoaded", () => {
-  updateAuthStatus();
+  if (window.location.pathname === "/TrainingMAterial/" || window.location.pathname === "/TrainingMAterial/index.html") {
+    updateAuthStatus();
+  }
   fetchQuestions();
 });
 
@@ -248,137 +256,6 @@ async function saveQuestionsToGitHub() {
     alert("Erreur lors de la sauvegarde : " + error.message);
   }
 }
-
-async function saveScoresToGitHub() {
-  const token = localStorage.getItem("github_access_token");
-  if (!token) {
-    alert("Veuillez vous connecter avec GitHub pour sauvegarder les scores");
-    return;
-  }
-
-  const hasPermission = await checkUserPermissions();
-  if (!hasPermission) {
-    alert(`Vous n'avez pas les permissions nécessaires pour modifier ce dépôt. Veuillez contacter un administrateur de l'organisation ${githubConfig.org} pour demander l'accès à l'équipe ${githubConfig.team}.`);
-    return;
-  }
-
-  try {
-    const branchResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/branches/${githubConfig.branch}`, {
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: "application/vnd.github.v3+json"
-      }
-    });
-
-    const branchData = await branchResponse.json();
-    const isProtected = branchData.protected;
-
-    if (isProtected) {
-      const newBranch = `update-scores-${Date.now()}`;
-      const refResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/git/refs/heads/${githubConfig.branch}`, {
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        }
-      });
-      const refData = await refResponse.json();
-      const sha = refData.object.sha;
-
-      await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/git/refs`, {
-        method: 'POST',
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          ref: `refs/heads/${newBranch}`,
-          sha: sha
-        })
-      });
-
-      const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
-      const updateResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/contents/${githubConfig.scoresPath}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          message: "Mise à jour de scores.json via l'interface",
-          content: content,
-          branch: newBranch
-        })
-      });
-
-      if (!updateResponse.ok) {
-        const errorData = await updateResponse.json();
-        throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
-      }
-
-      const prResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/pulls`, {
-        method: 'POST',
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          title: "Mise à jour de scores.json",
-          head: newBranch,
-          base: githubConfig.branch,
-          body: "Mise à jour automatique de scores.json via l'interface."
-        })
-      });
-
-      if (prResponse.ok) {
-        alert("Une pull request a été créée pour vos modifications. Veuillez la faire approuver pour merger les changements.");
-      } else {
-        const errorData = await prResponse.json();
-        throw new Error(`Erreur lors de la création de la pull request : ${prResponse.status} ${prResponse.statusText} - ${errorData.message}`);
-      }
-    } else {
-      let sha = null;
-      const response = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/contents/${githubConfig.scoresPath}?ref=${githubConfig.branch}`, {
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        sha = data.sha;
-      } else if (response.status !== 404) {
-        throw new Error(`Erreur lors de la récupération du fichier scores.json : ${response.status} ${response.statusText}`);
-      }
-
-      const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
-      const updateResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/contents/${githubConfig.scoresPath}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          message: "Mise à jour de scores.json via l'interface",
-          content: content,
-          sha: sha,
-          branch: githubConfig.branch
-        })
-      });
-
-      if (updateResponse.ok) {
-        alert("Scores sauvegardés avec succès sur GitHub !");
-      } else {
-        const errorData = await updateResponse.json();
-        throw new Error(`Erreur lors de la sauvegarde des scores : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
-      }
-    }
-  } catch (error) {
-    console.error("Erreur lors de la sauvegarde des scores :", error);
-    alert("Erreur lors de la sauvegarde des scores : " + error.message);
-  }
-}
-
 async function fetchQuestions() {
   try {
     console.log("Tentative de chargement de questions.json...");
@@ -400,4 +277,43 @@ async function fetchQuestions() {
     alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
     questions = [];
   }
+}
+async function loadScores() {
+  try {
+    const response = await fetch(githubConfig.scoresPath);
+    if (!response.ok) {
+      throw new Error(`Erreur lors du chargement de scores.json : ${response.status} ${response.statusText}`);
+    }
+    const text = await response.text();
+    try {
+      scores = JSON.parse(text);
+    } catch (parseError) {
+      throw new Error(`Erreur lors du parsing de scores.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
+    }
+    console.log('Scores chargés avec succès :', scores);
+    displayScores();
+  } catch (error) {
+    console.error('Erreur lors du chargement des scores:', error);
+    alert('Impossible de charger les scores. Vérifiez que scores.json est accessible. Détails : ' + error.message);
+    scores = [];
+  }
+}
+
+function displayScores() {
+  const scoresBody = document.getElementById('scores-body');
+  if (!scoresBody) {
+    console.error("Élément 'scores-body' non trouvé.");
+    return;
+  }
+  scoresBody.innerHTML = '';
+  scores.forEach(score => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${score.name}</td>
+      <td>${score.lot}</td>
+      <td>${score.score}/${score.total}</td>
+      <td>${score.date}</td>
+    `;
+    scoresBody.appendChild(row);
+  });
 }
