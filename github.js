@@ -58,7 +58,9 @@ function loginWithGitHub() {
   localStorage.setItem("code_verifier", codeVerifier);
   localStorage.setItem("oauth_state", state); // Stocker le state pour vérification
 
-  const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${githubConfig.redirectUri}&scope=${githubConfig.scope}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&state=${state}`;
+  // Ajouter un fragment d'URL pour que GitHub Pages serve index.html
+  const redirectUriWithHash = `${githubConfig.redirectUri}#oauth_callback`;
+  const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${redirectUriWithHash}&scope=${githubConfig.scope}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&state=${state}`;
   window.location.href = authUrl;
 }
 
