@@ -1,5 +1,5 @@
 // Configurations statiques
-const env = "github.com"; // Changez à "github.com" pour GitHub.com//socgen
+const env = "github.com"; // Changez à "socgen" pour GitHub Enterprise SocGen
 
 const githubConfig = env === "socgen" ? {
   apiUrl: "https://sgithub.fr.world.socgen/api/v3",
@@ -86,8 +86,11 @@ function updateAuthStatus() {
   }
 }
 
-// Exécuter updateAuthStatus après le chargement
-document.addEventListener("DOMContentLoaded", updateAuthStatus);
+// Exécuter updateAuthStatus et fetchQuestions après le chargement
+document.addEventListener("DOMContentLoaded", () => {
+  updateAuthStatus();
+  fetchQuestions(); // Charger les questions au démarrage pour remplir la liste des lots
+});
 async function checkTeamMembership() {
   const token = localStorage.getItem("github_access_token");
   if (!token) return false;
