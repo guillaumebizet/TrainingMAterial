@@ -27,7 +27,7 @@
       <select id="lot-selection">
         <option value="">Choisir un lot</option>
       </select>
-      <button onclick="startQuiz()">Démarrer</button>
+      <button id="start-quiz-button" onclick="startQuiz()">Démarrer</button>
     </section>
     <section id="quiz" class="section">
       <h2>Quiz</h2>
@@ -63,25 +63,6 @@
   <script src="quiz-core.js"></script>
   <script src="edit.js"></script>
   <script src="github.js"></script>
-  <script>
-    function updateAuthStatus() {
-      const authStatus = document.getElementById("auth-status");
-      const loginBtn = document.getElementById("login-btn");
-      const logoutBtn = document.getElementById("logout-btn");
-
-      if (isAuthenticated()) {
-        authStatus.textContent = "Connecté";
-        loginBtn.style.display = "none";
-        logoutBtn.style.display = "inline-block";
-      } else {
-        authStatus.textContent = "Non connecté";
-        loginBtn.style.display = "inline-block";
-        logoutBtn.style.display = "none";
-      }
-    }
-
-    window.addEventListener("load", updateAuthStatus);
-  </script>
   <script>
     window.onload = async function () {
       const urlParams = new URLSearchParams(window.location.search);
@@ -132,4 +113,3 @@
   </script>
 </body>
 </html>
-  
