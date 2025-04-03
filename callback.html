@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OAuth Callback</title>
+  <script src="github.js"></script>
+  <script>
+    window.onload = async function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+      const state = urlParams.get("state");
+
+      const storedState = localStorage.getItem("oauth_state");
+      if (!state || state !== storedState) {
+        alert("Erreur de sécurité : Échec de la vérification du state.");
+        window.location.href = "/TrainingMATERIAL/";
+        return;
+      }
+
+      if (code) {
+        try {
+          const tokenResponse = await fetch(githubConfig.tokenUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Accept": "application/json"
+            },
+            body: new URLSearchParams({
+              client_id: githubConfig.clientId,
+              redirect_uri: githubConfig.redirectUri,
+              code: code,
+              code_verifier: localStorage.getItem("code_verifier"),
+              grant_type: "authorization_code"
+            })
+          });
+
+          const tokenData = await tokenResponse.json();
+          if (tokenData.error) {
+            throw new Error(tokenData.error_description || "Erreur lors de l'obtention du token");
+          }
+
+          const accessToken = tokenData.access_token;
+          if (accessToken) {
+            localStorage.setItem("github_access_token", accessToken);
+            localStorage.removeItem("oauth_state");
+            window.location.href = "/TrainingMATERIAL/";
+          } else {
+            throw new Error("Aucun token d'accès reçu");
+          }
+        } catch (error) {
+          alert("Erreur lors de l'authentification avec GitHub : " + error.message);
+          window.location.href = "/TrainingMATERIAL/";
+        }
+      } else {
+        alert("Code d'autorisation manquant");
+        window.location.href = "/TrainingMATERIAL/";
+      }
+    };
+  </script>
+</head>
+<body>
+  <p>Authentification en cours...</p>
+</body>
+</html>
