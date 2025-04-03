@@ -18,16 +18,24 @@ function shuffle(array) {
 }
 
 function updateScoreCounter() {
-  document.getElementById('score-counter').textContent = `Score : ${score}`;
-  document.getElementById('total-questions').textContent = selectedQuestions.length;
-  document.getElementById('correct-count').textContent = correctCount;
-  document.getElementById('incorrect-count').textContent = incorrectCount;
+  const scoreCounter = document.getElementById('score-counter');
+  if (scoreCounter) {
+    scoreCounter.textContent = `Score : ${score}`;
+  } else {
+    console.error("Élément 'score-counter' non trouvé.");
+  }
+  // Suppression des éléments total-questions, correct-count, incorrect-count car ils ne sont pas utilisés dans index.html
 }
 
 function updateTimer() {
   const minutes = Math.floor(timeElapsed / 60);
   const seconds = timeElapsed % 60;
-  document.getElementById('timer').textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  const timerElement = document.getElementById('timer');
+  if (timerElement) {
+    timerElement.textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  } else {
+    console.error("Élément 'timer' non trouvé.");
+  }
 }
 
 function startTimer() {
@@ -160,9 +168,99 @@ async function startQuiz() {
     incorrectCount = 0;
     timeElapsed = 0;
 
+    showSection('quiz'); // Afficher la section quiz avant de mettre à jour les éléments
     updateScoreCounter();
     updateTimer();
-    showSection('quiz');
+    loadQuestions();
+    startTimer();
+  } catch (error) {
+    console.error("Erreur dans startQuiz :", error);
+    alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
+  }
+}
+function showResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result-container').innerHTML = `
+    <p>Score final : <span id="score">${score}</span> / <span id="total-questions-result">${selectedQuestions.length}</span></p>
+    <p>Temps écoulé : ${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}</p>
+  `;
+}
+
+function showSection(sectionId) {
+  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+
+  if (sectionId === 'edit') {
+    if (typeof fetchQuestions === 'function') {
+      fetchQuestions().then(() => loadQuestionList());
+    } else {
+      console.error("fetchQuestions n'est pas défini. Attendez que github.js soit chargé.");
+    }
+  }
+  if (sectionId === 'scores') loadScores();
+}
+
+function loadLotSelection() {
+  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
+  const select = document.getElementById('lot-selection');
+  if (!select) {
+    console.error("Élément 'lot-selection' non trouvé.");
+    return;
+  }
+  select.innerHTML = '<option value="">Choisir un lot</option>';
+  lots.forEach(lot => {
+    const option = document.createElement('option');
+    option.value = lot;
+    option.textContent = lot;
+    select.appendChild(option);
+  });
+}
+
+async function startQuiz() {
+  try {
+    candidateName = document.getElementById('user-name').value.trim();
+    if (!candidateName) {
+      alert('Veuillez entrer votre nom');
+      return;
+    }
+
+    const selectedLot = document.getElementById('lot-selection').value;
+    if (!selectedLot) {
+      alert('Veuillez sélectionner un lot de questions');
+      return;
+    }
+
+    if (typeof fetchQuestions !== 'function') {
+      alert("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
+      return;
+    }
+
+    await fetchQuestions();
+
+    if (!questions || questions.length === 0) {
+      alert('Aucune question chargée. Vérifiez le chargement initial.');
+      return;
+    }
+
+    selectedQuestions = questions.filter(q =>
+      q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
+    );
+
+    if (selectedQuestions.length === 0) {
+      alert('Aucune question disponible pour ce lot');
+      return;
+    }
+
+    selectedQuestions = shuffle([...selectedQuestions]);
+    score = 0;
+    correctCount = 0;
+    incorrectCount = 0;
+    timeElapsed = 0;
+
+    showSection('quiz'); // Afficher la section quiz avant de mettre à jour les éléments
+    updateScoreCounter();
+    updateTimer();
     loadQuestions();
     startTimer();
   } catch (error) {
