@@ -1,32 +1,19 @@
 // Configurations statiques
 const env = "github.com"; // Changez à "socgen" pour GitHub Enterprise SocGen
 
-const githubConfig = env === "socgen" ? {
-  apiUrl: "https://sgithub.fr.world.socgen/api/v3",
-  authUrl: "https://sgithub.fr.world.socgen/login/oauth/authorize",
-  tokenUrl: "https://sgithub.fr.world.socgen/login/oauth/access_token",
-  clientId: "VOTRE_CLIENT_ID_SOCGEN",
-  redirectUri: "URL_DE_REDIRECTION_SOCGEN",
-  repo: "a474881/training",
-  branch: "coding-main",
-  questionsPath: "questions.json",
-  scoresPath: "scores.json",
-  scope: "repo",
-  org: "a474881", // Organisation SocGen
-  team: "QuizEditors" // Équipe SocGen
-} : {
+const githubConfig = {
   apiUrl: "https://api.github.com",
   authUrl: "https://github.com/login/oauth/authorize",
   tokenUrl: "https://github.com/login/oauth/access_token",
   clientId: "Ov23liQj7MXBgBOqNVAE",
-  redirectUri: "https://guillaumebizet.github.io/TrainingMATERIAL/",
+  redirectUri: "https://guillaumebizet.github.io/TrainingMATERIAL/callback.html", // Nouvelle URL
   repo: "guillaumebizet/TrainingMATERIAL",
   branch: "main",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
   scope: "repo",
-  org: "guillaumebizet", // Organisation GitHub public (votre compte)
-  team: "QuizEditors" // Équipe fictive pour GitHub public (à ajuster selon vos besoins)
+  org: "guillaumebizet",
+  team: "QuizEditors"
 };
 
 // Fonctions pour le flux OAuth
@@ -55,17 +42,16 @@ async function sha256(str) {
 }
 
 function loginWithGitHub() {
+  const state = `oauth_redirect_${Date.now()}`;
+  localStorage.setItem("oauth_state", state);
+
   const codeVerifier = generateCodeVerifier();
-  const codeChallenge = generateCodeChallenge(codeVerifier);
-  const state = "oauth_redirect_" + Date.now(); // Ajout d'un state unique
-
   localStorage.setItem("code_verifier", codeVerifier);
-  localStorage.setItem("oauth_state", state); // Stocker le state pour vérification
 
-  // Ajouter un fragment d'URL pour que GitHub Pages serve index.html
-  const redirectUriWithHash = `${githubConfig.redirectUri}#oauth_callback`;
-  const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${redirectUriWithHash}&scope=${githubConfig.scope}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&state=${state}`;
-  window.location.href = authUrl;
+  generateCodeChallenge(codeVerifier).then(codeChallenge => {
+    const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${githubConfig.redirectUri}&scope=${githubConfig.scope}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&state=${state}`;
+    window.location.href = authUrl;
+  });
 }
 
 function logout() {
