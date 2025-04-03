@@ -69,8 +69,8 @@
       const code = urlParams.get("code");
       const error = urlParams.get("error");
 
-      // Gérer la route /callback
-      if (window.location.pathname === "/TrainingMATERIAL/callback" || code || error) {
+      // Gérer les paramètres code et error, peu importe la route
+      if (code || error) {
         if (error) {
           alert("Erreur lors de l'authentification avec GitHub : " + urlParams.get("error_description"));
           window.location.href = "/TrainingMATERIAL/";
