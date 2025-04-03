@@ -66,13 +66,18 @@
   <script src="github.js"></script>
   <script>
     window.onload = async function () {
+      console.log("Script window.onload exécuté"); // Ajout d'un log pour déboguer
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get("code");
       const error = urlParams.get("error");
 
+      console.log("Paramètres URL détectés - code:", code, "error:", error); // Log des paramètres
+
       // Gérer les paramètres code et error, peu importe la route
       if (code || error) {
+        console.log("Traitement des paramètres OAuth...");
         if (error) {
+          console.error("Erreur OAuth:", urlParams.get("error_description"));
           alert("Erreur lors de l'authentification avec GitHub : " + urlParams.get("error_description"));
           window.location.href = "/TrainingMATERIAL/";
           return;
@@ -80,6 +85,7 @@
 
         if (code) {
           try {
+            console.log("Échange du code contre un token...");
             const tokenResponse = await fetch(githubConfig.tokenUrl, {
               method: "POST",
               headers: {
@@ -96,22 +102,28 @@
             });
 
             const tokenData = await tokenResponse.json();
+            console.log("Réponse de l'échange de token:", tokenData); // Log de la réponse
+
             if (tokenData.error) {
               throw new Error(tokenData.error_description || "Erreur lors de l'obtention du token");
             }
 
             const accessToken = tokenData.access_token;
             if (accessToken) {
+              console.log("Token d'accès obtenu:", accessToken);
               localStorage.setItem("github_access_token", accessToken);
               window.location.href = "/TrainingMATERIAL/";
             } else {
               throw new Error("Aucun token d'accès reçu");
             }
           } catch (error) {
+            console.error("Erreur lors de l'authentification:", error.message);
             alert("Erreur lors de l'authentification avec GitHub : " + error.message);
             window.location.href = "/TrainingMATERIAL/";
           }
         }
+      } else {
+        console.log("Aucun paramètre OAuth détecté dans l'URL");
       }
     };
   </script>
