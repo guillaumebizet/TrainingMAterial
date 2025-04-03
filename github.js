@@ -17,7 +17,7 @@ const githubConfig = env === "socgen" ? {
   authUrl: "https://github.com/login/oauth/authorize",
   tokenUrl: "https://github.com/login/oauth/access_token",
   clientId: "Ov23liQj7MXBgBOqNVAE",
-  redirectUri: "https://guillaumebizet.github.io/TrainingMATERIAL/callback",
+  redirectUri: "https://guillaumebizet.github.io/TrainingMATERIAL/",
   repo: "guillaumebizet/TrainingMATERIAL",
   branch: "main",
   questionsPath: "questions.json",
@@ -406,7 +406,6 @@ async function saveScoresToGitHub() {
     alert("Erreur lors de la sauvegarde des scores : " + error.message);
   }
 }
-
 async function fetchQuestions() {
   try {
     console.log("Tentative de chargement de questions.json...");
@@ -422,7 +421,6 @@ async function fetchQuestions() {
       throw new Error(`Erreur lors du parsing de questions.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
     }
     console.log('Questions chargées avec succès :', questions);
-    generateAdditionalQuestions();
     loadLotSelection();
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
