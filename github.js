@@ -1,12 +1,13 @@
 // Configurations statiques
 const env = "github.com"; // Changez à "socgen" pour GitHub Enterprise SocGen
 
+// Configurations statiques (inchangées)
 const githubConfig = {
   apiUrl: "https://api.github.com",
   authUrl: "https://github.com/login/oauth/authorize",
   tokenUrl: "https://github.com/login/oauth/access_token",
   clientId: "Ov23liQj7MXBgBOqNVAE",
-  redirectUri: "https://guillaumebizet.github.io/TrainingMATERIAL/callback.html", // Nouvelle URL
+  redirectUri: "https://guillaumebizet.github.io/TrainingMATERIAL/callback.html",
   repo: "guillaumebizet/TrainingMATERIAL",
   branch: "main",
   questionsPath: "questions.json",
@@ -23,8 +24,9 @@ function generateCodeVerifier() {
   return base64urlencode(String.fromCharCode.apply(null, array));
 }
 
-function generateCodeChallenge(codeVerifier) {
-  return base64urlencode(sha256(codeVerifier));
+async function generateCodeChallenge(codeVerifier) {
+  const hash = await sha256(codeVerifier);
+  return base64urlencode(hash);
 }
 
 function base64urlencode(str) {
