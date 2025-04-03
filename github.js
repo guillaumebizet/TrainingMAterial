@@ -1,5 +1,5 @@
 // Configurations statiques
-const env = "socgen"; // Changez à "github.com" pour GitHub.com
+const env = "github.com"; // Changez à "github.com" pour GitHub.com//socgen
 
 const githubConfig = env === "socgen" ? {
   apiUrl: "https://sgithub.fr.world.socgen/api/v3",
