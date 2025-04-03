@@ -138,7 +138,6 @@ async function checkUserPermissions() {
   const isTeamMember = await checkTeamMembership();
   return hasRepoPermission && isTeamMember;
 }
-
 async function saveQuestionsToGitHub() {
   if (questions.length === 0) {
     alert("Aucune question à sauvegarder. Veuillez charger les questions d'abord.");
@@ -405,7 +404,6 @@ async function saveScoresToGitHub() {
     alert("Erreur lors de la sauvegarde des scores : " + error.message);
   }
 }
-
 async function fetchQuestions() {
   try {
     console.log("Tentative de chargement de questions.json...");
