@@ -3,12 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirection</title>
-  <script>
-    window.location.href = "/TrainingMATERIAL/" + window.location.search;
-  </script>
+  <title>Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <p>Redirection en cours...</p>
+  <header>
+    <h1>Quiz</h1>
+    <nav>
+      <button onclick="showSection('start')">Démarrer</button>
+      <button onclick="showSection('edit')">Éditer Questions</button>
+      <button onclick="showSection('scores')">Scores</button>
+      <span id="auth-status"></span>
+      <button id="login-btn" onclick="loginWithGitHub()" style="display: none;">Se connecter avec GitHub</button>
+      <button id="logout-btn" onclick="logout()" style="display: none;">Se déconnecter</button>
+    </nav>
+  </header>
+  <main>
+    <section id="start" class="section active">
+      <h2>Démarrer le Quiz</h2>
+      <label for="user-name">Nom :</label>
+      <input type="text" id="user-name" placeholder="Entrez votre nom">
+      <label for="lot-selection">Choisir un lot :</label>
+      <select id="lot-selection">
+        <option value="">Choisir un lot</option>
+      </select>
+      <button id="start-quiz-button" onclick="startQuiz()">Démarrer</button>
+    </section>
+    <section id="quiz" class="section">
+      <h2>Quiz</h2>
+      <div id="score-counter">Score : 0</div>
+      <div id="quiz-container"></div>
+    </section>
+    <section id="result" class="section">
+      <h2>Résultat</h2>
+      <div id="result-container"></div>
+      <button onclick="showSection('start')">Retour</button>
+    </section>
+    <section id="edit" class="section">
+      <h2>Éditer les Questions</h2>
+      <button onclick="addNewQuestion()">Ajouter une nouvelle question</button>
+      <button onclick="saveQuestionsToGitHub()">Sauvegarder les modifications (Commit)</button>
+      <div id="question-list"></div>
+    </section>
+    <section id="scores" class="section">
+      <h2>Scores</h2>
+      <table id="scores-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Lot</th>
+            <th>Score</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="scores-body"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="quiz-core.js"></script>
+  <script src="edit.js"></script>
+  <script src="github.js"></script>
+  <script>
+    window.onload = async function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+      const error = urlParams.get("error");
+
+      // Gérer les paramètres code et error, peu importe la route
+      if (code || error) {
+        if (error) {
+          alert("Erreur lors de l'authentification avec GitHub : " + urlParams.get("error_description"));
+          window.location.href = "/TrainingMATERIAL/";
+          return;
+        }
+
+        if (code) {
+          try {
+            const tokenResponse = await fetch(githubConfig.tokenUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json"
+              },
+              body: new URLSearchParams({
+                client_id: githubConfig.clientId,
+                redirect_uri: githubConfig.redirectUri,
+                code: code,
+                code_verifier: localStorage.getItem("code_verifier"),
+                grant_type: "authorization_code"
+              })
+            });
+
+            const tokenData = await tokenResponse.json();
+            if (tokenData.error) {
+              throw new Error(tokenData.error_description || "Erreur lors de l'obtention du token");
+            }
+
+            const accessToken = tokenData.access_token;
+            if (accessToken) {
+              localStorage.setItem("github_access_token", accessToken);
+              window.location.href = "/TrainingMATERIAL/";
+            } else {
+              throw new Error("Aucun token d'accès reçu");
+            }
+          } catch (error) {
+            alert("Erreur lors de l'authentification avec GitHub : " + error.message);
+            window.location.href = "/TrainingMATERIAL/";
+          }
+        }
+      }
+    };
+  </script>
 </body>
 </html>
