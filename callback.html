@@ -14,7 +14,7 @@
       const storedState = localStorage.getItem("oauth_state");
       if (!state || state !== storedState) {
         alert("Erreur de sécurité : Échec de la vérification du state.");
-        window.location.href = "/TrainingMATERIAL/";
+        window.location.href = "/TrainingMAterial/";
         return;
       }
 
@@ -44,17 +44,17 @@
           if (accessToken) {
             localStorage.setItem("github_access_token", accessToken);
             localStorage.removeItem("oauth_state");
-            window.location.href = "/TrainingMATERIAL/";
+            window.location.href = "/TrainingMAterial/";
           } else {
             throw new Error("Aucun token d'accès reçu");
           }
         } catch (error) {
           alert("Erreur lors de l'authentification avec GitHub : " + error.message);
-          window.location.href = "/TrainingMATERIAL/";
+          window.location.href = "/TrainingMAterial/";
         }
       } else {
         alert("Code d'autorisation manquant");
-        window.location.href = "/TrainingMATERIAL/";
+        window.location.href = "/TrainingMAterial/";
       }
     };
   </script>
