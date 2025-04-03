@@ -211,12 +211,7 @@ async function saveQuestionsToGitHub() {
         const errorData = await updateResponse.json();
         throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
       }
-    }
-  } catch (error) {
-    console.error("Erreur lors de la sauvegarde des questions :", error);
-    alert("Erreur lors de la sauvegarde : " + error.message);
-  }
-}
+
       const prResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/pulls`, {
         method: 'POST',
         headers: {
@@ -233,7 +228,7 @@ async function saveQuestionsToGitHub() {
 
       if (prResponse.ok) {
         alert("Une pull request a été créée pour vos modifications. Veuillez la faire approuver pour merger les changements.");
-        await fetchQuestions();
+        fetchQuestions();
       } else {
         const errorData = await prResponse.json();
         throw new Error(`Erreur lors de la création de la pull request : ${prResponse.status} ${prResponse.statusText} - ${errorData.message}`);
@@ -271,7 +266,7 @@ async function saveQuestionsToGitHub() {
 
       if (updateResponse.ok) {
         alert("Modifications sauvegardées avec succès !");
-        await fetchQuestions();
+        fetchQuestions();
       } else {
         const errorData = await updateResponse.json();
         throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
@@ -383,12 +378,7 @@ async function saveScoresToGitHub() {
       } else if (response.status !== 404) {
         throw new Error(`Erreur lors de la récupération du fichier scores.json : ${response.status} ${response.statusText}`);
       }
-    }
-  } catch (error) {
-    console.error("Erreur lors de la sauvegarde des scores :", error);
-    alert("Erreur lors de la sauvegarde des scores : " + error.message);
-  }
-}
+
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
       const updateResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/contents/${githubConfig.scoresPath}`, {
         method: 'PUT',
