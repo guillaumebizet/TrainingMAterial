@@ -1,14 +1,13 @@
 // Configurations statiques
 const env = "github.com"; // Changez à "socgen" pour GitHub Enterprise SocGen
 
-// Configurations statiques (inchangées)
 const githubConfig = {
   apiUrl: "https://api.github.com",
   authUrl: "https://github.com/login/oauth/authorize",
   tokenUrl: "https://github.com/login/oauth/access_token",
   clientId: "Ov23liQj7MXBgBOqNVAE",
-  redirectUri: "https://guillaumebizet.github.io/TrainingMAterial/callback.html",
-  repo: "guillaumebizet/TrainingMAterial",
+  redirectUri: "https://guillaumebizet.github.io/TrainingMAterial/callback.html", // Casse corrigée
+  repo: "guillaumebizet/TrainingMAterial", // Casse corrigée
   branch: "main",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
@@ -58,7 +57,7 @@ function loginWithGitHub() {
 
 function logout() {
   localStorage.removeItem("github_access_token");
-  localStorage.removeItem("oauth_state"); // Nettoyer le state
+  localStorage.removeItem("oauth_state");
   window.location.reload();
 }
 
@@ -72,21 +71,25 @@ function updateAuthStatus() {
   const loginBtn = document.getElementById("login-btn");
   const logoutBtn = document.getElementById("logout-btn");
 
-  if (isAuthenticated()) {
-    authStatus.textContent = "Connecté";
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
+  if (authStatus && loginBtn && logoutBtn) {
+    if (isAuthenticated()) {
+      authStatus.textContent = "Connecté";
+      loginBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+    } else {
+      authStatus.textContent = "Non connecté";
+      loginBtn.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+    }
   } else {
-    authStatus.textContent = "Non connecté";
-    loginBtn.style.display = "inline-block";
-    logoutBtn.style.display = "none";
+    console.log("Éléments d'authentification non trouvés dans le DOM.");
   }
 }
 
 // Exécuter updateAuthStatus et fetchQuestions après le chargement
 document.addEventListener("DOMContentLoaded", () => {
   updateAuthStatus();
-  fetchQuestions(); // Charger les questions au démarrage pour remplir la liste des lots
+  fetchQuestions();
 });
 
 async function checkTeamMembership() {
@@ -404,6 +407,7 @@ async function saveScoresToGitHub() {
     alert("Erreur lors de la sauvegarde des scores : " + error.message);
   }
 }
+
 async function fetchQuestions() {
   try {
     console.log("Tentative de chargement de questions.json...");
