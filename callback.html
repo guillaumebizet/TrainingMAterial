@@ -6,21 +6,24 @@
   <title>OAuth Callback</title>
   <script src="github.js"></script>
   <script>
-    window.onload = function () {
-      // Lire les paramètres depuis le fragment d'URL
-      const hash = window.location.hash.substring(1); // Supprime le "#"
-      const urlParams = new URLSearchParams(hash);
-      const accessToken = urlParams.get("access_token");
-      const state = urlParams.get("state");
-      const error = urlParams.get("error");
 
-      const storedState = localStorage.getItem("oauth_state");
-      if (!state || state !== storedState) {
-        alert("Erreur de sécurité : Échec de la vérification du state.");
-        window.location.href = "/TrainingMAterial/";
-        return;
-      }
+window.onload = function () {
+  const hash = window.location.hash.substring(1);
+  const urlParams = new URLSearchParams(hash);
+  const accessToken = urlParams.get("access_token");
+  const state = urlParams.get("state");
+  const error = urlParams.get("error");
 
+  const storedState = localStorage.getItem("oauth_state");
+  console.log("State reçu de GitHub :", state);
+  console.log("State stocké dans localStorage :", storedState);
+
+  if (!state || state !== storedState) {
+    console.error("Échec de la vérification du state - state reçu:", state, "state attendu:", storedState);
+    alert("Erreur de sécurité : Échec de la vérification du state.");
+    window.location.href = "/TrainingMAterial/";
+    return;
+  }
       if (error) {
         alert("Erreur lors de l'authentification avec GitHub : " + urlParams.get("error_description"));
         window.location.href = "/TrainingMAterial/";
