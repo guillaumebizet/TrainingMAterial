@@ -106,6 +106,10 @@ function showSection(sectionId) {
 function loadLotSelection() {
   const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
   const select = document.getElementById('lot-selection');
+  if (!select) {
+    console.error("Élément 'lot-selection' non trouvé.");
+    return;
+  }
   select.innerHTML = '<option value="">Choisir un lot</option>';
   lots.forEach(lot => {
     const option = document.createElement('option');
