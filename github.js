@@ -6,8 +6,8 @@ const githubConfig = {
   authUrl: "https://github.com/login/oauth/authorize",
   tokenUrl: "https://github.com/login/oauth/access_token",
   clientId: "Ov23liQj7MXBgBOqNVAE",
-  redirectUri: "https://guillaumebizet.github.io/TrainingMAterial/callback.html", // Casse corrigée
-  repo: "guillaumebizet/TrainingMAterial", // Casse corrigée
+  redirectUri: "https://guillaumebizet.github.io/TrainingMAterial/callback.html",
+  repo: "guillaumebizet/TrainingMAterial",
   branch: "main",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
@@ -16,43 +16,14 @@ const githubConfig = {
   team: "QuizEditors"
 };
 
-// Fonctions pour le flux OAuth
-function generateCodeVerifier() {
-  const array = new Uint8Array(32);
-  crypto.getRandomValues(array);
-  return base64urlencode(String.fromCharCode.apply(null, array));
-}
-
-async function generateCodeChallenge(codeVerifier) {
-  const hash = await sha256(codeVerifier);
-  return base64urlencode(hash);
-}
-
-function base64urlencode(str) {
-  return btoa(str)
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
-}
-
-async function sha256(str) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(str);
-  const hash = await crypto.subtle.digest("SHA-256", data);
-  return String.fromCharCode(...new Uint8Array(hash));
-}
-
+// Fonctions pour le flux OAuth (flux implicite)
 function loginWithGitHub() {
   const state = `oauth_redirect_${Date.now()}`;
   localStorage.setItem("oauth_state", state);
 
-  const codeVerifier = generateCodeVerifier();
-  localStorage.setItem("code_verifier", codeVerifier);
-
-  generateCodeChallenge(codeVerifier).then(codeChallenge => {
-    const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${githubConfig.redirectUri}&scope=${githubConfig.scope}&response_type=code&code_challenge=${codeChallenge}&code_challenge_method=S256&state=${state}`;
-    window.location.href = authUrl;
-  });
+  // Utilisation du flux implicite : response_type=token
+  const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${githubConfig.redirectUri}&scope=${githubConfig.scope}&response_type=token&state=${state}`;
+  window.location.href = authUrl;
 }
 
 function logout() {
