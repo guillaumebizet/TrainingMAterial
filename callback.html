@@ -6,10 +6,13 @@
   <title>OAuth Callback</title>
   <script src="github.js"></script>
   <script>
-    window.onload = async function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get("code");
+    window.onload = function () {
+      // Lire les paramètres depuis le fragment d'URL
+      const hash = window.location.hash.substring(1); // Supprime le "#"
+      const urlParams = new URLSearchParams(hash);
+      const accessToken = urlParams.get("access_token");
       const state = urlParams.get("state");
+      const error = urlParams.get("error");
 
       const storedState = localStorage.getItem("oauth_state");
       if (!state || state !== storedState) {
@@ -18,42 +21,18 @@
         return;
       }
 
-      if (code) {
-        try {
-          const tokenResponse = await fetch(githubConfig.tokenUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "Accept": "application/json"
-            },
-            body: new URLSearchParams({
-              client_id: githubConfig.clientId,
-              redirect_uri: githubConfig.redirectUri,
-              code: code,
-              code_verifier: localStorage.getItem("code_verifier"),
-              grant_type: "authorization_code"
-            })
-          });
+      if (error) {
+        alert("Erreur lors de l'authentification avec GitHub : " + urlParams.get("error_description"));
+        window.location.href = "/TrainingMAterial/";
+        return;
+      }
 
-          const tokenData = await tokenResponse.json();
-          if (tokenData.error) {
-            throw new Error(tokenData.error_description || "Erreur lors de l'obtention du token");
-          }
-
-          const accessToken = tokenData.access_token;
-          if (accessToken) {
-            localStorage.setItem("github_access_token", accessToken);
-            localStorage.removeItem("oauth_state");
-            window.location.href = "/TrainingMAterial/";
-          } else {
-            throw new Error("Aucun token d'accès reçu");
-          }
-        } catch (error) {
-          alert("Erreur lors de l'authentification avec GitHub : " + error.message);
-          window.location.href = "/TrainingMAterial/";
-        }
+      if (accessToken) {
+        localStorage.setItem("github_access_token", accessToken);
+        localStorage.removeItem("oauth_state");
+        window.location.href = "/TrainingMAterial/";
       } else {
-        alert("Code d'autorisation manquant");
+        alert("Aucun token d'accès reçu");
         window.location.href = "/TrainingMAterial/";
       }
     };
