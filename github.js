@@ -11,7 +11,9 @@ const githubConfig = env === "socgen" ? {
   branch: "coding-main",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
-  scope: "repo"
+  scope: "repo",
+  org: "a474881", // Organisation SocGen
+  team: "QuizEditors" // Équipe SocGen
 } : {
   apiUrl: "https://api.github.com",
   authUrl: "https://github.com/login/oauth/authorize",
@@ -22,7 +24,9 @@ const githubConfig = env === "socgen" ? {
   branch: "main",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
-  scope: "repo"
+  scope: "repo",
+  org: "guillaumebizet", // Organisation GitHub public (votre compte)
+  team: "QuizEditors" // Équipe fictive pour GitHub public (à ajuster selon vos besoins)
 };
 
 // Fonctions pour le flux OAuth
@@ -112,7 +116,7 @@ async function checkTeamMembership() {
     const userData = await userResponse.json();
     const username = userData.login;
 
-    const teamResponse = await fetch(`${githubConfig.apiUrl}/orgs/a474881/teams/QuizEditors/memberships/${username}`, {
+    const teamResponse = await fetch(`${githubConfig.apiUrl}/orgs/${githubConfig.org}/teams/${githubConfig.team}/memberships/${username}`, {
       headers: {
         Authorization: `token ${token}`,
         Accept: "application/vnd.github.v3+json"
@@ -161,7 +165,7 @@ async function saveQuestionsToGitHub() {
 
   const hasPermission = await checkUserPermissions();
   if (!hasPermission) {
-    alert("Vous n'avez pas les permissions nécessaires pour modifier ce dépôt. Veuillez contacter un administrateur de l'organisation a474881 pour demander l'accès à l'équipe QuizEditors.");
+    alert(`Vous n'avez pas les permissions nécessaires pour modifier ce dépôt. Veuillez contacter un administrateur de l'organisation ${githubConfig.org} pour demander l'accès à l'équipe ${githubConfig.team}.`);
     return;
   }
 
@@ -293,7 +297,7 @@ async function saveScoresToGitHub() {
 
   const hasPermission = await checkUserPermissions();
   if (!hasPermission) {
-    alert("Vous n'avez pas les permissions nécessaires pour modifier ce dépôt. Veuillez contacter un administrateur de l'organisation a474881 pour demander l'accès à l'équipe QuizEditors.");
+    alert(`Vous n'avez pas les permissions nécessaires pour modifier ce dépôt. Veuillez contacter un administrateur de l'organisation ${githubConfig.org} pour demander l'accès à l'équipe ${githubConfig.team}.`);
     return;
   }
 
