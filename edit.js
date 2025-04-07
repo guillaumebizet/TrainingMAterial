@@ -33,7 +33,6 @@ function renderRadioOptions(optionsFr, optionsUs, correct) {
 }
 
 function renderCheckboxOptions(optionsFr, optionsUs, correct) {
-  // Pour un QCM, `correct` pourrait être un tableau d'indices (par exemple, [0, 2] pour plusieurs réponses correctes)
   const correctIndices = Array.isArray(correct) ? correct : [correct];
   return optionsFr.map((option, i) => `
     <label>
@@ -50,35 +49,123 @@ function editQuestion(index) {
   form.className = 'edit-form';
   form.innerHTML = `
     <h3>Modifier la question</h3>
-    <label>Question (FR)</label>
-    <input type="text" id="edit-question-fr" value="${q.question.fr}">
-    <label>Question (US)</label>
-    <input type="text" id="edit-question-us" value="${q.question.us}">
-    <label>Options (FR, séparées par des virgules)</label>
-    <textarea id="edit-options-fr">${q.options.fr.join(',')}</textarea>
-    <label>Options (US, séparées par des virgules)</label>
-    <textarea id="edit-options-us">${q.options.us.join(',')}</textarea>
-    <label>Réponse correcte (index ou indices pour QCM, séparés par des virgules)</label>
-    <input type="text" id="edit-correct" value="${Array.isArray(q.correct) ? q.correct.join(',') : q.correct}">
-    <label>Lot</label>
-    <input type="text" id="edit-lot" value="${q.lot}">
-    <label>Type</label>
-    <select id="edit-type" onchange="updateCorrectFieldType(this.value)">
-      <option value="Choix simple" ${q.type === 'Choix simple' ? 'selected' : ''}>Choix simple</option>
-      <option value="QCM" ${q.type === 'QCM' ? 'selected' : ''}>QCM</option>
-    </select>
-    <button onclick="saveQuestion()">Sauvegarder</button>
-    <button onclick="cancelEdit()">Annuler</button>
+    <div class="form-section">
+      <h4>Question</h4>
+      <label>Question (FR)</label>
+      <input type="text" id="edit-question-fr" value="${q.question.fr}">
+      <label>Question (US)</label>
+      <input type="text" id="edit-question-us" value="${q.question.us}">
+    </div>
+    <div class="form-section">
+      <h4>Options</h4>
+      <div id="edit-options-list"></div>
+      <button type="button" onclick="addOptionField()">Ajouter une option</button>
+      <div id="options-preview" class="options-preview"></div>
+    </div>
+    <div class="form-section">
+      <h4>Métadonnées</h4>
+      <label>Lot</label>
+      <input type="text" id="edit-lot" value="${q.lot}">
+      <label>Type</label>
+      <select id="edit-type" onchange="updateOptionsPreview()">
+        <option value="Choix simple" ${q.type === 'Choix simple' ? 'selected' : ''}>Choix simple</option>
+        <option value="QCM" ${q.type === 'QCM' ? 'selected' : ''}>QCM</option>
+      </select>
+      <label>Réponse correcte</label>
+      <div id="edit-correct-container"></div>
+    </div>
+    <div class="form-actions">
+      <button onclick="saveQuestion()">Sauvegarder</button>
+      <button onclick="cancelEdit()">Annuler</button>
+    </div>
   `;
   document.getElementById('question-list').prepend(form);
+  populateOptionsFields(q.options.fr, q.options.us);
+  updateOptionsPreview();
 }
 
-function updateCorrectFieldType(type) {
-  const correctInput = document.getElementById('edit-correct');
-  if (type === 'QCM') {
-    correctInput.placeholder = "Indices des réponses correctes (ex: 0,2)";
+function populateOptionsFields(optionsFr, optionsUs) {
+  const optionsList = document.getElementById('edit-options-list');
+  optionsList.innerHTML = '';
+  optionsFr.forEach((optionFr, i) => {
+    const optionDiv = document.createElement('div');
+    optionDiv.className = 'option-field';
+    optionDiv.innerHTML = `
+      <input type="text" class="option-fr" value="${optionFr}" placeholder="Option (FR)">
+      <input type="text" class="option-us" value="${optionsUs[i]}" placeholder="Option (US)">
+      <button type="button" onclick="removeOptionField(this)">Supprimer</button>
+    `;
+    optionsList.appendChild(optionDiv);
+  });
+}
+
+function addOptionField() {
+  const optionsList = document.getElementById('edit-options-list');
+  const optionDiv = document.createElement('div');
+  optionDiv.className = 'option-field';
+  optionDiv.innerHTML = `
+    <input type="text" class="option-fr" placeholder="Option (FR)">
+    <input type="text" class="option-us" placeholder="Option (US)">
+    <button type="button" onclick="removeOptionField(this)">Supprimer</button>
+  `;
+  optionsList.appendChild(optionDiv);
+  updateOptionsPreview();
+}
+
+function removeOptionField(button) {
+  button.parentElement.remove();
+  updateOptionsPreview();
+}
+
+function updateOptionsPreview() {
+  const optionsFr = Array.from(document.getElementsByClassName('option-fr')).map(input => input.value || '');
+  const optionsUs = Array.from(document.getElementsByClassName('option-us')).map(input => input.value || '');
+  const type = document.getElementById('edit-type').value;
+  const preview = document.getElementById('options-preview');
+  preview.innerHTML = type === 'Choix simple' ? renderRadioOptionsPreview(optionsFr, optionsUs) : renderCheckboxOptionsPreview(optionsFr, optionsUs);
+  updateCorrectField(type, optionsFr.length);
+}
+
+function renderRadioOptionsPreview(optionsFr, optionsUs) {
+  return optionsFr.map((option, i) => `
+    <label>
+      <input type="radio" name="preview-option" disabled>
+      ${option} / ${optionsUs[i]}
+    </label><br>
+  `).join('');
+}
+
+function renderCheckboxOptionsPreview(optionsFr, optionsUs) {
+  return optionsFr.map((option, i) => `
+    <label>
+      <input type="checkbox" disabled>
+      ${option} / ${optionsUs[i]}
+    </label><br>
+  `).join('');
+}
+
+function updateCorrectField(type, optionCount) {
+  const container = document.getElementById('edit-correct-container');
+  const currentCorrect = questions[editingIndex].correct;
+  if (type === 'Choix simple') {
+    container.innerHTML = `
+      <select id="edit-correct">
+        ${Array.from({ length: optionCount }, (_, i) => `
+          <option value="${i}" ${i === parseInt(currentCorrect) ? 'selected' : ''}>Option ${i + 1}</option>
+        `).join('')}
+      </select>
+    `;
   } else {
-    correctInput.placeholder = "Index de la réponse correcte (ex: 0)";
+    container.innerHTML = `
+      <div id="edit-correct-checkboxes">
+        ${Array.from({ length: optionCount }, (_, i) => `
+          <label>
+            <input type="checkbox" class="correct-checkbox" value="${i}" ${Array.isArray(currentCorrect) && currentCorrect.includes(i) ? 'checked' : ''}>
+            Option ${i + 1}
+          </label>
+        `).join('')}
+      </div>
+    `;
   }
 }
 
@@ -86,19 +173,19 @@ function saveQuestion() {
   const q = questions[editingIndex];
   q.question.fr = document.getElementById('edit-question-fr').value;
   q.question.us = document.getElementById('edit-question-us').value;
-  q.options.fr = document.getElementById('edit-options-fr').value.split(',').map(item => item.trim());
-  q.options.us = document.getElementById('edit-options-us').value.split(',').map(item => item.trim());
-  
-  // Gérer la réponse correcte : pour QCM, on peut avoir plusieurs indices
-  const correctValue = document.getElementById('edit-correct').value;
-  if (q.type === 'QCM') {
-    q.correct = correctValue.split(',').map(i => parseInt(i.trim()));
-  } else {
-    q.correct = parseInt(correctValue);
-  }
-  
+  q.options.fr = Array.from(document.getElementsByClassName('option-fr')).map(input => input.value || '');
+  q.options.us = Array.from(document.getElementsByClassName('option-us')).map(input => input.value || '');
   q.lot = document.getElementById('edit-lot').value;
   q.type = document.getElementById('edit-type').value;
+
+  if (q.type === 'Choix simple') {
+    q.correct = parseInt(document.getElementById('edit-correct').value);
+  } else {
+    q.correct = Array.from(document.getElementsByClassName('correct-checkbox'))
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => parseInt(checkbox.value));
+  }
+
   editingIndex = null;
   loadQuestionList();
 }
