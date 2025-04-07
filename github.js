@@ -15,13 +15,12 @@ const GITHUB_CONFIG = {
   apiBaseUrl: "https://api.github.com/repos"
 };
 
-// Fonction pour afficher une modale stylisée (déjà dans quiz-core.js, mais répétée ici pour indépendance)
 function showModal(message, details = null) {
   const modal = document.getElementById('github-modal');
   const modalMessage = document.getElementById('modal-message');
   const closeBtn = document.getElementById('modal-close-btn');
 
-  modalMessage.innerHTML = details ? `${message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : message;
+  modalMessage.innerHTML = details ? `${translations[currentLang][message] || message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : (translations[currentLang][message] || message);
   modal.style.display = 'flex';
 
   closeBtn.onclick = () => {
@@ -29,15 +28,14 @@ function showModal(message, details = null) {
   };
 }
 
-// Fonction pour afficher le bandeau de notification
 function showNotification(message) {
   const banner = document.getElementById('notification-banner');
   const messageSpan = document.getElementById('notification-message');
-  messageSpan.textContent = message;
+  messageSpan.textContent = translations[currentLang][message] || message;
   banner.style.display = 'block';
   setTimeout(() => {
     banner.style.display = 'none';
-  }, 60000); // 1 minute
+  }, 60000);
 }
 
 function loadLotSelection() {
@@ -47,7 +45,7 @@ function loadLotSelection() {
     console.error("Élément '#lot-selection' non trouvé dans le DOM.");
     return;
   }
-  select.innerHTML = '<option value="">Choisir un lot</option>';
+  select.innerHTML = `<option value="">${translations[currentLang]['choose_lot']}</option>`;
   lots.forEach(lot => {
     const option = document.createElement('option');
     option.value = lot;
@@ -58,13 +56,13 @@ function loadLotSelection() {
 
 async function saveQuestionsToGitHub() {
   if (questions.length === 0) {
-    showModal("Aucune question à sauvegarder.");
+    showModal("no_questions_to_save");
     return;
   }
 
   const token = sessionStorage.getItem('githubPAT');
   if (!token) {
-    showModal("Aucun PAT n'a été configuré dans l'interface d'accueil. Sauvegarde annulée.");
+    showModal("no_pat");
     return;
   }
 
@@ -107,8 +105,8 @@ async function saveQuestionsToGitHub() {
     if (updateResponse.ok) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour questions.json :", updateData);
-      showModal("Modifications sauvegardées avec succès !", questions);
-      showNotification("Vous avez modifié questions.json. GitHub Pages peut prendre 1 à 2 minutes pour refléter ce changement. Veuillez rafraîchir avant de refaire une modification.");
+      showModal("questions_saved", questions);
+      showNotification("notification_questions");
       await fetchQuestions();
     } else {
       const errorData = await updateResponse.json();
@@ -116,7 +114,7 @@ async function saveQuestionsToGitHub() {
     }
   } catch (error) {
     console.error("Erreur lors de la sauvegarde des questions :", error);
-    showModal("Erreur lors de la sauvegarde : " + error.message);
+    showModal("questions_error" + error.message);
   }
 }
 
@@ -167,8 +165,8 @@ async function saveScoresToGitHub(token) {
     if (updateResponse.ok) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour scores.json :", updateData);
-      showModal("Scores sauvegardés avec succès sur GitHub !", scores);
-      showNotification("Vous avez modifié scores.json. GitHub Pages peut prendre 1 à 2 minutes pour refléter ce changement. Veuillez rafraîchir avant de refaire une modification.");
+      showModal("scores_saved", scores);
+      showNotification("notification_scores");
       await loadScores();
     } else {
       const errorData = await updateResponse.json();
@@ -177,25 +175,9 @@ async function saveScoresToGitHub(token) {
     }
   } catch (error) {
     console.error("Erreur lors de la sauvegarde des scores :", error);
-    showModal("Erreur lors de la sauvegarde des scores : " + error.message + ". Les scores seront stockés localement.");
+    showModal("scores_error" + error.message + " " + translations[currentLang]["scores_local"]);
     localStorage.setItem('scores', JSON.stringify(scores));
   }
-}
-
-function loadLotSelection() {
-  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
-  const select = document.getElementById('lot-selection');
-  if (!select) {
-    console.error("Élément '#lot-selection' non trouvé dans le DOM.");
-    return;
-  }
-  select.innerHTML = '<option value="">Choisir un lot</option>';
-  lots.forEach(lot => {
-    const option = document.createElement('option');
-    option.value = lot;
-    option.textContent = lot;
-    select.appendChild(option);
-  });
 }
 
 async function fetchQuestions() {
@@ -217,7 +199,7 @@ async function fetchQuestions() {
     loadLotSelection();
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
-    showModal('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
+    showModal('questions_load_error' + error.message);
     questions = [];
   }
 }
@@ -278,36 +260,21 @@ async function loadScores() {
 function generateAdditionalQuestions() {
   const additionalQuestions = [
     {
-      question: "Quelle est la capitale de la France ?",
-      options: ["Paris", "Londres", "Berlin", "Madrid", "Rome"],
+      question: {"fr": "Quelle est la capitale de la France ?", "us": "What is the capital of France?"},
+      options: {
+        "fr": ["Paris", "Londres", "Berlin", "Madrid", "Rome"],
+        "us": ["Paris", "London", "Berlin", "Madrid", "Rome"]
+      },
       correct: 0,
       lot: "GENERAL",
       type: "Choix simple"
     },
     {
-      question: "Quel est le résultat de 2 + 2 ?",
-      options: ["3", "4", "5", "6", "7"],
-      correct: 1,
-      lot: "GENERAL",
-      type: "Choix simple"
-    },
-    {
-      question: "Quel langage est principalement utilisé pour le web ?",
-      options: ["Python", "Java", "JavaScript", "C++", "Ruby"],
-      correct: 2,
-      lot: "GENERAL",
-      type: "Choix simple"
-    },
-    {
-      question: "Quelle est la couleur du ciel par temps clair ?",
-      options: ["Vert", "Rouge", "Bleu", "Jaune", "Noir"],
-      correct: 2,
-      lot: "GENERAL",
-      type: "Choix simple"
-    },
-    {
-      question: "Combien de planètes dans le système solaire ?",
-      options: ["7", "8", "9", "10", "11"],
+      question: {"fr": "Quel est le résultat de 2 + 2 ?", "us": "What is the result of 2 + 2?"},
+      options: {
+        "fr": ["3", "4", "5", "6", "7"],
+        "us": ["3", "4", "5", "6", "7"]
+      },
       correct: 1,
       lot: "GENERAL",
       type: "Choix simple"
