@@ -43,7 +43,51 @@ function showModal(message, details = null) {
   const modalMessage = document.getElementById('modal-message');
   const closeBtn = document.getElementById('modal-close-btn');
 
-  modalMessage.innerHTML = details ? `${translations[currentLang][message] || message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : (translations[currentLang][message] || message);
+  let formattedDetails = '';
+
+  // Si details est un tableau (par exemple, le tableau questions), on affiche un message générique ou les détails de la première question
+  if (Array.isArray(details)) {
+    if (details.length > 0) {
+      // Si le tableau contient des questions, on affiche les détails de la première question
+      const firstQuestion = details[0];
+      formattedDetails = `
+        <h3>Détails de la première question</h3>
+        <p><strong>Question (FR):</strong> ${firstQuestion.question.fr}</p>
+        <p><strong>Question (US):</strong> ${firstQuestion.question.us}</p>
+        <h4>Options:</h4>
+        ${firstQuestion.options.fr.map((option, i) => `
+          <p>${i + 1}. ${option} / ${firstQuestion.options.us[i]} ${firstQuestion.type === 'Choix simple' ? (i === parseInt(firstQuestion.correct) ? '(Correct)' : '') : (Array.isArray(firstQuestion.correct) && firstQuestion.correct.includes(i) ? '(Correct)' : '')}</p>
+        `).join('')}
+        <p><strong>Lot:</strong> ${firstQuestion.lot}</p>
+        <p><strong>Type:</strong> ${firstQuestion.type}</p>
+      `;
+    } else {
+      formattedDetails = `<p>Aucune question disponible.</p>`;
+    }
+  }
+  // Si details est un objet représentant une question, on affiche ses détails
+  else if (details && typeof details === 'object' && details.question) {
+    formattedDetails = `
+      <h3>Détails de la question</h3>
+      <p><strong>Question (FR):</strong> ${details.question.fr}</p>
+      <p><strong>Question (US):</strong> ${details.question.us}</p>
+      <h4>Options:</h4>
+      ${details.options.fr.map((option, i) => `
+        <p>${i + 1}. ${option} / ${details.options.us[i]} ${details.type === 'Choix simple' ? (i === parseInt(details.correct) ? '(Correct)' : '') : (Array.isArray(details.correct) && details.correct.includes(i) ? '(Correct)' : '')}</p>
+      `).join('')}
+      <p><strong>Lot:</strong> ${details.lot}</p>
+      <p><strong>Type:</strong> ${details.type}</p>
+    `;
+  }
+  // Si details est une chaîne ou autre, on l'affiche tel quel
+  else if (details && typeof details === 'string') {
+    formattedDetails = `<p>${details}</p>`;
+  }
+
+  modalMessage.innerHTML = `
+    ${translations[currentLang][message] || message}
+    ${formattedDetails ? `<div style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${formattedDetails}</div>` : ''}
+  `;
   modal.style.display = 'flex';
 
   closeBtn.onclick = () => {
