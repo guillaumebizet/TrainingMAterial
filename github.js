@@ -102,6 +102,7 @@ async function saveScoresToGitHub(token) {
 
     if (updateResponse.ok) {
       alert("Scores sauvegardés avec succès sur GitHub !");
+      await loadScores(); // Recharge les scores après sauvegarde pour mettre à jour l'interface
     } else {
       const errorData = await updateResponse.json();
       throw new Error(`Erreur lors de la sauvegarde des scores : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
@@ -138,6 +139,7 @@ async function fetchQuestions() {
 }
 
 async function loadScores() {
+  console.log("Tentative de chargement de scores.json...");
   const repo = "a474881/training";
   const branch = "coding-main";
   const path = "scores.json";
@@ -152,20 +154,35 @@ async function loadScores() {
     if (response.ok) {
       const data = await response.json();
       const content = atob(data.content);
+      console.log("Contenu brut de scores.json :", content);
       scores = JSON.parse(content);
+      console.log("Scores chargés depuis GitHub :", scores);
     } else if (response.status === 404) {
+      console.log("scores.json non trouvé sur GitHub, initialisation à un tableau vide.");
       scores = [];
     } else {
       throw new Error(`Erreur lors du chargement des scores : ${response.status} ${response.statusText}`);
     }
   } catch (error) {
-    console.error("Erreur lors du chargement des scores :", error);
-    scores = JSON.parse(localStorage.getItem('scores')) || [];
+    console.error("Erreur lors du chargement des scores depuis GitHub :", error);
+    try {
+      const localScores = localStorage.getItem('scores');
+      scores = localScores ? JSON.parse(localScores) : [];
+      console.log("Scores chargés depuis localStorage :", scores);
+    } catch (localError) {
+      console.error("Erreur lors du chargement des scores depuis localStorage :", localError);
+      scores = [];
+    }
   }
 
   const tbody = document.getElementById('scores-body');
+  if (!tbody) {
+    console.error("Élément '#scores-body' non trouvé dans le DOM.");
+    return;
+  }
   tbody.innerHTML = '';
   scores.forEach(score => {
+    console.log("Ajout d'une ligne pour le score :", score);
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>${score.name}</td>
@@ -228,3 +245,4 @@ if (currentDateElement) {
 }
 
 fetchQuestions();
+loadScores(); // Charge les scores au démarrage
