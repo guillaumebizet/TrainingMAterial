@@ -550,17 +550,10 @@ button {
   margin: 5px 0;
 }
 
-#edit-correct-container select,
-#edit-correct-container input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#edit-correct-checkboxes label {
-  display: block;
-  margin: 5px 0;
+.options-preview input[type="radio"],
+.options-preview input[type="checkbox"] {
+  margin-right: 10px;
+  accent-color: #3498db;
 }
 
 .form-actions {
