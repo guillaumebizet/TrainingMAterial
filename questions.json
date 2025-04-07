@@ -4303,7 +4303,6 @@
     "lot": "SYD",
     "type": "Choix simple"
   },
-  // Questions 157 à 169 (positions 157 à 169 dans le fichier final)
   {
     "question": {
       "fr": "Qu’est-ce que XL Deploy, et quelles sont ses fonctionnalités clés ?",
