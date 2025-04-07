@@ -7,7 +7,6 @@
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
 };*/
 
-// Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "guillaumebizet/TrainingMAterial",
   branch: "priv",
@@ -21,7 +20,7 @@ function showModal(message, details = null) {
   const modalMessage = document.getElementById('modal-message');
   const closeBtn = document.getElementById('modal-close-btn');
 
-  modalMessage.innerHTML = details ? `${translations[currentLang][message] || message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : (translations[currentLang][message] || message);
+  modalMessage.innerHTML = details ? `${translations[currentLang]?.[message] || message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : (translations[currentLang]?.[message] || message);
   modal.style.display = 'flex';
 
   closeBtn.onclick = () => {
@@ -32,7 +31,7 @@ function showModal(message, details = null) {
 function showNotification(message) {
   const banner = document.getElementById('notification-banner');
   const messageSpan = document.getElementById('notification-message');
-  messageSpan.textContent = translations[currentLang][message] || message;
+  messageSpan.textContent = translations[currentLang]?.[message] || message;
   banner.style.display = 'block';
   setTimeout(() => {
     banner.style.display = 'none';
@@ -107,9 +106,6 @@ async function saveQuestionsToGitHub() {
     if (updateResponse.ok) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour questions.json :", updateData);
-      // Suppression de l'appel à showModal pour éviter l'affichage du JSON
-      // showModal("questions_saved", questions);
-      // showNotification("notification_questions");
       await fetchQuestions();
     } else {
       const errorData = await updateResponse.json();
@@ -178,7 +174,7 @@ async function saveScoresToGitHub(token) {
     }
   } catch (error) {
     console.error("Erreur lors de la sauvegarde des scores :", error);
-    showModal("scores_error" + error.message + " " + translations[currentLang]["scores_local"]);
+    showModal("scores_error" + error.message + " " + translations[currentLang]?.["scores_local"]);
     localStorage.setItem('scores', JSON.stringify(scores));
   }
 }
@@ -294,3 +290,4 @@ if (currentDateElement) {
   console.error("Élément 'current-date' non trouvé.");
 }
 
+// Les appels fetchQuestions() et loadScores() sont déplacés dans quiz-core.js
