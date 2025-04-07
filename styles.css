@@ -374,6 +374,33 @@ button {
   animation: slideDown 0.5s ease-in-out;
 }
 
+.notification p {
+  margin: 0 0 10px;
+}
+
+.notification-details {
+  background: #f0f2f5;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 0.9em;
+  color: #2c3e50;
+}
+
+.notification-details p {
+  margin: 5px 0;
+}
+
+.notification-details h4 {
+  margin: 10px 0 5px;
+  font-size: 1em;
+  color: #3498db;
+}
+
+.notification-details strong {
+  color: #2c3e50;
+}
+
 @keyframes slideDown {
   from { transform: translateY(-100%); }
   to { transform: translateY(0); }
