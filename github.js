@@ -1,19 +1,19 @@
-// Constantes globales pour le dépôt
+/*// Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "a474881/training",
   branch: "coding-main",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
-};
-/*
+};*/
+// Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "guillaumebizet/TrainingMAterial",
   branch: "priv",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
   apiBaseUrl: "https://api.github.com/repos"
-};*/
+};
 
 function showModal(message, details = null) {
   const modal = document.getElementById('github-modal');
