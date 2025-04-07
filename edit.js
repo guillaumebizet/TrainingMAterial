@@ -1,4 +1,5 @@
 let editingIndex = null;
+let modifiedQuestionsIndices = new Set(); // Liste pour suivre les indices des questions modifiées
 
 function loadQuestionList() {
   const list = document.getElementById('question-list');
@@ -184,21 +185,16 @@ function showPreviewModal() {
   document.body.appendChild(modal);
 }
 
-function showNotification(message, details = null) {
+function showNotification(message, modifiedQuestions = []) {
   const notification = document.createElement('div');
   notification.className = 'notification';
   notification.innerHTML = `
     <p>${message}</p>
-    ${details ? `
+    ${modifiedQuestions.length > 0 ? `
       <div class="notification-details">
-        <p><strong>Question (FR):</strong> ${details.question.fr}</p>
-        <p><strong>Question (US):</strong> ${details.question.us}</p>
-        <h4>Options:</h4>
-        ${details.options.fr.map((option, i) => `
-          <p>${i + 1}. ${option} / ${details.options.us[i]} ${details.type === 'Choix simple' ? (i === parseInt(details.correct) ? '(Correct)' : '') : (Array.isArray(details.correct) && details.correct.includes(i) ? '(Correct)' : '')}</p>
-        `).join('')}
-        <p><strong>Lot:</strong> ${details.lot}</p>
-        <p><strong>Type:</strong> ${details.type}</p>
+        <pre style="background: #f0f0f0; padding: 10px; border-radius: 5px; overflow-x: auto;">
+${JSON.stringify(modifiedQuestions, null, 2)}
+        </pre>
       </div>
     ` : ''}
   `;
@@ -215,11 +211,26 @@ function saveQuestion() {
   q.lot = document.getElementById('edit-lot').value;
   q.type = document.getElementById('edit-type').value;
 
-  // Afficher une notification avec les détails de la question modifiée
-  showNotification("Modifications sauvegardées avec succès !", q);
+  // Ajouter l'index de la question modifiée à la liste
+  modifiedQuestionsIndices.add(editingIndex);
 
   editingIndex = null;
   loadQuestionList();
+}
+
+// Fonction pour gérer le commit (appelée par le bouton "Sauvegarder les modifications (Commit)")
+function commitChanges() {
+  // Récupérer les questions modifiées
+  const modifiedQuestions = Array.from(modifiedQuestionsIndices).map(index => questions[index]);
+
+  // Afficher une notification avec le JSON des questions modifiées
+  showNotification("Modifications sauvegardées avec succès !", modifiedQuestions);
+
+  // Réinitialiser la liste des questions modifiées
+  modifiedQuestionsIndices.clear();
+
+  // Optionnel : Sauvegarder les modifications sur GitHub ou localement
+  // (Si tu as une fonction pour sauvegarder sur GitHub, appelle-la ici)
 }
 
 function cancelEdit() {
@@ -229,6 +240,17 @@ function cancelEdit() {
 
 function deleteQuestion(index) {
   questions.splice(index, 1);
+  modifiedQuestionsIndices.delete(index);
+  // Ajuster les indices dans modifiedQuestionsIndices si nécessaire
+  const newIndices = new Set();
+  modifiedQuestionsIndices.forEach(i => {
+    if (i > index) {
+      newIndices.add(i - 1);
+    } else if (i < index) {
+      newIndices.add(i);
+    }
+  });
+  modifiedQuestionsIndices = newIndices;
   loadQuestionList();
 }
 
