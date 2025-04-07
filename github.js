@@ -31,11 +31,13 @@ async function saveQuestionsToGitHub() {
     if (response.ok) {
       const data = await response.json();
       sha = data.sha;
+      console.log("SHA actuel de questions.json :", sha);
     } else if (response.status !== 404) {
       throw new Error(`Erreur lors de la récupération du fichier : ${response.status} ${response.statusText}`);
     }
 
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(questions, null, 2))));
+    console.log("Contenu envoyé pour questions.json :", JSON.stringify(questions, null, 2));
     const updateResponse = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.questionsPath}`, {
       method: 'PUT',
       headers: {
@@ -51,6 +53,8 @@ async function saveQuestionsToGitHub() {
     });
 
     if (updateResponse.ok) {
+      const updateData = await updateResponse.json();
+      console.log("Réponse de l'API pour questions.json :", updateData);
       alert("Modifications sauvegardées avec succès !");
       await fetchQuestions();
     } else {
@@ -71,6 +75,7 @@ async function saveScoresToGitHub(token) {
   }
 
   try {
+    console.log("Tentative de sauvegarde de scores.json...");
     let sha = null;
     const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}?ref=${GITHUB_CONFIG.branch}`, {
       headers: {
@@ -82,11 +87,15 @@ async function saveScoresToGitHub(token) {
     if (response.ok) {
       const data = await response.json();
       sha = data.sha;
+      console.log("SHA actuel de scores.json :", sha);
     } else if (response.status !== 404) {
       throw new Error(`Erreur lors de la récupération du fichier scores.json : ${response.status} ${response.statusText}`);
+    } else {
+      console.log("scores.json n'existe pas encore, création d'un nouveau fichier.");
     }
 
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
+    console.log("Contenu envoyé pour scores.json :", JSON.stringify(scores, null, 2));
     const updateResponse = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}`, {
       method: 'PUT',
       headers: {
@@ -102,6 +111,8 @@ async function saveScoresToGitHub(token) {
     });
 
     if (updateResponse.ok) {
+      const updateData = await updateResponse.json();
+      console.log("Réponse de l'API pour scores.json :", updateData);
       alert("Scores sauvegardés avec succès sur GitHub !");
       await loadScores(); // Recharge les scores après sauvegarde
     } else {
@@ -242,4 +253,4 @@ if (currentDateElement) {
 }
 
 fetchQuestions();
-loadScores(); // Charge les scores au démarrage
+loadScores();
