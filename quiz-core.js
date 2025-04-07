@@ -45,7 +45,6 @@ function showModal(message, details = null) {
 
   let formattedDetails = '';
 
-  // Si details est un objet représentant une question, on affiche ses détails
   if (details && typeof details === 'object' && details.question) {
     formattedDetails = `
       <h3>Détails de la question</h3>
@@ -58,18 +57,14 @@ function showModal(message, details = null) {
       <p><strong>Lot:</strong> ${details.lot}</p>
       <p><strong>Type:</strong> ${details.type}</p>
     `;
-  }
-  // Si details est une chaîne, on l'affiche tel quel
-  else if (details && typeof details === 'string') {
+  } else if (details && typeof details === 'string') {
     formattedDetails = `<p>${details}</p>`;
-  }
-  // Si details est un tableau ou un autre type, on affiche un message générique
-  else if (details) {
+  } else if (details) {
     formattedDetails = `<p>Détails non disponibles ou format non pris en charge.</p>`;
   }
 
   modalMessage.innerHTML = `
-    ${translations[currentLang][message] || message}
+    ${translations[currentLang]?.[message] || message}
     ${formattedDetails ? `<div style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${formattedDetails}</div>` : ''}
   `;
   modal.style.display = 'flex';
@@ -299,7 +294,7 @@ function saveScore() {
     score: `${score} / ${selectedQuestions.length}`,
     time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`,
     lot: currentLot,
-    lang: currentLang // Ajout de la langue
+    lang: currentLang
   };
   scores.push(scoreData);
 
@@ -314,8 +309,8 @@ function saveScore() {
   if (token) {
     console.log("Tentative de sauvegarde sur GitHub avec PAT:", scores);
     saveScoresToGitHub(token);
-    clearInterval(timerInterval); // Arrête le timer
-    showTab('scores-container'); // Passe à l’écran des scores
+    clearInterval(timerInterval);
+    showTab('scores-container');
     return true;
   } else {
     console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
@@ -326,11 +321,14 @@ function saveScore() {
 // Initialisation et événements
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM chargé, attachement des événements...");
-  await loadTranslations(currentLang); // Attend que les traductions soient chargées
-  fetchQuestions(); // Puis charge les questions
-  loadScores();     // Puis charge les scores
-  // Charger la langue par défaut
-  loadTranslations(currentLang);
+
+  // Charger la langue par défaut et attendre avant de charger les questions et scores
+  loadTranslations(currentLang).then(() => {
+    fetchQuestions().then(() => {
+      loadQuestionList(); // Appel après chargement des questions
+      loadScores();
+    });
+  });
 
   const startQuizButton = document.getElementById('start-quiz-button');
   if (startQuizButton) {
@@ -382,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
       validatePatButton.style.display = 'inline';
       patStatus.style.display = 'none';
       console.log("PAT réinitialisé.");
-      applyTranslations(); // Rafraîchir les textes après réinitialisation
+      applyTranslations();
     });
     console.log("Événement attaché au bouton 'reset-pat-btn'");
   } else {
