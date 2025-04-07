@@ -46,7 +46,19 @@ body {
   border-radius: 5px;
   font-size: 1em;
 }
+#save-current-score-btn {
+  background-color: #2ecc71;
+  color: white;
+  margin: 10px 0;
+}
 
+#save-current-score-btn:hover {
+  background-color: #27ae60;
+}
+
+#save-current-feedback {
+  margin: 10px 0;
+}
 .question {
   border-bottom: 1px solid #eee;
   padding: 20px 0;
