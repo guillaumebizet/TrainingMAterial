@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Assurez-vous que favicon.ico est à la racine du dépôt -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <title>Quiz Onboarding</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -27,6 +27,7 @@
       <option value="us">English</option>
     </select>
   </div>
+
   <div id="start-screen">
     <h2>Quiz Onboarding</h2>
     <label for="candidate-name" data-lang="candidate_name"></label>
@@ -50,6 +51,7 @@
       <button id="start-quiz-button" data-lang="start_quiz"></button>
     </div>
   </div>
+
   <div id="quiz-container">
     <div id="header">
       <div id="score-counter">Score : <span id="current-score">0</span> / <span id="total-questions">0</span> | Bonnes: <span id="correct-count">0</span> | Mauvaises: <span id="incorrect-count">0</span></div>
@@ -59,18 +61,19 @@
     <p id="save-current-feedback" style="display:none; color: #27ae60;"></p>
     <div id="questions-list"></div>
   </div>
+
   <div id="edit-container">
     <h2 data-lang="edit_questions"></h2>
-    <button id="save-questions-btn" onclick="commitChanges()" data-lang="save_questions"></button>
     <div id="edit-filter">
       <label for="lot-filter" data-lang="filter_by_lot"></label>
-      <select id="lot-filter" onchange="filterQuestionsByLot()">
+      <select id="lot-filter">
         <option value="" data-lang="all_lots"></option>
       </select>
     </div>
     <div id="question-list"></div>
     <button onclick="addNewQuestion()" data-lang="add_question"></button>
   </div>
+
   <div id="scores-container">
     <h2 data-lang="scores"></h2>
     <table id="scores-table">
@@ -86,6 +89,7 @@
       <tbody id="scores-body"></tbody>
     </table>
   </div>
+
   <div id="result" style="display:none;">
     <h2 data-lang="your_final_score"><span id="score"></span> / <span id="total-questions-result"></span></h2>
     <button id="save-result-btn" data-lang="save_results"></button>
