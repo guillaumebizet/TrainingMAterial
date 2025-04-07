@@ -1,287 +1,325 @@
-/*// Constantes globales pour le dépôt
-const GITHUB_CONFIG = {
-  repo: "a474881/training",
-  branch: "coding-main",
-  questionsPath: "questions.json",
-  scoresPath: "scores.json",
-  apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
-};*/
+// Variables globales
+let questions = [];
+let selectedQuestions = [];
+let score = 0;
+let correctCount = 0;
+let incorrectCount = 0;
+let timerInterval;
+let timeElapsed = 0;
+let candidateName = '';
+let scores = [];
 
-// Constantes globales pour le dépôt
-const GITHUB_CONFIG = {
-  repo: "guillaumebizet/TrainingMAterial",
-  branch: "priv",
-  questionsPath: "questions.json",
-  scoresPath: "scores.json",
-  apiBaseUrl: "https://api.github.com/repos"
-};
-
-// Déplacer loadLotSelection ici
-function loadLotSelection() {
-  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
-  const select = document.getElementById('lot-selection');
-  if (!select) {
-    console.error("Élément '#lot-selection' non trouvé dans le DOM.");
-    return;
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
-  select.innerHTML = '<option value="">Choisir un lot</option>';
-  lots.forEach(lot => {
-    const option = document.createElement('option');
-    option.value = lot;
-    option.textContent = lot;
-    select.appendChild(option);
-  });
+  return array;
 }
 
-async function saveQuestionsToGitHub() {
-  if (questions.length === 0) {
-    alert("Aucune question à sauvegarder.");
+function updateScoreCounter() {
+  document.getElementById('current-score').textContent = score;
+  document.getElementById('total-questions').textContent = selectedQuestions.length;
+  document.getElementById('correct-count').textContent = correctCount;
+  document.getElementById('incorrect-count').textContent = incorrectCount;
+}
+
+function updateTimer() {
+  const minutes = Math.floor(timeElapsed / 60);
+  const seconds = timeElapsed % 60;
+  document.getElementById('timer').textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function startTimer() {
+  console.log('Démarrage du timer');
+  timerInterval = setInterval(() => {
+    timeElapsed++;
+    updateTimer();
+  }, 1000);
+}
+
+function validateAnswer(index) {
+  const question = selectedQuestions[index];
+  const selected = document.querySelectorAll(`input[name="option-${index}"]:checked`);
+  const feedback = document.getElementById(`feedback-${index}`);
+  const validateBtn = document.querySelectorAll('.validate-btn')[index];
+
+  if (!selected.length) {
+    alert('Veuillez sélectionner une réponse');
     return;
+  }
+
+  const answers = Array.from(selected).map(i => parseInt(i.value, 10));
+  const correct = Array.isArray(question.correct) ? question.correct : [question.correct];
+
+  const isCorrect = (
+    answers.length === correct.length &&
+    answers.every(ans => correct.includes(ans))
+  );
+
+  if (isCorrect) {
+    score++;
+    correctCount++;
+    feedback.textContent = "Correct !";
+    feedback.className = 'feedback correct';
+  } else {
+    incorrectCount++;
+    feedback.textContent = "Incorrect";
+    feedback.className = 'feedback incorrect';
+  }
+
+  feedback.style.display = 'inline-block';
+  updateScoreCounter();
+  selected.forEach(input => input.disabled = true);
+  validateBtn.disabled = true;
+
+  const allValidated = [...document.querySelectorAll('.validate-btn')].every(btn => btn.disabled);
+  if (allValidated) {
+    clearInterval(timerInterval);
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz-container').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('score').textContent = score;
+  document.getElementById('total-questions-result').textContent = selectedQuestions.length;
+}
+
+function showTab(tabId) {
+  document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  const activeTab = document.querySelector(`.tab[onclick="showTab('${tabId}')"]`);
+  if (activeTab) {
+    activeTab.classList.add('active');
+  }
+  if (tabId === 'edit-container') {
+    if (typeof fetchQuestions === 'function') {
+      fetchQuestions().then(() => loadQuestionList());
+    } else {
+      console.error("fetchQuestions n'est pas défini.");
+    }
+  }
+  if (tabId === 'scores-container') loadScores();
+}
+
+async function startQuiz() {
+  try {
+    candidateName = document.getElementById('candidate-name').value.trim();
+    if (!candidateName) {
+      alert('Veuillez entrer votre nom');
+      return;
+    }
+
+    const selectedLot = document.getElementById('lot-selection').value;
+    if (!selectedLot) {
+      alert('Veuillez sélectionner un lot de questions');
+      return;
+    }
+
+    if (typeof fetchQuestions !== 'function') {
+      alert("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
+      return;
+    }
+
+    await fetchQuestions();
+
+    if (!questions || questions.length === 0) {
+      alert('Aucune question chargée. Vérifiez le chargement initial.');
+      return;
+    }
+
+    selectedQuestions = questions.filter(q =>
+      q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
+    );
+
+    if (selectedQuestions.length === 0) {
+      alert('Aucune question disponible pour ce lot');
+      return;
+    }
+
+    selectedQuestions = shuffle([...selectedQuestions]);
+    score = 0;
+    correctCount = 0;
+    incorrectCount = 0;
+    timeElapsed = 0;
+
+    updateScoreCounter();
+    updateTimer();
+    showTab('quiz-container');
+    loadQuestions();
+    startTimer();
+  } catch (error) {
+    console.error("Erreur dans startQuiz :", error);
+    alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
+  }
+}
+
+function loadQuestions() {
+  const container = document.getElementById('questions-list');
+  if (!container) {
+    console.error("Conteneur 'questions-list' non trouvé.");
+    return;
+  }
+  container.innerHTML = '';
+
+  if (!selectedQuestions || selectedQuestions.length === 0) {
+    container.innerHTML = '<p>Aucune question à afficher pour ce lot.</p>';
+    return;
+  }
+
+  const shuffledSet = selectedQuestions.map((q) => {
+    const clone = structuredClone(q);
+    const shuffled = shuffle([...clone.options]);
+
+    if (Array.isArray(clone.correct)) {
+      clone.correct = clone.correct.map(c => shuffled.indexOf(clone.options[c]));
+    } else {
+      clone.correct = shuffled.indexOf(clone.options[clone.correct]);
+    }
+
+    clone.options = shuffled;
+    return clone;
+  });
+
+  selectedQuestions = shuffledSet;
+
+  shuffledSet.forEach((q, index) => {
+    const questionDiv = document.createElement('div');
+    questionDiv.className = 'question';
+    questionDiv.innerHTML = `
+      <h3>Question ${index + 1} : ${q.question}</h3>
+      <div class="options" id="options-${index}"></div>
+      <div class="question-actions">
+        <button class="validate-btn" onclick="validateAnswer(${index})">Valider</button>
+        <span class="feedback" id="feedback-${index}"></span>
+      </div>
+    `;
+    container.appendChild(questionDiv);
+
+    const optionsDiv = document.getElementById(`options-${index}`);
+    q.options.forEach((option, i) => {
+      const optionHTML = `
+        <div class="option">
+          <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="option-${index}" id="option-${index}-${i}" value="${i}">
+          <label for="option-${index}-${i}">${option}</label>
+        </div>
+      `;
+      optionsDiv.insertAdjacentHTML('beforeend', optionHTML);
+    });
+  });
+
+  updateScoreCounter();
+}
+
+function saveScore() {
+  const selectedLot = document.getElementById('lot-selection').value || "Non spécifié";
+  const scoreData = {
+    name: candidateName,
+    date: new Date().toLocaleDateString('fr-FR'),
+    score: `${score} / ${selectedQuestions.length}`,
+    time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`,
+    lot: selectedLot
+  };
+  scores.push(scoreData);
+
+  try {
+    localStorage.setItem('scores', JSON.stringify(scores));
+    console.log("Score sauvegardé localement :", scoreData);
+  } catch (e) {
+    console.error("Erreur de sauvegarde dans localStorage :", e);
   }
 
   const token = sessionStorage.getItem('githubPAT');
-  if (!token) {
-    alert("Aucun PAT n'a été configuré dans l'interface d'accueil. Sauvegarde annulée.");
-    return;
-  }
-
-  try {
-    console.log("Tentative de sauvegarde de questions.json...");
-    const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.questionsPath}?ref=${GITHUB_CONFIG.branch}`, {
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: "application/vnd.github.v3+json"
-      }
-    });
-
-    let sha = null;
-    if (response.ok) {
-      const data = await response.json();
-      sha = data.sha;
-      console.log("SHA actuel de questions.json :", sha);
-    } else if (response.status !== 404) {
-      throw new Error(`Erreur lors de la récupération du fichier : ${response.status} ${response.statusText}`);
-    } else {
-      console.log("questions.json n'existe pas encore, création d'un nouveau fichier.");
-    }
-
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(questions, null, 2))));
-    console.log("Contenu envoyé pour questions.json :", JSON.stringify(questions, null, 2));
-    const updateResponse = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.questionsPath}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: "application/vnd.github.v3+json"
-      },
-      body: JSON.stringify({
-        message: "Mise à jour de questions.json via l'interface d'édition",
-        content: content,
-        sha: sha,
-        branch: GITHUB_CONFIG.branch
-      })
-    });
-
-    if (updateResponse.ok) {
-      const updateData = await updateResponse.json();
-      console.log("Réponse de l'API pour questions.json :", updateData);
-      alert("Modifications sauvegardées avec succès !");
-      await fetchQuestions();
-    } else {
-      const errorData = await updateResponse.json();
-      throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
-    }
-  } catch (error) {
-    console.error("Erreur lors de la sauvegarde des questions :", error);
-    alert("Erreur lors de la sauvegarde : " + error.message);
+  if (token) {
+    saveScoresToGitHub(token);
+    console.log("Tentative de sauvegarde sur GitHub avec PAT.");
+    loadScores();
+    return true;
+  } else {
+    console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
+    return false;
   }
 }
 
-async function saveScoresToGitHub(token) {
-  const pat = token || sessionStorage.getItem('githubPAT');
-  if (!pat) {
-    console.log("Aucun PAT disponible, sauvegarde uniquement locale.");
-    return;
+// Initialisation et événements
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM chargé, attachement des événements...");
+
+  const startQuizButton = document.getElementById('start-quiz-button');
+  if (startQuizButton) {
+    startQuizButton.addEventListener('click', startQuiz);
+    console.log("Événement attaché au bouton 'start-quiz-button'");
+  } else {
+    console.error("Bouton 'start-quiz-button' non trouvé.");
   }
 
-  try {
-    console.log("Tentative de sauvegarde de scores.json...");
-    console.log("Scores actuels avant sauvegarde :", scores);
-    let sha = null;
-    const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}?ref=${GITHUB_CONFIG.branch}`, {
-      headers: {
-        Authorization: `token ${pat}`,
-        Accept: "application/vnd.github.v3+json"
-      }
-    });
+  const validatePatButton = document.getElementById('validate-pat-btn');
+  const patInput = document.getElementById('github-pat');
+  const patStatus = document.getElementById('pat-status');
+  const patFeedback = document.getElementById('pat-feedback');
 
-    if (response.ok) {
-      const data = await response.json();
-      sha = data.sha;
-      console.log("SHA actuel de scores.json :", sha);
-    } else if (response.status !== 404) {
-      throw new Error(`Erreur lors de la récupération du fichier scores.json : ${response.status} ${response.statusText}`);
-    } else {
-      console.log("scores.json n'existe pas encore, création d'un nouveau fichier.");
-    }
-
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
-    console.log("Contenu envoyé pour scores.json :", JSON.stringify(scores, null, 2));
-    const updateResponse = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `token ${pat}`,
-        Accept: "application/vnd.github.v3+json"
-      },
-      body: JSON.stringify({
-        message: "Mise à jour de scores.json via l'interface",
-        content: content,
-        sha: sha,
-        branch: GITHUB_CONFIG.branch
-      })
-    });
-
-    if (updateResponse.ok) {
-      const updateData = await updateResponse.json();
-      console.log("Réponse de l'API pour scores.json :", updateData);
-      alert("Scores sauvegardés avec succès sur GitHub !");
-      await loadScores();
-    } else {
-      const errorData = await updateResponse.json();
-      console.error("Erreur détaillée de l'API :", errorData);
-      throw new Error(`Erreur lors de la sauvegarde des scores : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
-    }
-  } catch (error) {
-    console.error("Erreur lors de la sauvegarde des scores :", error);
-    alert("Erreur lors de la sauvegarde des scores : " + error.message + ". Les scores seront stockés localement.");
-    localStorage.setItem('scores', JSON.stringify(scores));
+  if (sessionStorage.getItem('githubPAT')) {
+    patInput.style.display = 'none';
+    validatePatButton.style.display = 'none';
+    patStatus.style.display = 'inline';
+    console.log("PAT déjà chargé au démarrage.");
   }
-}
 
-async function fetchQuestions() {
-  try {
-    console.log("Tentative de chargement de questions.json...");
-    const response = await fetch(GITHUB_CONFIG.questionsPath);
-    if (!response.ok) {
-      throw new Error(`Erreur lors du chargement de questions.json : ${response.status} ${response.statusText}`);
-    }
-    const text = await response.text();
-    console.log("Contenu brut de questions.json :", text);
-    try {
-      questions = JSON.parse(text);
-    } catch (parseError) {
-      throw new Error(`Erreur lors du parsing de questions.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
-    }
-    console.log('Questions chargées avec succès :', questions);
-    generateAdditionalQuestions();
-    loadLotSelection(); // Maintenant défini dans ce fichier
-  } catch (error) {
-    console.error('Erreur lors du chargement des questions:', error);
-    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
-    questions = [];
-  }
-}
-
-async function loadScores() {
-  try {
-    console.log("Tentative de chargement de scores.json...");
-    const response = await fetch(GITHUB_CONFIG.scoresPath);
-    if (!response.ok) {
-      if (response.status === 404) {
-        console.log("scores.json non trouvé, initialisation à un tableau vide.");
-        scores = [];
+  if (validatePatButton) {
+    validatePatButton.addEventListener('click', () => {
+      const pat = patInput.value.trim();
+      if (pat) {
+        sessionStorage.setItem('githubPAT', pat);
+        patFeedback.textContent = 'PAT validé avec succès !';
+        patFeedback.style.display = 'block';
+        patInput.style.display = 'none';
+        validatePatButton.style.display = 'none';
+        patStatus.style.display = 'inline';
+        patInput.value = '';
+        setTimeout(() => patFeedback.style.display = 'none', 3000);
+        console.log("PAT validé et interface mise à jour.");
       } else {
-        throw new Error(`Erreur lors du chargement de scores.json : ${response.status} ${response.statusText}`);
+        alert('Veuillez entrer un PAT valide.');
       }
-    } else {
-      const text = await response.text();
-      console.log("Contenu brut de scores.json :", text);
-      try {
-        scores = JSON.parse(text);
-      } catch (parseError) {
-        throw new Error(`Erreur lors du parsing de scores.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
-      }
-      console.log('Scores chargés avec succès :', scores);
-    }
-  } catch (error) {
-    console.error('Erreur lors du chargement des scores:', error);
-    try {
-      const localScores = localStorage.getItem('scores');
-      scores = localScores ? JSON.parse(localScores) : [];
-      console.log("Scores chargés depuis localStorage :", scores);
-    } catch (localError) {
-      console.error("Erreur lors du chargement des scores depuis localStorage :", localError);
-      scores = [];
-    }
+    });
+    console.log("Événement attaché au bouton 'validate-pat-btn'");
+  } else {
+    console.error("Bouton 'validate-pat-btn' non trouvé.");
   }
 
-  const tbody = document.getElementById('scores-body');
-  if (!tbody) {
-    console.error("Élément '#scores-body' non trouvé dans le DOM.");
-    return;
+  const saveResultButton = document.getElementById('save-result-btn');
+  if (saveResultButton) {
+    saveResultButton.addEventListener('click', () => {
+      saveScore();
+      const feedback = document.getElementById('save-result-feedback');
+      feedback.textContent = 'Résultats sauvegardés avec succès !';
+      feedback.style.display = 'block';
+      setTimeout(() => feedback.style.display = 'none', 3000);
+    });
+    console.log("Événement attaché au bouton 'save-result-btn'");
+  } else {
+    console.error("Bouton 'save-result-btn' non trouvé.");
   }
-  tbody.innerHTML = '';
-  scores.forEach(score => {
-    console.log("Ajout d'une ligne pour le score :", score);
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${score.name}</td>
-      <td>${score.date}</td>
-      <td>${score.score}</td>
-      <td>${score.time}</td>
-      <td>${score.lot || 'Non spécifié'}</td>
-    `;
-    tbody.appendChild(row);
-  });
-}
 
-function generateAdditionalQuestions() {
-  const additionalQuestions = [
-    {
-      question: "Quelle est la capitale de la France ?",
-      options: ["Paris", "Londres", "Berlin", "Madrid", "Rome"],
-      correct: 0,
-      lot: "GENERAL",
-      type: "Choix simple"
-    },
-    {
-      question: "Quel est le résultat de 2 + 2 ?",
-      options: ["3", "4", "5", "6", "7"],
-      correct: 1,
-      lot: "GENERAL",
-      type: "Choix simple"
-    },
-    {
-      question: "Quel langage est principalement utilisé pour le web ?",
-      options: ["Python", "Java", "JavaScript", "C++", "Ruby"],
-      correct: 2,
-      lot: "GENERAL",
-      type: "Choix simple"
-    },
-    {
-      question: "Quelle est la couleur du ciel par temps clair ?",
-      options: ["Vert", "Rouge", "Bleu", "Jaune", "Noir"],
-      correct: 2,
-      lot: "GENERAL",
-      type: "Choix simple"
-    },
-    {
-      question: "Combien de planètes dans le système solaire ?",
-      options: ["7", "8", "9", "10", "11"],
-      correct: 1,
-      lot: "GENERAL",
-      type: "Choix simple"
-    }
-  ];
-  questions.push(...additionalQuestions);
-}
-
-// Initialisation
-const currentDateElement = document.getElementById('current-date');
-if (currentDateElement) {
-  currentDateElement.textContent = new Date().toLocaleDateString('fr-FR');
-} else {
-  console.error("Élément 'current-date' non trouvé.");
-}
-
-fetchQuestions();
-loadScores();
+  const saveCurrentScoreButton = document.getElementById('save-current-score-btn');
+  if (saveCurrentScoreButton) {
+    saveCurrentScoreButton.addEventListener('click', () => {
+      console.log("Clic sur 'Sauvegarder le score actuel'");
+      const saved = saveScore();
+      const feedback = document.getElementById('save-current-feedback');
+      if (feedback) {
+        feedback.textContent = saved ? 'Score actuel sauvegardé avec succès !' : 'Score sauvegardé localement (aucun PAT fourni).';
+        feedback.style.display = 'block';
+        setTimeout(() => feedback.style.display = 'none', 3000);
+      } else {
+        console.error("Élément 'save-current-feedback' non trouvé.");
+      }
+    });
+    console.log("Événement attaché au bouton 'save-current-score-btn'");
+  } else {
+    console.error("Bouton 'save-current-score-btn' non trouvé.");
+  }
+});
