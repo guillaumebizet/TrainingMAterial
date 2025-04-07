@@ -186,6 +186,9 @@ function showPreviewModal() {
 }
 
 function showNotification(message, modifiedQuestions = []) {
+  console.log("showNotification called with message:", message);
+  console.log("Modified questions:", modifiedQuestions);
+
   const notification = document.createElement('div');
   notification.className = 'notification';
   notification.innerHTML = `
@@ -213,20 +216,26 @@ function saveQuestion() {
 
   // Ajouter l'index de la question modifiée à la liste
   modifiedQuestionsIndices.add(editingIndex);
+  console.log("Question modifiée, indices actuels:", Array.from(modifiedQuestionsIndices));
 
   editingIndex = null;
   loadQuestionList();
 }
 
 function commitChanges() {
+  console.log("commitChanges called");
+  console.log("Indices des questions modifiées:", Array.from(modifiedQuestionsIndices));
+
   // Récupérer les questions modifiées
   const modifiedQuestions = Array.from(modifiedQuestionsIndices).map(index => questions[index]);
+  console.log("Questions modifiées:", modifiedQuestions);
 
   // Afficher une notification avec le JSON des questions modifiées
   showNotification("Modifications sauvegardées avec succès !", modifiedQuestions);
 
   // Appeler saveQuestionsToGitHub pour sauvegarder sur GitHub (si nécessaire)
   if (typeof saveQuestionsToGitHub === 'function') {
+    console.log("Appel de saveQuestionsToGitHub");
     saveQuestionsToGitHub();
   } else {
     console.error("saveQuestionsToGitHub n'est pas défini.");
@@ -234,6 +243,7 @@ function commitChanges() {
 
   // Réinitialiser la liste des questions modifiées
   modifiedQuestionsIndices.clear();
+  console.log("Liste des indices réinitialisée:", Array.from(modifiedQuestionsIndices));
 }
 
 function cancelEdit() {
@@ -254,6 +264,7 @@ function deleteQuestion(index) {
     }
   });
   modifiedQuestionsIndices = newIndices;
+  console.log("Question supprimée, indices ajustés:", Array.from(modifiedQuestionsIndices));
   loadQuestionList();
 }
 
