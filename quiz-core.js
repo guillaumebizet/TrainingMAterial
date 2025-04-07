@@ -10,13 +10,13 @@ let candidateName = '';
 let scores = [];
 let currentLot = "Non spécifié";
 
-// Fonction pour afficher une modale stylisée (dupliquée ici pour quiz-core.js)
-function showModal(message) {
+// Fonction pour afficher une modale stylisée
+function showModal(message, details = null) {
   const modal = document.getElementById('github-modal');
   const modalMessage = document.getElementById('modal-message');
   const closeBtn = document.getElementById('modal-close-btn');
 
-  modalMessage.textContent = message;
+  modalMessage.innerHTML = details ? `${message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : message;
   modal.style.display = 'flex';
 
   closeBtn.onclick = () => {
@@ -258,6 +258,8 @@ function saveScore() {
   if (token) {
     console.log("Tentative de sauvegarde sur GitHub avec PAT:", scores);
     saveScoresToGitHub(token);
+    clearInterval(timerInterval); // Arrête le timer
+    showTab('scores-container'); // Passe à l’écran des scores
     return true;
   } else {
     console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
