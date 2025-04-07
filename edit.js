@@ -71,8 +71,6 @@ function editQuestion(index) {
         <option value="Choix simple" ${q.type === 'Choix simple' ? 'selected' : ''}>Choix simple</option>
         <option value="QCM" ${q.type === 'QCM' ? 'selected' : ''}>QCM</option>
       </select>
-      <label>Réponse correcte</label>
-      <div id="edit-correct-container"></div>
     </div>
     <div class="form-actions">
       <button onclick="saveQuestion()">Sauvegarder</button>
@@ -123,49 +121,35 @@ function updateOptionsPreview() {
   const type = document.getElementById('edit-type').value;
   const preview = document.getElementById('options-preview');
   preview.innerHTML = type === 'Choix simple' ? renderRadioOptionsPreview(optionsFr, optionsUs) : renderCheckboxOptionsPreview(optionsFr, optionsUs);
-  updateCorrectField(type, optionsFr.length);
 }
 
 function renderRadioOptionsPreview(optionsFr, optionsUs) {
+  const currentCorrect = questions[editingIndex].correct;
   return optionsFr.map((option, i) => `
     <label>
-      <input type="radio" name="preview-option" disabled>
+      <input type="radio" name="preview-option" value="${i}" ${i === parseInt(currentCorrect) ? 'checked' : ''} onchange="updateCorrect(this)">
       ${option} / ${optionsUs[i]}
     </label><br>
   `).join('');
 }
 
 function renderCheckboxOptionsPreview(optionsFr, optionsUs) {
+  const currentCorrect = Array.isArray(questions[editingIndex].correct) ? questions[editingIndex].correct : [questions[editingIndex].correct];
   return optionsFr.map((option, i) => `
     <label>
-      <input type="checkbox" disabled>
+      <input type="checkbox" value="${i}" ${currentCorrect.includes(i) ? 'checked' : ''} onchange="updateCorrect(this)">
       ${option} / ${optionsUs[i]}
     </label><br>
   `).join('');
 }
 
-function updateCorrectField(type, optionCount) {
-  const container = document.getElementById('edit-correct-container');
-  const currentCorrect = questions[editingIndex].correct;
+function updateCorrect(input) {
+  const type = document.getElementById('edit-type').value;
   if (type === 'Choix simple') {
-    container.innerHTML = `
-      <select id="edit-correct">
-        ${Array.from({ length: optionCount }, (_, i) => `
-          <option value="${i}" ${i === parseInt(currentCorrect) ? 'selected' : ''}>Option ${i + 1}</option>
-        `).join('')}
-      </select>
-    `;
+    questions[editingIndex].correct = parseInt(input.value);
   } else {
-    container.innerHTML = `
-      <div id="edit-correct-checkboxes">
-        ${Array.from({ length: optionCount }, (_, i) => `
-          <label>
-            <input type="checkbox" class="correct-checkbox" value="${i}" ${Array.isArray(currentCorrect) && currentCorrect.includes(i) ? 'checked' : ''}>
-            Option ${i + 1}
-          </label>
-        `).join('')}
-      </div>
-    `;
+    const checkboxes = document.querySelectorAll('#options-preview input[type="checkbox"]:checked');
+    questions[editingIndex].correct = Array.from(checkboxes).map(checkbox => parseInt(checkbox.value));
   }
 }
 
@@ -177,15 +161,6 @@ function saveQuestion() {
   q.options.us = Array.from(document.getElementsByClassName('option-us')).map(input => input.value || '');
   q.lot = document.getElementById('edit-lot').value;
   q.type = document.getElementById('edit-type').value;
-
-  if (q.type === 'Choix simple') {
-    q.correct = parseInt(document.getElementById('edit-correct').value);
-  } else {
-    q.correct = Array.from(document.getElementsByClassName('correct-checkbox'))
-      .filter(checkbox => checkbox.checked)
-      .map(checkbox => parseInt(checkbox.value));
-  }
-
   editingIndex = null;
   loadQuestionList();
 }
