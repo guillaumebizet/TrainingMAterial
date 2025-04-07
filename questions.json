@@ -2749,5 +2749,1892 @@
     "correct": 0,
     "lot": "AUTOMATION",
     "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les runners de GitHub Actions ?",
+      "us": "What are GitHub Actions runners?"
+    },
+    "options": {
+      "fr": [
+        "Des machines virtuelles qui exécutent les workflows, hébergées par GitHub ou auto-hébergées.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des conteneurs pour stocker les données.",
+        "Des scripts pour tester les performances.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "Virtual machines that execute workflows, hosted by GitHub or self-hosted.",
+        "Tools to manage branches in Git.",
+        "Containers to store data.",
+        "Scripts to test performance.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez l’utilisation des matrices dans GitHub Actions.",
+      "us": "Explain the use of matrices in GitHub Actions."
+    },
+    "options": {
+      "fr": [
+        "Permettre l'exécution d'un job avec plusieurs combinaisons de paramètres, comme différentes versions de langages.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Allow running a job with multiple parameter combinations, such as different language versions.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment intégrez-vous SonarQube avec Jenkins ?",
+      "us": "How do you integrate SonarQube with Jenkins?"
+    },
+    "options": {
+      "fr": [
+        "En installant le plugin SonarQube et en configurant un scanner dans le pipeline.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant SonarQube."
+      ],
+      "us": [
+        "By installing the SonarQube plugin and configuring a scanner in the pipeline.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling SonarQube."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelles métriques fournit SonarQube ?",
+      "us": "What metrics does SonarQube provide?"
+    },
+    "options": {
+      "fr": [
+        "Couverture de code, duplication, complexité, et problèmes de qualité.",
+        "Performances de l'application.",
+        "Nombre de branches dans Git.",
+        "Taille des conteneurs.",
+        "Nombre d'erreurs dans les logs."
+      ],
+      "us": [
+        "Code coverage, duplication, complexity, and quality issues.",
+        "Application performance.",
+        "Number of branches in Git.",
+        "Size of containers.",
+        "Number of errors in logs."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment configurez-vous des portes de qualité dans SonarQube ?",
+      "us": "How do you configure quality gates in SonarQube?"
+    },
+    "options": {
+      "fr": [
+        "En définissant des seuils pour les métriques dans les paramètres du projet.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les métriques."
+      ],
+      "us": [
+        "By defining thresholds for metrics in the project settings.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling metrics."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu’est-ce que Xray, et comment est-il utilisé dans CI/CD ?",
+      "us": "What is Xray, and how is it used in CI/CD?"
+    },
+    "options": {
+      "fr": [
+        "Un outil pour gérer les tests et les vulnérabilités, intégré dans les pipelines pour assurer la sécurité.",
+        "Un outil pour gérer les branches dans Git.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Un outil pour centraliser les données."
+      ],
+      "us": [
+        "A tool to manage tests and vulnerabilities, integrated into pipelines to ensure security.",
+        "A tool to manage branches in Git.",
+        "A type of container.",
+        "A method to test performance.",
+        "A tool to centralize data."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez comment intégrer Xray avec Jenkins.",
+      "us": "Explain how to integrate Xray with Jenkins."
+    },
+    "options": {
+      "fr": [
+        "En installant le plugin Xray et en configurant les étapes d'import/export des résultats de tests.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Xray."
+      ],
+      "us": [
+        "By installing the Xray plugin and configuring steps to import/export test results.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Xray."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les résultats de tests dans Xray ?",
+      "us": "How do you manage test results in Xray?"
+    },
+    "options": {
+      "fr": [
+        "En important les rapports de tests via des formats comme JUnit ou Cucumber.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les tests."
+      ],
+      "us": [
+        "By importing test reports using formats like JUnit or Cucumber.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le rôle des dépôts d’artefacts dans CI/CD ?",
+      "us": "What is the role of artifact repositories in CI/CD?"
+    },
+    "options": {
+      "fr": [
+        "Stocker les binaires et les dépendances pour les déploiements.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Store binaries and dependencies for deployments.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les configurations spécifiques à l’environnement dans les pipelines ?",
+      "us": "How do you manage environment-specific configurations in pipelines?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des variables d'environnement ou des fichiers de configuration séparés.",
+        "En modifiant manuellement le code source.",
+        "En utilisant des conteneurs.",
+        "En désactivant les environnements.",
+        "En évitant les configurations."
+      ],
+      "us": [
+        "By using environment variables or separate configuration files.",
+        "By manually modifying the source code.",
+        "Using containers.",
+        "By disabling environments.",
+        "By avoiding configurations."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+    {
+    "question": {
+      "fr": "Décrivez une stratégie pour les déploiements blue-green utilisant Jenkins.",
+      "us": "Describe a strategy for blue-green deployments using Jenkins."
+    },
+    "options": {
+      "fr": [
+        "Maintenir deux environnements identiques, déployer sur l'un, puis basculer le trafic.",
+        "Déployer directement sur l'environnement de production.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Désactiver les déploiements."
+      ],
+      "us": [
+        "Maintain two identical environments, deploy to one, then switch traffic.",
+        "Deploy directly to the production environment.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Disable deployments."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+    {
+    "question": {
+      "fr": "Comment configurez-vous les notifications dans JIRA ?",
+      "us": "How do you configure notifications in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "En définissant des schémas de notification dans les paramètres du projet.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les notifications."
+      ],
+      "us": [
+        "By defining notification schemes in the project settings.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling notifications."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez comment utiliser JQL (JIRA Query Language) pour rechercher des incidents.",
+      "us": "Explain how to use JQL (JIRA Query Language) to search for issues."
+    },
+    "options": {
+      "fr": [
+        "En écrivant des requêtes comme 'project = PROJ AND status = Open' dans la recherche avancée.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant JQL."
+      ],
+      "us": [
+        "By writing queries like 'project = PROJ AND status = Open' in the advanced search.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling JQL."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les composants dans JIRA, et comment sont-ils utilisés ?",
+      "us": "What are components in JIRA, and how are they used?"
+    },
+    "options": {
+      "fr": [
+        "Des sous-ensembles d'un projet pour organiser les incidents, comme des modules.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des conteneurs pour stocker les données.",
+        "Des scripts pour tester les performances.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "Subsets of a project to organize issues, such as modules.",
+        "Tools to manage branches in Git.",
+        "Containers to store data.",
+        "Scripts to test performance.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les permissions des utilisateurs dans JIRA ?",
+      "us": "How do you manage user permissions in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "En définissant des schémas de permissions dans les paramètres d'administration.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les permissions."
+      ],
+      "us": [
+        "By defining permission schemes in the administration settings.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling permissions."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez comment intégrer JIRA avec Confluence.",
+      "us": "Describe how to integrate JIRA with Confluence."
+    },
+    "options": {
+      "fr": [
+        "En utilisant des liens d'application pour connecter JIRA et Confluence.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Confluence."
+      ],
+      "us": [
+        "By using application links to connect JIRA and Confluence.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Confluence."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le but de JIRA Service Desk ?",
+      "us": "What is the purpose of JIRA Service Desk?"
+    },
+    "options": {
+      "fr": [
+        "Fournir une interface pour gérer les demandes de support client.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Provide an interface to manage customer support requests.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment configurez-vous des règles d’automatisation dans JIRA ?",
+      "us": "How do you configure automation rules in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "En allant dans 'Automatisation' et en définissant des déclencheurs et des actions.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant l’automatisation."
+      ],
+      "us": [
+        "By going to 'Automation' and defining triggers and actions.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling automation."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le concept d’épopées et d’histoires dans JIRA.",
+      "us": "Explain the concept of epics and stories in JIRA."
+    },
+    "options": {
+      "fr": [
+        "Les épopées regroupent des histoires, qui sont des tâches plus petites.",
+        "Les épopées sont des tâches plus petites, les histoires regroupent les épopées.",
+        "Les épopées sont pour les tests, les histoires pour le déploiement.",
+        "Les histoires sont plus rapides que les épopées.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "Epics group stories, which are smaller tasks.",
+        "Epics are smaller tasks, stories group epics.",
+        "Epics are for testing, stories are for deployment.",
+        "Stories are faster than epics.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les labels, et comment peuvent-ils être utilisés dans JIRA ?",
+      "us": "What are labels, and how can they be used in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "Des étiquettes pour catégoriser les incidents, utiles pour les recherches et les filtres.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des conteneurs pour stocker les données.",
+        "Des scripts pour tester les performances.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "Tags to categorize issues, useful for searches and filters.",
+        "Tools to manage branches in Git.",
+        "Containers to store data.",
+        "Scripts to test performance.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+   {
+    "question": {
+      "fr": "Comment configurez-vous les notifications dans JIRA ?",
+      "us": "How do you configure notifications in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "En définissant des schémas de notification dans les paramètres du projet.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les notifications."
+      ],
+      "us": [
+        "By defining notification schemes in the project settings.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling notifications."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez comment utiliser JQL (JIRA Query Language) pour rechercher des incidents.",
+      "us": "Explain how to use JQL (JIRA Query Language) to search for issues."
+    },
+    "options": {
+      "fr": [
+        "En écrivant des requêtes comme 'project = PROJ AND status = Open' dans la recherche avancée.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant JQL."
+      ],
+      "us": [
+        "By writing queries like 'project = PROJ AND status = Open' in the advanced search.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling JQL."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les composants dans JIRA, et comment sont-ils utilisés ?",
+      "us": "What are components in JIRA, and how are they used?"
+    },
+    "options": {
+      "fr": [
+        "Des sous-ensembles d'un projet pour organiser les incidents, comme des modules.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des conteneurs pour stocker les données.",
+        "Des scripts pour tester les performances.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "Subsets of a project to organize issues, such as modules.",
+        "Tools to manage branches in Git.",
+        "Containers to store data.",
+        "Scripts to test performance.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les permissions des utilisateurs dans JIRA ?",
+      "us": "How do you manage user permissions in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "En définissant des schémas de permissions dans les paramètres d'administration.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les permissions."
+      ],
+      "us": [
+        "By defining permission schemes in the administration settings.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling permissions."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  [
+  {
+    "question": {
+      "fr": "Décrivez comment intégrer JIRA avec Confluence.",
+      "us": "Describe how to integrate JIRA with Confluence."
+    },
+    "options": {
+      "fr": [
+        "En utilisant des liens d'application pour connecter JIRA et Confluence.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Confluence."
+      ],
+      "us": [
+        "By using application links to connect JIRA and Confluence.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Confluence."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le but de JIRA Service Desk ?",
+      "us": "What is the purpose of JIRA Service Desk?"
+    },
+    "options": {
+      "fr": [
+        "Fournir une interface pour gérer les demandes de support client.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Provide an interface to manage customer support requests.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment configurez-vous des règles d’automatisation dans JIRA ?",
+      "us": "How do you configure automation rules in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "En allant dans 'Automatisation' et en définissant des déclencheurs et des actions.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant l’automatisation."
+      ],
+      "us": [
+        "By going to 'Automation' and defining triggers and actions.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling automation."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le concept d’épopées et d’histoires dans JIRA.",
+      "us": "Explain the concept of epics and stories in JIRA."
+    },
+    "options": {
+      "fr": [
+        "Les épopées regroupent des histoires, qui sont des tâches plus petites.",
+        "Les épopées sont des tâches plus petites, les histoires regroupent les épopées.",
+        "Les épopées sont pour les tests, les histoires pour le déploiement.",
+        "Les histoires sont plus rapides que les épopées.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "Epics group stories, which are smaller tasks.",
+        "Epics are smaller tasks, stories group epics.",
+        "Epics are for testing, stories are for deployment.",
+        "Stories are faster than epics.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les labels, et comment peuvent-ils être utilisés dans JIRA ?",
+      "us": "What are labels, and how can they be used in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "Des étiquettes pour catégoriser les incidents, utiles pour les recherches et les filtres.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des conteneurs pour stocker les données.",
+        "Des scripts pour tester les performances.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "Tags to categorize issues, useful for searches and filters.",
+        "Tools to manage branches in Git.",
+        "Containers to store data.",
+        "Scripts to test performance.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+    
+  {
+    "question": {
+      "fr": "Décrivez une stratégie pour la planification de la capacité.",
+      "us": "Describe a strategy for capacity planning."
+    },
+    "options": {
+      "fr": [
+        "Analyser les métriques de charge, prévoir la croissance, et provisionner les ressources en conséquence.",
+        "Ignorer la planification et redémarrer le serveur.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Désactiver les métriques."
+      ],
+      "us": [
+        "Analyze load metrics, forecast growth, and provision resources accordingly.",
+        "Ignore planning and restart the server.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Disable metrics."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelle est l’importance de la documentation en SRE ?",
+      "us": "What is the importance of documentation in SRE?"
+    },
+    "options": {
+      "fr": [
+        "Faciliter la résolution des incidents et partager les connaissances.",
+        "Augmenter les tâches manuelles.",
+        "Utiliser des conteneurs pour stocker les données.",
+        "Désactiver les backups.",
+        "Éviter les dépendances."
+      ],
+      "us": [
+        "Facilitate incident resolution and share knowledge.",
+        "Increase manual tasks.",
+        "Use containers to store data.",
+        "Disable backups.",
+        "Avoid dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les alertes dans un environnement multi-cloud ?",
+      "us": "How do you manage alerts in a multi-cloud environment?"
+    },
+    "options": {
+      "fr": [
+        "En centralisant les alertes avec un outil comme Prometheus et en utilisant des notifications unifiées.",
+        "En désactivant les alertes.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En ignorant les alertes."
+      ],
+      "us": [
+        "By centralizing alerts with a tool like Prometheus and using unified notifications.",
+        "By disabling alerts.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By ignoring alerts."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelles sont les meilleures pratiques pour la gestion des logs dans SRE ?",
+      "us": "What are the best practices for log management in SRE?"
+    },
+    "options": {
+      "fr": [
+        "Centraliser les logs, utiliser des outils comme ELK Stack, et définir des politiques de rétention.",
+        "Ignorer les logs.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Désactiver les logs."
+      ],
+      "us": [
+        "Centralize logs, use tools like ELK Stack, and define retention policies.",
+        "Ignore logs.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Disable logs."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment mesurez-vous la disponibilité d’un service ?",
+      "us": "How do you measure the availability of a service?"
+    },
+    "options": {
+      "fr": [
+        "En calculant le pourcentage de temps où le service est opérationnel sur une période donnée.",
+        "En comptant le nombre d’utilisateurs connectés.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant le service."
+      ],
+      "us": [
+        "By calculating the percentage of time the service is operational over a given period.",
+        "By counting the number of connected users.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling the service."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu’est-ce qu’un budget d’erreur (Error Budget) en SRE ?",
+      "us": "What is an Error Budget in SRE?"
+    },
+    "options": {
+      "fr": [
+        "Une allocation de temps d’indisponibilité acceptable pour un service, basée sur les SLOs.",
+        "Un budget pour acheter des serveurs.",
+        "Un outil pour gérer les branches dans Git.",
+        "Un script pour tester les performances.",
+        "Une fonction pour gérer les erreurs."
+      ],
+      "us": [
+        "An allocation of acceptable downtime for a service, based on SLOs.",
+        "A budget to purchase servers.",
+        "A tool to manage branches in Git.",
+        "A script to test performance.",
+        "A function to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les incidents critiques dans SRE ?",
+      "us": "How do you manage critical incidents in SRE?"
+    },
+    "options": {
+      "fr": [
+        "En suivant un processus structuré : identification, mitigation, résolution, et post-mortem.",
+        "En redémarrant le serveur immédiatement.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En ignorant l’incident."
+      ],
+      "us": [
+        "By following a structured process: identification, mitigation, resolution, and post-mortem.",
+        "By restarting the server immediately.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By ignoring the incident."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelles sont les meilleures pratiques pour la gestion des SLOs ?",
+      "us": "What are the best practices for managing SLOs?"
+    },
+    "options": {
+      "fr": [
+        "Définir des SLOs réalistes, les surveiller régulièrement, et ajuster les processus si nécessaire.",
+        "Ignorer les SLOs.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Désactiver les SLOs."
+      ],
+      "us": [
+        "Define realistic SLOs, monitor them regularly, and adjust processes as needed.",
+        "Ignore SLOs.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Disable SLOs."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les dépendances entre services dans un environnement SRE ?",
+      "us": "How do you manage dependencies between services in an SRE environment?"
+    },
+    "options": {
+      "fr": [
+        "En cartographiant les dépendances, en surveillant les points de défaillance, et en implémentant des fallbacks.",
+        "En désactivant les dépendances.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En ignorant les dépendances."
+      ],
+      "us": [
+        "By mapping dependencies, monitoring failure points, and implementing fallbacks.",
+        "By disabling dependencies.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By ignoring dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelles sont les meilleures pratiques pour la gestion des backups dans SRE ?",
+      "us": "What are the best practices for managing backups in SRE?"
+    },
+    "options": {
+      "fr": [
+        "Effectuer des backups réguliers, tester les restaurations, et stocker les backups hors site.",
+        "Désactiver les backups.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les backups."
+      ],
+      "us": [
+        "Perform regular backups, test restorations, and store backups off-site.",
+        "Disable backups.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore backups."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les pics de trafic dans un environnement SRE ?",
+      "us": "How do you manage traffic spikes in an SRE environment?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant l’auto-scaling, en surveillant les métriques, et en implémentant des limites de taux.",
+        "En désactivant le service.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En ignorant les pics."
+      ],
+      "us": [
+        "By using auto-scaling, monitoring metrics, and implementing rate limits.",
+        "By disabling the service.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By ignoring spikes."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelles sont les meilleures pratiques pour la gestion des incidents post-mortem ?",
+      "us": "What are the best practices for managing post-mortem incident reviews?"
+    },
+    "options": {
+      "fr": [
+        "Documenter les causes, les actions prises, et les leçons apprises pour éviter les récurrences.",
+        "Ignorer les post-mortems.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Désactiver les incidents."
+      ],
+      "us": [
+        "Document the causes, actions taken, and lessons learned to prevent recurrence.",
+        "Ignore post-mortems.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Disable incidents."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les tests de résilience dans SRE ?",
+      "us": "How do you manage resilience testing in SRE?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des outils comme Chaos Monkey pour simuler des pannes et tester la résilience.",
+        "En désactivant les tests.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En ignorant les tests."
+      ],
+      "us": [
+        "By using tools like Chaos Monkey to simulate failures and test resilience.",
+        "By disabling tests.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By ignoring tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+    
+  {
+    "question": {
+      "fr": "Qu’est-ce que XL Deploy, et quelles sont ses fonctionnalités clés ?",
+      "us": "What is XL Deploy, and what are its key features?"
+    },
+    "options": {
+      "fr": [
+        "Un outil de déploiement automatisé, avec gestion des environnements et des pipelines.",
+        "Un outil pour gérer les branches dans Git.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Un outil pour centraliser les données."
+      ],
+      "us": [
+        "An automated deployment tool with environment and pipeline management.",
+        "A tool to manage branches in Git.",
+        "A type of container.",
+        "A method to test performance.",
+        "A tool to centralize data."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment créez-vous un paquet de déploiement dans XL Deploy ?",
+      "us": "How do you create a deployment package in XL Deploy?"
+    },
+    "options": {
+      "fr": [
+        "En définissant un fichier DAR (Deployment Archive) avec les artefacts et les configurations.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant XL Deploy."
+      ],
+      "us": [
+        "By defining a DAR (Deployment Archive) file with artifacts and configurations.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling XL Deploy."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez comment configurer des environnements dans XL Deploy.",
+      "us": "Explain how to configure environments in XL Deploy."
+    },
+    "options": {
+      "fr": [
+        "En créant des environnements et en associant des ressources comme des serveurs ou des bases de données.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les environnements."
+      ],
+      "us": [
+        "By creating environments and associating resources like servers or databases.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling environments."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le rôle des pipelines de déploiement dans XL Deploy ?",
+      "us": "What is the role of deployment pipelines in XL Deploy?"
+    },
+    "options": {
+      "fr": [
+        "Automatiser les étapes de déploiement entre différents environnements.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser les tests unitaires."
+      ],
+      "us": [
+        "Automate deployment steps across different environments.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate unit tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment intégrez-vous XL Deploy avec Jenkins ?",
+      "us": "How do you integrate XL Deploy with Jenkins?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant le plugin XL Deploy pour Jenkins et en configurant les étapes de déploiement.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Jenkins."
+      ],
+      "us": [
+        "By using the XL Deploy plugin for Jenkins and configuring deployment steps.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Jenkins."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez comment gérer les éléments de configuration dans XL Deploy.",
+      "us": "Describe how to manage configuration items in XL Deploy."
+    },
+    "options": {
+      "fr": [
+        "En définissant des CIs (Configuration Items) pour représenter les ressources et leurs propriétés.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les CIs."
+      ],
+      "us": [
+        "By defining CIs (Configuration Items) to represent resources and their properties.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling CIs."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les avantages d’utiliser ArgoCD par rapport aux méthodes de déploiement traditionnelles ?",
+      "us": "What are the advantages of using ArgoCD over traditional deployment methods?"
+    },
+    "options": {
+      "fr": [
+        "Automatisation, synchronisation continue, et gestion déclarative via GitOps.",
+        "Augmentation des tâches manuelles.",
+        "Utilisation de conteneurs pour stocker les données.",
+        "Désactivation des backups.",
+        "Éviter les dépendances."
+      ],
+      "us": [
+        "Automation, continuous synchronization, and declarative management via GitOps.",
+        "Increased manual tasks.",
+        "Using containers to store data.",
+        "Disabling backups.",
+        "Avoiding dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment surveillez-vous les déploiements dans ArgoCD ?",
+      "us": "How do you monitor deployments in ArgoCD?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant l’interface web d’ArgoCD pour voir l’état des applications.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant ArgoCD."
+      ],
+      "us": [
+        "By using ArgoCD’s web interface to view the status of applications.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling ArgoCD."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le concept de manifestes d’application dans ArgoCD.",
+      "us": "Explain the concept of application manifests in ArgoCD."
+    },
+    "options": {
+      "fr": [
+        "Des fichiers YAML qui définissent l’état désiré des ressources Kubernetes.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des conteneurs pour stocker les données.",
+        "Des scripts pour tester les performances.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "YAML files that define the desired state of Kubernetes resources.",
+        "Tools to manage branches in Git.",
+        "Containers to store data.",
+        "Scripts to test performance.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le but de l’interface CLI d’ArgoCD ?",
+      "us": "What is the purpose of ArgoCD’s CLI interface?"
+    },
+    "options": {
+      "fr": [
+        "Gérer les applications et les déploiements via des commandes en ligne.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Manage applications and deployments via command-line commands.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les secrets dans ArgoCD ?",
+      "us": "How do you manage secrets in ArgoCD?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des outils comme Sealed Secrets ou des secrets Kubernetes.",
+        "En les stockant directement dans le code source.",
+        "En utilisant des conteneurs.",
+        "En désactivant les secrets.",
+        "En évitant les dépendances."
+      ],
+      "us": [
+        "By using tools like Sealed Secrets or Kubernetes secrets.",
+        "By storing them directly in the source code.",
+        "Using containers.",
+        "By disabling secrets.",
+        "By avoiding dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez un scénario où vous utiliseriez XL Deploy pour le déploiement d’une application.",
+      "us": "Describe a scenario where you would use XL Deploy for application deployment."
+    },
+    "options": {
+      "fr": [
+        "Déployer une application Java sur plusieurs environnements avec des configurations spécifiques.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser les tests unitaires."
+      ],
+      "us": [
+        "Deploy a Java application across multiple environments with specific configurations.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate unit tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelles sont les différences entre ArgoCD et XL Deploy ?",
+      "us": "What are the differences between ArgoCD and XL Deploy?"
+    },
+    "options": {
+      "fr": [
+        "ArgoCD est orienté GitOps pour Kubernetes, XL Deploy est plus généraliste pour divers environnements.",
+        "ArgoCD est plus généraliste, XL Deploy est orienté GitOps.",
+        "ArgoCD est pour les tests, XL Deploy pour le déploiement.",
+        "XL Deploy est plus rapide qu’ArgoCD.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "ArgoCD is GitOps-oriented for Kubernetes, XL Deploy is more general-purpose for various environments.",
+        "ArgoCD is more general-purpose, XL Deploy is GitOps-oriented.",
+        "ArgoCD is for testing, XL Deploy is for deployment.",
+        "XL Deploy is faster than ArgoCD.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu’est-ce qu’ArgoCD, et comment gère-t-il les déploiements ?",
+      "us": "What is ArgoCD, and how does it manage deployments?"
+    },
+    "options": {
+      "fr": [
+        "Un outil GitOps pour Kubernetes, il synchronise les manifests Git avec le cluster.",
+        "Un outil pour gérer les branches dans Git.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Un outil pour centraliser les données."
+      ],
+      "us": [
+        "A GitOps tool for Kubernetes, it synchronizes Git manifests with the cluster.",
+        "A tool to manage branches in Git.",
+        "A type of container.",
+        "A method to test performance.",
+        "A tool to centralize data."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez la différence entre les déploiements blue-green et canary.",
+      "us": "Explain the difference between blue-green and canary deployments."
+    },
+    "options": {
+      "fr": [
+        "Blue-green utilise deux environnements complets, canary déploie progressivement sur un sous-ensemble d’utilisateurs.",
+        "Blue-green déploie progressivement, canary utilise deux environnements complets.",
+        "Blue-green est pour les tests, canary pour le déploiement.",
+        "Canary est plus rapide que blue-green.",
+        "Il n’y a pas de différence."
+      ],
+      "us": [
+        "Blue-green uses two full environments, canary deploys gradually to a subset of users.",
+        "Blue-green deploys gradually, canary uses two full environments.",
+        "Blue-green is for testing, canary is for deployment.",
+        "Canary is faster than blue-green.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment configurez-vous ArgoCD pour un cluster Kubernetes ?",
+      "us": "How do you configure ArgoCD for a Kubernetes cluster?"
+    },
+    "options": {
+      "fr": [
+        "En installant ArgoCD via Helm et en configurant un repository Git.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Kubernetes."
+      ],
+      "us": [
+        "By installing ArgoCD via Helm and configuring a Git repository.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Kubernetes."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu’est-ce que GitOps, et comment ArgoCD l’implémente-t-il ?",
+      "us": "What is GitOps, and how does ArgoCD implement it?"
+    },
+    "options": {
+      "fr": [
+        "GitOps utilise Git comme source de vérité, ArgoCD synchronise les manifests Git avec le cluster.",
+        "GitOps utilise des conteneurs, ArgoCD gère les branches.",
+        "GitOps teste les performances, ArgoCD centralise les données.",
+        "GitOps automatise les tests, ArgoCD désactive les alertes.",
+        "Il n’y a pas de différence."
+      ],
+      "us": [
+        "GitOps uses Git as the source of truth, ArgoCD synchronizes Git manifests with the cluster.",
+        "GitOps uses containers, ArgoCD manages branches.",
+        "GitOps tests performance, ArgoCD centralizes data.",
+        "GitOps automates tests, ArgoCD disables alerts.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez le processus de synchronisation dans ArgoCD.",
+      "us": "Describe the synchronization process in ArgoCD."
+    },
+    "options": {
+      "fr": [
+        "ArgoCD compare l’état du cluster avec les manifests Git et applique les changements nécessaires.",
+        "ArgoCD modifie manuellement le fichier de configuration.",
+        "ArgoCD utilise un conteneur Docker.",
+        "ArgoCD écrit un script Python.",
+        "ArgoCD désactive la synchronisation."
+      ],
+      "us": [
+        "ArgoCD compares the cluster state with Git manifests and applies necessary changes.",
+        "ArgoCD manually modifies the configuration file.",
+        "ArgoCD uses a Docker container.",
+        "ArgoCD writes a Python script.",
+        "ArgoCD disables synchronization."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les rollbacks dans ArgoCD ?",
+      "us": "How do you manage rollbacks in ArgoCD?"
+    },
+    "options": {
+      "fr": [
+        "En revenant à une version précédente du manifest Git et en resynchronisant.",
+        "En modifiant manuellement le cluster.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant ArgoCD."
+      ],
+      "us": [
+        "By reverting to a previous version of the Git manifest and resynchronizing.",
+        "By manually modifying the cluster.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling ArgoCD."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment assurez-vous la sécurité dans les processus de déploiement ?",
+      "us": "How do you ensure security in deployment processes?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des secrets, des contrôles d’accès, et des audits réguliers.",
+        "En désactivant les contrôles d’accès.",
+        "En utilisant des conteneurs.",
+        "En évitant les audits.",
+        "En stockant les secrets dans le code source."
+      ],
+      "us": [
+        "By using secrets, access controls, and regular audits.",
+        "By disabling access controls.",
+        "Using containers.",
+        "By avoiding audits.",
+        "By storing secrets in the source code."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  // Questions 157 à 169 (positions 157 à 169 dans le fichier final)
+  {
+    "question": {
+      "fr": "Qu’est-ce que XL Deploy, et quelles sont ses fonctionnalités clés ?",
+      "us": "What is XL Deploy, and what are its key features?"
+    },
+    "options": {
+      "fr": [
+        "Un outil de déploiement automatisé, avec gestion des environnements et des pipelines.",
+        "Un outil pour gérer les branches dans Git.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Un outil pour centraliser les données."
+      ],
+      "us": [
+        "An automated deployment tool with environment and pipeline management.",
+        "A tool to manage branches in Git.",
+        "A type of container.",
+        "A method to test performance.",
+        "A tool to centralize data."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment créez-vous un paquet de déploiement dans XL Deploy ?",
+      "us": "How do you create a deployment package in XL Deploy?"
+    },
+    "options": {
+      "fr": [
+        "En définissant un fichier DAR (Deployment Archive) avec les artefacts et les configurations.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant XL Deploy."
+      ],
+      "us": [
+        "By defining a DAR (Deployment Archive) file with artifacts and configurations.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling XL Deploy."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez comment configurer des environnements dans XL Deploy.",
+      "us": "Explain how to configure environments in XL Deploy."
+    },
+    "options": {
+      "fr": [
+        "En créant des environnements et en associant des ressources comme des serveurs ou des bases de données.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les environnements."
+      ],
+      "us": [
+        "By creating environments and associating resources like servers or databases.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling environments."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le rôle des pipelines de déploiement dans XL Deploy ?",
+      "us": "What is the role of deployment pipelines in XL Deploy?"
+    },
+    "options": {
+      "fr": [
+        "Automatiser les étapes de déploiement entre différents environnements.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l’application.",
+        "Centraliser les données.",
+        "Automatiser les tests unitaires."
+      ],
+      "us": [
+        "Automate deployment steps across different environments.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate unit tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment intégrez-vous XL Deploy avec Jenkins ?",
+      "us": "How do you integrate XL Deploy with Jenkins?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant le plugin XL Deploy pour Jenkins et en configurant les étapes de déploiement.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Jenkins."
+      ],
+      "us": [
+        "By using the XL Deploy plugin for Jenkins and configuring deployment steps.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Jenkins."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez comment gérer les éléments de configuration dans XL Deploy.",
+      "us": "Describe how to manage configuration items in XL Deploy."
+    },
+    "options": {
+      "fr": [
+        "En définissant des CIs (Configuration Items) pour représenter les ressources et leurs propriétés.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les CIs."
+      ],
+      "us": [
+        "By defining CIs (Configuration Items) to represent resources and their properties.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling CIs."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les avantages d’utiliser ArgoCD par rapport aux méthodes de déploiement traditionnelles ?",
+      "us": "What are the advantages of using ArgoCD over traditional deployment methods?"
+    },
+    "options": {
+      "fr": [
+        "Automatisation, synchronisation continue, et gestion déclarative via GitOps.",
+        "Augmentation des tâches manuelles.",
+        "Utilisation de conteneurs pour stocker les données.",
+        "Désactivation des backups.",
+        "Éviter les dépendances."
+      ],
+      "us": [
+        "Automation, continuous synchronization, and declarative management via GitOps.",
+        "Increased manual tasks.",
+        "Using containers to store data.",
+        "Disabling backups.",
+        "Avoiding dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment surveillez-vous les déploiements dans ArgoCD ?",
+      "us": "How do you monitor deployments in ArgoCD?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant l’interface web d’ArgoCD pour voir l’état des applications.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant ArgoCD."
+      ],
+      "us": [
+        "By using ArgoCD’s web interface to view the status of applications.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling ArgoCD."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le concept de manifestes d’application dans ArgoCD.",
+      "us": "Explain the concept of application manifests in ArgoCD."
+    },
+    "options": {
+      "fr": [
+        "Des fichiers YAML qui définissent l’état désiré des ressources Kubernetes.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des conteneurs pour stocker les données.",
+        "Des scripts pour tester les performances.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "YAML files that define the desired state of Kubernetes resources.",
+        "Tools to manage branches in Git.",
+        "Containers to store data.",
+        "Scripts to test performance.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le but de l’interface CLI d’ArgoCD ?",
+      "us": "What is the purpose of ArgoCD’s CLI interface?"
+    },
+    "options": {
+      "fr": [
+        "Gérer les applications et les déploiements via des commandes en ligne.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l’application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Manage applications and deployments via command-line commands.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les secrets dans ArgoCD ?",
+      "us": "How do you manage secrets in ArgoCD?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des outils comme Sealed Secrets ou des secrets Kubernetes.",
+        "En les stockant directement dans le code source.",
+        "En utilisant des conteneurs.",
+        "En désactivant les secrets.",
+        "En évitant les dépendances."
+      ],
+      "us": [
+        "By using tools like Sealed Secrets or Kubernetes secrets.",
+        "By storing them directly in the source code.",
+        "Using containers.",
+        "By disabling secrets.",
+        "By avoiding dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez un scénario où vous utiliseriez XL Deploy pour le déploiement d’une application.",
+      "us": "Describe a scenario where you would use XL Deploy for application deployment."
+    },
+    "options": {
+      "fr": [
+        "Déployer une application Java sur plusieurs environnements avec des configurations spécifiques.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l’application.",
+        "Centraliser les données.",
+        "Automatiser les tests unitaires."
+      ],
+      "us": [
+        "Deploy a Java application across multiple environments with specific configurations.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate unit tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelles sont les différences entre ArgoCD et XL Deploy ?",
+      "us": "What are the differences between ArgoCD and XL Deploy?"
+    },
+    "options": {
+      "fr": [
+        "ArgoCD est orienté GitOps pour Kubernetes, XL Deploy est plus généraliste pour divers environnements.",
+        "ArgoCD est plus généraliste, XL Deploy est orienté GitOps.",
+        "ArgoCD est pour les tests, XL Deploy pour le déploiement.",
+        "XL Deploy est plus rapide qu’ArgoCD.",
+        "Il n’y a pas de différence."
+      ],
+      "us": [
+        "ArgoCD is GitOps-oriented for Kubernetes, XL Deploy is more general-purpose for various environments.",
+        "ArgoCD is more general-purpose, XL Deploy is GitOps-oriented.",
+        "ArgoCD is for testing, XL Deploy is for deployment.",
+        "XL Deploy is faster than ArgoCD.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
   }
 ]
+
+
+
+]
+
+
+  
+
