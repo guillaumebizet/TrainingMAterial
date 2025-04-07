@@ -226,31 +226,6 @@
   },
   {
     "question": {
-      "fr": "Qu'est-ce qu'une injection SQL, et comment peut-elle être prévenue ?",
-      "us": "What is SQL injection, and how can it be prevented?"
-    },
-    "options": {
-      "fr": [
-        "Une technique d'attaque où du code SQL malveillant est inséré dans une requête, prévenue par des requêtes paramétrées.",
-        "Un type de virus qui affecte les bases de données, prévenu par un antivirus.",
-        "Une erreur de syntaxe dans les requêtes SQL, prévenue par des tests.",
-        "Une méthode pour optimiser les performances des bases de données, prévenue par des index.",
-        "Un outil pour tester la sécurité des applications, prévenu par des audits."
-      ],
-      "us": [
-        "An attack technique where malicious SQL code is inserted into a query, prevented by parameterized queries.",
-        "A type of virus affecting databases, prevented by antivirus software.",
-        "A syntax error in SQL queries, prevented by testing.",
-        "A method to optimize database performance, prevented by indexing.",
-        "A tool to test application security, prevented by audits."
-      ]
-    },
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": {
       "fr": "Expliquez le principe de moindre privilège.",
       "us": "Explain the principle of least privilege."
     },
@@ -1399,7 +1374,6 @@
     "lot": "CIBOX",
     "type": "Choix simple"
   },
-
   {
     "question": {
       "fr": "Qu'est-ce qu'un pipeline Jenkins, et comment est-il défini ?",
@@ -3000,7 +2974,7 @@
     "lot": "CIBOX",
     "type": "Choix simple"
   },
-    {
+  {
     "question": {
       "fr": "Décrivez une stratégie pour les déploiements blue-green utilisant Jenkins.",
       "us": "Describe a strategy for blue-green deployments using Jenkins."
@@ -3025,7 +2999,7 @@
     "lot": "CIBOX",
     "type": "Choix simple"
   },
-    {
+  {
     "question": {
       "fr": "Comment configurez-vous les notifications dans JIRA ?",
       "us": "How do you configure notifications in JIRA?"
@@ -3250,7 +3224,7 @@
     "lot": "JIRA",
     "type": "Choix simple"
   },
-   {
+  {
     "question": {
       "fr": "Comment configurez-vous les notifications dans JIRA ?",
       "us": "How do you configure notifications in JIRA?"
@@ -3349,8 +3323,7 @@
     "correct": 0,
     "lot": "JIRA",
     "type": "Choix simple"
-  }
-  ,
+  },
   {
     "question": {
       "fr": "Décrivez comment intégrer JIRA avec Confluence.",
@@ -3375,7 +3348,7 @@
     "correct": 0,
     "lot": "JIRA",
     "type": "Choix simple"
-},
+  },
   {
     "question": {
       "fr": "Quel est le but de JIRA Service Desk ?",
@@ -3476,7 +3449,6 @@
     "lot": "JIRA",
     "type": "Choix simple"
   },
-    
   {
     "question": {
       "fr": "Décrivez une stratégie pour la planification de la capacité.",
@@ -3802,7 +3774,6 @@
     "lot": "SRE",
     "type": "Choix simple"
   },
-    
   {
     "question": {
       "fr": "Qu’est-ce que XL Deploy, et quelles sont ses fonctionnalités clés ?",
@@ -4627,6 +4598,55 @@
     "correct": 0,
     "lot": "SYD",
     "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelle est la capitale de la France ?",
+      "us": "What is the capital of France?"
+    },
+    "options": {
+      "fr": [
+        "Paris",
+        "Londres",
+        "Berlin",
+        "Madrid",
+        "Rome"
+      ],
+      "us": [
+        "Paris",
+        "London",
+        "Berlin",
+        "Madrid",
+        "Rome"
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le résultat de 2 + 2 ?",
+      "us": "What is the result of 2 + 2?"
+    },
+    "options": {
+      "fr": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "us": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    "correct": 1,
+    "lot": "GENERAL",
+    "type": "Choix simple"
   }
-
-  ]
+]
