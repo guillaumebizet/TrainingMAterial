@@ -170,12 +170,15 @@ async function startQuiz() {
 }
 
 function loadQuestions() {
-  const container = document.getElementById('quiz-container');
+  const container = document.getElementById('questions-list');
+  if (!container) {
+    console.error("Conteneur 'questions-list' non trouvé.");
+    return;
+  }
   container.innerHTML = '';
-  container.appendChild(document.getElementById('header')); // Réinsérer le header
 
   if (!selectedQuestions || selectedQuestions.length === 0) {
-    container.innerHTML += '<p>Aucune question à afficher pour ce lot.</p>';
+    container.innerHTML = '<p>Aucune question à afficher pour ce lot.</p>';
     return;
   }
 
