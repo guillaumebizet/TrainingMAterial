@@ -326,7 +326,9 @@ function saveScore() {
 // Initialisation et événements
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM chargé, attachement des événements...");
-
+  await loadTranslations(currentLang); // Attend que les traductions soient chargées
+  fetchQuestions(); // Puis charge les questions
+  loadScores();     // Puis charge les scores
   // Charger la langue par défaut
   loadTranslations(currentLang);
 
