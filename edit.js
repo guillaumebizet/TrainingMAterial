@@ -184,6 +184,28 @@ function showPreviewModal() {
   document.body.appendChild(modal);
 }
 
+function showNotification(message, details = null) {
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.innerHTML = `
+    <p>${message}</p>
+    ${details ? `
+      <div class="notification-details">
+        <p><strong>Question (FR):</strong> ${details.question.fr}</p>
+        <p><strong>Question (US):</strong> ${details.question.us}</p>
+        <h4>Options:</h4>
+        ${details.options.fr.map((option, i) => `
+          <p>${i + 1}. ${option} / ${details.options.us[i]} ${details.type === 'Choix simple' ? (i === parseInt(details.correct) ? '(Correct)' : '') : (Array.isArray(details.correct) && details.correct.includes(i) ? '(Correct)' : '')}</p>
+        `).join('')}
+        <p><strong>Lot:</strong> ${details.lot}</p>
+        <p><strong>Type:</strong> ${details.type}</p>
+      </div>
+    ` : ''}
+  `;
+  document.body.appendChild(notification);
+  setTimeout(() => notification.remove(), 5000); // Supprime la notification après 5 secondes
+}
+
 function saveQuestion() {
   const q = questions[editingIndex];
   q.question.fr = document.getElementById('edit-question-fr').value;
@@ -192,6 +214,10 @@ function saveQuestion() {
   q.options.us = Array.from(document.getElementsByClassName('option-us')).map(input => input.value || '');
   q.lot = document.getElementById('edit-lot').value;
   q.type = document.getElementById('edit-type').value;
+
+  // Afficher une notification avec les détails de la question modifiée
+  showNotification("Modifications sauvegardées avec succès !", q);
+
   editingIndex = null;
   loadQuestionList();
 }
