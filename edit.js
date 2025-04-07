@@ -218,7 +218,6 @@ function saveQuestion() {
   loadQuestionList();
 }
 
-// Fonction pour gérer le commit (appelée par le bouton "Sauvegarder les modifications (Commit)")
 function commitChanges() {
   // Récupérer les questions modifiées
   const modifiedQuestions = Array.from(modifiedQuestionsIndices).map(index => questions[index]);
@@ -226,11 +225,15 @@ function commitChanges() {
   // Afficher une notification avec le JSON des questions modifiées
   showNotification("Modifications sauvegardées avec succès !", modifiedQuestions);
 
+  // Appeler saveQuestionsToGitHub pour sauvegarder sur GitHub (si nécessaire)
+  if (typeof saveQuestionsToGitHub === 'function') {
+    saveQuestionsToGitHub();
+  } else {
+    console.error("saveQuestionsToGitHub n'est pas défini.");
+  }
+
   // Réinitialiser la liste des questions modifiées
   modifiedQuestionsIndices.clear();
-
-  // Optionnel : Sauvegarder les modifications sur GitHub ou localement
-  // (Si tu as une fonction pour sauvegarder sur GitHub, appelle-la ici)
 }
 
 function cancelEdit() {
