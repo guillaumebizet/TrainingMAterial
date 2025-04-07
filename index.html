@@ -31,13 +31,15 @@
       <button id="start-quiz-button">Démarrer le quiz</button>
     </div>
   </div>
-  <div id="quiz-container">
-    <div id="header">
-      <div id="score-counter">Score : <span id="current-score">0</span> / <span id="total-questions">0</span> | Bonnes: <span id="correct-count">0</span> | Mauvaises: <span id="incorrect-count">0</span></div>
-      <div id="timer">Temps : 00:00</div>
-    </div>
-    <div id="questions-list"></div>
+<div id="quiz-container">
+  <div id="header">
+    <div id="score-counter">Score : <span id="current-score">0</span> / <span id="total-questions">0</span> | Bonnes: <span id="correct-count">0</span> | Mauvaises: <span id="incorrect-count">0</span></div>
+    <div id="timer">Temps : 00:00</div>
   </div>
+  <button id="save-current-score-btn">Sauvegarder le score actuel</button>
+  <p id="save-current-feedback" style="display:none; color: #27ae60;"></p>
+  <div id="questions-list"></div>
+</div>
   <div id="edit-container">
     <h2>Éditer les Questions</h2>
     <button id="save-questions-btn" onclick="saveQuestionsToGitHub()">Sauvegarder les modifications (Commit)</button>
