@@ -1,7 +1,7 @@
 [
   {
     "question": {
-      "fr": "Quelle est la différence entre `git merge` et `git rebase` ?   fzerfze",
+      "fr": "Quelle est la différence entre `git merge` et `git rebase` ?  test",
       "us": "What is the difference between `git merge` and `git rebase`? "
     },
     "options": {
@@ -26,7 +26,7 @@
   },
   {
     "question": {
-      "fr": "Comment annuler le dernier commit dans Git sans perdre les changements ?",
+      "fr": "Comment annuler le dernier commit dans Git sans perdre les changements ? aa",
       "us": "How do you undo the last commit in Git without losing changes?"
     },
     "options": {
