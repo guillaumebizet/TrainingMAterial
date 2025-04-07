@@ -1276,6 +1276,132 @@
   },
   {
     "question": {
+      "fr": "Quel est le but des agents Jenkins ?",
+      "us": "What is the purpose of Jenkins agents?"
+    },
+    "options": {
+      "fr": [
+        "Exécuter des jobs sur des machines distantes pour distribuer la charge.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Run jobs on remote machines to distribute the load.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les identifiants dans Jenkins ?",
+      "us": "How do you manage credentials in Jenkins?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant le gestionnaire d'identifiants de Jenkins pour stocker les secrets.",
+        "En les stockant directement dans le code source.",
+        "En utilisant des conteneurs.",
+        "En désactivant les identifiants.",
+        "En évitant les dépendances."
+      ],
+      "us": [
+        "By using Jenkins' credential manager to store secrets.",
+        "By storing them directly in the source code.",
+        "Using containers.",
+        "By disabling credentials.",
+        "By avoiding dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez comment configurer un pipeline multi-branches dans Jenkins.",
+      "us": "Explain how to configure a multi-branch pipeline in Jenkins."
+    },
+    "options": {
+      "fr": [
+        "En créant un job de type 'Pipeline multi-branches' et en spécifiant un SCM avec des branches.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les branches."
+      ],
+      "us": [
+        "By creating a 'Multi-branch Pipeline' job and specifying an SCM with branches.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling branches."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que GitHub Actions, et en quoi diffère-t-il de Jenkins ?",
+      "us": "What is GitHub Actions, and how does it differ from Jenkins?"
+    },
+    "options": {
+      "fr": [
+        "Un outil CI/CD intégré à GitHub, plus simple à configurer que Jenkins mais moins personnalisable.",
+        "Un outil pour gérer les branches dans Git, plus complexe que Jenkins.",
+        "Un type de conteneur, différent de Jenkins.",
+        "Une méthode pour tester les performances, similaire à Jenkins.",
+        "Un outil pour centraliser les données, identique à Jenkins."
+      ],
+      "us": [
+        "A CI/CD tool integrated with GitHub, easier to configure than Jenkins but less customizable.",
+        "A tool to manage branches in Git, more complex than Jenkins.",
+        "A type of container, different from Jenkins.",
+        "A method to test performance, similar to Jenkins.",
+        "A tool to centralize data, identical to Jenkins."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment créez-vous un workflow dans GitHub Actions ?",
+      "us": "How do you create a workflow in GitHub Actions?"
+    },
+    "options": {
+      "fr": [
+        "En créant un fichier YAML dans le répertoire .github/workflows.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les workflows existants."
+      ],
+      "us": [
+        "By creating a YAML file in the .github/workflows directory.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling existing workflows."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+
+  {
+    "question": {
       "fr": "Qu'est-ce qu'un pipeline Jenkins, et comment est-il défini ?",
       "us": "What is a Jenkins pipeline, and how is it defined?"
     },
