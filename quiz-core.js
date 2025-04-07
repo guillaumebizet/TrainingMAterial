@@ -1,10 +1,18 @@
-// Constantes globales pour le dépôt
+/*// Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "a474881/training",
   branch: "coding-main",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
+};*/
+
+const GITHUB_CONFIG = {
+  repo: "guillaumebizet/TrainingMAterial",  // Ton dépôt public sur GitHub
+  branch: "priv",                           // Branche spécifique pour GitHub Pages
+  questionsPath: "questions.json",          // Chemin du fichier questions.json
+  scoresPath: "scores.json",                // Chemin du fichier scores.json
+  apiBaseUrl: "https://api.github.com/repos" // API publique de GitHub
 };
 
 async function saveQuestionsToGitHub() {
