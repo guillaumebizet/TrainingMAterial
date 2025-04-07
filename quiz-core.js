@@ -215,7 +215,8 @@ function loadQuestions() {
 }
 
 function saveScore() {
-  const selectedLot = document.getElementById('lot-selection').value || "Non spécifié";
+  const lotSelect = document.getElementById('lot-selection');
+  const selectedLot = lotSelect && lotSelect.value ? lotSelect.value : "Non spécifié"; // Vérifie que l’élément existe et a une valeur
   const scoreData = {
     name: candidateName,
     date: new Date().toLocaleDateString('fr-FR'),
@@ -234,9 +235,8 @@ function saveScore() {
 
   const token = sessionStorage.getItem('githubPAT');
   if (token) {
+    console.log("Tentative de sauvegarde sur GitHub avec PAT:", scores);
     saveScoresToGitHub(token);
-    console.log("Tentative de sauvegarde sur GitHub avec PAT.");
-    loadScores();
     return true;
   } else {
     console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
