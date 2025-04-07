@@ -5,48 +5,60 @@ body {
   padding: 20px;
 }
 
-header {
-  position: fixed;
+#quiz-container, #edit-container, #scores-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: none;
+}
+
+#quiz-container {
+  position: relative;
+}
+
+#header {
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: white;
-  padding: 15px 20px;
+  z-index: 10;
+  background: white;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #ccc;
 }
 
 #score-counter {
+  padding: 15px;
   background-color: #3498db;
   color: white;
   border-radius: 10px;
   font-size: 1.2em;
-  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #timer {
+  padding: 10px;
   background-color: #e74c3c;
   color: white;
   border-radius: 5px;
   font-size: 1em;
-  padding: 10px 15px;
 }
 
-/* Décaler les contenus sous le header */
-main {
-  margin-top: 100px;
+#save-current-score-btn {
+  background-color: #2ecc71;
+  color: white;
+  margin: 10px 0;
 }
 
-.section {
-  display: none;
+#save-current-score-btn:hover {
+  background-color: #27ae60;
 }
 
-.section.active {
-  display: block;
+#save-current-feedback {
+  margin: 10px 0;
 }
 
 .question {
@@ -98,6 +110,7 @@ button {
   font-size: 1em;
   transition: background-color 0.3s;
 }
+
 .validate-btn {
   background-color: #3498db;
   color: white;
@@ -144,12 +157,15 @@ button {
   margin: 0;
 }
 
-/* Onglets et autres éléments */
+#start-screen {
+  text-align: center;
+  padding: 20px;
+}
+
 #tabs {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  margin-top: 100px; /* Pour éviter qu'ils soient sous le header */
 }
 
 .tab {
@@ -169,11 +185,11 @@ button {
   color: white;
 }
 
-#edit-form, #question-selection {
+#question-selection {
   margin-bottom: 20px;
 }
 
-#edit-form input, #edit-form textarea, #edit-form select, #question-selection select {
+#question-selection select {
   width: 100%;
   padding: 10px;
   margin: 8px 0;
@@ -183,63 +199,87 @@ button {
   transition: border-color 0.3s;
 }
 
-#edit-form input:focus, #edit-form textarea:focus, #edit-form select:focus, #question-selection select:focus {
+#question-selection select:focus {
   border-color: #3498db;
   outline: none;
 }
 
-#edit-form button, #question-selection button {
+#question-selection button {
   margin-top: 10px;
   background-color: #2ecc71;
   color: white;
 }
 
-#edit-form button:hover, #question-selection button:hover {
+#question-selection button:hover {
   background-color: #27ae60;
 }
-.question-item {
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  background-color: #f9f9f9;
-  transition: transform 0.3s, box-shadow 0.3s;
-  animation: fadeIn 0.3s ease-in;
+
+#pat-section {
+  margin: 20px 0;
+  text-align: center;
 }
 
-.question-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.question-item input, .question-item textarea, .question-item select {
-  width: 100%;
-  margin: 8px 0;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.question-item label {
+#pat-section label {
+  display: block;
   font-weight: bold;
   color: #2c3e50;
-  display: block;
   margin-bottom: 5px;
 }
 
-.question-item .actions {
-  display: flex;
-  gap: 10px;
+#github-pat {
+  width: 300px;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#validate-pat-btn {
+  background-color: #3498db;
+  color: white;
+  margin-left: 10px;
+}
+
+#validate-pat-btn:hover {
+  background-color: #2980b9;
+}
+
+#pat-status {
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+#pat-feedback {
   margin-top: 10px;
 }
 
-.question-item .actions button {
-  background-color: #e74c3c;
+#save-questions-btn {
+  position: sticky;
+  top: 10px;
+  z-index: 10;
+  background-color: #2ecc71;
   color: white;
 }
 
-.question-item .actions button:hover {
-  background-color: #c0392b;
+#save-questions-btn:hover {
+  background-color: #27ae60;
+}
+
+#edit-filter {
+  margin: 20px 0;
+}
+
+#edit-filter label {
+  font-weight: bold;
+  color: #2c3e50;
+  margin-right: 10px;
+}
+
+#lot-filter {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #scores-table {
@@ -262,23 +302,352 @@ button {
   background-color: #f9f9f9;
 }
 
-/* Nouveaux styles pour les boutons OAuth */
-nav button {
-  background-color: #007bff;
+/* Modale */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  max-width: 500px;
+  width: 90%;
+}
+
+#modal-message {
+  display: block;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 1.2em;
+}
+
+#modal-message h3 {
+  margin: 0 0 15px;
+  font-size: 1.3em;
+  color: #3498db;
+}
+
+#modal-message p {
+  margin: 5px 0;
+}
+
+#modal-message strong {
+  color: #2c3e50;
+}
+
+#modal-close-btn {
+  background-color: #3498db;
   color: white;
-  margin: 0 5px;
+  padding: 10px 20px;
+  display: block;
+  margin: 0 auto;
 }
 
-nav button:hover {
-  background-color: #0056b3;
+#modal-close-btn:hover {
+  background-color: #2980b9;
 }
 
-#auth-status {
-  margin: 0 10px;
+/* Bandeau de notification */
+.notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #3498db;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 999;
+  font-size: 1.1em;
+  animation: slideDown 0.5s ease-in-out;
+}
+
+.notification p {
+  margin: 0 0 10px;
+}
+
+.notification-details {
+  background: #f0f2f5;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 0.9em;
+  color: #2c3e50;
+}
+
+.notification-details p {
+  margin: 5px 0;
+}
+
+.notification-details h4 {
+  margin: 10px 0 5px;
+  font-size: 1em;
+  color: #3498db;
+}
+
+.notification-details strong {
+  color: #2c3e50;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+/* Ajustements pour PAT */
+#reset-pat-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#reset-pat-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Styles pour les blocs de questions et l’édition */
+.question-item {
+  margin: 20px 0;
+}
+
+.question-block {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.question-block:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.question-block h3 {
+  margin: 0 0 15px;
+  font-size: 1.2em;
+  color: #2c3e50;
+}
+
+.options {
+  margin: 10px 0;
+}
+
+.options label {
+  display: block;
+  margin: 5px 0;
+  color: #34495e;
+  font-size: 1em;
+}
+
+.options input[type="radio"],
+.options input[type="checkbox"] {
+  margin-right: 10px;
+  accent-color: #3498db;
+}
+
+.actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.actions button:first-child {
+  background-color: #3498db; /* Bouton "Modifier" */
+  color: white;
+}
+
+.actions button:first-child:hover {
+  background-color: #2980b9;
+}
+
+.actions button:last-child {
+  background-color: #e74c3c; /* Bouton "Supprimer" */
+  color: white;
+}
+
+.actions button:last-child:hover {
+  background-color: #c0392b;
+}
+
+/* Styles pour le formulaire d’édition */
+.edit-form {
+  border: 2px solid #3498db;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-in;
+}
+
+.edit-form h3 {
+  margin: 0 0 20px;
+  font-size: 1.5em;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.form-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: #fafafa;
+}
+
+.form-section h4 {
+  margin: 0 0 15px;
+  font-size: 1.2em;
+  color: #3498db;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+.form-section label {
+  display: block;
+  margin: 10px 0 5px;
   font-weight: bold;
+  color: #2c3e50;
 }
 
+.form-section input,
+.form-section textarea,
+.form-section select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s;
+}
+
+.form-section input:focus,
+.form-section textarea:focus,
+.form-section select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.form-section textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.option-field {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.option-field input {
+  flex: 1;
+}
+
+.option-field button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 8px 12px;
+}
+
+.option-field button:hover {
+  background-color: #c0392b;
+}
+
+.options-preview {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  background-color: #f0f2f5;
+}
+
+.options-preview label {
+  display: block;
+  margin: 5px 0;
+}
+
+.options-preview input[type="radio"],
+.options-preview input[type="checkbox"] {
+  margin-right: 10px;
+  accent-color: #3498db;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-actions button:nth-child(1) {
+  background-color: #3498db; /* Bouton "Aperçu" */
+  color: white;
+}
+
+.form-actions button:nth-child(1):hover {
+  background-color: #2980b9;
+}
+
+.form-actions button:nth-child(2) {
+  background-color: #2ecc71; /* Bouton "Sauvegarder" */
+  color: white;
+}
+
+.form-actions button:nth-child(2):hover {
+  background-color: #27ae60;
+}
+
+.form-actions button:last-of-type {
+  background-color: #e74c3c; /* Bouton "Annuler" */
+  color: white;
+}
+
+.form-actions button:last-of-type:hover {
+  background-color: #c0392b;
+}
+
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
 }
