@@ -339,7 +339,45 @@ button {
 #scores-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+#pat-section {
+  margin: 20px 0;
+  text-align: center;
+}
 
+#pat-section label {
+  display: block;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+#github-pat {
+  width: 300px;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#validate-pat-btn {
+  background-color: #3498db;
+  color: white;
+  margin-left: 10px;
+}
+
+#validate-pat-btn:hover {
+  background-color: #2980b9;
+}
+
+#pat-status {
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+#pat-feedback {
+  margin-top: 10px;
+}
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
