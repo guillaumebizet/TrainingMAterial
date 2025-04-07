@@ -3350,7 +3350,7 @@
     "lot": "JIRA",
     "type": "Choix simple"
   },
-  [
+  
   {
     "question": {
       "fr": "Décrivez comment intégrer JIRA avec Confluence.",
@@ -4629,4 +4629,4 @@
     "type": "Choix simple"
   }
 ]
-]
+
