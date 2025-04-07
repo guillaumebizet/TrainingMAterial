@@ -200,6 +200,7 @@ async function startQuiz() {
     selectedQuestions = questions.filter(q =>
       q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
     );
+    console.log(`Questions pour ${selectedLot} :`, selectedQuestions.length, selectedQuestions); // Log ajouté
 
     if (selectedQuestions.length === 0) {
       showModal('no_questions_for_lot');
@@ -322,10 +323,9 @@ function saveScore() {
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM chargé, attachement des événements...");
 
-  // Charger la langue par défaut et attendre avant de charger les questions et scores
   loadTranslations(currentLang).then(() => {
     fetchQuestions().then(() => {
-      loadQuestionList(); // Appel après chargement des questions
+      loadQuestionList();
       loadScores();
     });
   });
