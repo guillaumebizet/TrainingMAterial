@@ -2,7 +2,7 @@
   {
     "question": {
       "fr": "Quelle est la différence entre `git merge` et `git rebase` ?  test",
-      "us": "What is the difference between `git merge` and `git rebase`?  test"
+      "us": "What is the difference between `git merge` and `git rebase`? "
     },
     "options": {
       "fr": [
