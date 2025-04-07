@@ -185,21 +185,11 @@ function showPreviewModal() {
   document.body.appendChild(modal);
 }
 
-function showNotification(message, modifiedQuestions = []) {
-  console.log("showNotification called with message:", message);
-  console.log("Modified questions:", modifiedQuestions);
-
+function showNotification(message) {
   const notification = document.createElement('div');
   notification.className = 'notification';
   notification.innerHTML = `
     <p>${message}</p>
-    ${modifiedQuestions.length > 0 ? `
-      <div class="notification-details">
-        <pre style="background: #f0f0f0; padding: 10px; border-radius: 5px; overflow-x: auto;">
-${JSON.stringify(modifiedQuestions, null, 2)}
-        </pre>
-      </div>
-    ` : ''}
   `;
   document.body.appendChild(notification);
   setTimeout(() => notification.remove(), 5000); // Supprime la notification après 5 secondes
@@ -216,26 +206,17 @@ function saveQuestion() {
 
   // Ajouter l'index de la question modifiée à la liste
   modifiedQuestionsIndices.add(editingIndex);
-  console.log("Question modifiée, indices actuels:", Array.from(modifiedQuestionsIndices));
 
   editingIndex = null;
   loadQuestionList();
 }
 
 function commitChanges() {
-  console.log("commitChanges called");
-  console.log("Indices des questions modifiées:", Array.from(modifiedQuestionsIndices));
-
-  // Récupérer les questions modifiées
-  const modifiedQuestions = Array.from(modifiedQuestionsIndices).map(index => questions[index]);
-  console.log("Questions modifiées:", modifiedQuestions);
-
-  // Afficher une notification avec le JSON des questions modifiées
-  showNotification("Modifications sauvegardées avec succès !", modifiedQuestions);
+  // Afficher une notification simple sans JSON
+  showNotification("Modifications sauvegardées avec succès !");
 
   // Appeler saveQuestionsToGitHub pour sauvegarder sur GitHub (si nécessaire)
   if (typeof saveQuestionsToGitHub === 'function') {
-    console.log("Appel de saveQuestionsToGitHub");
     saveQuestionsToGitHub();
   } else {
     console.error("saveQuestionsToGitHub n'est pas défini.");
@@ -243,7 +224,6 @@ function commitChanges() {
 
   // Réinitialiser la liste des questions modifiées
   modifiedQuestionsIndices.clear();
-  console.log("Liste des indices réinitialisée:", Array.from(modifiedQuestionsIndices));
 }
 
 function cancelEdit() {
@@ -264,7 +244,6 @@ function deleteQuestion(index) {
     }
   });
   modifiedQuestionsIndices = newIndices;
-  console.log("Question supprimée, indices ajustés:", Array.from(modifiedQuestionsIndices));
   loadQuestionList();
 }
 
