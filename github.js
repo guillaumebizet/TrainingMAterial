@@ -1,3 +1,12 @@
+/*const GITHUB_CONFIG = {
+  repo: "a474881/training",
+  branch: "coding-main",
+  questionsPath: "questions.json",
+  scoresPath: "scores.json",
+  apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
+};*/
+
+
 // Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "guillaumebizet/TrainingMAterial",
