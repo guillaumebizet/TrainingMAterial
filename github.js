@@ -1,11 +1,3 @@
-/*// Constantes globales pour le dépôt
-const GITHUB_CONFIG = {
-  repo: "a474881/training",
-  branch: "coding-main",
-  questionsPath: "questions.json",
-  scoresPath: "scores.json",
-  apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
-};*/
 // Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "guillaumebizet/TrainingMAterial",
@@ -15,7 +7,6 @@ const GITHUB_CONFIG = {
   apiBaseUrl: "https://api.github.com/repos"
 };
 
-// Déplacer loadLotSelection ici
 function loadLotSelection() {
   const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
   const select = document.getElementById('lot-selection');
@@ -143,6 +134,7 @@ async function saveScoresToGitHub(token) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour scores.json :", updateData);
       alert("Scores sauvegardés avec succès sur GitHub !");
+      // Recharge les scores après sauvegarde réussie
       await loadScores();
     } else {
       const errorData = await updateResponse.json();
@@ -172,7 +164,7 @@ async function fetchQuestions() {
     }
     console.log('Questions chargées avec succès :', questions);
     generateAdditionalQuestions();
-    loadLotSelection(); // Maintenant défini dans ce fichier
+    loadLotSelection();
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
     alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
