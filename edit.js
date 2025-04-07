@@ -12,7 +12,7 @@ function loadQuestionList() {
   const filter = document.getElementById('lot-filter')?.value || '';
   const filteredQuestions = filter ? questions.filter(q => q.lot === filter) : questions;
 
-  console.log("Questions filtrées :", filteredQuestions.length, filteredQuestions); // Debug
+  console.log("Filtre appliqué :", filter, "| Questions filtrées :", filteredQuestions.length, filteredQuestions); // Debug
 
   filteredQuestions.forEach((q, index) => {
     if (!q.question || !q.question.fr || !q.question.us) {
@@ -219,18 +219,17 @@ function saveAndCommit() {
   modifiedQuestionsIndices.add(editingIndex);
   editingIndex = null;
 
-  // Sauvegarde et commit direct
   if (modifiedQuestionsIndices.size > 0) {
     saveQuestionsToGitHub().then(() => {
       showNotification("Modifications sauvegardées et poussées sur GitHub avec succès !");
       modifiedQuestionsIndices.clear();
-      loadQuestionList(); // Rafraîchir l’affichage
+      loadQuestionList();
     }).catch(error => {
       console.error("Erreur lors du commit :", error);
       showNotification("Erreur lors de la sauvegarde sur GitHub.");
     });
   } else {
-    loadQuestionList(); // Rafraîchir même si pas de changements poussés
+    loadQuestionList();
   }
 }
 
@@ -248,7 +247,13 @@ function deleteQuestion(index) {
     else if (i < index) newIndices.add(i);
   });
   modifiedQuestionsIndices = newIndices;
-  loadQuestionList();
+  saveQuestionsToGitHub().then(() => {
+    showNotification("Question supprimée et modifications poussées sur GitHub !");
+    loadQuestionList();
+  }).catch(error => {
+    console.error("Erreur lors de la suppression :", error);
+    showNotification("Erreur lors de la suppression sur GitHub.");
+  });
 }
 
 function addNewQuestion() {
@@ -263,14 +268,17 @@ function addNewQuestion() {
 }
 
 function filterQuestionsByLot() {
-  loadQuestionList(); // Recharger avec le filtre appliqué
+  loadQuestionList();
 }
 
 // Attacher l’événement au filtre
 document.addEventListener('DOMContentLoaded', () => {
   const lotFilter = document.getElementById('lot-filter');
   if (lotFilter) {
-    lotFilter.addEventListener('change', filterQuestionsByLot);
+    lotFilter.addEventListener('change', () => {
+      console.log("Changement de filtre détecté :", lotFilter.value);
+      filterQuestionsByLot();
+    });
     console.log("Événement 'change' attaché au filtre de lot.");
   } else {
     console.error("Élément '#lot-filter' non trouvé dans le DOM.");
