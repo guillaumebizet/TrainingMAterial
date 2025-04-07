@@ -247,8 +247,10 @@ function saveScore() {
   const token = sessionStorage.getItem('githubPAT');
   if (token) {
     saveScoresToGitHub(token);
+    return true; // Indique que la sauvegarde sur GitHub a été tentée
   } else {
     console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
+    return false;
   }
 }
 
@@ -291,5 +293,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   } else {
     console.error("Bouton 'save-result-btn' non trouvé.");
+  }
+
+  const saveCurrentScoreButton = document.getElementById('save-current-score-btn');
+  if (saveCurrentScoreButton) {
+    saveCurrentScoreButton.addEventListener('click', () => {
+      const saved = saveScore();
+      const feedback = document.getElementById('save-current-feedback');
+      feedback.textContent = saved ? 'Score actuel sauvegardé avec succès !' : 'Score sauvegardé localement (aucun PAT fourni).';
+      feedback.style.display = 'block';
+      setTimeout(() => feedback.style.display = 'none', 3000);
+    });
+  } else {
+    console.error("Bouton 'save-current-score-btn' non trouvé.");
   }
 });
