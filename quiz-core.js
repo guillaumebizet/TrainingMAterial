@@ -9,14 +9,41 @@ let timeElapsed = 0;
 let candidateName = '';
 let scores = [];
 let currentLot = "Non spécifié";
+let currentLang = "fr"; // Langue par défaut
+let translations = {};
 
-// Fonction pour afficher une modale stylisée
+// Charger les traductions
+async function loadTranslations(lang) {
+  try {
+    const response = await fetch(`lang/${lang}.json`);
+    if (!response.ok) throw new Error(`Failed to load ${lang}.json`);
+    translations[lang] = await response.json();
+    applyTranslations();
+  } catch (error) {
+    console.error(`Erreur lors du chargement des traductions pour ${lang}:`, error);
+  }
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-lang]').forEach(element => {
+    const key = element.getAttribute('data-lang');
+    element.textContent = translations[currentLang][key] || key;
+  });
+  // Placeholder pour candidate-name
+  document.getElementById('candidate-name').placeholder = currentLang === "fr" ? "Entrez votre nom" : "Enter your name";
+}
+
+function changeLanguage(lang) {
+  currentLang = lang;
+  loadTranslations(lang);
+}
+
 function showModal(message, details = null) {
   const modal = document.getElementById('github-modal');
   const modalMessage = document.getElementById('modal-message');
   const closeBtn = document.getElementById('modal-close-btn');
 
-  modalMessage.innerHTML = details ? `${message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : message;
+  modalMessage.innerHTML = details ? `${translations[currentLang][message] || message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : (translations[currentLang][message] || message);
   modal.style.display = 'flex';
 
   closeBtn.onclick = () => {
@@ -60,7 +87,7 @@ function validateAnswer(index) {
   const validateBtn = document.querySelectorAll('.validate-btn')[index];
 
   if (!selected.length) {
-    showModal('Veuillez sélectionner une réponse');
+    showModal('select_answer');
     return;
   }
 
@@ -124,26 +151,26 @@ async function startQuiz() {
   try {
     candidateName = document.getElementById('candidate-name').value.trim();
     if (!candidateName) {
-      showModal('Veuillez entrer votre nom');
+      showModal('enter_name');
       return;
     }
 
     const lotSelect = document.getElementById('lot-selection');
     const selectedLot = lotSelect.value;
     if (!selectedLot) {
-      showModal('Veuillez sélectionner un lot de questions');
+      showModal('select_lot_prompt');
       return;
     }
 
     if (typeof fetchQuestions !== 'function') {
-      showModal("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
+      showModal('questions_not_loaded');
       return;
     }
 
     await fetchQuestions();
 
     if (!questions || questions.length === 0) {
-      showModal('Aucune question chargée. Vérifiez le chargement initial.');
+      showModal('no_questions_loaded');
       return;
     }
 
@@ -152,7 +179,7 @@ async function startQuiz() {
     );
 
     if (selectedQuestions.length === 0) {
-      showModal('Aucune question disponible pour ce lot');
+      showModal('no_questions_for_lot');
       return;
     }
 
@@ -185,21 +212,21 @@ function loadQuestions() {
   container.innerHTML = '';
 
   if (!selectedQuestions || selectedQuestions.length === 0) {
-    container.innerHTML = '<p>Aucune question à afficher pour ce lot.</p>';
+    container.innerHTML = `<p>${translations[currentLang]['no_questions']}</p>`;
     return;
   }
 
   const shuffledSet = selectedQuestions.map((q) => {
     const clone = structuredClone(q);
-    const shuffled = shuffle([...clone.options]);
+    const shuffled = shuffle([...clone.options[currentLang]]);
 
     if (Array.isArray(clone.correct)) {
-      clone.correct = clone.correct.map(c => shuffled.indexOf(clone.options[c]));
+      clone.correct = clone.correct.map(c => shuffled.indexOf(clone.options[currentLang][c]));
     } else {
-      clone.correct = shuffled.indexOf(clone.options[clone.correct]);
+      clone.correct = shuffled.indexOf(clone.options[currentLang][clone.correct]);
     }
 
-    clone.options = shuffled;
+    clone.options[currentLang] = shuffled;
     return clone;
   });
 
@@ -209,17 +236,17 @@ function loadQuestions() {
     const questionDiv = document.createElement('div');
     questionDiv.className = 'question';
     questionDiv.innerHTML = `
-      <h3>Question ${index + 1} : ${q.question}</h3>
+      <h3>Question ${index + 1} : ${q.question[currentLang]}</h3>
       <div class="options" id="options-${index}"></div>
       <div class="question-actions">
-        <button class="validate-btn" onclick="validateAnswer(${index})">Valider</button>
+        <button class="validate-btn" onclick="validateAnswer(${index})">${translations[currentLang]['validate']}</button>
         <span class="feedback" id="feedback-${index}"></span>
       </div>
     `;
     container.appendChild(questionDiv);
 
     const optionsDiv = document.getElementById(`options-${index}`);
-    q.options.forEach((option, i) => {
+    q.options[currentLang].forEach((option, i) => {
       const optionHTML = `
         <div class="option">
           <input type="${q.type === 'QCM' ? 'checkbox' : 'radio'}" name="option-${index}" id="option-${index}-${i}" value="${i}">
@@ -243,7 +270,8 @@ function saveScore() {
     date: new Date().toLocaleDateString('fr-FR'),
     score: `${score} / ${selectedQuestions.length}`,
     time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`,
-    lot: currentLot
+    lot: currentLot,
+    lang: currentLang // Ajout de la langue
   };
   scores.push(scoreData);
 
@@ -271,6 +299,9 @@ function saveScore() {
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM chargé, attachement des événements...");
 
+  // Charger la langue par défaut
+  loadTranslations(currentLang);
+
   const startQuizButton = document.getElementById('start-quiz-button');
   if (startQuizButton) {
     startQuizButton.addEventListener('click', startQuiz);
@@ -297,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const pat = patInput.value.trim();
       if (pat) {
         sessionStorage.setItem('githubPAT', pat);
-        patFeedback.textContent = 'PAT validé avec succès !';
+        patFeedback.textContent = translations[currentLang]['pat_validated'] || 'PAT validé avec succès !';
         patFeedback.style.display = 'block';
         patInput.style.display = 'none';
         validatePatButton.style.display = 'none';
@@ -306,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => patFeedback.style.display = 'none', 3000);
         console.log("PAT validé et interface mise à jour.");
       } else {
-        showModal('Veuillez entrer un PAT valide.');
+        showModal('invalid_pat');
       }
     });
     console.log("Événement attaché au bouton 'validate-pat-btn'");
@@ -321,6 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
       validatePatButton.style.display = 'inline';
       patStatus.style.display = 'none';
       console.log("PAT réinitialisé.");
+      applyTranslations(); // Rafraîchir les textes après réinitialisation
     });
     console.log("Événement attaché au bouton 'reset-pat-btn'");
   } else {
@@ -332,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveResultButton.addEventListener('click', () => {
       saveScore();
       const feedback = document.getElementById('save-result-feedback');
-      feedback.textContent = 'Résultats sauvegardés avec succès !';
+      feedback.textContent = translations[currentLang]['save_results_success'] || 'Résultats sauvegardés avec succès !';
       feedback.style.display = 'block';
       setTimeout(() => feedback.style.display = 'none', 3000);
     });
@@ -348,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const saved = saveScore();
       const feedback = document.getElementById('save-current-feedback');
       if (feedback) {
-        feedback.textContent = saved ? 'Score actuel sauvegardé avec succès !' : 'Score sauvegardé localement (aucun PAT fourni).';
+        feedback.textContent = saved ? translations[currentLang]['save_current_success'] || 'Score actuel sauvegardé avec succès !' : translations[currentLang]['scores_local'] || 'Score sauvegardé localement (aucun PAT fourni).';
         feedback.style.display = 'block';
         setTimeout(() => feedback.style.display = 'none', 3000);
       } else {
