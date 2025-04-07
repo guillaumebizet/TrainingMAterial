@@ -1,12 +1,12 @@
 async function saveQuestionsToGitHub() {
   if (questions.length === 0) {
-    alert("Aucune question à sauvegarder. Veuillez charger les questions d'abord.");
+    alert("Aucune question à sauvegarder.");
     return;
   }
 
-  const token = prompt("Veuillez entrer votre token d'accès personnel GitHub :");
+  const token = sessionStorage.getItem('githubPAT');
   if (!token) {
-    alert("Token requis pour sauvegarder les modifications");
+    alert("Aucun PAT n'a été configuré dans l'interface d'accueil. Sauvegarde annulée.");
     return;
   }
 
@@ -59,6 +59,12 @@ async function saveQuestionsToGitHub() {
 }
 
 async function saveScoresToGitHub(token) {
+  const pat = token || sessionStorage.getItem('githubPAT');
+  if (!pat) {
+    console.log("Aucun PAT disponible, sauvegarde uniquement locale.");
+    return;
+  }
+
   const repo = "a474881/training";
   const branch = "coding-main";
   const path = "scores.json";
@@ -67,7 +73,7 @@ async function saveScoresToGitHub(token) {
     let sha = null;
     const response = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}?ref=${branch}`, {
       headers: {
-        Authorization: `token ${token}`,
+        Authorization: `token ${pat}`,
         Accept: "application/vnd.github.v3+json"
       }
     });
@@ -79,11 +85,11 @@ async function saveScoresToGitHub(token) {
       throw new Error(`Erreur lors de la récupération du fichier scores.json : ${response.status} ${response.statusText}`);
     }
 
-      const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
     const updateResponse = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}`, {
       method: 'PUT',
       headers: {
-        Authorization: `token ${token}`,
+        Authorization: `token ${pat}`,
         Accept: "application/vnd.github.v3+json"
       },
       body: JSON.stringify({
@@ -124,7 +130,6 @@ async function fetchQuestions() {
     console.log('Questions chargées avec succès :', questions);
     generateAdditionalQuestions();
     loadLotSelection();
-    // Supprimé : loadQuestionList() pour éviter la boucle infinie
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
     alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
@@ -167,6 +172,7 @@ async function loadScores() {
       <td>${score.date}</td>
       <td>${score.score}</td>
       <td>${score.time}</td>
+      <td>${score.lot || 'Non spécifié'}</td>
     `;
     tbody.appendChild(row);
   });
