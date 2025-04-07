@@ -416,7 +416,7 @@ button {
 .options input[type="radio"],
 .options input[type="checkbox"] {
   margin-right: 10px;
-  accent-color: #3498db; /* Couleur des boutons radio/cases à cocher */
+  accent-color: #3498db;
 }
 
 .actions {
@@ -451,6 +451,7 @@ button {
   background-color: #c0392b;
 }
 
+/* Styles pour le formulaire d’édition */
 .edit-form {
   border: 2px solid #3498db;
   padding: 20px;
@@ -462,21 +463,38 @@ button {
 }
 
 .edit-form h3 {
-  margin: 0 0 15px;
-  font-size: 1.3em;
+  margin: 0 0 20px;
+  font-size: 1.5em;
   color: #2c3e50;
+  text-align: center;
 }
 
-.edit-form label {
+.form-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: #fafafa;
+}
+
+.form-section h4 {
+  margin: 0 0 15px;
+  font-size: 1.2em;
+  color: #3498db;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+.form-section label {
   display: block;
   margin: 10px 0 5px;
   font-weight: bold;
   color: #2c3e50;
 }
 
-.edit-form input,
-.edit-form textarea,
-.edit-form select {
+.form-section input,
+.form-section textarea,
+.form-section select {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
@@ -486,42 +504,95 @@ button {
   transition: border-color 0.3s;
 }
 
-.edit-form input:focus,
-.edit-form textarea:focus,
-.edit-form select:focus {
+.form-section input:focus,
+.form-section textarea:focus,
+.form-section select:focus {
   border-color: #3498db;
   outline: none;
 }
 
-.edit-form textarea {
+.form-section textarea {
   height: 80px;
   resize: vertical;
 }
 
-.edit-form button {
-  padding: 8px 16px;
-  margin-right: 10px;
+.option-field {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.option-field input {
+  flex: 1;
+}
+
+.option-field button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 8px 12px;
+}
+
+.option-field button:hover {
+  background-color: #c0392b;
+}
+
+.options-preview {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  background-color: #f0f2f5;
+}
+
+.options-preview label {
+  display: block;
+  margin: 5px 0;
+}
+
+#edit-correct-container select,
+#edit-correct-container input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#edit-correct-checkboxes label {
+  display: block;
+  margin: 5px 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.edit-form button:first-of-type {
+.form-actions button:first-of-type {
   background-color: #2ecc71; /* Bouton "Sauvegarder" */
   color: white;
 }
 
-.edit-form button:first-of-type:hover {
+.form-actions button:first-of-type:hover {
   background-color: #27ae60;
 }
 
-.edit-form button:last-of-type {
+.form-actions button:last-of-type {
   background-color: #e74c3c; /* Bouton "Annuler" */
   color: white;
 }
 
-.edit-form button:last-of-type:hover {
+.form-actions button:last-of-type:hover {
   background-color: #c0392b;
 }
 
