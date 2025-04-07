@@ -1,3 +1,4 @@
+// Constantes globales pour le dépôt
 /*const GITHUB_CONFIG = {
   repo: "a474881/training",
   branch: "coding-main",
@@ -6,8 +7,6 @@
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
 };*/
 
-
-// Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "guillaumebizet/TrainingMAterial",
   branch: "priv",
@@ -15,6 +14,31 @@ const GITHUB_CONFIG = {
   scoresPath: "scores.json",
   apiBaseUrl: "https://api.github.com/repos"
 };
+
+// Fonction pour afficher une modale stylisée
+function showModal(message) {
+  const modal = document.getElementById('github-modal');
+  const modalMessage = document.getElementById('modal-message');
+  const closeBtn = document.getElementById('modal-close-btn');
+
+  modalMessage.textContent = message;
+  modal.style.display = 'flex';
+
+  closeBtn.onclick = () => {
+    modal.style.display = 'none';
+  };
+}
+
+// Fonction pour afficher le bandeau de notification
+function showNotification(message) {
+  const banner = document.getElementById('notification-banner');
+  const messageSpan = document.getElementById('notification-message');
+  messageSpan.textContent = message;
+  banner.style.display = 'block';
+  setTimeout(() => {
+    banner.style.display = 'none';
+  }, 60000); // 1 minute
+}
 
 function loadLotSelection() {
   const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
@@ -34,13 +58,13 @@ function loadLotSelection() {
 
 async function saveQuestionsToGitHub() {
   if (questions.length === 0) {
-    alert("Aucune question à sauvegarder.");
+    showModal("Aucune question à sauvegarder.");
     return;
   }
 
   const token = sessionStorage.getItem('githubPAT');
   if (!token) {
-    alert("Aucun PAT n'a été configuré dans l'interface d'accueil. Sauvegarde annulée.");
+    showModal("Aucun PAT n'a été configuré dans l'interface d'accueil. Sauvegarde annulée.");
     return;
   }
 
@@ -83,7 +107,8 @@ async function saveQuestionsToGitHub() {
     if (updateResponse.ok) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour questions.json :", updateData);
-      alert("Modifications sauvegardées avec succès !");
+      showModal("Modifications sauvegardées avec succès !");
+      showNotification("Vous avez modifié questions.json. GitHub Pages peut prendre 1 à 2 minutes pour refléter ce changement. Veuillez rafraîchir avant de refaire une modification.");
       await fetchQuestions();
     } else {
       const errorData = await updateResponse.json();
@@ -91,7 +116,7 @@ async function saveQuestionsToGitHub() {
     }
   } catch (error) {
     console.error("Erreur lors de la sauvegarde des questions :", error);
-    alert("Erreur lors de la sauvegarde : " + error.message);
+    showModal("Erreur lors de la sauvegarde : " + error.message);
   }
 }
 
@@ -142,8 +167,8 @@ async function saveScoresToGitHub(token) {
     if (updateResponse.ok) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour scores.json :", updateData);
-      alert("Scores sauvegardés avec succès sur GitHub !");
-      // Recharge les scores après sauvegarde réussie
+      showModal("Scores sauvegardés avec succès sur GitHub !");
+      showNotification("Vous avez modifié scores.json. GitHub Pages peut prendre 1 à 2 minutes pour refléter ce changement. Veuillez rafraîchir avant de refaire une modification.");
       await loadScores();
     } else {
       const errorData = await updateResponse.json();
@@ -152,7 +177,7 @@ async function saveScoresToGitHub(token) {
     }
   } catch (error) {
     console.error("Erreur lors de la sauvegarde des scores :", error);
-    alert("Erreur lors de la sauvegarde des scores : " + error.message + ". Les scores seront stockés localement.");
+    showModal("Erreur lors de la sauvegarde des scores : " + error.message + ". Les scores seront stockés localement.");
     localStorage.setItem('scores', JSON.stringify(scores));
   }
 }
@@ -176,7 +201,7 @@ async function fetchQuestions() {
     loadLotSelection();
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
-    alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
+    showModal('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
     questions = [];
   }
 }
