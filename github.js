@@ -1,11 +1,36 @@
-// Constantes globales pour le dépôt
+/*// Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "a474881/training",
   branch: "coding-main",
   questionsPath: "questions.json",
   scoresPath: "scores.json",
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
+};*/
+// Constantes globales pour le dépôt
+const GITHUB_CONFIG = {
+  repo: "guillaumebizet/TrainingMAterial",
+  branch: "priv",
+  questionsPath: "questions.json",
+  scoresPath: "scores.json",
+  apiBaseUrl: "https://api.github.com/repos"
 };
+
+// Déplacer loadLotSelection ici
+function loadLotSelection() {
+  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
+  const select = document.getElementById('lot-selection');
+  if (!select) {
+    console.error("Élément '#lot-selection' non trouvé dans le DOM.");
+    return;
+  }
+  select.innerHTML = '<option value="">Choisir un lot</option>';
+  lots.forEach(lot => {
+    const option = document.createElement('option');
+    option.value = lot;
+    option.textContent = lot;
+    select.appendChild(option);
+  });
+}
 
 async function saveQuestionsToGitHub() {
   if (questions.length === 0) {
@@ -20,6 +45,7 @@ async function saveQuestionsToGitHub() {
   }
 
   try {
+    console.log("Tentative de sauvegarde de questions.json...");
     const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.questionsPath}?ref=${GITHUB_CONFIG.branch}`, {
       headers: {
         Authorization: `token ${token}`,
@@ -34,6 +60,8 @@ async function saveQuestionsToGitHub() {
       console.log("SHA actuel de questions.json :", sha);
     } else if (response.status !== 404) {
       throw new Error(`Erreur lors de la récupération du fichier : ${response.status} ${response.statusText}`);
+    } else {
+      console.log("questions.json n'existe pas encore, création d'un nouveau fichier.");
     }
 
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(questions, null, 2))));
@@ -76,6 +104,7 @@ async function saveScoresToGitHub(token) {
 
   try {
     console.log("Tentative de sauvegarde de scores.json...");
+    console.log("Scores actuels avant sauvegarde :", scores);
     let sha = null;
     const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}?ref=${GITHUB_CONFIG.branch}`, {
       headers: {
@@ -114,9 +143,10 @@ async function saveScoresToGitHub(token) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour scores.json :", updateData);
       alert("Scores sauvegardés avec succès sur GitHub !");
-      await loadScores(); // Recharge les scores après sauvegarde
+      await loadScores();
     } else {
       const errorData = await updateResponse.json();
+      console.error("Erreur détaillée de l'API :", errorData);
       throw new Error(`Erreur lors de la sauvegarde des scores : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
     }
   } catch (error) {
@@ -142,7 +172,7 @@ async function fetchQuestions() {
     }
     console.log('Questions chargées avec succès :', questions);
     generateAdditionalQuestions();
-    loadLotSelection();
+    loadLotSelection(); // Maintenant défini dans ce fichier
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
     alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
