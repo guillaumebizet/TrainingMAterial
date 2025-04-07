@@ -76,10 +76,10 @@ function validateAnswer(index) {
   const allValidated = [...document.querySelectorAll('.validate-btn')].every(btn => btn.disabled);
   if (allValidated) {
     clearInterval(timerInterval);
-    saveScore();
     showResult();
   }
 }
+
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('result').style.display = 'block';
@@ -99,7 +99,7 @@ function showTab(tabId) {
     if (typeof fetchQuestions === 'function') {
       fetchQuestions().then(() => loadQuestionList());
     } else {
-      console.error("fetchQuestions n'est pas défini. Attendez que github.js soit chargé.");
+      console.error("fetchQuestions n'est pas défini.");
     }
   }
   if (tabId === 'scores-container') loadScores();
@@ -172,9 +172,10 @@ async function startQuiz() {
 function loadQuestions() {
   const container = document.getElementById('quiz-container');
   container.innerHTML = '';
+  container.appendChild(document.getElementById('header')); // Réinsérer le header
 
   if (!selectedQuestions || selectedQuestions.length === 0) {
-    container.innerHTML = '<p>Aucune question à afficher pour ce lot.</p>';
+    container.innerHTML += '<p>Aucune question à afficher pour ce lot.</p>';
     return;
   }
 
@@ -223,11 +224,13 @@ function loadQuestions() {
 }
 
 function saveScore() {
+  const selectedLot = document.getElementById('lot-selection').value;
   const scoreData = {
     name: candidateName,
     date: new Date().toLocaleDateString('fr-FR'),
     score: `${score} / ${selectedQuestions.length}`,
-    time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`
+    time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`,
+    lot: selectedLot
   };
   scores.push(scoreData);
 
@@ -238,18 +241,52 @@ function saveScore() {
     console.error("Erreur de sauvegarde dans localStorage :", e);
   }
 
-  const token = prompt("Veuillez entrer votre token d'accès personnel GitHub pour sauvegarder les scores sur GitHub (laisser vide pour ignorer) :");
+  const token = sessionStorage.getItem('githubPAT');
   if (token) {
     saveScoresToGitHub(token);
+  } else {
+    console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
   }
 }
 
-// Attacher un écouteur d'événements au bouton "Démarrer le quiz"
+// Initialisation et événements
 document.addEventListener('DOMContentLoaded', () => {
   const startQuizButton = document.getElementById('start-quiz-button');
   if (startQuizButton) {
     startQuizButton.addEventListener('click', startQuiz);
   } else {
     console.error("Bouton 'start-quiz-button' non trouvé.");
+  }
+
+  const validatePatButton = document.getElementById('validate-pat-btn');
+  if (validatePatButton) {
+    validatePatButton.addEventListener('click', () => {
+      const pat = document.getElementById('github-pat').value.trim();
+      if (pat) {
+        sessionStorage.setItem('githubPAT', pat);
+        const feedback = document.getElementById('pat-feedback');
+        feedback.textContent = 'PAT validé avec succès !';
+        feedback.style.display = 'block';
+        document.getElementById('github-pat').value = '';
+        setTimeout(() => feedback.style.display = 'none', 3000);
+      } else {
+        alert('Veuillez entrer un PAT valide.');
+      }
+    });
+  } else {
+    console.error("Bouton 'validate-pat-btn' non trouvé.");
+  }
+
+  const saveResultButton = document.getElementById('save-result-btn');
+  if (saveResultButton) {
+    saveResultButton.addEventListener('click', () => {
+      saveScore();
+      const feedback = document.getElementById('save-result-feedback');
+      feedback.textContent = 'Résultats sauvegardés avec succès !';
+      feedback.style.display = 'block';
+      setTimeout(() => feedback.style.display = 'none', 3000);
+    });
+  } else {
+    console.error("Bouton 'save-result-btn' non trouvé.");
   }
 });
