@@ -1,8 +1,8 @@
 [
   {
     "question": {
-      "fr": "Quelle est la différence entre `git merge` et `git rebase` ?  testééé",
-      "us": "What is the difference between `git merge` and `git rebase`? "
+      "fr": "Quelle est la différence entre `git merge` et `git rebase` ?",
+      "us": "What is the difference between `git merge` and `git rebase`?"
     },
     "options": {
       "fr": [
@@ -26,7 +26,7 @@
   },
   {
     "question": {
-      "fr": "Comment annuler le dernier commit dans Git sans perdre les changements ? testééé",
+      "fr": "Comment annuler le dernier commit dans Git sans perdre les changements ?",
       "us": "How do you undo the last commit in Git without losing changes?"
     },
     "options": {
@@ -60,79 +60,9 @@
         "Une branche est une copie complète du repository.",
         "Les branches sont pour les versions stables uniquement.",
         "Le branchement n'est pas supporté dans Git.",
-        "Les branches ne peuvent pas être fusionnées.",
-        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-        "Une branche est une copie complète du repository.",
-        "Les branches sont pour les versions stables uniquement.",
-        "Le branchement n'est pas supporté dans Git.",
-        "Les branches ne peuvent pas être fusionnées.",
-        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-        "Une branche est une copie complète du repository.",
-        "Les branches sont pour les versions stables uniquement.",
-        "Le branchement n'est pas supporté dans Git.",
-        "Les branches ne peuvent pas être fusionnées.",
-        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-        "Une branche est une copie complète du repository.",
-        "Les branches sont pour les versions stables uniquement.",
-        "Le branchement n'est pas supporté dans Git.",
-        "Les branches ne peuvent pas être fusionnées.",
-        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-        "Une branche est une copie complète du repository.",
-        "Les branches sont pour les versions stables uniquement.",
-        "Le branchement n'est pas supporté dans Git.",
-        "Les branches ne peuvent pas être fusionnées.",
-        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-        "Une branche est une copie complète du repository.",
-        "Les branches sont pour les versions stables uniquement.",
-        "Le branchement n'est pas supporté dans Git.",
-        "Les branches ne peuvent pas être fusionnées.",
-        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-        "Une branche est une copie complète du repository.",
-        "Les branches sont pour les versions stables uniquement.",
-        "Le branchement n'est pas supporté dans Git.",
-        "Les branches ne peuvent pas être fusionnées.",
-        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-        "Une branche est une copie complète du repository.",
-        "Les branches sont pour les versions stables uniquement.",
-        "Le branchement n'est pas supporté dans Git.",
         "Les branches ne peuvent pas être fusionnées."
       ],
       "us": [
-        "A branch is a pointer to a commit, allowing isolated feature development.",
-        "A branch is a full copy of the repository.",
-        "Branches are only for stable versions.",
-        "Branching is not supported in Git.",
-        "Branches cannot be merged.",
-        "A branch is a pointer to a commit, allowing isolated feature development.",
-        "A branch is a full copy of the repository.",
-        "Branches are only for stable versions.",
-        "Branching is not supported in Git.",
-        "Branches cannot be merged.",
-        "A branch is a pointer to a commit, allowing isolated feature development.",
-        "A branch is a full copy of the repository.",
-        "Branches are only for stable versions.",
-        "Branching is not supported in Git.",
-        "Branches cannot be merged.",
-        "A branch is a pointer to a commit, allowing isolated feature development.",
-        "A branch is a full copy of the repository.",
-        "Branches are only for stable versions.",
-        "Branching is not supported in Git.",
-        "Branches cannot be merged.",
-        "A branch is a pointer to a commit, allowing isolated feature development.",
-        "A branch is a full copy of the repository.",
-        "Branches are only for stable versions.",
-        "Branching is not supported in Git.",
-        "Branches cannot be merged.",
-        "A branch is a pointer to a commit, allowing isolated feature development.",
-        "A branch is a full copy of the repository.",
-        "Branches are only for stable versions.",
-        "Branching is not supported in Git.",
-        "Branches cannot be merged.",
-        "A branch is a pointer to a commit, allowing isolated feature development.",
-        "A branch is a full copy of the repository.",
-        "Branches are only for stable versions.",
-        "Branching is not supported in Git.",
-        "Branches cannot be merged.",
         "A branch is a pointer to a commit, allowing isolated feature development.",
         "A branch is a full copy of the repository.",
         "Branches are only for stable versions.",
@@ -446,23 +376,23 @@
   },
   {
     "question": {
-      "fr": "Quelle est la capitale de la France ?",
-      "us": "What is the capital of France?"
+      "fr": "Qu'est-ce que les microservices, et quels sont leurs avantages ?",
+      "us": "What are microservices, and what are their benefits?"
     },
     "options": {
       "fr": [
-        "Paris",
-        "Londres",
-        "Berlin",
-        "Madrid",
-        "Rome"
+        "Une architecture où les applications sont divisées en petits services indépendants, favorisant la scalabilité.",
+        "Une méthode pour écrire des applications monolithiques plus rapidement.",
+        "Un type de conteneur pour les bases de données.",
+        "Une technique pour centraliser les données.",
+        "Un outil pour gérer les pipelines CI/CD."
       ],
       "us": [
-        "Paris",
-        "London",
-        "Berlin",
-        "Madrid",
-        "Rome"
+        "An architecture where applications are divided into small, independent services, promoting scalability.",
+        "A method to write monolithic applications faster.",
+        "A type of container for databases.",
+        "A technique to centralize data.",
+        "A tool to manage CI/CD pipelines."
       ]
     },
     "correct": 0,
@@ -471,48 +401,48 @@
   },
   {
     "question": {
-      "fr": "Quel est le résultat de 2 + 2 ?",
-      "us": "What is the result of 2 + 2?"
+      "fr": "Comment gérez-vous les erreurs en Python ?",
+      "us": "How do you handle errors in Python?"
     },
     "options": {
       "fr": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
+        "Avec des blocs try/except.",
+        "Avec des blocs if/else.",
+        "Avec des boucles for.",
+        "Avec des fonctions récursives.",
+        "En utilisant des décorateurs."
       ],
       "us": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
+        "With try/except blocks.",
+        "With if/else blocks.",
+        "With for loops.",
+        "With recursive functions.",
+        "Using decorators."
       ]
     },
-    "correct": 1,
-    "lot": "GENERAL",
+    "correct": 0,
+    "lot": "AUTOMATION",
     "type": "Choix simple"
   },
   {
     "question": {
-      "fr": "Quelle est la capitale de la France ?",
-      "us": "What is the capital of France?"
+      "fr": "Quelle est la différence entre `==` et `===` en JavaScript ?",
+      "us": "What is the difference between `==` and `===` in JavaScript?"
     },
     "options": {
       "fr": [
-        "Paris",
-        "Londres",
-        "Berlin",
-        "Madrid",
-        "Rome"
+        "`==` compare les valeurs avec conversion de type, `===` compare les valeurs et les types.",
+        "`==` compare les types, `===` compare les valeurs.",
+        "`==` est plus strict que `===`.",
+        "`===` est utilisé pour les chaînes, `==` pour les nombres.",
+        "Il n'y a pas de différence."
       ],
       "us": [
-        "Paris",
-        "London",
-        "Berlin",
-        "Madrid",
-        "Rome"
+        "`==` compares values with type conversion, `===` compares both values and types.",
+        "`==` compares types, `===` compares values.",
+        "`==` is stricter than `===`.",
+        "`===` is used for strings, `==` for numbers.",
+        "There is no difference."
       ]
     },
     "correct": 0,
@@ -521,48 +451,23 @@
   },
   {
     "question": {
-      "fr": "Quel est le résultat de 2 + 2 ?",
-      "us": "What is the result of 2 + 2?"
+      "fr": "Expliquez ce que sont les API RESTful.",
+      "us": "Explain what RESTful APIs are."
     },
     "options": {
       "fr": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
+        "Des interfaces pour interagir avec des services web via HTTP, utilisant des méthodes comme GET, POST.",
+        "Des bases de données pour stocker des données REST.",
+        "Des outils pour tester les performances des applications.",
+        "Des bibliothèques pour écrire des tests unitaires.",
+        "Des frameworks pour gérer les pipelines CI/CD."
       ],
       "us": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
-      ]
-    },
-    "correct": 1,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": {
-      "fr": "Quelle est la capitale de la France ?",
-      "us": "What is the capital of France?"
-    },
-    "options": {
-      "fr": [
-        "Paris",
-        "Londres",
-        "Berlin",
-        "Madrid",
-        "Rome"
-      ],
-      "us": [
-        "Paris",
-        "London",
-        "Berlin",
-        "Madrid",
-        "Rome"
+        "Interfaces to interact with web services via HTTP, using methods like GET, POST.",
+        "Databases to store REST data.",
+        "Tools to test application performance.",
+        "Libraries to write unit tests.",
+        "Frameworks to manage CI/CD pipelines."
       ]
     },
     "correct": 0,
@@ -571,48 +476,23 @@
   },
   {
     "question": {
-      "fr": "Quel est le résultat de 2 + 2 ?",
-      "us": "What is the result of 2 + 2?"
+      "fr": "Quel est le but des tests unitaires ?",
+      "us": "What is the purpose of unit tests?"
     },
     "options": {
       "fr": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
+        "Vérifier que les unités de code fonctionnent correctement de manière isolée.",
+        "Tester l'intégration entre différents modules.",
+        "Mesurer les performances d'une application.",
+        "Vérifier la sécurité des données.",
+        "Automatiser le déploiement."
       ],
       "us": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
-      ]
-    },
-    "correct": 1,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": {
-      "fr": "Quelle est la capitale de la France ?",
-      "us": "What is the capital of France?"
-    },
-    "options": {
-      "fr": [
-        "Paris",
-        "Londres",
-        "Berlin",
-        "Madrid",
-        "Rome"
-      ],
-      "us": [
-        "Paris",
-        "London",
-        "Berlin",
-        "Madrid",
-        "Rome"
+        "Verify that code units work correctly in isolation.",
+        "Test integration between different modules.",
+        "Measure application performance.",
+        "Verify data security.",
+        "Automate deployment."
       ]
     },
     "correct": 0,
@@ -621,48 +501,23 @@
   },
   {
     "question": {
-      "fr": "Quel est le résultat de 2 + 2 ?",
-      "us": "What is the result of 2 + 2?"
+      "fr": "Décrivez la méthodologie de développement Agile.",
+      "us": "Describe the Agile development methodology."
     },
     "options": {
       "fr": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
+        "Un processus itératif et collaboratif axé sur la livraison continue et l'adaptabilité.",
+        "Un processus linéaire avec des étapes fixes comme le modèle en cascade.",
+        "Une méthode pour écrire des tests unitaires.",
+        "Un outil pour gérer les pipelines CI/CD.",
+        "Une technique pour centraliser les données."
       ],
       "us": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
-      ]
-    },
-    "correct": 1,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": {
-      "fr": "Quelle est la capitale de la France ?",
-      "us": "What is the capital of France?"
-    },
-    "options": {
-      "fr": [
-        "Paris",
-        "Londres",
-        "Berlin",
-        "Madrid",
-        "Rome"
-      ],
-      "us": [
-        "Paris",
-        "London",
-        "Berlin",
-        "Madrid",
-        "Rome"
+        "An iterative and collaborative process focused on continuous delivery and adaptability.",
+        "A linear process with fixed stages like the waterfall model.",
+        "A method to write unit tests.",
+        "A tool to manage CI/CD pipelines.",
+        "A technique to centralize data."
       ]
     },
     "correct": 0,
@@ -671,48 +526,23 @@
   },
   {
     "question": {
-      "fr": "Quel est le résultat de 2 + 2 ?",
-      "us": "What is the result of 2 + 2?"
+      "fr": "Qu'est-ce qu'un sprint dans Scrum ?",
+      "us": "What is a sprint in Scrum?"
     },
     "options": {
       "fr": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
+        "Une période fixe (généralement 2-4 semaines) pour livrer un incrément de produit.",
+        "Une réunion quotidienne pour planifier les tâches.",
+        "Un outil pour gérer les branches dans Git.",
+        "Une méthode pour tester les performances.",
+        "Un type de conteneur."
       ],
       "us": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
-      ]
-    },
-    "correct": 1,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": {
-      "fr": "Quelle est la capitale de la France ?",
-      "us": "What is the capital of France?"
-    },
-    "options": {
-      "fr": [
-        "Paris",
-        "Londres",
-        "Berlin",
-        "Madrid",
-        "Rome"
-      ],
-      "us": [
-        "Paris",
-        "London",
-        "Berlin",
-        "Madrid",
-        "Rome"
+        "A fixed period (usually 2-4 weeks) to deliver a product increment.",
+        "A daily meeting to plan tasks.",
+        "A tool to manage branches in Git.",
+        "A method to test performance.",
+        "A type of container."
       ]
     },
     "correct": 0,
@@ -721,27 +551,2077 @@
   },
   {
     "question": {
-      "fr": "Quel est le résultat de 2 + 2 ?",
-      "us": "What is the result of 2 + 2?"
+      "fr": "Expliquez le rôle d'un product owner dans Agile.",
+      "us": "Explain the role of a product owner in Agile."
     },
     "options": {
       "fr": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
+        "Définir les priorités du produit et représenter les parties prenantes.",
+        "Écrire le code pour les fonctionnalités.",
+        "Gérer les pipelines CI/CD.",
+        "Tester les performances de l'application.",
+        "Créer des machines virtuelles."
       ],
       "us": [
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
+        "Define product priorities and represent stakeholders.",
+        "Write code for features.",
+        "Manage CI/CD pipelines.",
+        "Test application performance.",
+        "Create virtual machines."
       ]
     },
-    "correct": 1,
+    "correct": 0,
     "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que la programmation en binôme, et quels sont ses avantages ?",
+      "us": "What is pair programming, and what are its benefits?"
+    },
+    "options": {
+      "fr": [
+        "Deux développeurs travaillent ensemble sur le même code, favorisant la qualité et le partage de connaissances.",
+        "Un développeur écrit le code, l'autre teste les performances.",
+        "Une méthode pour gérer les branches dans Git.",
+        "Un outil pour automatiser les tests.",
+        "Une technique pour centraliser les données."
+      ],
+      "us": [
+        "Two developers work together on the same code, promoting quality and knowledge sharing.",
+        "One developer writes code, the other tests performance.",
+        "A method to manage branches in Git.",
+        "A tool to automate tests.",
+        "A technique to centralize data."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les dépendances dans un projet ?",
+      "us": "How do you manage dependencies in a project?"
+    },
+    "options": {
+      "fr": [
+        "Avec un gestionnaire de dépendances comme npm, Maven ou pip.",
+        "En copiant manuellement les bibliothèques dans le projet.",
+        "En utilisant des conteneurs.",
+        "En écrivant tout le code from scratch.",
+        "En évitant les dépendances."
+      ],
+      "us": [
+        "With a dependency manager like npm, Maven, or pip.",
+        "By manually copying libraries into the project.",
+        "Using containers.",
+        "By writing all code from scratch.",
+        "By avoiding dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelle est la différence entre authentification et autorisation ?",
+      "us": "What is the difference between authentication and authorization?"
+    },
+    "options": {
+      "fr": [
+        "L'authentification vérifie l'identité, l'autorisation détermine les permissions.",
+        "L'authentification détermine les permissions, l'autorisation vérifie l'identité.",
+        "Les deux sont identiques.",
+        "L'authentification est pour les utilisateurs, l'autorisation pour les admins.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "Authentication verifies identity, authorization determines permissions.",
+        "Authentication determines permissions, authorization verifies identity.",
+        "Both are the same.",
+        "Authentication is for users, authorization is for admins.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez ce qu'est OAuth.",
+      "us": "Explain what OAuth is."
+    },
+    "options": {
+      "fr": [
+        "Un protocole d'autorisation pour permettre à des applications d'accéder à des ressources au nom d'un utilisateur.",
+        "Un protocole d'authentification pour gérer les mots de passe.",
+        "Un outil pour tester les performances.",
+        "Une méthode pour gérer les branches dans Git.",
+        "Un type de conteneur."
+      ],
+      "us": [
+        "An authorization protocol allowing applications to access resources on behalf of a user.",
+        "An authentication protocol for managing passwords.",
+        "A tool to test performance.",
+        "A method to manage branches in Git.",
+        "A type of container."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce qu'un pare-feu, et comment fonctionne-t-il ?",
+      "us": "What is a firewall, and how does it work?"
+    },
+    "options": {
+      "fr": [
+        "Un dispositif de sécurité qui filtre le trafic réseau selon des règles.",
+        "Un outil pour gérer les pipelines CI/CD.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Un protocole pour gérer les mots de passe."
+      ],
+      "us": [
+        "A security device that filters network traffic based on rules.",
+        "A tool to manage CI/CD pipelines.",
+        "A type of container.",
+        "A method to test performance.",
+        "A protocol to manage passwords."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez le concept de chiffrement.",
+      "us": "Describe the concept of encryption."
+    },
+    "options": {
+      "fr": [
+        "Transformer des données en un format illisible sans clé pour assurer la confidentialité.",
+        "Compresser des données pour économiser de l'espace.",
+        "Tester les performances d'une application.",
+        "Gérer les branches dans Git.",
+        "Centraliser les données."
+      ],
+      "us": [
+        "Transforming data into an unreadable format without a key to ensure confidentiality.",
+        "Compressing data to save space.",
+        "Testing application performance.",
+        "Managing branches in Git.",
+        "Centralizing data."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce qu'un VPN, et quand l'utiliseriez-vous ?",
+      "us": "What is a VPN, and when would you use it?"
+    },
+    "options": {
+      "fr": [
+        "Un réseau privé virtuel pour sécuriser les connexions sur des réseaux publics.",
+        "Un outil pour gérer les pipelines CI/CD.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Un protocole pour gérer les mots de passe."
+      ],
+      "us": [
+        "A virtual private network to secure connections on public networks.",
+        "A tool to manage CI/CD pipelines.",
+        "A type of container.",
+        "A method to test performance.",
+        "A protocol to manage passwords."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez la différence entre HTTP et HTTPS.",
+      "us": "Explain the difference between HTTP and HTTPS."
+    },
+    "options": {
+      "fr": [
+        "HTTPS utilise SSL/TLS pour chiffrer les communications, HTTP est non sécurisé.",
+        "HTTP utilise SSL/TLS, HTTPS est non sécurisé.",
+        "HTTP est plus rapide que HTTPS.",
+        "HTTPS est pour les sites web, HTTP pour les API.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "HTTPS uses SSL/TLS to encrypt communications, HTTP is unsecured.",
+        "HTTP uses SSL/TLS, HTTPS is unsecured.",
+        "HTTP is faster than HTTPS.",
+        "HTTPS is for websites, HTTP is for APIs.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce qu'une attaque DDoS ?",
+      "us": "What is a DDoS attack?"
+    },
+    "options": {
+      "fr": [
+        "Une attaque qui inonde un serveur de requêtes pour le rendre indisponible.",
+        "Une attaque qui vole des données sensibles.",
+        "Une attaque qui modifie le code source.",
+        "Une attaque qui teste les performances.",
+        "Une attaque qui gère les branches dans Git."
+      ],
+      "us": [
+        "An attack that floods a server with requests to make it unavailable.",
+        "An attack that steals sensitive data.",
+        "An attack that modifies source code.",
+        "An attack that tests performance.",
+        "An attack that manages branches in Git."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment sécurisez-vous les données sensibles dans le code ?",
+      "us": "How do you secure sensitive data in code?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des variables d'environnement et des secrets managers.",
+        "En les stockant directement dans le code source.",
+        "En utilisant des conteneurs.",
+        "En désactivant les tests.",
+        "En évitant les dépendances."
+      ],
+      "us": [
+        "By using environment variables and secrets managers.",
+        "By storing them directly in the source code.",
+        "Using containers.",
+        "By disabling tests.",
+        "By avoiding dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le but des revues de code ?",
+      "us": "What is the purpose of code reviews?"
+    },
+    "options": {
+      "fr": [
+        "Améliorer la qualité du code et partager les connaissances.",
+        "Tester les performances de l'application.",
+        "Gérer les branches dans Git.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Improve code quality and share knowledge.",
+        "Test application performance.",
+        "Manage branches in Git.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le concept de dette technique.",
+      "us": "Explain the concept of technical debt."
+    },
+    "options": {
+      "fr": [
+        "Les compromis techniques qui accumulent des coûts futurs pour des gains à court terme.",
+        "Les erreurs de syntaxe dans le code.",
+        "Les tests unitaires manquants.",
+        "Les dépendances non gérées.",
+        "Les performances lentes."
+      ],
+      "us": [
+        "Technical compromises that accumulate future costs for short-term gains.",
+        "Syntax errors in the code.",
+        "Missing unit tests.",
+        "Unmanaged dependencies.",
+        "Slow performance."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que le refactoring, et pourquoi est-il important ?",
+      "us": "What is refactoring, and why is it important?"
+    },
+    "options": {
+      "fr": [
+        "Améliorer la structure du code sans changer son comportement, pour faciliter la maintenance.",
+        "Ajouter de nouvelles fonctionnalités au code.",
+        "Tester les performances de l'application.",
+        "Gérer les branches dans Git.",
+        "Centraliser les données."
+      ],
+      "us": [
+        "Improving code structure without changing its behavior, to facilitate maintenance.",
+        "Adding new features to the code.",
+        "Testing application performance.",
+        "Managing branches in Git.",
+        "Centralizing data."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez les principes SOLID en conception orientée objet.",
+      "us": "Describe the SOLID principles in object-oriented design."
+    },
+    "options": {
+      "fr": [
+        "Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.",
+        "Simple Operations, Limited Dependencies, Open Interfaces, Dynamic Systems.",
+        "Structured Objects, Linear Development, Independent Layers, Dynamic Systems.",
+        "Single Operations, Linear Dependencies, Open Systems, Independent Development.",
+        "Structured Operations, Limited Interfaces, Dynamic Layers, Simple Development."
+      ],
+      "us": [
+        "Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.",
+        "Simple Operations, Limited Dependencies, Open Interfaces, Dynamic Systems.",
+        "Structured Objects, Linear Development, Independent Layers, Dynamic Systems.",
+        "Single Operations, Linear Dependencies, Open Systems, Independent Development.",
+        "Structured Operations, Limited Interfaces, Dynamic Layers, Simple Development."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelle est la différence entre programmation synchrone et asynchrone ?",
+      "us": "What is the difference between synchronous and asynchronous programming?"
+    },
+    "options": {
+      "fr": [
+        "Synchrone bloque l'exécution jusqu'à ce que l'opération soit terminée, asynchrone permet de continuer.",
+        "Asynchrone bloque l'exécution, synchrone permet de continuer.",
+        "Synchrone est plus rapide qu'asynchrone.",
+        "Asynchrone est utilisé pour les bases de données, synchrone pour les API.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "Synchronous blocks execution until the operation completes, asynchronous allows continuation.",
+        "Asynchronous blocks execution, synchronous allows continuation.",
+        "Synchronous is faster than asynchronous.",
+        "Asynchronous is used for databases, synchronous for APIs.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez ce qu'est une promesse en JavaScript.",
+      "us": "Explain what a Promise is in JavaScript."
+    },
+    "options": {
+      "fr": [
+        "Un objet qui représente une opération asynchrone et son résultat éventuel.",
+        "Un outil pour gérer les branches dans Git.",
+        "Une méthode pour tester les performances.",
+        "Un type de conteneur.",
+        "Une fonction pour gérer les erreurs."
+      ],
+      "us": [
+        "An object that represents an asynchronous operation and its eventual result.",
+        "A tool to manage branches in Git.",
+        "A method to test performance.",
+        "A type of container.",
+        "A function to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que la boucle d'événements en Node.js ?",
+      "us": "What is the event loop in Node.js?"
+    },
+    "options": {
+      "fr": [
+        "Un mécanisme qui gère les opérations asynchrones en exécutant des callbacks dans un ordre spécifique.",
+        "Un outil pour gérer les branches dans Git.",
+        "Une méthode pour tester les performances.",
+        "Un type de conteneur.",
+        "Une fonction pour gérer les erreurs."
+      ],
+      "us": [
+        "A mechanism that handles asynchronous operations by executing callbacks in a specific order.",
+        "A tool to manage branches in Git.",
+        "A method to test performance.",
+        "A type of container.",
+        "A function to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment optimisez-vous les requêtes de base de données ?",
+      "us": "How do you optimize database queries?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des index, en limitant les données récupérées, et en évitant les jointures inutiles.",
+        "En augmentant la taille des tables.",
+        "En désactivant les index.",
+        "En utilisant des conteneurs.",
+        "En évitant les bases de données."
+      ],
+      "us": [
+        "By using indexes, limiting retrieved data, and avoiding unnecessary joins.",
+        "By increasing the size of tables.",
+        "By disabling indexes.",
+        "Using containers.",
+        "By avoiding databases."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que la normalisation dans les bases de données ?",
+      "us": "What is normalization in databases?"
+    },
+    "options": {
+      "fr": [
+        "Organiser les données pour réduire la redondance et améliorer l'intégrité.",
+        "Augmenter la redondance pour améliorer les performances.",
+        "Supprimer les index pour simplifier les requêtes.",
+        "Utiliser des conteneurs pour stocker les données.",
+        "Éviter les bases de données relationnelles."
+      ],
+      "us": [
+        "Organizing data to reduce redundancy and improve integrity.",
+        "Increasing redundancy to improve performance.",
+        "Removing indexes to simplify queries.",
+        "Using containers to store data.",
+        "Avoiding relational databases."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le théorème CAP.",
+      "us": "Explain the CAP theorem."
+    },
+    "options": {
+      "fr": [
+        "Dans un système distribué, on ne peut garantir que deux des trois propriétés : Consistance, Disponibilité, Tolérance au partitionnement.",
+        "Un théorème pour optimiser les performances des bases de données.",
+        "Un théorème pour gérer les branches dans Git.",
+        "Un théorème pour tester les performances.",
+        "Un théorème pour centraliser les données."
+      ],
+      "us": [
+        "In a distributed system, you can only guarantee two of three properties: Consistency, Availability, Partition Tolerance.",
+        "A theorem to optimize database performance.",
+        "A theorem to manage branches in Git.",
+        "A theorem to test performance.",
+        "A theorem to centralize data."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que le sharding dans les bases de données ?",
+      "us": "What is sharding in databases?"
+    },
+    "options": {
+      "fr": [
+        "Diviser une base de données en sous-ensembles pour améliorer la scalabilité.",
+        "Centraliser les données pour améliorer les performances.",
+        "Supprimer les index pour simplifier les requêtes.",
+        "Utiliser des conteneurs pour stocker les données.",
+        "Éviter les bases de données relationnelles."
+      ],
+      "us": [
+        "Dividing a database into subsets to improve scalability.",
+        "Centralizing data to improve performance.",
+        "Removing indexes to simplify queries.",
+        "Using containers to store data.",
+        "Avoiding relational databases."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez les différences entre les bases de données SQL et NoSQL.",
+      "us": "Describe the differences between SQL and NoSQL databases."
+    },
+    "options": {
+      "fr": [
+        "SQL utilise des schémas fixes et des tables, NoSQL est plus flexible avec des documents ou des graphes.",
+        "SQL est plus flexible, NoSQL utilise des schémas fixes.",
+        "SQL est pour les petites bases, NoSQL pour les grandes bases.",
+        "NoSQL est plus lent que SQL.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "SQL uses fixed schemas and tables, NoSQL is more flexible with documents or graphs.",
+        "SQL is more flexible, NoSQL uses fixed schemas.",
+        "SQL is for small databases, NoSQL for large databases.",
+        "NoSQL is slower than SQL.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce qu'une file de messages, et quand l'utiliseriez-vous ?",
+      "us": "What is a message queue, and when would you use it?"
+    },
+    "options": {
+      "fr": [
+        "Un système pour gérer les communications asynchrones entre services, utilisé pour découpler les applications.",
+        "Un outil pour gérer les branches dans Git.",
+        "Une méthode pour tester les performances.",
+        "Un type de conteneur.",
+        "Une fonction pour gérer les erreurs."
+      ],
+      "us": [
+        "A system to manage asynchronous communication between services, used to decouple applications.",
+        "A tool to manage branches in Git.",
+        "A method to test performance.",
+        "A type of container.",
+        "A function to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le concept de cache.",
+      "us": "Explain the concept of caching."
+    },
+    "options": {
+      "fr": [
+        "Stocker des données fréquemment utilisées pour améliorer les performances.",
+        "Supprimer des données pour économiser de l'espace.",
+        "Tester les performances d'une application.",
+        "Gérer les branches dans Git.",
+        "Centraliser les données."
+      ],
+      "us": [
+        "Storing frequently used data to improve performance.",
+        "Deleting data to save space.",
+        "Testing application performance.",
+        "Managing branches in Git.",
+        "Centralizing data."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que le test de charge, et pourquoi est-il important ?",
+      "us": "What is load testing, and why is it important?"
+    },
+    "options": {
+      "fr": [
+        "Simuler un grand nombre d'utilisateurs pour tester les performances, pour s'assurer que le système peut gérer la charge.",
+        "Tester les performances d'une application en local.",
+        "Gérer les branches dans Git.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Simulating a large number of users to test performance, ensuring the system can handle the load.",
+        "Testing application performance locally.",
+        "Managing branches in Git.",
+        "Centralizing data.",
+        "Automating deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez comment implémenter la journalisation dans une application.",
+      "us": "Describe how to implement logging in an application."
+    },
+    "options": {
+      "fr": [
+        "Utiliser des bibliothèques comme Winston ou Log4j pour enregistrer les événements et les erreurs.",
+        "Écrire des messages directement dans le code source.",
+        "Utiliser des conteneurs pour stocker les logs.",
+        "Désactiver les logs pour améliorer les performances.",
+        "Éviter la journalisation."
+      ],
+      "us": [
+        "Use libraries like Winston or Log4j to record events and errors.",
+        "Write messages directly into the source code.",
+        "Use containers to store logs.",
+        "Disable logs to improve performance.",
+        "Avoid logging."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les motifs de conception, et pouvez-vous en nommer quelques-uns ?",
+      "us": "What are design patterns, and can you name a few?"
+    },
+    "options": {
+      "fr": [
+        "Des solutions réutilisables à des problèmes courants, comme Singleton, Factory, Observer.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des méthodes pour tester les performances.",
+        "Des types de conteneurs.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "Reusable solutions to common problems, such as Singleton, Factory, Observer.",
+        "Tools to manage branches in Git.",
+        "Methods to test performance.",
+        "Types of containers.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment créez-vous un nouveau job dans Jenkins ?",
+      "us": "How do you create a new job in Jenkins?"
+    },
+    "options": {
+      "fr": [
+        "En allant dans 'Nouveau Item', en choisissant un type de job, et en configurant les paramètres.",
+        "En modifiant directement le fichier de configuration de Jenkins.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les jobs existants."
+      ],
+      "us": [
+        "By going to 'New Item', selecting a job type, and configuring the settings.",
+        "By directly modifying Jenkins' configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling existing jobs."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce qu'un pipeline Jenkins, et comment est-il défini ?",
+      "us": "What is a Jenkins pipeline, and how is it defined?"
+    },
+    "options": {
+      "fr": [
+        "Une série d'étapes automatisées pour le CI/CD, définie via un Jenkinsfile.",
+        "Un outil pour gérer les branches dans Git.",
+        "Une méthode pour tester les performances.",
+        "Un type de conteneur.",
+        "Une fonction pour gérer les erreurs."
+      ],
+      "us": [
+        "A series of automated steps for CI/CD, defined via a Jenkinsfile.",
+        "A tool to manage branches in Git.",
+        "A method to test performance.",
+        "A type of container.",
+        "A function to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez la différence entre les pipelines déclaratifs et scriptés dans Jenkins.",
+      "us": "Explain the difference between declarative and scripted pipelines in Jenkins."
+    },
+    "options": {
+      "fr": [
+        "Déclaratif utilise une syntaxe simplifiée, scripté offre plus de flexibilité avec du Groovy.",
+        "Déclaratif est plus flexible, scripté utilise une syntaxe simplifiée.",
+        "Déclaratif est pour les tests, scripté pour le déploiement.",
+        "Scripté est pour les petites équipes, déclaratif pour les grandes.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "Declarative uses a simplified syntax, scripted offers more flexibility with Groovy.",
+        "Declarative is more flexible, scripted uses a simplified syntax.",
+        "Declarative is for testing, scripted is for deployment.",
+        "Scripted is for small teams, declarative is for large teams.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment déclenchez-vous un job Jenkins automatiquement sur un commit de code ?",
+      "us": "How do you trigger a Jenkins job automatically on a code commit?"
+    },
+    "options": {
+      "fr": [
+        "En configurant un webhook dans le SCM (comme GitHub) pour notifier Jenkins.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les jobs existants."
+      ],
+      "us": [
+        "By configuring a webhook in the SCM (like GitHub) to notify Jenkins.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling existing jobs."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment créez-vous un sprint dans JIRA ?",
+      "us": "How do you create a sprint in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "En allant dans le backlog, en créant un sprint, et en y ajoutant des incidents.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les sprints."
+      ],
+      "us": [
+        "By going to the backlog, creating a sprint, and adding issues to it.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling sprints."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez comment générer des rapports dans JIRA.",
+      "us": "Describe how to generate reports in JIRA."
+    },
+    "options": {
+      "fr": [
+        "En utilisant les rapports intégrés comme le 'Rapport de sprint' ou en créant des tableaux de bord.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les rapports."
+      ],
+      "us": [
+        "By using built-in reports like the 'Sprint Report' or creating dashboards.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling reports."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le rôle de l'administrateur JIRA ?",
+      "us": "What is the role of a JIRA administrator?"
+    },
+    "options": {
+      "fr": [
+        "Gérer les utilisateurs, les permissions, et les configurations globales.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Manage users, permissions, and global configurations.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les sauvegardes et restaurations dans JIRA ?",
+      "us": "How do you manage backups and restores in JIRA?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant les outils d'administration pour exporter et importer des données.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les sauvegardes."
+      ],
+      "us": [
+        "By using administration tools to export and import data.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling backups."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez comment migrer des projets entre des instances JIRA.",
+      "us": "Explain how to migrate projects between JIRA instances."
+    },
+    "options": {
+      "fr": [
+        "En exportant les données d'un projet et en les important dans une autre instance.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les projets."
+      ],
+      "us": [
+        "By exporting project data and importing it into another instance.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling projects."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Écrivez une fonction Python pour inverser une chaîne.",
+      "us": "Write a Python function to reverse a string."
+    },
+    "options": {
+      "fr": [
+        "def reverse(s): return s[::-1]",
+        "def reverse(s): return s.reverse()",
+        "def reverse(s): return s.split()",
+        "def reverse(s): return s.join('')",
+        "def reverse(s): return s.sort()"
+      ],
+      "us": [
+        "def reverse(s): return s[::-1]",
+        "def reverse(s): return s.reverse()",
+        "def reverse(s): return s.split()",
+        "def reverse(s): return s.join('')",
+        "def reverse(s): return s.sort()"
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelles sont les différences entre Python 2 et Python 3 ?",
+      "us": "What are the differences between Python 2 and Python 3?"
+    },
+    "options": {
+      "fr": [
+        "Python 3 a une syntaxe print différente, une gestion Unicode améliorée, et plus de fonctionnalités modernes.",
+        "Python 2 est plus rapide que Python 3.",
+        "Python 3 est pour les tests, Python 2 pour le déploiement.",
+        "Python 2 a une meilleure gestion Unicode.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "Python 3 has a different print syntax, improved Unicode handling, and more modern features.",
+        "Python 2 is faster than Python 3.",
+        "Python 3 is for testing, Python 2 is for deployment.",
+        "Python 2 has better Unicode handling.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les exceptions en Java ?",
+      "us": "How do you handle exceptions in Java?"
+    },
+    "options": {
+      "fr": [
+        "Avec des blocs try/catch.",
+        "Avec des blocs if/else.",
+        "Avec des boucles for.",
+        "Avec des fonctions récursives.",
+        "En utilisant des décorateurs."
+      ],
+      "us": [
+        "With try/catch blocks.",
+        "With if/else blocks.",
+        "With for loops.",
+        "With recursive functions.",
+        "Using decorators."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le concept d'interfaces en Java.",
+      "us": "Explain the concept of interfaces in Java."
+    },
+    "options": {
+      "fr": [
+        "Un contrat définissant des méthodes que les classes doivent implémenter.",
+        "Un outil pour gérer les branches dans Git.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Une fonction pour gérer les erreurs."
+      ],
+      "us": [
+        "A contract defining methods that classes must implement.",
+        "A tool to manage branches in Git.",
+        "A type of container.",
+        "A method to test performance.",
+        "A function to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce qu'un goroutine en Go, et en quoi diffère-t-il des threads ?",
+      "us": "What is a goroutine in Go, and how does it differ from threads?"
+    },
+    "options": {
+      "fr": [
+        "Une goroutine est une unité d'exécution légère gérée par le runtime Go, plus efficace que les threads OS.",
+        "Une goroutine est un thread OS, plus lourd que les threads Go.",
+        "Une goroutine est pour les tests, un thread pour le déploiement.",
+        "Un thread est plus rapide qu'une goroutine.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "A goroutine is a lightweight execution unit managed by the Go runtime, more efficient than OS threads.",
+        "A goroutine is an OS thread, heavier than Go threads.",
+        "A goroutine is for testing, a thread is for deployment.",
+        "A thread is faster than a goroutine.",
+        "There is no difference."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez comment utiliser les canaux en Go pour la concurrence.",
+      "us": "Describe how to use channels in Go for concurrency."
+    },
+    "options": {
+      "fr": [
+        "Les canaux permettent aux goroutines de communiquer et de synchroniser leurs actions.",
+        "Les canaux gèrent les branches dans Git.",
+        "Les canaux testent les performances de l'application.",
+        "Les canaux centralisent les données.",
+        "Les canaux automatisent le déploiement."
+      ],
+      "us": [
+        "Channels allow goroutines to communicate and synchronize their actions.",
+        "Channels manage branches in Git.",
+        "Channels test application performance.",
+        "Channels centralize data.",
+        "Channels automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que l'injection de dépendances, et comment est-elle implémentée en Java ?",
+      "us": "What is dependency injection, and how is it implemented in Java?"
+    },
+    "options": {
+      "fr": [
+        "Fournir des dépendances à une classe, souvent via un framework comme Spring.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Providing dependencies to a class, often via a framework like Spring.",
+        "Managing branches in Git.",
+        "Testing application performance.",
+        "Centralizing data.",
+        "Automating deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez l'utilisation des décorateurs en Python.",
+      "us": "Explain the use of decorators in Python."
+    },
+    "options": {
+      "fr": [
+        "Modifier le comportement d'une fonction ou d'une classe sans changer son code source.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Modify the behavior of a function or class without changing its source code.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous la mémoire en Go ?",
+      "us": "How do you manage memory in Go?"
+    },
+    "options": {
+      "fr": [
+        "Go utilise un garbage collector pour gérer automatiquement la mémoire.",
+        "Go nécessite une gestion manuelle de la mémoire.",
+        "Go utilise des conteneurs pour gérer la mémoire.",
+        "Go désactive la gestion de la mémoire.",
+        "Go évite la mémoire."
+      ],
+      "us": [
+        "Go uses a garbage collector to automatically manage memory.",
+        "Go requires manual memory management.",
+        "Go uses containers to manage memory.",
+        "Go disables memory management.",
+        "Go avoids memory."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les fonctions lambda en Python, et quand les utiliseriez-vous ?",
+      "us": "What are lambda functions in Python, and when would you use them?"
+    },
+    "options": {
+      "fr": [
+        "Des fonctions anonymes définies avec lambda, utilisées pour des opérations simples et courtes.",
+        "Des outils pour gérer les branches dans Git.",
+        "Des conteneurs pour stocker les données.",
+        "Des scripts pour tester les performances.",
+        "Des fonctions pour gérer les erreurs."
+      ],
+      "us": [
+        "Anonymous functions defined with lambda, used for simple and short operations.",
+        "Tools to manage branches in Git.",
+        "Containers to store data.",
+        "Scripts to test performance.",
+        "Functions to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez le modèle Page Object en Selenium.",
+      "us": "Describe the Page Object Model in Selenium."
+    },
+    "options": {
+      "fr": [
+        "Un modèle de conception pour encapsuler les éléments d'une page web dans des classes.",
+        "Un outil pour gérer les branches dans Git.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Une fonction pour gérer les erreurs."
+      ],
+      "us": [
+        "A design pattern to encapsulate web page elements into classes.",
+        "A tool to manage branches in Git.",
+        "A type of container.",
+        "A method to test performance.",
+        "A function to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment gérez-vous les éléments dynamiques en Selenium ?",
+      "us": "How do you handle dynamic elements in Selenium?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des sélecteurs robustes comme XPath ou des attentes explicites.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Selenium."
+      ],
+      "us": [
+        "By using robust selectors like XPath or explicit waits.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Selenium."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Qu'est-ce que TestNG, et comment s'intègre-t-il avec Selenium ?",
+      "us": "What is TestNG, and how does it integrate with Selenium?"
+    },
+    "options": {
+      "fr": [
+        "Un framework de test qui fournit des annotations pour gérer les tests, intégré via des dépendances Maven.",
+        "Un outil pour gérer les branches dans Git.",
+        "Un type de conteneur.",
+        "Une méthode pour tester les performances.",
+        "Une fonction pour gérer les erreurs."
+      ],
+      "us": [
+        "A testing framework that provides annotations to manage tests, integrated via Maven dependencies.",
+        "A tool to manage branches in Git.",
+        "A type of container.",
+        "A method to test performance.",
+        "A function to handle errors."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez comment configurer une Selenium Grid.",
+      "us": "Explain how to set up a Selenium Grid."
+    },
+    "options": {
+      "fr": [
+        "En configurant un hub et des nœuds pour exécuter des tests en parallèle sur plusieurs machines.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Selenium."
+      ],
+      "us": [
+        "By configuring a hub and nodes to run tests in parallel on multiple machines.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Selenium."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quels sont les avantages d'utiliser Cucumber pour les tests UI ?",
+      "us": "What are the benefits of using Cucumber for UI testing?"
+    },
+    "options": {
+      "fr": [
+        "Permet d'écrire des tests en langage naturel (BDD) pour une meilleure collaboration.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Allows writing tests in natural language (BDD) for better collaboration.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment réalisez-vous des tests pilotés par les données en Selenium ?",
+      "us": "How do you perform data-driven testing in Selenium?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des frameworks comme TestNG avec des sources de données (CSV, Excel).",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant Selenium."
+      ],
+      "us": [
+        "By using frameworks like TestNG with data sources (CSV, Excel).",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling Selenium."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Décrivez comment automatiser les tests API en utilisant Python.",
+      "us": "Describe how to automate API testing using Python."
+    },
+    "options": {
+      "fr": [
+        "En utilisant des bibliothèques comme requests pour envoyer des requêtes HTTP et vérifier les réponses.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Java.",
+        "En désactivant les tests API."
+      ],
+      "us": [
+        "By using libraries like requests to send HTTP requests and verify responses.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Java script.",
+        "By disabling API tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le rôle du mocking dans les tests unitaires ?",
+      "us": "What is the role of mocking in unit testing?"
+    },
+    "options": {
+      "fr": [
+        "Simuler des dépendances pour isoler le code testé.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Simulate dependencies to isolate the tested code.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Expliquez le concept d'intégration continue dans les tests d'automatisation.",
+      "us": "Explain the concept of continuous integration in automation testing."
+    },
+    "options": {
+      "fr": [
+        "Exécuter automatiquement les tests à chaque commit pour détecter les erreurs rapidement.",
+        "Gérer les branches dans Git.",
+        "Tester les performances de l'application.",
+        "Centraliser les données.",
+        "Automatiser le déploiement."
+      ],
+      "us": [
+        "Automatically run tests on each commit to detect errors quickly.",
+        "Manage branches in Git.",
+        "Test application performance.",
+        "Centralize data.",
+        "Automate deployment."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Comment optimisez-vous les scripts de test pour de meilleures performances ?",
+      "us": "How do you optimize test scripts for better performance?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des attentes explicites, en réduisant les appels réseau, et en parallélisant les tests.",
+        "En modifiant manuellement le fichier de configuration.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En désactivant les tests."
+      ],
+      "us": [
+        "By using explicit waits, reducing network calls, and parallelizing tests.",
+        "By manually modifying the configuration file.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By disabling tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les implications de la loi de Amdahl pour l'optimisation des performances ?",
+      "us": "[Hard] What are the implications of Amdahl's Law for performance optimization?"
+    },
+    "options": {
+      "fr": [
+        "Les gains de performance sont limités par la partie non parallélisable d'un programme.",
+        "Les performances augmentent linéairement avec le nombre de processeurs.",
+        "Les performances ne dépendent pas de la parallélisation.",
+        "Les performances sont limitées par la mémoire uniquement.",
+        "Il n'y a pas d'implications."
+      ],
+      "us": [
+        "Performance gains are limited by the non-parallelizable part of a program.",
+        "Performance increases linearly with the number of processors.",
+        "Performance does not depend on parallelization.",
+        "Performance is limited by memory only.",
+        "There are no implications."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment implémenteriez-vous un algorithme de consensus comme Raft dans un système distribué ?",
+      "us": "[Hard] How would you implement a consensus algorithm like Raft in a distributed system?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant un leader pour coordonner les réplications et gérer les logs.",
+        "En centralisant toutes les données.",
+        "En désactivant la réplication.",
+        "En utilisant un conteneur Docker.",
+        "En évitant les systèmes distribués."
+      ],
+      "us": [
+        "By using a leader to coordinate replication and manage logs.",
+        "By centralizing all data.",
+        "By disabling replication.",
+        "Using a Docker container.",
+        "By avoiding distributed systems."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les meilleures pratiques pour gérer les dépendances dans un projet à grande échelle ?",
+      "us": "[Hard] What are the best practices for managing dependencies in a large-scale project?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser un monorepo, versionner les dépendances, et automatiser les mises à jour.",
+        "Stocker les dépendances dans le code source.",
+        "Utiliser des conteneurs pour toutes les dépendances.",
+        "Désactiver les mises à jour.",
+        "Éviter les dépendances."
+      ],
+      "us": [
+        "Use a monorepo, version dependencies, and automate updates.",
+        "Store dependencies in the source code.",
+        "Use containers for all dependencies.",
+        "Disable updates.",
+        "Avoid dependencies."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment détecter et prévenir les attaques de type race condition dans une application ?",
+      "us": "[Hard] How do you detect and prevent race condition attacks in an application?"
+    },
+    "options": {
+      "fr": [
+        "En utilisant des verrous, des transactions, et des tests de concurrence.",
+        "En désactivant les threads.",
+        "En utilisant un conteneur Docker.",
+        "En écrivant un script Python.",
+        "En évitant les tests."
+      ],
+      "us": [
+        "By using locks, transactions, and concurrency tests.",
+        "By disabling threads.",
+        "Using a Docker container.",
+        "By writing a Python script.",
+        "By avoiding tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les implications de la latence réseau sur les performances des microservices ?",
+      "us": "[Hard] What are the implications of network latency on microservices performance?"
+    },
+    "options": {
+      "fr": [
+        "La latence peut ralentir les communications entre services, nécessitant des optimisations comme le caching.",
+        "La latence n'a aucun impact sur les microservices.",
+        "La latence améliore les performances.",
+        "La latence est gérée par les conteneurs.",
+        "La latence est évitée en désactivant les microservices."
+      ],
+      "us": [
+        "Latency can slow down communication between services, requiring optimizations like caching.",
+        "Latency has no impact on microservices.",
+        "Latency improves performance.",
+        "Latency is managed by containers.",
+        "Latency is avoided by disabling microservices."
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment géreriez-vous un pipeline Jenkins qui échoue fréquemment à cause de dépendances instables ?",
+      "us": "[Hard] How would you manage a Jenkins pipeline that frequently fails due to unstable dependencies?"
+    },
+    "options": {
+      "fr": [
+        "Mettre en cache les dépendances, utiliser des versions fixes, et ajouter des tests de dépendances.",
+        "Désactiver les dépendances.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les échecs."
+      ],
+      "us": [
+        "Cache dependencies, use fixed versions, and add dependency tests.",
+        "Disable dependencies.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore failures."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les meilleures pratiques pour optimiser les performances d'un pipeline Jenkins ?",
+      "us": "[Hard] What are the best practices for optimizing the performance of a Jenkins pipeline?"
+    },
+    "options": {
+      "fr": [
+        "Paralléliser les étapes, utiliser des agents légers, et minimiser les dépendances réseau.",
+        "Augmenter les tâches manuelles.",
+        "Utiliser un seul agent.",
+        "Désactiver les tests.",
+        "Éviter les pipelines."
+      ],
+      "us": [
+        "Parallelize steps, use lightweight agents, and minimize network dependencies.",
+        "Increase manual tasks.",
+        "Use a single agent.",
+        "Disable tests.",
+        "Avoid pipelines."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment intégreriez-vous des tests de sécurité avancés dans un pipeline CI/CD avec SonarQube et Xray ?",
+      "us": "[Hard] How would you integrate advanced security testing into a CI/CD pipeline with SonarQube and Xray?"
+    },
+    "options": {
+      "fr": [
+        "Configurer SonarQube pour les vulnérabilités statiques et Xray pour les tests de dépendances.",
+        "Désactiver les tests de sécurité.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les vulnérabilités."
+      ],
+      "us": [
+        "Configure SonarQube for static vulnerabilities and Xray for dependency testing.",
+        "Disable security tests.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore vulnerabilities."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment géreriez-vous un déploiement multi-régions avec GitHub Actions ?",
+      "us": "[Hard] How would you manage a multi-region deployment with GitHub Actions?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser des matrices pour exécuter des jobs dans plusieurs régions et des secrets pour les configurations.",
+        "Désactiver les déploiements multi-régions.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les régions."
+      ],
+      "us": [
+        "Use matrices to run jobs in multiple regions and secrets for configurations.",
+        "Disable multi-region deployments.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore regions."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les implications de la mise en cache des artefacts dans un pipeline CI/CD ?",
+      "us": "[Hard] What are the implications of caching artifacts in a CI/CD pipeline?"
+    },
+    "options": {
+      "fr": [
+        "Réduction des temps de build, mais risque d'utiliser des artefacts obsolètes si mal géré.",
+        "Augmentation des temps de build.",
+        "Utilisation de conteneurs pour stocker les artefacts.",
+        "Désactivation des builds.",
+        "Éviter les artefacts."
+      ],
+      "us": [
+        "Reduced build times, but risk of using outdated artifacts if mismanaged.",
+        "Increased build times.",
+        "Using containers to store artifacts.",
+        "Disabling builds.",
+        "Avoiding artifacts."
+      ]
+    },
+    "correct": 0,
+    "lot": "CIBOX",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment implémenteriez-vous un système de monitoring distribué avec Prometheus et Grafana ?",
+      "us": "[Hard] How would you implement a distributed monitoring system with Prometheus and Grafana?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser Prometheus pour collecter les métriques et Grafana pour les visualiser, avec des exporters par service.",
+        "Désactiver le monitoring.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les métriques."
+      ],
+      "us": [
+        "Use Prometheus to collect metrics and Grafana to visualize them, with exporters per service.",
+        "Disable monitoring.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore metrics."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les meilleures pratiques pour gérer les incidents dans un environnement multi-cloud ?",
+      "us": "[Hard] What are the best practices for managing incidents in a multi-cloud environment?"
+    },
+    "options": {
+      "fr": [
+        "Centraliser les logs, utiliser des alertes unifiées, et automatiser les réponses.",
+        "Désactiver les alertes.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les incidents."
+      ],
+      "us": [
+        "Centralize logs, use unified alerts, and automate responses.",
+        "Disable alerts.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore incidents."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment géreriez-vous une panne réseau dans un système distribué ?",
+      "us": "[Hard] How would you manage a network failure in a distributed system?"
+    },
+    "options": {
+      "fr": [
+        "Implémenter des retries, des circuit breakers, et des fallbacks.",
+        "Désactiver le réseau.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer la panne."
+      ],
+      "us": [
+        "Implement retries, circuit breakers, and fallbacks.",
+        "Disable the network.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore the failure."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les implications de la latence réseau sur la fiabilité des systèmes distribués ?",
+      "us": "[Hard] What are the implications of network latency on the reliability of distributed systems?"
+    },
+    "options": {
+      "fr": [
+        "La latence peut causer des timeouts, nécessitant des retries et des fallbacks.",
+        "La latence n'a aucun impact.",
+        "La latence améliore la fiabilité.",
+        "La latence est gérée par les conteneurs.",
+        "La latence est évitée en désactivant les systèmes distribués."
+      ],
+      "us": [
+        "Latency can cause timeouts, requiring retries and fallbacks.",
+        "Latency has no impact.",
+        "Latency improves reliability.",
+        "Latency is managed by containers.",
+        "Latency is avoided by disabling distributed systems."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment implémenteriez-vous une stratégie de chaos engineering pour tester la résilience d'un système ?",
+      "us": "[Hard] How would you implement a chaos engineering strategy to test system resilience?"
+    },
+    "options": {
+      "fr": [
+        "Introduire des pannes contrôlées (comme des arrêts de service) et observer les réactions.",
+        "Désactiver les tests de résilience.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer la résilience."
+      ],
+      "us": [
+        "Introduce controlled failures (like service shutdowns) and observe reactions.",
+        "Disable resilience tests.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore resilience."
+      ]
+    },
+    "correct": 0,
+    "lot": "SRE",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment géreriez-vous un déploiement ArgoCD dans un environnement multi-tenant ?",
+      "us": "[Hard] How would you manage an ArgoCD deployment in a multi-tenant environment?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser des namespaces Kubernetes et des RBAC pour isoler les tenants.",
+        "Désactiver les namespaces.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les tenants."
+      ],
+      "us": [
+        "Use Kubernetes namespaces and RBAC to isolate tenants.",
+        "Disable namespaces.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore tenants."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les meilleures pratiques pour gérer les secrets dans un pipeline de déploiement avec XL Deploy ?",
+      "us": "[Hard] What are the best practices for managing secrets in a deployment pipeline with XL Deploy?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser des variables sécurisées et des secrets managers comme Vault.",
+        "Stocker les secrets dans le code source.",
+        "Utiliser des conteneurs.",
+        "Désactiver les secrets.",
+        "Éviter les pipelines."
+      ],
+      "us": [
+        "Use secure variables and secrets managers like Vault.",
+        "Store secrets in the source code.",
+        "Use containers.",
+        "Disable secrets.",
+        "Avoid pipelines."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment implémenteriez-vous un rollback automatique avec ArgoCD en cas d'échec de déploiement ?",
+      "us": "[Hard] How would you implement an automatic rollback with ArgoCD in case of deployment failure?"
+    },
+    "options": {
+      "fr": [
+        "Configurer des health checks et utiliser la synchronisation automatique pour revenir à l'état précédent.",
+        "Désactiver les rollbacks.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les échecs."
+      ],
+      "us": [
+        "Configure health checks and use automatic synchronization to revert to the previous state.",
+        "Disable rollbacks.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore failures."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les implications de la synchronisation continue dans ArgoCD sur les performances ?",
+      "us": "[Hard] What are the implications of continuous synchronization in ArgoCD on performance?"
+    },
+    "options": {
+      "fr": [
+        "Elle peut augmenter la charge sur le cluster, nécessitant des optimisations comme des intervalles de synchronisation plus longs.",
+        "Elle n'a aucun impact sur les performances.",
+        "Elle améliore les performances.",
+        "Elle est gérée par les conteneurs.",
+        "Elle est évitée en désactivant ArgoCD."
+      ],
+      "us": [
+        "It can increase the load on the cluster, requiring optimizations like longer sync intervals.",
+        "It has no impact on performance.",
+        "It improves performance.",
+        "It is managed by containers.",
+        "It is avoided by disabling ArgoCD."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment géreriez-vous un déploiement multi-clusters avec XL Deploy ?",
+      "us": "[Hard] How would you manage a multi-cluster deployment with XL Deploy?"
+    },
+    "options": {
+      "fr": [
+        "Configurer des environnements séparés pour chaque cluster et utiliser des pipelines multi-étapes.",
+        "Désactiver les clusters.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les clusters."
+      ],
+      "us": [
+        "Configure separate environments for each cluster and use multi-stage pipelines.",
+        "Disable clusters.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore clusters."
+      ]
+    },
+    "correct": 0,
+    "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment géreriez-vous une migration de JIRA vers une autre instance avec des données volumineuses ?",
+      "us": "[Hard] How would you manage a JIRA migration to another instance with large data?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser des outils d'export/import, optimiser les données, et tester la migration en étapes.",
+        "Désactiver la migration.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les données."
+      ],
+      "us": [
+        "Use export/import tools, optimize data, and test the migration in stages.",
+        "Disable migration.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore the data."
+      ]
+    },
+    "correct": 0,
+    "lot": "JIRA",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment implémenteriez-vous un framework de test d'automatisation pour une application multi-langages ?",
+      "us": "[Hard] How would you implement an automation testing framework for a multi-language application?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser des outils comme TestNG pour Java, pytest pour Python, et les intégrer dans un pipeline CI/CD.",
+        "Désactiver les tests multi-langages.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les tests."
+      ],
+      "us": [
+        "Use tools like TestNG for Java, pytest for Python, and integrate them into a CI/CD pipeline.",
+        "Disable multi-language tests.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les meilleures pratiques pour gérer les tests UI dans un environnement distribué avec Selenium ?",
+      "us": "[Hard] What are the best practices for managing UI tests in a distributed environment with Selenium?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser Selenium Grid, paralléliser les tests, et gérer les dépendances réseau.",
+        "Désactiver les tests UI.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les tests."
+      ],
+      "us": [
+        "Use Selenium Grid, parallelize tests, and manage network dependencies.",
+        "Disable UI tests.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore tests."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment géreriez-vous les tests d'API dans un système avec des microservices interconnectés ?",
+      "us": "[Hard] How would you manage API testing in a system with interconnected microservices?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser des mocks pour simuler les dépendances et tester chaque microservice isolément.",
+        "Désactiver les tests d'API.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les microservices."
+      ],
+      "us": [
+        "Use mocks to simulate dependencies and test each microservice in isolation.",
+        "Disable API tests.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore microservices."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Quelles sont les implications de l'utilisation de goroutines en Go pour des applications à haute concurrence ?",
+      "us": "[Hard] What are the implications of using goroutines in Go for high-concurrency applications?"
+    },
+    "options": {
+      "fr": [
+        "Elles permettent une concurrence légère, mais nécessitent une gestion des canaux pour éviter les race conditions.",
+        "Elles n'ont aucun impact sur la concurrence.",
+        "Elles améliorent la concurrence sans gestion.",
+        "Elles sont gérées par les conteneurs.",
+        "Elles sont évitées en désactivant Go."
+      ],
+      "us": [
+        "They enable lightweight concurrency but require channel management to avoid race conditions.",
+        "They have no impact on concurrency.",
+        "They improve concurrency without management.",
+        "They are managed by containers.",
+        "They are avoided by disabling Go."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "[Dur] Comment optimiseriez-vous les performances d'un script Selenium pour une application web complexe ?",
+      "us": "[Hard] How would you optimize the performance of a Selenium script for a complex web application?"
+    },
+    "options": {
+      "fr": [
+        "Utiliser des sélecteurs efficaces, des attentes explicites, et paralléliser les tests.",
+        "Désactiver les tests Selenium.",
+        "Utiliser un conteneur Docker.",
+        "Écrire un script Python.",
+        "Ignorer les performances."
+      ],
+      "us": [
+        "Use efficient selectors, explicit waits, and parallelize tests.",
+        "Disable Selenium tests.",
+        "Use a Docker container.",
+        "Write a Python script.",
+        "Ignore performance."
+      ]
+    },
+    "correct": 0,
+    "lot": "AUTOMATION",
     "type": "Choix simple"
   }
 ]
