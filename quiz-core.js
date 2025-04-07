@@ -45,28 +45,8 @@ function showModal(message, details = null) {
 
   let formattedDetails = '';
 
-  // Si details est un tableau (par exemple, le tableau questions), on affiche un message générique ou les détails de la première question
-  if (Array.isArray(details)) {
-    if (details.length > 0) {
-      // Si le tableau contient des questions, on affiche les détails de la première question
-      const firstQuestion = details[0];
-      formattedDetails = `
-        <h3>Détails de la première question</h3>
-        <p><strong>Question (FR):</strong> ${firstQuestion.question.fr}</p>
-        <p><strong>Question (US):</strong> ${firstQuestion.question.us}</p>
-        <h4>Options:</h4>
-        ${firstQuestion.options.fr.map((option, i) => `
-          <p>${i + 1}. ${option} / ${firstQuestion.options.us[i]} ${firstQuestion.type === 'Choix simple' ? (i === parseInt(firstQuestion.correct) ? '(Correct)' : '') : (Array.isArray(firstQuestion.correct) && firstQuestion.correct.includes(i) ? '(Correct)' : '')}</p>
-        `).join('')}
-        <p><strong>Lot:</strong> ${firstQuestion.lot}</p>
-        <p><strong>Type:</strong> ${firstQuestion.type}</p>
-      `;
-    } else {
-      formattedDetails = `<p>Aucune question disponible.</p>`;
-    }
-  }
   // Si details est un objet représentant une question, on affiche ses détails
-  else if (details && typeof details === 'object' && details.question) {
+  if (details && typeof details === 'object' && details.question) {
     formattedDetails = `
       <h3>Détails de la question</h3>
       <p><strong>Question (FR):</strong> ${details.question.fr}</p>
@@ -79,9 +59,13 @@ function showModal(message, details = null) {
       <p><strong>Type:</strong> ${details.type}</p>
     `;
   }
-  // Si details est une chaîne ou autre, on l'affiche tel quel
+  // Si details est une chaîne, on l'affiche tel quel
   else if (details && typeof details === 'string') {
     formattedDetails = `<p>${details}</p>`;
+  }
+  // Si details est un tableau ou un autre type, on affiche un message générique
+  else if (details) {
+    formattedDetails = `<p>Détails non disponibles ou format non pris en charge.</p>`;
   }
 
   modalMessage.innerHTML = `
