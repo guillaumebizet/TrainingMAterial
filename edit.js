@@ -1,9 +1,13 @@
 let editingIndex = null;
-let modifiedQuestionsIndices = new Set(); // Liste pour suivre les indices des questions modifiées
+let modifiedQuestionsIndices = new Set();
 
 function loadQuestionList() {
   const list = document.getElementById('question-list');
   list.innerHTML = '';
+  if (!questions || questions.length === 0) {
+    list.innerHTML = '<p>Aucune question disponible pour le moment.</p>';
+    return;
+  }
   questions.forEach((q, index) => {
     const div = document.createElement('div');
     div.className = 'question-item';
@@ -192,7 +196,7 @@ function showNotification(message) {
     <p>${message}</p>
   `;
   document.body.appendChild(notification);
-  setTimeout(() => notification.remove(), 5000); // Supprime la notification après 5 secondes
+  setTimeout(() => notification.remove(), 5000);
 }
 
 function saveQuestion() {
@@ -204,7 +208,6 @@ function saveQuestion() {
   q.lot = document.getElementById('edit-lot').value;
   q.type = document.getElementById('edit-type').value;
 
-  // Ajouter l'index de la question modifiée à la liste
   modifiedQuestionsIndices.add(editingIndex);
 
   editingIndex = null;
@@ -212,17 +215,14 @@ function saveQuestion() {
 }
 
 function commitChanges() {
-  // Afficher une notification simple sans JSON
   showNotification("Modifications sauvegardées avec succès !");
 
-  // Appeler saveQuestionsToGitHub pour sauvegarder sur GitHub (si nécessaire)
   if (typeof saveQuestionsToGitHub === 'function') {
     saveQuestionsToGitHub();
   } else {
     console.error("saveQuestionsToGitHub n'est pas défini.");
   }
 
-  // Réinitialiser la liste des questions modifiées
   modifiedQuestionsIndices.clear();
 }
 
@@ -234,7 +234,6 @@ function cancelEdit() {
 function deleteQuestion(index) {
   questions.splice(index, 1);
   modifiedQuestionsIndices.delete(index);
-  // Ajuster les indices dans modifiedQuestionsIndices si nécessaire
   const newIndices = new Set();
   modifiedQuestionsIndices.forEach(i => {
     if (i > index) {
@@ -283,4 +282,5 @@ function filterQuestionsByLot() {
   });
 }
 
-loadQuestionList();
+// Ne pas appeler loadQuestionList ici, il sera appelé après fetchQuestions dans quiz-core.js
+// loadQuestionList(); // Supprimé
