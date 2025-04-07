@@ -269,16 +269,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const validatePatButton = document.getElementById('validate-pat-btn');
+  const patInput = document.getElementById('github-pat');
+  const patStatus = document.getElementById('pat-status');
+  const patFeedback = document.getElementById('pat-feedback');
+
+  // Vérifie si un PAT est déjà chargé au démarrage
+  if (sessionStorage.getItem('githubPAT')) {
+    patInput.style.display = 'none';
+    validatePatButton.style.display = 'none';
+    patStatus.style.display = 'inline';
+    console.log("PAT déjà chargé au démarrage.");
+  }
+
   if (validatePatButton) {
     validatePatButton.addEventListener('click', () => {
-      const pat = document.getElementById('github-pat').value.trim();
+      const pat = patInput.value.trim();
       if (pat) {
         sessionStorage.setItem('githubPAT', pat);
-        const feedback = document.getElementById('pat-feedback');
-        feedback.textContent = 'PAT validé avec succès !';
-        feedback.style.display = 'block';
-        document.getElementById('github-pat').value = '';
-        setTimeout(() => feedback.style.display = 'none', 3000);
+        patFeedback.textContent = 'PAT validé avec succès !';
+        patFeedback.style.display = 'block';
+        patInput.style.display = 'none'; // Masque le champ
+        validatePatButton.style.display = 'none'; // Masque le bouton
+        patStatus.style.display = 'inline'; // Affiche l’indicateur
+        patInput.value = ''; // Efface le champ
+        setTimeout(() => patFeedback.style.display = 'none', 3000);
+        console.log("PAT validé et interface mise à jour.");
       } else {
         alert('Veuillez entrer un PAT valide.');
       }
@@ -321,3 +336,4 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error("Bouton 'save-current-score-btn' non trouvé.");
   }
 });
+
