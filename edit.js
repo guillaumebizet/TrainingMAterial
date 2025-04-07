@@ -8,10 +8,16 @@ function loadQuestionList() {
     list.innerHTML = '<p>Aucune question disponible pour le moment.</p>';
     return;
   }
-  questions.forEach((q, index) => {
+
+  const filter = document.getElementById('lot-filter')?.value || '';
+  const filteredQuestions = filter ? questions.filter(q => q.lot === filter) : questions;
+
+  console.log("Questions filtrées :", filteredQuestions.length, filteredQuestions); // Debug
+
+  filteredQuestions.forEach((q, index) => {
     if (!q.question || !q.question.fr || !q.question.us) {
       console.error("Question mal formée à l'index", index, q);
-      return; // Ignore les questions mal formées
+      return;
     }
     const div = document.createElement('div');
     div.className = 'question-item';
@@ -83,7 +89,7 @@ function editQuestion(index) {
     </div>
     <div class="form-actions">
       <button type="button" onclick="showPreviewModal()">Aperçu</button>
-      <button onclick="saveQuestion()">Sauvegarder</button>
+      <button onclick="saveAndCommit()">Save & Commit</button>
       <button onclick="cancelEdit()">Annuler</button>
     </div>
   `;
@@ -196,14 +202,12 @@ function showPreviewModal() {
 function showNotification(message) {
   const notification = document.createElement('div');
   notification.className = 'notification';
-  notification.innerHTML = `
-    <p>${message}</p>
-  `;
+  notification.innerHTML = `<p>${message}</p>`;
   document.body.appendChild(notification);
   setTimeout(() => notification.remove(), 5000);
 }
 
-function saveQuestion() {
+function saveAndCommit() {
   const q = questions[editingIndex];
   q.question.fr = document.getElementById('edit-question-fr').value;
   q.question.us = document.getElementById('edit-question-us').value;
@@ -213,21 +217,21 @@ function saveQuestion() {
   q.type = document.getElementById('edit-type').value;
 
   modifiedQuestionsIndices.add(editingIndex);
-
   editingIndex = null;
-  loadQuestionList();
-}
 
-function commitChanges() {
-  showNotification("Modifications sauvegardées avec succès !");
-
-  if (typeof saveQuestionsToGitHub === 'function') {
-    saveQuestionsToGitHub();
+  // Sauvegarde et commit direct
+  if (modifiedQuestionsIndices.size > 0) {
+    saveQuestionsToGitHub().then(() => {
+      showNotification("Modifications sauvegardées et poussées sur GitHub avec succès !");
+      modifiedQuestionsIndices.clear();
+      loadQuestionList(); // Rafraîchir l’affichage
+    }).catch(error => {
+      console.error("Erreur lors du commit :", error);
+      showNotification("Erreur lors de la sauvegarde sur GitHub.");
+    });
   } else {
-    console.error("saveQuestionsToGitHub n'est pas défini.");
+    loadQuestionList(); // Rafraîchir même si pas de changements poussés
   }
-
-  modifiedQuestionsIndices.clear();
 }
 
 function cancelEdit() {
@@ -240,11 +244,8 @@ function deleteQuestion(index) {
   modifiedQuestionsIndices.delete(index);
   const newIndices = new Set();
   modifiedQuestionsIndices.forEach(i => {
-    if (i > index) {
-      newIndices.add(i - 1);
-    } else if (i < index) {
-      newIndices.add(i);
-    }
+    if (i > index) newIndices.add(i - 1);
+    else if (i < index) newIndices.add(i);
   });
   modifiedQuestionsIndices = newIndices;
   loadQuestionList();
@@ -262,26 +263,16 @@ function addNewQuestion() {
 }
 
 function filterQuestionsByLot() {
-  const filter = document.getElementById('lot-filter').value;
-  const filtered = filter ? questions.filter(q => q.lot === filter) : questions;
-  const list = document.getElementById('question-list');
-  list.innerHTML = '';
-  filtered.forEach((q, index) => {
-    const div = document.createElement('div');
-    div.className = 'question-item';
-    div.innerHTML = `
-      <div class="question-block">
-        <h3>${q.question.fr} / ${q.question.us}</h3>
-        <div class="options">
-          ${q.type === 'Choix simple' ? renderRadioOptions(q.options.fr, q.options.us, q.correct) : renderCheckboxOptions(q.options.fr, q.options.us, q.correct)}
-        </div>
-        <p>Lot: ${q.lot} | Type: ${q.type}</p>
-        <div class="actions">
-          <button onclick="editQuestion(${index})">Modifier</button>
-          <button onclick="deleteQuestion(${index})">Supprimer</button>
-        </div>
-      </div>
-    `;
-    list.appendChild(div);
-  });
+  loadQuestionList(); // Recharger avec le filtre appliqué
 }
+
+// Attacher l’événement au filtre
+document.addEventListener('DOMContentLoaded', () => {
+  const lotFilter = document.getElementById('lot-filter');
+  if (lotFilter) {
+    lotFilter.addEventListener('change', filterQuestionsByLot);
+    console.log("Événement 'change' attaché au filtre de lot.");
+  } else {
+    console.error("Élément '#lot-filter' non trouvé dans le DOM.");
+  }
+});
