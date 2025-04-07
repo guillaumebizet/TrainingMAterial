@@ -8,6 +8,7 @@ let timerInterval;
 let timeElapsed = 0;
 let candidateName = '';
 let scores = [];
+let currentLot = "Non spécifié"; // Nouvelle variable globale pour stocker le lot
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -113,7 +114,8 @@ async function startQuiz() {
       return;
     }
 
-    const selectedLot = document.getElementById('lot-selection').value;
+    const lotSelect = document.getElementById('lot-selection');
+    const selectedLot = lotSelect.value;
     if (!selectedLot) {
       alert('Veuillez sélectionner un lot de questions');
       return;
@@ -139,6 +141,10 @@ async function startQuiz() {
       alert('Aucune question disponible pour ce lot');
       return;
     }
+
+    // Stocker le lot sélectionné globalement
+    currentLot = selectedLot;
+    lotSelect.value = selectedLot; // Conserver la sélection dans l’élément
 
     selectedQuestions = shuffle([...selectedQuestions]);
     score = 0;
@@ -215,14 +221,17 @@ function loadQuestions() {
 }
 
 function saveScore() {
+  // Utiliser le lot stocké globalement au lieu de dépendre de l’élément DOM
+  console.log("Lot sélectionné au moment de la sauvegarde :", currentLot);
   const lotSelect = document.getElementById('lot-selection');
-  const selectedLot = lotSelect && lotSelect.value ? lotSelect.value : "Non spécifié"; // Vérifie que l’élément existe et a une valeur
+  console.log("Options de lot disponibles :", lotSelect ? lotSelect.innerHTML : "Élément non trouvé");
+
   const scoreData = {
     name: candidateName,
     date: new Date().toLocaleDateString('fr-FR'),
     score: `${score} / ${selectedQuestions.length}`,
     time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`,
-    lot: selectedLot
+    lot: currentLot // Utiliser la variable globale
   };
   scores.push(scoreData);
 
