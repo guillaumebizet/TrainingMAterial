@@ -15,13 +15,13 @@ const GITHUB_CONFIG = {
   apiBaseUrl: "https://api.github.com/repos"
 };
 
-// Fonction pour afficher une modale stylisée
-function showModal(message) {
+// Fonction pour afficher une modale stylisée (déjà dans quiz-core.js, mais répétée ici pour indépendance)
+function showModal(message, details = null) {
   const modal = document.getElementById('github-modal');
   const modalMessage = document.getElementById('modal-message');
   const closeBtn = document.getElementById('modal-close-btn');
 
-  modalMessage.textContent = message;
+  modalMessage.innerHTML = details ? `${message}<pre style="margin-top: 10px; text-align: left; max-height: 200px; overflow-y: auto;">${JSON.stringify(details, null, 2)}</pre>` : message;
   modal.style.display = 'flex';
 
   closeBtn.onclick = () => {
@@ -107,7 +107,7 @@ async function saveQuestionsToGitHub() {
     if (updateResponse.ok) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour questions.json :", updateData);
-      showModal("Modifications sauvegardées avec succès !");
+      showModal("Modifications sauvegardées avec succès !", questions);
       showNotification("Vous avez modifié questions.json. GitHub Pages peut prendre 1 à 2 minutes pour refléter ce changement. Veuillez rafraîchir avant de refaire une modification.");
       await fetchQuestions();
     } else {
@@ -167,7 +167,7 @@ async function saveScoresToGitHub(token) {
     if (updateResponse.ok) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour scores.json :", updateData);
-      showModal("Scores sauvegardés avec succès sur GitHub !");
+      showModal("Scores sauvegardés avec succès sur GitHub !", scores);
       showNotification("Vous avez modifié scores.json. GitHub Pages peut prendre 1 à 2 minutes pour refléter ce changement. Veuillez rafraîchir avant de refaire une modification.");
       await loadScores();
     } else {
@@ -180,6 +180,22 @@ async function saveScoresToGitHub(token) {
     showModal("Erreur lors de la sauvegarde des scores : " + error.message + ". Les scores seront stockés localement.");
     localStorage.setItem('scores', JSON.stringify(scores));
   }
+}
+
+function loadLotSelection() {
+  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
+  const select = document.getElementById('lot-selection');
+  if (!select) {
+    console.error("Élément '#lot-selection' non trouvé dans le DOM.");
+    return;
+  }
+  select.innerHTML = '<option value="">Choisir un lot</option>';
+  lots.forEach(lot => {
+    const option = document.createElement('option');
+    option.value = lot;
+    option.textContent = lot;
+    select.appendChild(option);
+  });
 }
 
 async function fetchQuestions() {
