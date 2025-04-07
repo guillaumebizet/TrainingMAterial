@@ -12,7 +12,7 @@ function loadQuestionList() {
   const filter = document.getElementById('lot-filter')?.value || '';
   const filteredQuestions = filter ? questions.filter(q => q.lot === filter) : questions;
 
-  console.log("Filtre appliqué :", filter, "| Questions filtrées :", filteredQuestions.length, filteredQuestions); // Debug
+  console.log("Filtre appliqué :", filter, "| Questions filtrées :", filteredQuestions.length, filteredQuestions);
 
   filteredQuestions.forEach((q, index) => {
     if (!q.question || !q.question.fr || !q.question.us) {
@@ -268,19 +268,28 @@ function addNewQuestion() {
 }
 
 function filterQuestionsByLot() {
+  console.log("filterQuestionsByLot appelé");
   loadQuestionList();
 }
 
-// Attacher l’événement au filtre
-document.addEventListener('DOMContentLoaded', () => {
+// Attacher l’événement au filtre avec plus de robustesse
+function attachFilterEvent() {
   const lotFilter = document.getElementById('lot-filter');
   if (lotFilter) {
+    console.log("Élément #lot-filter trouvé, attachement de l'événement...");
     lotFilter.addEventListener('change', () => {
       console.log("Changement de filtre détecté :", lotFilter.value);
       filterQuestionsByLot();
     });
     console.log("Événement 'change' attaché au filtre de lot.");
   } else {
-    console.error("Élément '#lot-filter' non trouvé dans le DOM.");
+    console.error("Élément '#lot-filter' non trouvé dans le DOM, nouvelle tentative dans 1 seconde...");
+    setTimeout(attachFilterEvent, 1000); // Réessayer après 1 seconde
   }
+}
+
+// Attacher l'événement après le chargement du DOM
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM chargé, tentative d'attachement de l'événement au filtre...");
+  attachFilterEvent();
 });
