@@ -46,7 +46,8 @@ function loadLotSelection() {
     console.error("Élément '#lot-selection' non trouvé dans le DOM.");
     return;
   }
-  select.innerHTML = `<option value="">${translations[currentLang]['choose_lot']}</option>`;
+  const chooseLotText = translations[currentLang]?.['choose_lot'] || 'Choose a lot';
+  select.innerHTML = `<option value="">${chooseLotText}</option>`;
   lots.forEach(lot => {
     const option = document.createElement('option');
     option.value = lot;
