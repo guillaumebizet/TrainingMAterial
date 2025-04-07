@@ -1,3 +1,12 @@
+// Constantes globales pour le dépôt
+const GITHUB_CONFIG = {
+  repo: "a474881/training",
+  branch: "coding-main",
+  questionsPath: "questions.json",
+  scoresPath: "scores.json",
+  apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
+};
+
 async function saveQuestionsToGitHub() {
   if (questions.length === 0) {
     alert("Aucune question à sauvegarder.");
@@ -10,12 +19,8 @@ async function saveQuestionsToGitHub() {
     return;
   }
 
-  const repo = "a474881/training";
-  const branch = "coding-main";
-  const path = "questions.json";
-
   try {
-    const response = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}?ref=${branch}`, {
+    const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.questionsPath}?ref=${GITHUB_CONFIG.branch}`, {
       headers: {
         Authorization: `token ${token}`,
         Accept: "application/vnd.github.v3+json"
@@ -31,7 +36,7 @@ async function saveQuestionsToGitHub() {
     }
 
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(questions, null, 2))));
-    const updateResponse = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}`, {
+    const updateResponse = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.questionsPath}`, {
       method: 'PUT',
       headers: {
         Authorization: `token ${token}`,
@@ -41,7 +46,7 @@ async function saveQuestionsToGitHub() {
         message: "Mise à jour de questions.json via l'interface d'édition",
         content: content,
         sha: sha,
-        branch: branch
+        branch: GITHUB_CONFIG.branch
       })
     });
 
@@ -65,13 +70,9 @@ async function saveScoresToGitHub(token) {
     return;
   }
 
-  const repo = "a474881/training";
-  const branch = "coding-main";
-  const path = "scores.json";
-
   try {
     let sha = null;
-    const response = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}?ref=${branch}`, {
+    const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}?ref=${GITHUB_CONFIG.branch}`, {
       headers: {
         Authorization: `token ${pat}`,
         Accept: "application/vnd.github.v3+json"
@@ -86,7 +87,7 @@ async function saveScoresToGitHub(token) {
     }
 
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
-    const updateResponse = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}`, {
+    const updateResponse = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}`, {
       method: 'PUT',
       headers: {
         Authorization: `token ${pat}`,
@@ -96,13 +97,13 @@ async function saveScoresToGitHub(token) {
         message: "Mise à jour de scores.json via l'interface",
         content: content,
         sha: sha,
-        branch: branch
+        branch: GITHUB_CONFIG.branch
       })
     });
 
     if (updateResponse.ok) {
       alert("Scores sauvegardés avec succès sur GitHub !");
-      await loadScores(); // Recharge les scores après sauvegarde pour mettre à jour l'interface
+      await loadScores(); // Recharge les scores après sauvegarde
     } else {
       const errorData = await updateResponse.json();
       throw new Error(`Erreur lors de la sauvegarde des scores : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
@@ -117,7 +118,7 @@ async function saveScoresToGitHub(token) {
 async function fetchQuestions() {
   try {
     console.log("Tentative de chargement de questions.json...");
-    const response = await fetch('questions.json');
+    const response = await fetch(GITHUB_CONFIG.questionsPath);
     if (!response.ok) {
       throw new Error(`Erreur lors du chargement de questions.json : ${response.status} ${response.statusText}`);
     }
@@ -139,32 +140,28 @@ async function fetchQuestions() {
 }
 
 async function loadScores() {
-  console.log("Tentative de chargement de scores.json...");
-  const repo = "a474881/training";
-  const branch = "coding-main";
-  const path = "scores.json";
-
   try {
-    const response = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}?ref=${branch}`, {
-      headers: {
-        Accept: "application/vnd.github.v3+json"
+    console.log("Tentative de chargement de scores.json...");
+    const response = await fetch(GITHUB_CONFIG.scoresPath);
+    if (!response.ok) {
+      if (response.status === 404) {
+        console.log("scores.json non trouvé, initialisation à un tableau vide.");
+        scores = [];
+      } else {
+        throw new Error(`Erreur lors du chargement de scores.json : ${response.status} ${response.statusText}`);
       }
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      const content = atob(data.content);
-      console.log("Contenu brut de scores.json :", content);
-      scores = JSON.parse(content);
-      console.log("Scores chargés depuis GitHub :", scores);
-    } else if (response.status === 404) {
-      console.log("scores.json non trouvé sur GitHub, initialisation à un tableau vide.");
-      scores = [];
     } else {
-      throw new Error(`Erreur lors du chargement des scores : ${response.status} ${response.statusText}`);
+      const text = await response.text();
+      console.log("Contenu brut de scores.json :", text);
+      try {
+        scores = JSON.parse(text);
+      } catch (parseError) {
+        throw new Error(`Erreur lors du parsing de scores.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
+      }
+      console.log('Scores chargés avec succès :', scores);
     }
   } catch (error) {
-    console.error("Erreur lors du chargement des scores depuis GitHub :", error);
+    console.error('Erreur lors du chargement des scores:', error);
     try {
       const localScores = localStorage.getItem('scores');
       scores = localScores ? JSON.parse(localScores) : [];
