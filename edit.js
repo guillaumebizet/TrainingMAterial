@@ -73,6 +73,7 @@ function editQuestion(index) {
       </select>
     </div>
     <div class="form-actions">
+      <button type="button" onclick="showPreviewModal()">Aperçu</button>
       <button onclick="saveQuestion()">Sauvegarder</button>
       <button onclick="cancelEdit()">Annuler</button>
     </div>
@@ -151,6 +152,36 @@ function updateCorrect(input) {
     const checkboxes = document.querySelectorAll('#options-preview input[type="checkbox"]:checked');
     questions[editingIndex].correct = Array.from(checkboxes).map(checkbox => parseInt(checkbox.value));
   }
+}
+
+function showPreviewModal() {
+  const questionFr = document.getElementById('edit-question-fr').value;
+  const questionUs = document.getElementById('edit-question-us').value;
+  const optionsFr = Array.from(document.getElementsByClassName('option-fr')).map(input => input.value || '');
+  const optionsUs = Array.from(document.getElementsByClassName('option-us')).map(input => input.value || '');
+  const lot = document.getElementById('edit-lot').value;
+  const type = document.getElementById('edit-type').value;
+  const correct = questions[editingIndex].correct;
+
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span id="modal-message">
+        <h3>Aperçu de la question</h3>
+        <p><strong>Question (FR):</strong> ${questionFr}</p>
+        <p><strong>Question (US):</strong> ${questionUs}</p>
+        <h4>Options:</h4>
+        ${optionsFr.map((option, i) => `
+          <p>${i + 1}. ${option} / ${optionsUs[i]} ${type === 'Choix simple' ? (i === parseInt(correct) ? '(Correct)' : '') : (Array.isArray(correct) && correct.includes(i) ? '(Correct)' : '')}</p>
+        `).join('')}
+        <p><strong>Lot:</strong> ${lot}</p>
+        <p><strong>Type:</strong> ${type}</p>
+      </span>
+      <button id="modal-close-btn" onclick="this.parentElement.parentElement.remove()">Fermer</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
 }
 
 function saveQuestion() {
