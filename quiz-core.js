@@ -18,24 +18,16 @@ function shuffle(array) {
 }
 
 function updateScoreCounter() {
-  const scoreCounter = document.getElementById('score-counter');
-  if (scoreCounter) {
-    scoreCounter.textContent = `Score : ${score}`;
-  } else {
-    console.error("Élément 'score-counter' non trouvé.");
-  }
-  // Suppression des éléments total-questions, correct-count, incorrect-count car ils ne sont pas utilisés dans index.html
+  document.getElementById('current-score').textContent = score;
+  document.getElementById('total-questions').textContent = selectedQuestions.length;
+  document.getElementById('correct-count').textContent = correctCount;
+  document.getElementById('incorrect-count').textContent = incorrectCount;
 }
 
 function updateTimer() {
   const minutes = Math.floor(timeElapsed / 60);
   const seconds = timeElapsed % 60;
-  const timerElement = document.getElementById('timer');
-  if (timerElement) {
-    timerElement.textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-  } else {
-    console.error("Élément 'timer' non trouvé.");
-  }
+  document.getElementById('timer').textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 function startTimer() {
@@ -84,58 +76,45 @@ function validateAnswer(index) {
   const allValidated = [...document.querySelectorAll('.validate-btn')].every(btn => btn.disabled);
   if (allValidated) {
     clearInterval(timerInterval);
-    saveScore();
     showResult();
   }
 }
+
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('result').style.display = 'block';
-  document.getElementById('result-container').innerHTML = `
-    <p>Score final : <span id="score">${score}</span> / <span id="total-questions-result">${selectedQuestions.length}</span></p>
-    <p>Temps écoulé : ${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}</p>
-  `;
+  document.getElementById('score').textContent = score;
+  document.getElementById('total-questions-result').textContent = selectedQuestions.length;
 }
 
-function showSection(sectionId) {
-  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-  document.getElementById(sectionId).classList.add('active');
-
-  if (sectionId === 'edit') {
+function showTab(tabId) {
+  document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  const activeTab = document.querySelector(`.tab[onclick="showTab('${tabId}')"]`);
+  if (activeTab) {
+    activeTab.classList.add('active');
+  }
+  if (tabId === 'edit-container') {
     if (typeof fetchQuestions === 'function') {
       fetchQuestions().then(() => loadQuestionList());
     } else {
-      console.error("fetchQuestions n'est pas défini. Attendez que github.js soit chargé.");
+      console.error("fetchQuestions n'est pas défini.");
     }
   }
-  if (sectionId === 'scores') loadScores();
-}
-
-function loadLotSelection() {
-  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
-  const select = document.getElementById('lot-selection');
-  if (!select) {
-    console.error("Élément 'lot-selection' non trouvé.");
-    return;
-  }
-  select.innerHTML = '<option value="">Choisir un lot</option>';
-  lots.forEach(lot => {
-    const option = document.createElement('option');
-    option.value = lot;
-    option.textContent = lot;
-    select.appendChild(option);
-  });
+  if (tabId === 'scores-container') loadScores();
 }
 
 async function startQuiz() {
   try {
-    candidateName = document.getElementById('user-name').value.trim();
+    candidateName = document.getElementById('candidate-name').value.trim();
     if (!candidateName) {
       alert('Veuillez entrer votre nom');
       return;
     }
 
-    const selectedLot = document.getElementById('lot-selection').value;
+    const lotSelect = document.getElementById('lot-selection');
+    const selectedLot = lotSelect.value;
     if (!selectedLot) {
       alert('Veuillez sélectionner un lot de questions');
       return;
@@ -162,95 +141,8 @@ async function startQuiz() {
       return;
     }
 
-    selectedQuestions = shuffle([...selectedQuestions]);
-    score = 0;
-    correctCount = 0;
-    incorrectCount = 0;
-    timeElapsed = 0;
-
-    showSection('quiz'); // Afficher la section quiz avant de mettre à jour les éléments
-    updateScoreCounter();
-    updateTimer();
-    loadQuestions();
-    startTimer();
-  } catch (error) {
-    console.error("Erreur dans startQuiz :", error);
-    alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
-  }
-}
-function showResult() {
-  document.getElementById('quiz-container').style.display = 'none';
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('result-container').innerHTML = `
-    <p>Score final : <span id="score">${score}</span> / <span id="total-questions-result">${selectedQuestions.length}</span></p>
-    <p>Temps écoulé : ${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}</p>
-  `;
-}
-
-function showSection(sectionId) {
-  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-  document.getElementById(sectionId).classList.add('active');
-
-  if (sectionId === 'edit') {
-    if (typeof fetchQuestions === 'function') {
-      fetchQuestions().then(() => loadQuestionList());
-    } else {
-      console.error("fetchQuestions n'est pas défini. Attendez que github.js soit chargé.");
-    }
-  }
-  if (sectionId === 'scores') loadScores();
-}
-
-function loadLotSelection() {
-  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
-  const select = document.getElementById('lot-selection');
-  if (!select) {
-    console.error("Élément 'lot-selection' non trouvé.");
-    return;
-  }
-  select.innerHTML = '<option value="">Choisir un lot</option>';
-  lots.forEach(lot => {
-    const option = document.createElement('option');
-    option.value = lot;
-    option.textContent = lot;
-    select.appendChild(option);
-  });
-}
-
-async function startQuiz() {
-  try {
-    candidateName = document.getElementById('user-name').value.trim();
-    if (!candidateName) {
-      alert('Veuillez entrer votre nom');
-      return;
-    }
-
-    const selectedLot = document.getElementById('lot-selection').value;
-    if (!selectedLot) {
-      alert('Veuillez sélectionner un lot de questions');
-      return;
-    }
-
-    if (typeof fetchQuestions !== 'function') {
-      alert("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
-      return;
-    }
-
-    await fetchQuestions();
-
-    if (!questions || questions.length === 0) {
-      alert('Aucune question chargée. Vérifiez le chargement initial.');
-      return;
-    }
-
-    selectedQuestions = questions.filter(q =>
-      q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
-    );
-
-    if (selectedQuestions.length === 0) {
-      alert('Aucune question disponible pour ce lot');
-      return;
-    }
+    // Conserver la sélection du lot dans l’élément
+    lotSelect.value = selectedLot;
 
     selectedQuestions = shuffle([...selectedQuestions]);
     score = 0;
@@ -258,9 +150,9 @@ async function startQuiz() {
     incorrectCount = 0;
     timeElapsed = 0;
 
-    showSection('quiz'); // Afficher la section quiz avant de mettre à jour les éléments
     updateScoreCounter();
     updateTimer();
+    showTab('quiz-container');
     loadQuestions();
     startTimer();
   } catch (error) {
@@ -268,8 +160,13 @@ async function startQuiz() {
     alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
   }
 }
+
 function loadQuestions() {
-  const container = document.getElementById('quiz-container');
+  const container = document.getElementById('questions-list');
+  if (!container) {
+    console.error("Conteneur 'questions-list' non trouvé.");
+    return;
+  }
   container.innerHTML = '';
 
   if (!selectedQuestions || selectedQuestions.length === 0) {
@@ -278,7 +175,7 @@ function loadQuestions() {
   }
 
   const shuffledSet = selectedQuestions.map((q) => {
-    const clone = JSON.parse(JSON.stringify(q)); // Remplacement de structuredClone
+    const clone = structuredClone(q);
     const shuffled = shuffle([...clone.options]);
 
     if (Array.isArray(clone.correct)) {
@@ -322,13 +219,16 @@ function loadQuestions() {
 }
 
 function saveScore() {
+  const lotSelect = document.getElementById('lot-selection');
+  const selectedLot = lotSelect && lotSelect.value ? lotSelect.value : "Non spécifié";
+  console.log("Lot sélectionné au moment de la sauvegarde :", selectedLot);
+
   const scoreData = {
     name: candidateName,
-    lot: document.getElementById('lot-selection').value,
-    score: score,
-    total: selectedQuestions.length,
     date: new Date().toLocaleDateString('fr-FR'),
-    time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`
+    score: `${score} / ${selectedQuestions.length}`,
+    time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`,
+    lot: selectedLot
   };
   scores.push(scoreData);
 
@@ -339,16 +239,94 @@ function saveScore() {
     console.error("Erreur de sauvegarde dans localStorage :", e);
   }
 
-  // Sauvegarde sur GitHub via OAuth
-  saveScoresToGitHub();
+  const token = sessionStorage.getItem('githubPAT');
+  if (token) {
+    console.log("Tentative de sauvegarde sur GitHub avec PAT:", scores);
+    saveScoresToGitHub(token);
+    // Ne recharge pas immédiatement ici pour éviter d’écraser scores
+    return true;
+  } else {
+    console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
+    return false;
+  }
 }
 
-// Attacher un écouteur d'événements au bouton "Démarrer le quiz"
+// Initialisation et événements
 document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM chargé, attachement des événements...");
+
   const startQuizButton = document.getElementById('start-quiz-button');
   if (startQuizButton) {
     startQuizButton.addEventListener('click', startQuiz);
+    console.log("Événement attaché au bouton 'start-quiz-button'");
   } else {
     console.error("Bouton 'start-quiz-button' non trouvé.");
+  }
+
+  const validatePatButton = document.getElementById('validate-pat-btn');
+  const patInput = document.getElementById('github-pat');
+  const patStatus = document.getElementById('pat-status');
+  const patFeedback = document.getElementById('pat-feedback');
+
+  if (sessionStorage.getItem('githubPAT')) {
+    patInput.style.display = 'none';
+    validatePatButton.style.display = 'none';
+    patStatus.style.display = 'inline';
+    console.log("PAT déjà chargé au démarrage.");
+  }
+
+  if (validatePatButton) {
+    validatePatButton.addEventListener('click', () => {
+      const pat = patInput.value.trim();
+      if (pat) {
+        sessionStorage.setItem('githubPAT', pat);
+        patFeedback.textContent = 'PAT validé avec succès !';
+        patFeedback.style.display = 'block';
+        patInput.style.display = 'none';
+        validatePatButton.style.display = 'none';
+        patStatus.style.display = 'inline';
+        patInput.value = '';
+        setTimeout(() => patFeedback.style.display = 'none', 3000);
+        console.log("PAT validé et interface mise à jour.");
+      } else {
+        alert('Veuillez entrer un PAT valide.');
+      }
+    });
+    console.log("Événement attaché au bouton 'validate-pat-btn'");
+  } else {
+    console.error("Bouton 'validate-pat-btn' non trouvé.");
+  }
+
+  const saveResultButton = document.getElementById('save-result-btn');
+  if (saveResultButton) {
+    saveResultButton.addEventListener('click', () => {
+      saveScore();
+      const feedback = document.getElementById('save-result-feedback');
+      feedback.textContent = 'Résultats sauvegardés avec succès !';
+      feedback.style.display = 'block';
+      setTimeout(() => feedback.style.display = 'none', 3000);
+    });
+    console.log("Événement attaché au bouton 'save-result-btn'");
+  } else {
+    console.error("Bouton 'save-result-btn' non trouvé.");
+  }
+
+  const saveCurrentScoreButton = document.getElementById('save-current-score-btn');
+  if (saveCurrentScoreButton) {
+    saveCurrentScoreButton.addEventListener('click', () => {
+      console.log("Clic sur 'Sauvegarder le score actuel'");
+      const saved = saveScore();
+      const feedback = document.getElementById('save-current-feedback');
+      if (feedback) {
+        feedback.textContent = saved ? 'Score actuel sauvegardé avec succès !' : 'Score sauvegardé localement (aucun PAT fourni).';
+        feedback.style.display = 'block';
+        setTimeout(() => feedback.style.display = 'none', 3000);
+      } else {
+        console.error("Élément 'save-current-feedback' non trouvé.");
+      }
+    });
+    console.log("Événement attaché au bouton 'save-current-score-btn'");
+  } else {
+    console.error("Bouton 'save-current-score-btn' non trouvé.");
   }
 });
