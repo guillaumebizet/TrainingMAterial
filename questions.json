@@ -1,2263 +1,376 @@
 [
   {
-    "question": "Quelle est la différence entre `git merge` et `git rebase` ?",
-    "options": [
-      "Merge combine les branches en créant un commit de fusion, rebase réécrit l'historique en appliquant les commits sur une autre base.",
-      "Rebase combine les branches en créant un commit de fusion, merge réécrit l'historique.",
-      "Les deux font la même chose.",
-      "Merge est pour les branches locales, rebase pour les branches distantes.",
-      "Aucune des précédentes."
-    ],
+    "question": {
+      "fr": "Quelle est la différence entre `git merge` et `git rebase` ?",
+      "us": "What is the difference between `git merge` and `git rebase`?"
+    },
+    "options": {
+      "fr": [
+        "Merge combine les branches en créant un commit de fusion, rebase réécrit l'historique en appliquant les commits sur une autre base.",
+        "Rebase combine les branches en créant un commit de fusion, merge réécrit l'historique.",
+        "Les deux font la même chose.",
+        "Merge est pour les branches locales, rebase pour les branches distantes.",
+        "Aucune des précédentes."
+      ],
+      "us": [
+        "Merge combines branches by creating a merge commit, rebase rewrites history by applying commits onto another base.",
+        "Rebase combines branches by creating a merge commit, merge rewrites history.",
+        "Both do the same thing.",
+        "Merge is for local branches, rebase is for remote branches.",
+        "None of the above."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Comment annuler le dernier commit dans Git sans perdre les changements ?",
-    "options": [
-      "git revert HEAD",
-      "git reset --soft HEAD~1",
-      "git reset --hard HEAD~1",
-      "git commit --amend",
-      "git checkout ."
-    ],
+    "question": {
+      "fr": "Comment annuler le dernier commit dans Git sans perdre les changements ?",
+      "us": "How do you undo the last commit in Git without losing changes?"
+    },
+    "options": {
+      "fr": [
+        "git revert HEAD",
+        "git reset --soft HEAD~1",
+        "git reset --hard HEAD~1",
+        "git commit --amend",
+        "git checkout ."
+      ],
+      "us": [
+        "git revert HEAD",
+        "git reset --soft HEAD~1",
+        "git reset --hard HEAD~1",
+        "git commit --amend",
+        "git checkout ."
+      ]
+    },
     "correct": 1,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Expliquez le concept de branchement dans Git.",
-    "options": [
-      "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
-      "Une branche est une copie complète du repository.",
-      "Les branches sont pour les versions stables uniquement.",
-      "Le branchement n'est pas supporté dans Git.",
-      "Les branches ne peuvent pas être fusionnées."
-    ],
+    "question": {
+      "fr": "Expliquez le concept de branchement dans Git.",
+      "us": "Explain the concept of branching in Git."
+    },
+    "options": {
+      "fr": [
+        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
+        "Une branche est une copie complète du repository.",
+        "Les branches sont pour les versions stables uniquement.",
+        "Le branchement n'est pas supporté dans Git.",
+        "Les branches ne peuvent pas être fusionnées."
+      ],
+      "us": [
+        "A branch is a pointer to a commit, allowing isolated feature development.",
+        "A branch is a full copy of the repository.",
+        "Branches are only for stable versions.",
+        "Branching is not supported in Git.",
+        "Branches cannot be merged."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Quelle est la complexité temporelle d'un algorithme de recherche binaire ?",
-    "options": [
-      "O(log n)",
-      "O(n)",
-      "O(n log n)",
-      "O(1)",
-      "O(n^2)"
-    ],
+    "question": {
+      "fr": "Quelle est la complexité temporelle d'un algorithme de recherche binaire ?",
+      "us": "What is the time complexity of a binary search algorithm?"
+    },
+    "options": {
+      "fr": [
+        "O(log n)",
+        "O(n)",
+        "O(n log n)",
+        "O(1)",
+        "O(n^2)"
+      ],
+      "us": [
+        "O(log n)",
+        "O(n)",
+        "O(n log n)",
+        "O(1)",
+        "O(n^2)"
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Expliquez la différence entre une pile et une file.",
-    "options": [
-      "Une pile est LIFO, une file est FIFO.",
-      "Une pile est FIFO, une file est LIFO.",
-      "Les piles sont plus rapides que les files.",
-      "Les files sont pour les données temporaires, les piles pour les données permanentes.",
-      "Il n'y a pas de différence."
-    ],
+    "question": {
+      "fr": "Expliquez la différence entre une pile et une file.",
+      "us": "Explain the difference between a stack and a queue."
+    },
+    "options": {
+      "fr": [
+        "Une pile est LIFO, une file est FIFO.",
+        "Une pile est FIFO, une file est LIFO.",
+        "Les piles sont plus rapides que les files.",
+        "Les files sont pour les données temporaires, les piles pour les données permanentes.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "A stack is LIFO, a queue is FIFO.",
+        "A stack is FIFO, a queue is LIFO.",
+        "Stacks are faster than queues.",
+        "Queues are for temporary data, stacks are for permanent data.",
+        "There is no difference."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Qu'est-ce que la récursivité, et quand l'utiliseriez-vous ?",
-    "options": [
-      "La récursivité est une technique où une fonction s'appelle elle-même pour résoudre un problème.",
-      "La récursivité est utilisée pour boucler à travers des tableaux.",
-      "La récursivité est une façon d'optimiser la mémoire.",
-      "La récursivité ne peut pas être utilisée en programmation.",
-      "La récursivité est uniquement pour les langages fonctionnels."
-    ],
+    "question": {
+      "fr": "Qu'est-ce que la récursivité, et quand l'utiliseriez-vous ?",
+      "us": "What is recursion, and when would you use it?"
+    },
+    "options": {
+      "fr": [
+        "La récursivité est une technique où une fonction s'appelle elle-même pour résoudre un problème.",
+        "La récursivité est utilisée pour boucler à travers des tableaux.",
+        "La récursivité est une façon d'optimiser la mémoire.",
+        "La récursivité ne peut pas être utilisée en programmation.",
+        "La récursivité est uniquement pour les langages fonctionnels."
+      ],
+      "us": [
+        "Recursion is a technique where a function calls itself to solve a problem.",
+        "Recursion is used to loop through arrays.",
+        "Recursion is a way to optimize memory.",
+        "Recursion cannot be used in programming.",
+        "Recursion is only for functional languages."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Quelles sont les principales différences entre IaaS, PaaS, et SaaS ?",
-    "options": [
-      "IaaS fournit l'infrastructure, PaaS la plateforme, SaaS les applications.",
-      "IaaS est pour les applications, PaaS pour l'infrastructure, SaaS pour la plateforme.",
-      "Tous sont des types de services cloud avec le même niveau d'abstraction.",
-      "IaaS est gratuit, PaaS et SaaS sont payants.",
-      "SaaS ne nécessite pas de maintenance, IaaS et PaaS si."
-    ],
+    "question": {
+      "fr": "Quelles sont les principales différences entre IaaS, PaaS, et SaaS ?",
+      "us": "What are the main differences between IaaS, PaaS, and SaaS?"
+    },
+    "options": {
+      "fr": [
+        "IaaS fournit l'infrastructure, PaaS la plateforme, SaaS les applications.",
+        "IaaS est pour les applications, PaaS pour l'infrastructure, SaaS pour la plateforme.",
+        "Tous sont des types de services cloud avec le même niveau d'abstraction.",
+        "IaaS est gratuit, PaaS et SaaS sont payants.",
+        "SaaS ne nécessite pas de maintenance, IaaS et PaaS si."
+      ],
+      "us": [
+        "IaaS provides infrastructure, PaaS provides a platform, SaaS provides applications.",
+        "IaaS is for applications, PaaS is for infrastructure, SaaS is for the platform.",
+        "All are cloud service types with the same level of abstraction.",
+        "IaaS is free, PaaS and SaaS are paid.",
+        "SaaS requires no maintenance, IaaS and PaaS do."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Expliquez ce qu'est une machine virtuelle.",
-    "options": [
-      "Un logiciel qui émule un système d'exploitation complet sur un hôte physique.",
-      "Un type de conteneur pour applications.",
-      "Un serveur physique dédié.",
-      "Un service cloud pour stocker des données.",
-      "Un outil de gestion de version."
-    ],
+    "question": {
+      "fr": "Expliquez ce qu'est une machine virtuelle.",
+      "us": "Explain what a virtual machine is."
+    },
+    "options": {
+      "fr": [
+        "Un logiciel qui émule un système d'exploitation complet sur un hôte physique.",
+        "Un type de conteneur pour applications.",
+        "Un serveur physique dédié.",
+        "Un service cloud pour stocker des données.",
+        "Un outil de gestion de version."
+      ],
+      "us": [
+        "Software that emulates a complete operating system on a physical host.",
+        "A type of container for applications.",
+        "A dedicated physical server.",
+        "A cloud service for storing data.",
+        "A version control tool."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Quel est le but de l'équilibrage de charge dans les environnements cloud ?",
-    "options": [
-      "Distribuer le trafic réseau uniformément sur plusieurs serveurs.",
-      "Augmenter la vitesse de traitement des données.",
-      "Réduire la latence des applications.",
-      "Améliorer la sécurité des données.",
-      "Optimiser l'utilisation du stockage."
-    ],
+    "question": {
+      "fr": "Quel est le but de l'équilibrage de charge dans les environnements cloud ?",
+      "us": "What is the purpose of load balancing in cloud environments?"
+    },
+    "options": {
+      "fr": [
+        "Distribuer le trafic réseau uniformément sur plusieurs serveurs.",
+        "Augmenter la vitesse de traitement des données.",
+        "Réduire la latence des applications.",
+        "Améliorer la sécurité des données.",
+        "Optimiser l'utilisation du stockage."
+      ],
+      "us": [
+        "Distribute network traffic evenly across multiple servers.",
+        "Increase data processing speed.",
+        "Reduce application latency.",
+        "Improve data security.",
+        "Optimize storage usage."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Qu'est-ce qu'une injection SQL, et comment peut-elle être prévenue ?",
-    "options": [
-      "Une technique d'attaque où du code SQL malveillant est inséré dans une requête, prévenue par des requêtes paramétrées.",
-      "Un type de virus qui affecte les bases de données, prévenu par un antivirus.",
-      "Une erreur de syntaxe dans les requêtes SQL, prévenue par des tests.",
-      "Une méthode pour optimiser les performances des bases de données, prévenue par des index.",
-      "Un outil pour tester la sécurité des applications, prévenu par des audits."
-    ],
+    "question": {
+      "fr": "Qu'est-ce qu'une injection SQL, et comment peut-elle être prévenue ?",
+      "us": "What is SQL injection, and how can it be prevented?"
+    },
+    "options": {
+      "fr": [
+        "Une technique d'attaque où du code SQL malveillant est inséré dans une requête, prévenue par des requêtes paramétrées.",
+        "Un type de virus qui affecte les bases de données, prévenu par un antivirus.",
+        "Une erreur de syntaxe dans les requêtes SQL, prévenue par des tests.",
+        "Une méthode pour optimiser les performances des bases de données, prévenue par des index.",
+        "Un outil pour tester la sécurité des applications, prévenu par des audits."
+      ],
+      "us": [
+        "An attack technique where malicious SQL code is inserted into a query, prevented by parameterized queries.",
+        "A type of virus affecting databases, prevented by antivirus software.",
+        "A syntax error in SQL queries, prevented by testing.",
+        "A method to optimize database performance, prevented by indexing.",
+        "A tool to test application security, prevented by audits."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Expliquez le principe de moindre privilège.",
-    "options": [
-      "Accorder uniquement les permissions nécessaires pour une tâche spécifique.",
-      "Donner tous les accès pour simplifier la gestion.",
-      "Limiter les accès uniquement aux administrateurs.",
-      "Augmenter les privilèges pour améliorer la productivité.",
-      "Ne pas utiliser de privilèges pour éviter les erreurs."
-    ],
+    "question": {
+      "fr": "Expliquez le principe de moindre privilège.",
+      "us": "Explain the principle of least privilege."
+    },
+    "options": {
+      "fr": [
+        "Accorder uniquement les permissions nécessaires pour une tâche spécifique.",
+        "Donner tous les accès pour simplifier la gestion.",
+        "Limiter les accès uniquement aux administrateurs.",
+        "Augmenter les privilèges pour améliorer la productivité.",
+        "Ne pas utiliser de privilèges pour éviter les erreurs."
+      ],
+      "us": [
+        "Grant only the permissions necessary for a specific task.",
+        "Grant all access to simplify management.",
+        "Limit access only to administrators.",
+        "Increase privileges to improve productivity.",
+        "Avoid using privileges to prevent errors."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Qu'est-ce que l'authentification à deux facteurs, et pourquoi est-elle importante ?",
-    "options": [
-      "Une méthode utilisant deux formes d'identification pour renforcer la sécurité.",
-      "Un système pour gérer les mots de passe.",
-      "Une technique pour accélérer les connexions.",
-      "Un outil pour stocker les données sensibles.",
-      "Une pratique pour réduire les coûts de sécurité."
-    ],
+    "question": {
+      "fr": "Qu'est-ce que l'authentification à deux facteurs, et pourquoi est-elle importante ?",
+      "us": "What is two-factor authentication, and why is it important?"
+    },
+    "options": {
+      "fr": [
+        "Une méthode utilisant deux formes d'identification pour renforcer la sécurité.",
+        "Un système pour gérer les mots de passe.",
+        "Une technique pour accélérer les connexions.",
+        "Un outil pour stocker les données sensibles.",
+        "Une pratique pour réduire les coûts de sécurité."
+      ],
+      "us": [
+        "A method using two forms of identification to enhance security.",
+        "A system for managing passwords.",
+        "A technique to speed up logins.",
+        "A tool for storing sensitive data.",
+        "A practice to reduce security costs."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Décrivez le processus de pipeline CI/CD.",
-    "options": [
-      "Intégration continue et déploiement continu automatisé pour livrer du code rapidement.",
-      "Un processus manuel pour tester le code avant déploiement.",
-      "Une méthode pour stocker les versions du code.",
-      "Un outil pour gérer les branches dans Git.",
-      "Une technique pour sécuriser les données."
-    ],
+    "question": {
+      "fr": "Décrivez le processus de pipeline CI/CD.",
+      "us": "Describe the CI/CD pipeline process."
+    },
+    "options": {
+      "fr": [
+        "Intégration continue et déploiement continu automatisé pour livrer du code rapidement.",
+        "Un processus manuel pour tester le code avant déploiement.",
+        "Une méthode pour stocker les versions du code.",
+        "Un outil pour gérer les branches dans Git.",
+        "Une technique pour sécuriser les données."
+      ],
+      "us": [
+        "Continuous integration and continuous deployment automated to deliver code quickly.",
+        "A manual process to test code before deployment.",
+        "A method to store code versions.",
+        "A tool to manage branches in Git.",
+        "A technique to secure data."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Qu'est-ce qu'un conteneur, et en quoi diffère-t-il d'une machine virtuelle ?",
-    "options": [
-      "Un conteneur partage le noyau de l'OS hôte, une VM inclut un OS complet.",
-      "Un conteneur inclut un OS complet, une VM partage le noyau de l'OS hôte.",
-      "Les conteneurs sont plus lourds que les VM.",
-      "Les VM sont plus portables que les conteneurs.",
-      "Il n'y a pas de différence."
-    ],
+    "question": {
+      "fr": "Qu'est-ce qu'un conteneur, et en quoi diffère-t-il d'une machine virtuelle ?",
+      "us": "What is a container, and how does it differ from a virtual machine?"
+    },
+    "options": {
+      "fr": [
+        "Un conteneur partage le noyau de l'OS hôte, une VM inclut un OS complet.",
+        "Un conteneur inclut un OS complet, une VM partage le noyau de l'OS hôte.",
+        "Les conteneurs sont plus lourds que les VM.",
+        "Les VM sont plus portables que les conteneurs.",
+        "Il n'y a pas de différence."
+      ],
+      "us": [
+        "A container shares the host OS kernel, a VM includes a full OS.",
+        "A container includes a full OS, a VM shares the host OS kernel.",
+        "Containers are heavier than VMs.",
+        "VMs are more portable than containers.",
+        "There is no difference."
+      ]
+    },
     "correct": 0,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
-    "question": "Expliquez le concept d'Infrastructure as Code (IaC).",
-    "options": [
-      "Gérer l'infrastructure via des fichiers de configuration versionnés.",
-      "Écrire du code pour gérer les bases de données.",
-      "Utiliser des scripts pour tester les applications.",
-      "Créer des machines virtuelles manuellement.",
-      "Automatiser les tests unitaires."
-    ],
+    "question": {
+      "fr": "Expliquez le concept d'Infrastructure as Code (IaC).",
+      "us": "Explain the concept of Infrastructure as Code (IaC)."
+    },
+    "options": {
+      "fr": [
+        "Gérer l'infrastructure via des fichiers de configuration versionnés.",
+        "Écrire du code pour gérer les bases de données.",
+        "Utiliser des scripts pour tester les applications.",
+        "Créer des machines virtuelles manuellement.",
+        "Automatiser les tests unitaires."
+      ],
+      "us": [
+        "Manage infrastructure through versioned configuration files.",
+        "Write code to manage databases.",
+        "Use scripts to test applications.",
+        "Create virtual machines manually.",
+        "Automate unit tests."
+      ]
+    },
     "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que les microservices, et quels sont leurs avantages ?",
-    "options": [
-      "Une architecture où les applications sont divisées en petits services indépendants, favorisant la scalabilité.",
-      "Une méthode pour écrire des applications monolithiques plus rapidement.",
-      "Un type de conteneur pour les bases de données.",
-      "Une technique pour centraliser les données.",
-      "Un outil pour gérer les pipelines CI/CD."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les erreurs en Python ?",
-    "options": [
-      "Avec des blocs try/except.",
-      "Avec des blocs if/else.",
-      "Avec des boucles for.",
-      "Avec des fonctions récursives.",
-      "En utilisant des décorateurs."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelle est la différence entre `==` et `===` en JavaScript ?",
-    "options": [
-      "`==` compare les valeurs avec conversion de type, `===` compare les valeurs et les types.",
-      "`==` compare les types, `===` compare les valeurs.",
-      "`==` est plus strict que `===`.",
-      "`===` est utilisé pour les chaînes, `==` pour les nombres.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez ce que sont les API RESTful.",
-    "options": [
-      "Des interfaces pour interagir avec des services web via HTTP, utilisant des méthodes comme GET, POST.",
-      "Des bases de données pour stocker des données REST.",
-      "Des outils pour tester les performances des applications.",
-      "Des bibliothèques pour écrire des tests unitaires.",
-      "Des frameworks pour gérer les pipelines CI/CD."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le but des tests unitaires ?",
-    "options": [
-      "Vérifier que les unités de code fonctionnent correctement de manière isolée.",
-      "Tester l'intégration entre différents modules.",
-      "Mesurer les performances d'une application.",
-      "Vérifier la sécurité des données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez la méthodologie de développement Agile.",
-    "options": [
-      "Un processus itératif et collaboratif axé sur la livraison continue et l'adaptabilité.",
-      "Un processus linéaire avec des étapes fixes comme le modèle en cascade.",
-      "Une méthode pour écrire des tests unitaires.",
-      "Un outil pour gérer les pipelines CI/CD.",
-      "Une technique pour centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce qu'un sprint dans Scrum ?",
-    "options": [
-      "Une période fixe (généralement 2-4 semaines) pour livrer un incrément de produit.",
-      "Une réunion quotidienne pour planifier les tâches.",
-      "Un outil pour gérer les branches dans Git.",
-      "Une méthode pour tester les performances.",
-      "Un type de conteneur."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le rôle d'un product owner dans Agile.",
-    "options": [
-      "Définir les priorités du produit et représenter les parties prenantes.",
-      "Écrire le code pour les fonctionnalités.",
-      "Gérer les pipelines CI/CD.",
-      "Tester les performances de l'application.",
-      "Créer des machines virtuelles."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que la programmation en binôme, et quels sont ses avantages ?",
-    "options": [
-      "Deux développeurs travaillent ensemble sur le même code, favorisant la qualité et le partage de connaissances.",
-      "Un développeur écrit le code, l'autre teste les performances.",
-      "Une méthode pour gérer les branches dans Git.",
-      "Un outil pour automatiser les tests.",
-      "Une technique pour centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les dépendances dans un projet ?",
-    "options": [
-      "Avec un gestionnaire de dépendances comme npm, Maven ou pip.",
-      "En copiant manuellement les bibliothèques dans le projet.",
-      "En utilisant des conteneurs.",
-      "En écrivant tout le code from scratch.",
-      "En évitant les dépendances."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelle est la différence entre authentification et autorisation ?",
-    "options": [
-      "L'authentification vérifie l'identité, l'autorisation détermine les permissions.",
-      "L'authentification détermine les permissions, l'autorisation vérifie l'identité.",
-      "Les deux sont identiques.",
-      "L'authentification est pour les utilisateurs, l'autorisation pour les admins.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez ce qu'est OAuth.",
-    "options": [
-      "Un protocole d'autorisation pour permettre à des applications d'accéder à des ressources au nom d'un utilisateur.",
-      "Un protocole d'authentification pour gérer les mots de passe.",
-      "Un outil pour tester les performances.",
-      "Une méthode pour gérer les branches dans Git.",
-      "Un type de conteneur."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce qu'un pare-feu, et comment fonctionne-t-il ?",
-    "options": [
-      "Un dispositif de sécurité qui filtre le trafic réseau selon des règles.",
-      "Un outil pour gérer les pipelines CI/CD.",
-      "Un type de conteneur.",
-      "Une méthode pour tester les performances.",
-      "Un protocole pour gérer les mots de passe."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez le concept de chiffrement.",
-    "options": [
-      "Transformer des données en un format illisible sans clé pour assurer la confidentialité.",
-      "Compresser des données pour économiser de l'espace.",
-      "Tester les performances d'une application.",
-      "Gérer les branches dans Git.",
-      "Centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce qu'un VPN, et quand l'utiliseriez-vous ?",
-    "options": [
-      "Un réseau privé virtuel pour sécuriser les connexions sur des réseaux publics.",
-      "Un outil pour gérer les pipelines CI/CD.",
-      "Un type de conteneur.",
-      "Une méthode pour tester les performances.",
-      "Un protocole pour gérer les mots de passe."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez la différence entre HTTP et HTTPS.",
-    "options": [
-      "HTTPS utilise SSL/TLS pour chiffrer les communications, HTTP est non sécurisé.",
-      "HTTP utilise SSL/TLS, HTTPS est non sécurisé.",
-      "HTTP est plus rapide que HTTPS.",
-      "HTTPS est pour les sites web, HTTP pour les API.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce qu'une attaque DDoS ?",
-    "options": [
-      "Une attaque qui inonde un serveur de requêtes pour le rendre indisponible.",
-      "Une attaque qui vole des données sensibles.",
-      "Une attaque qui modifie le code source.",
-      "Une attaque qui teste les performances.",
-      "Une attaque qui gère les branches dans Git."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment sécurisez-vous les données sensibles dans le code ?",
-    "options": [
-      "En utilisant des variables d'environnement et des secrets managers.",
-      "En les stockant directement dans le code source.",
-      "En utilisant des conteneurs.",
-      "En désactivant les tests.",
-      "En évitant les dépendances."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le but des revues de code ?",
-    "options": [
-      "Améliorer la qualité du code et partager les connaissances.",
-      "Tester les performances de l'application.",
-      "Gérer les branches dans Git.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le concept de dette technique.",
-    "options": [
-      "Les compromis techniques qui accumulent des coûts futurs pour des gains à court terme.",
-      "Les erreurs de syntaxe dans le code.",
-      "Les tests unitaires manquants.",
-      "Les dépendances non gérées.",
-      "Les performances lentes."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que le refactoring, et pourquoi est-il important ?",
-    "options": [
-      "Améliorer la structure du code sans changer son comportement, pour faciliter la maintenance.",
-      "Ajouter de nouvelles fonctionnalités au code.",
-      "Tester les performances de l'application.",
-      "Gérer les branches dans Git.",
-      "Centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez les principes SOLID en conception orientée objet.",
-    "options": [
-      "Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.",
-      "Simple Operations, Limited Dependencies, Open Interfaces, Dynamic Systems.",
-      "Structured Objects, Linear Development, Independent Layers, Dynamic Systems.",
-      "Single Operations, Linear Dependencies, Open Systems, Independent Development.",
-      "Structured Operations, Limited Interfaces, Dynamic Layers, Simple Development."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelle est la différence entre programmation synchrone et asynchrone ?",
-    "options": [
-      "Synchrone bloque l'exécution jusqu'à ce que l'opération soit terminée, asynchrone permet de continuer.",
-      "Asynchrone bloque l'exécution, synchrone permet de continuer.",
-      "Synchrone est plus rapide qu'asynchrone.",
-      "Asynchrone est utilisé pour les bases de données, synchrone pour les API.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez ce qu'est une promesse en JavaScript.",
-    "options": [
-      "Un objet qui représente une opération asynchrone et son résultat éventuel.",
-      "Un outil pour gérer les branches dans Git.",
-      "Une méthode pour tester les performances.",
-      "Un type de conteneur.",
-      "Une fonction pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que la boucle d'événements en Node.js ?",
-    "options": [
-      "Un mécanisme qui gère les opérations asynchrones en exécutant des callbacks dans un ordre spécifique.",
-      "Un outil pour gérer les branches dans Git.",
-      "Une méthode pour tester les performances.",
-      "Un type de conteneur.",
-      "Une fonction pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment optimisez-vous les requêtes de base de données ?",
-    "options": [
-      "En utilisant des index, en limitant les données récupérées, et en évitant les jointures inutiles.",
-      "En augmentant la taille des tables.",
-      "En désactivant les index.",
-      "En utilisant des conteneurs.",
-      "En évitant les bases de données."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que la normalisation dans les bases de données ?",
-    "options": [
-      "Organiser les données pour réduire la redondance et améliorer l'intégrité.",
-      "Augmenter la redondance pour améliorer les performances.",
-      "Supprimer les index pour simplifier les requêtes.",
-      "Utiliser des conteneurs pour stocker les données.",
-      "Éviter les bases de données relationnelles."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le théorème CAP.",
-    "options": [
-      "Dans un système distribué, on ne peut garantir que deux des trois propriétés : Consistance, Disponibilité, Tolérance au partitionnement.",
-      "Un théorème pour optimiser les performances des bases de données.",
-      "Un théorème pour gérer les branches dans Git.",
-      "Un théorème pour tester les performances.",
-      "Un théorème pour centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que le sharding dans les bases de données ?",
-    "options": [
-      "Diviser une base de données en sous-ensembles pour améliorer la scalabilité.",
-      "Centraliser les données pour améliorer les performances.",
-      "Supprimer les index pour simplifier les requêtes.",
-      "Utiliser des conteneurs pour stocker les données.",
-      "Éviter les bases de données relationnelles."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez les différences entre les bases de données SQL et NoSQL.",
-    "options": [
-      "SQL utilise des schémas fixes et des tables, NoSQL est plus flexible avec des documents ou des graphes.",
-      "SQL est plus flexible, NoSQL utilise des schémas fixes.",
-      "SQL est pour les petites bases, NoSQL pour les grandes bases.",
-      "NoSQL est plus lent que SQL.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce qu'une file de messages, et quand l'utiliseriez-vous ?",
-    "options": [
-      "Un système pour gérer les communications asynchrones entre services, utilisé pour découpler les applications.",
-      "Un outil pour gérer les branches dans Git.",
-      "Une méthode pour tester les performances.",
-      "Un type de conteneur.",
-      "Une fonction pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le concept de cache.",
-    "options": [
-      "Stocker des données fréquemment utilisées pour améliorer les performances.",
-      "Supprimer des données pour économiser de l'espace.",
-      "Tester les performances de l'application.",
-      "Gérer les branches dans Git.",
-      "Centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que le test de charge, et pourquoi est-il important ?",
-    "options": [
-      "Simuler un grand nombre d'utilisateurs pour tester les performances, pour s'assurer que le système peut gérer la charge.",
-      "Tester les performances d'une application en local.",
-      "Gérer les branches dans Git.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez comment implémenter la journalisation dans une application.",
-    "options": [
-      "Utiliser des bibliothèques comme Winston ou Log4j pour enregistrer les événements et les erreurs.",
-      "Écrire des messages directement dans le code source.",
-      "Utiliser des conteneurs pour stocker les logs.",
-      "Désactiver les logs pour améliorer les performances.",
-      "Éviter la journalisation."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quels sont les motifs de conception, et pouvez-vous en nommer quelques-uns ?",
-    "options": [
-      "Des solutions réutilisables à des problèmes courants, comme Singleton, Factory, Observer.",
-      "Des outils pour gérer les branches dans Git.",
-      "Des méthodes pour tester les performances.",
-      "Des types de conteneurs.",
-      "Des fonctions pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment créez-vous un nouveau job dans Jenkins ?",
-    "options": [
-      "En allant dans 'Nouveau Item', en choisissant un type de job, et en configurant les paramètres.",
-      "En modifiant directement le fichier de configuration de Jenkins.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les jobs existants."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce qu'un pipeline Jenkins, et comment est-il défini ?",
-    "options": [
-      "Une série d'étapes automatisées pour le CI/CD, définie via un Jenkinsfile.",
-      "Un outil pour gérer les branches dans Git.",
-      "Une méthode pour tester les performances.",
-      "Un type de conteneur.",
-      "Une fonction pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez la différence entre les pipelines déclaratifs et scriptés dans Jenkins.",
-    "options": [
-      "Déclaratif utilise une syntaxe simplifiée, scripté offre plus de flexibilité avec du Groovy.",
-      "Déclaratif est plus flexible, scripté utilise une syntaxe simplifiée.",
-      "Déclaratif est pour les tests, scripté pour le déploiement.",
-      "Scripté est pour les petites équipes, déclaratif pour les grandes.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment déclenchez-vous un job Jenkins automatiquement sur un commit de code ?",
-    "options": [
-      "En configurant un webhook dans le SCM (comme GitHub) pour notifier Jenkins.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les jobs existants."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le but des agents Jenkins ?",
-    "options": [
-      "Exécuter des jobs sur des machines distantes pour distribuer la charge.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les identifiants dans Jenkins ?",
-    "options": [
-      "En utilisant le gestionnaire d'identifiants de Jenkins pour stocker les secrets.",
-      "En les stockant directement dans le code source.",
-      "En utilisant des conteneurs.",
-      "En désactivant les identifiants.",
-      "En évitant les dépendances."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez comment configurer un pipeline multi-branches dans Jenkins.",
-    "options": [
-      "En créant un job de type 'Pipeline multi-branches' et en spécifiant un SCM avec des branches.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les branches."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que GitHub Actions, et en quoi diffère-t-il de Jenkins ?",
-    "options": [
-      "Un outil CI/CD intégré à GitHub, plus simple à configurer que Jenkins mais moins personnalisable.",
-      "Un outil pour gérer les branches dans Git, plus complexe que Jenkins.",
-      "Un type de conteneur, différent de Jenkins.",
-      "Une méthode pour tester les performances, similaire à Jenkins.",
-      "Un outil pour centraliser les données, identique à Jenkins."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment créez-vous un workflow dans GitHub Actions ?",
-    "options": [
-      "En créant un fichier YAML dans le répertoire .github/workflows.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les workflows existants."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quels sont les runners de GitHub Actions ?",
-    "options": [
-      "Des machines virtuelles qui exécutent les workflows, hébergées par GitHub ou auto-hébergées.",
-      "Des outils pour gérer les branches dans Git.",
-      "Des conteneurs pour stocker les données.",
-      "Des scripts pour tester les performances.",
-      "Des fonctions pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez l'utilisation des matrices dans GitHub Actions.",
-    "options": [
-      "Permettre l'exécution d'un job avec plusieurs combinaisons de paramètres, comme différentes versions de langages.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment intégrez-vous SonarQube avec Jenkins ?",
-    "options": [
-      "En installant le plugin SonarQube et en configurant un scanner dans le pipeline.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant SonarQube."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelles métriques fournit SonarQube ?",
-    "options": [
-      "Couverture de code, duplication, complexité, et problèmes de qualité.",
-      "Performances de l'application.",
-      "Nombre de branches dans Git.",
-      "Taille des conteneurs.",
-      "Nombre d'erreurs dans les logs."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment configurez-vous des portes de qualité dans SonarQube ?",
-    "options": [
-      "En définissant des seuils pour les métriques dans les paramètres du projet.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les métriques."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que Xray, et comment est-il utilisé dans CI/CD ?",
-    "options": [
-      "Un outil pour gérer les tests et les vulnérabilités, intégré dans les pipelines pour assurer la sécurité.",
-      "Un outil pour gérer les branches dans Git.",
-      "Un type de conteneur.",
-      "Une méthode pour tester les performances.",
-      "Un outil pour centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez comment intégrer Xray avec Jenkins.",
-    "options": [
-      "En installant le plugin Xray et en configurant les étapes d'import/export des résultats de tests.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant Xray."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les résultats de tests dans Xray ?",
-    "options": [
-      "En important les rapports de tests via des formats comme JUnit ou Cucumber.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les tests."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le rôle des dépôts d'artefacts dans CI/CD ?",
-    "options": [
-      "Stocker les binaires et les dépendances pour les déploiements.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les configurations spécifiques à l'environnement dans les pipelines ?",
-    "options": [
-      "En utilisant des variables d'environnement ou des fichiers de configuration séparés.",
-      "En modifiant manuellement le code source.",
-      "En utilisant des conteneurs.",
-      "En désactivant les environnements.",
-      "En évitant les configurations."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez une stratégie pour les déploiements blue-green utilisant Jenkins.",
-    "options": [
-      "Maintenir deux environnements identiques, déployer sur l'un, puis basculer le trafic.",
-      "Déployer directement sur l'environnement de production.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Désactiver les déploiements."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelles sont les métriques clés à surveiller pour la fiabilité des sites ?",
-    "options": [
-      "Temps de réponse, taux d'erreur, disponibilité.",
-      "Nombre de branches dans Git.",
-      "Taille des conteneurs.",
-      "Nombre d'utilisateurs connectés.",
-      "Nombre de tests unitaires."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez le processus de réponse aux incidents.",
-    "options": [
-      "Identifier, analyser, résoudre, documenter, et prévenir les futurs incidents.",
-      "Ignorer l'incident et redémarrer le serveur.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Désactiver les alertes."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment configurez-vous des alertes dans Prometheus ?",
-    "options": [
-      "En définissant des règles d'alerte dans un fichier YAML et en les intégrant à Alertmanager.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant Prometheus."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelle est la différence entre le monitoring proactif et réactif ?",
-    "options": [
-      "Proactif anticipe les problèmes, réactif répond après leur occurrence.",
-      "Proactif répond après les problèmes, réactif anticipe les problèmes.",
-      "Proactif est pour les tests, réactif pour le déploiement.",
-      "Réactif est plus rapide que proactif.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le concept d'Objectifs de Niveau de Service (SLOs).",
-    "options": [
-      "Des objectifs mesurables pour la fiabilité et la performance d'un service.",
-      "Des outils pour gérer les branches dans Git.",
-      "Des conteneurs pour stocker les données.",
-      "Des scripts pour tester les performances.",
-      "Des fonctions pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le rôle des tableaux de bord dans le monitoring ?",
-    "options": [
-      "Visualiser les métriques et les alertes pour une surveillance en temps réel.",
-      "Gérer les branches dans Git.",
-      "Centraliser les données.",
-      "Automatiser le déploiement.",
-      "Désactiver les alertes."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les rotations d'astreinte dans les équipes SRE ?",
-    "options": [
-      "En utilisant des outils comme PagerDuty ou Opsgenie pour planifier les rotations.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les rotations."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez une stratégie pour la planification de la capacité.",
-    "options": [
-      "Analyser les métriques de charge, prévoir la croissance, et provisionner les ressources en conséquence.",
-      "Ignorer la planification et redémarrer le serveur.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Désactiver les métriques."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelle est l'importance de la documentation en SRE ?",
-    "options": [
-      "Faciliter la résolution des incidents et partager les connaissances.",
-      "Augmenter les tâches manuelles.",
-      "Utiliser des conteneurs pour stocker les données.",
-      "Désactiver les backups.",
-      "Éviter les dépendances."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce qu'ArgoCD, et comment gère-t-il les déploiements ?",
-    "options": [
-      "Un outil GitOps pour Kubernetes, il synchronise les manifests Git avec le cluster.",
-      "Un outil pour gérer les branches dans Git.",
-      "Un type de conteneur.",
-      "Une méthode pour tester les performances.",
-      "Un outil pour centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez la différence entre les déploiements blue-green et canary.",
-    "options": [
-      "Blue-green utilise deux environnements complets, canary déploie progressivement sur un sous-ensemble d'utilisateurs.",
-      "Blue-green déploie progressivement, canary utilise deux environnements complets.",
-      "Blue-green est pour les tests, canary pour le déploiement.",
-      "Canary est plus rapide que blue-green.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment configurez-vous ArgoCD pour un cluster Kubernetes ?",
-    "options": [
-      "En installant ArgoCD via Helm et en configurant un repository Git.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant Kubernetes."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que GitOps, et comment ArgoCD l'implémente-t-il ?",
-    "options": [
-      "GitOps utilise Git comme source de vérité, ArgoCD synchronise les manifests Git avec le cluster.",
-      "GitOps utilise des conteneurs, ArgoCD gère les branches.",
-      "GitOps teste les performances, ArgoCD centralise les données.",
-      "GitOps automatise les tests, ArgoCD désactive les alertes.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez le processus de synchronisation dans ArgoCD.",
-    "options": [
-      "ArgoCD compare l'état du cluster avec les manifests Git et applique les changements nécessaires.",
-      "ArgoCD modifie manuellement le fichier de configuration.",
-      "ArgoCD utilise un conteneur Docker.",
-      "ArgoCD écrit un script Python.",
-      "ArgoCD désactive la synchronisation."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les rollbacks dans ArgoCD ?",
-    "options": [
-      "En revenant à une version précédente du manifest Git et en resynchronisant.",
-      "En modifiant manuellement le cluster.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant ArgoCD."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que XL Deploy, et quelles sont ses fonctionnalités clés ?",
-    "options": [
-      "Un outil de déploiement automatisé, avec gestion des environnements et des pipelines.",
-      "Un outil pour gérer les branches dans Git.",
-      "Un type de conteneur.",
-      "Une méthode pour tester les performances.",
-      "Un outil pour centraliser les données."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment créez-vous un paquet de déploiement dans XL Deploy ?",
-    "options": [
-      "En définissant un fichier DAR (Deployment Archive) avec les artefacts et les configurations.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant XL Deploy."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez comment configurer des environnements dans XL Deploy.",
-    "options": [
-      "En créant des environnements et en associant des ressources comme des serveurs ou des bases de données.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les environnements."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le rôle des pipelines de déploiement dans XL Deploy ?",
-    "options": [
-      "Automatiser les étapes de déploiement entre différents environnements.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser les tests unitaires."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment intégrez-vous XL Deploy avec Jenkins ?",
-    "options": [
-      "En utilisant le plugin XL Deploy pour Jenkins et en configurant les étapes de déploiement.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant Jenkins."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez comment gérer les éléments de configuration dans XL Deploy.",
-    "options": [
-      "En définissant des CIs (Configuration Items) pour représenter les ressources et leurs propriétés.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les CIs."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quels sont les avantages d'utiliser ArgoCD par rapport aux méthodes de déploiement traditionnelles ?",
-    "options": [
-      "Automatisation, synchronisation continue, et gestion déclarative via GitOps.",
-      "Augmentation des tâches manuelles.",
-      "Utilisation de conteneurs pour stocker les données.",
-      "Désactivation des backups.",
-      "Éviter les dépendances."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment surveillez-vous les déploiements dans ArgoCD ?",
-    "options": [
-      "En utilisant l'interface web d'ArgoCD pour voir l'état des applications.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant ArgoCD."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le concept de manifestes d'application dans ArgoCD.",
-    "options": [
-      "Des fichiers YAML qui définissent l'état désiré des ressources Kubernetes.",
-      "Des outils pour gérer les branches dans Git.",
-      "Des conteneurs pour stocker les données.",
-      "Des scripts pour tester les performances.",
-      "Des fonctions pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le but de l'interface CLI d'ArgoCD ?",
-    "options": [
-      "Gérer les applications et les déploiements via des commandes en ligne.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les secrets dans ArgoCD ?",
-    "options": [
-      "En utilisant des outils comme Sealed Secrets ou des secrets Kubernetes.",
-      "En les stockant directement dans le code source.",
-      "En utilisant des conteneurs.",
-      "En désactivant les secrets.",
-      "En évitant les dépendances."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez un scénario où vous utiliseriez XL Deploy pour le déploiement d'une application.",
-    "options": [
-      "Déployer une application Java sur plusieurs environnements avec des configurations spécifiques.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser les tests unitaires."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelles sont les différences entre ArgoCD et XL Deploy ?",
-    "options": [
-      "ArgoCD est orienté GitOps pour Kubernetes, XL Deploy est plus généraliste pour divers environnements.",
-      "ArgoCD est plus généraliste, XL Deploy est orienté GitOps.",
-      "ArgoCD est pour les tests, XL Deploy pour le déploiement.",
-      "XL Deploy est plus rapide qu'ArgoCD.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment assurez-vous la sécurité dans les processus de déploiement ?",
-    "options": [
-      "En utilisant des secrets, des contrôles d'accès, et des audits réguliers.",
-      "En désactivant les contrôles d'accès.",
-      "En utilisant des conteneurs.",
-      "En évitant les audits.",
-      "En stockant les secrets dans le code source."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment créez-vous un nouveau projet dans JIRA ?",
-    "options": [
-      "En allant dans 'Projets', en sélectionnant 'Créer un projet', et en configurant les paramètres.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant JIRA."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez comment personnaliser les workflows dans JIRA.",
-    "options": [
-      "En créant ou modifiant un workflow via l'éditeur de workflow dans les paramètres du projet.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les workflows."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quels sont les schémas JIRA, et comment sont-ils utilisés ?",
-    "options": [
-      "Des ensembles de configurations (permissions, workflows) appliqués à plusieurs projets.",
-      "Des outils pour gérer les branches dans Git.",
-      "Des conteneurs pour stocker les données.",
-      "Des scripts pour tester les performances.",
-      "Des fonctions pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment configurez-vous les types d'incidents dans JIRA ?",
-    "options": [
-      "En définissant des types d'incidents dans les paramètres du projet ou du schéma.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les incidents."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez le processus de création d'un tableau dans JIRA.",
-    "options": [
-      "En allant dans 'Tableaux', en sélectionnant 'Créer un tableau', et en choisissant un projet ou un filtre.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les tableaux."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelle est la différence entre un tableau Scrum et un tableau Kanban dans JIRA ?",
-    "options": [
-      "Scrum est orienté sprints, Kanban est orienté flux continu.",
-      "Scrum est orienté flux continu, Kanban est orienté sprints.",
-      "Scrum est pour les tests, Kanban pour le déploiement.",
-      "Kanban est plus rapide que Scrum.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment configurez-vous les notifications dans JIRA ?",
-    "options": [
-      "En définissant des schémas de notification dans les paramètres du projet.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les notifications."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez comment utiliser JQL (JIRA Query Language) pour rechercher des incidents.",
-    "options": [
-      "En écrivant des requêtes comme 'project = PROJ AND status = Open' dans la recherche avancée.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant JQL."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quels sont les composants dans JIRA, et comment sont-ils utilisés ?",
-    "options": [
-      "Des sous-ensembles d'un projet pour organiser les incidents, comme des modules.",
-      "Des outils pour gérer les branches dans Git.",
-      "Des conteneurs pour stocker les données.",
-      "Des scripts pour tester les performances.",
-      "Des fonctions pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les permissions des utilisateurs dans JIRA ?",
-    "options": [
-      "En définissant des schémas de permissions dans les paramètres d'administration.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les permissions."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez comment intégrer JIRA avec Confluence.",
-    "options": [
-      "En utilisant des liens d'application pour connecter JIRA et Confluence.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant Confluence."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le but de JIRA Service Desk ?",
-    "options": [
-      "Fournir une interface pour gérer les demandes de support client.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment configurez-vous des règles d'automatisation dans JIRA ?",
-    "options": [
-      "En allant dans 'Automatisation' et en définissant des déclencheurs et des actions.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant l'automatisation."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le concept d'épopées et d'histoires dans JIRA.",
-    "options": [
-      "Les épopées regroupent des histoires, qui sont des tâches plus petites.",
-      "Les épopées sont des tâches plus petites, les histoires regroupent les épopées.",
-      "Les épopées sont pour les tests, les histoires pour le déploiement.",
-      "Les histoires sont plus rapides que les épopées.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quels sont les labels, et comment peuvent-ils être utilisés dans JIRA ?",
-    "options": [
-      "Des étiquettes pour catégoriser les incidents, utiles pour les recherches et les filtres.",
-      "Des outils pour gérer les branches dans Git.",
-      "Des conteneurs pour stocker les données.",
-      "Des scripts pour tester les performances.",
-      "Des fonctions pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment créez-vous et gérez-vous des sprints dans JIRA ?",
-    "options": [
-      "En allant dans le backlog, en créant un sprint, et en y ajoutant des incidents.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les sprints."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez comment générer des rapports dans JIRA.",
-    "options": [
-      "En utilisant les rapports intégrés comme le 'Rapport de sprint' ou en créant des tableaux de bord.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les rapports."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le rôle de l'administrateur JIRA ?",
-    "options": [
-      "Gérer les utilisateurs, les permissions, et les configurations globales.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les sauvegardes et restaurations dans JIRA ?",
-    "options": [
-      "En utilisant les outils d'administration pour exporter et importer des données.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les sauvegardes."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez comment migrer des projets entre des instances JIRA.",
-    "options": [
-      "En exportant les données d'un projet et en les important dans une autre instance.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les projets."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Écrivez une fonction Python pour inverser une chaîne.",
-    "options": [
-      "def reverse(s): return s[::-1]",
-      "def reverse(s): return s.reverse()",
-      "def reverse(s): return s.split()",
-      "def reverse(s): return s.join('')",
-      "def reverse(s): return s.sort()"
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelles sont les différences entre Python 2 et Python 3 ?",
-    "options": [
-      "Python 3 a une syntaxe print différente, une gestion Unicode améliorée, et plus de fonctionnalités modernes.",
-      "Python 2 est plus rapide que Python 3.",
-      "Python 3 est pour les tests, Python 2 pour le déploiement.",
-      "Python 2 a une meilleure gestion Unicode.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les exceptions en Java ?",
-    "options": [
-      "Avec des blocs try/catch.",
-      "Avec des blocs if/else.",
-      "Avec des boucles for.",
-      "Avec des fonctions récursives.",
-      "En utilisant des décorateurs."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le concept d'interfaces en Java.",
-    "options": [
-      "Un contrat définissant des méthodes que les classes doivent implémenter.",
-      "Un outil pour gérer les branches dans Git.",
-      "Un type de conteneur.",
-      "Une méthode pour tester les performances.",
-      "Une fonction pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce qu'un goroutine en Go, et en quoi diffère-t-il des threads ?",
-    "options": [
-      "Une goroutine est une unité d'exécution légère gérée par le runtime Go, plus efficace que les threads OS.",
-      "Une goroutine est un thread OS, plus lourd que les threads Go.",
-      "Une goroutine est pour les tests, un thread pour le déploiement.",
-      "Un thread est plus rapide qu'une goroutine.",
-      "Il n'y a pas de différence."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez comment utiliser les canaux en Go pour la concurrence.",
-    "options": [
-      "Les canaux permettent aux goroutines de communiquer et de synchroniser leurs actions.",
-      "Les canaux gèrent les branches dans Git.",
-      "Les canaux testent les performances de l'application.",
-      "Les canaux centralisent les données.",
-      "Les canaux automatisent le déploiement."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que l'injection de dépendances, et comment est-elle implémentée en Java ?",
-    "options": [
-      "Fournir des dépendances à une classe, souvent via un framework comme Spring.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez l'utilisation des décorateurs en Python.",
-    "options": [
-      "Modifier le comportement d'une fonction ou d'une classe sans changer son code source.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous la mémoire en Go ?",
-    "options": [
-      "Go utilise un garbage collector pour gérer automatiquement la mémoire.",
-      "Go nécessite une gestion manuelle de la mémoire.",
-      "Go utilise des conteneurs pour gérer la mémoire.",
-      "Go désactive la gestion de la mémoire.",
-      "Go évite la mémoire."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quels sont les fonctions lambda en Python, et quand les utiliseriez-vous ?",
-    "options": [
-      "Des fonctions anonymes définies avec lambda, utilisées pour des opérations simples et courtes.",
-      "Des outils pour gérer les branches dans Git.",
-      "Des conteneurs pour stocker les données.",
-      "Des scripts pour tester les performances.",
-      "Des fonctions pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez le modèle Page Object en Selenium.",
-    "options": [
-      "Un modèle de conception pour encapsuler les éléments d'une page web dans des classes.",
-      "Un outil pour gérer les branches dans Git.",
-      "Un type de conteneur.",
-      "Une méthode pour tester les performances.",
-      "Une fonction pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment gérez-vous les éléments dynamiques en Selenium ?",
-    "options": [
-      "En utilisant des sélecteurs robustes comme XPath ou des attentes explicites.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant Selenium."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Qu'est-ce que TestNG, et comment s'intègre-t-il avec Selenium ?",
-    "options": [
-      "Un framework de test qui fournit des annotations pour gérer les tests, intégré via des dépendances Maven.",
-      "Un outil pour gérer les branches dans Git.",
-      "Un type de conteneur.",
-      "Une méthode pour tester les performances.",
-      "Une fonction pour gérer les erreurs."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez comment configurer une Selenium Grid.",
-    "options": [
-      "En configurant un hub et des nœuds pour exécuter des tests en parallèle sur plusieurs machines.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant Selenium."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quels sont les avantages d'utiliser Cucumber pour les tests UI ?",
-    "options": [
-      "Permet d'écrire des tests en langage naturel (BDD) pour une meilleure collaboration.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment réalisez-vous des tests pilotés par les données en Selenium ?",
-    "options": [
-      "En utilisant des frameworks comme TestNG avec des sources de données (CSV, Excel).",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant Selenium."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Décrivez comment automatiser les tests API en utilisant Python.",
-    "options": [
-      "En utilisant des bibliothèques comme requests pour envoyer des requêtes HTTP et vérifier les réponses.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Java.",
-      "En désactivant les tests API."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le rôle du mocking dans les tests unitaires ?",
-    "options": [
-      "Simuler des dépendances pour isoler le code testé.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Expliquez le concept d'intégration continue dans les tests d'automatisation.",
-    "options": [
-      "Exécuter automatiquement les tests à chaque commit pour détecter les erreurs rapidement.",
-      "Gérer les branches dans Git.",
-      "Tester les performances de l'application.",
-      "Centraliser les données.",
-      "Automatiser le déploiement."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Comment optimisez-vous les scripts de test pour de meilleures performances ?",
-    "options": [
-      "En utilisant des attentes explicites, en réduisant les appels réseau, et en parallélisant les tests.",
-      "En modifiant manuellement le fichier de configuration.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En désactivant les tests."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les implications de la loi de Amdahl pour l'optimisation des performances ?",
-    "options": [
-      "Les gains de performance sont limités par la partie non parallélisable d'un programme.",
-      "Les performances augmentent linéairement avec le nombre de processeurs.",
-      "Les performances ne dépendent pas de la parallélisation.",
-      "Les performances sont limitées par la mémoire uniquement.",
-      "Il n'y a pas d'implications."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment implémenteriez-vous un algorithme de consensus comme Raft dans un système distribué ?",
-    "options": [
-      "En utilisant un leader pour coordonner les réplications et gérer les logs.",
-      "En centralisant toutes les données.",
-      "En désactivant la réplication.",
-      "En utilisant un conteneur Docker.",
-      "En évitant les systèmes distribués."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les meilleures pratiques pour gérer les dépendances dans un projet à grande échelle ?",
-    "options": [
-      "Utiliser un monorepo, versionner les dépendances, et automatiser les mises à jour.",
-      "Stocker les dépendances dans le code source.",
-      "Utiliser des conteneurs pour toutes les dépendances.",
-      "Désactiver les mises à jour.",
-      "Éviter les dépendances."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment détecter et prévenir les attaques de type race condition dans une application ?",
-    "options": [
-      "En utilisant des verrous, des transactions, et des tests de concurrence.",
-      "En désactivant les threads.",
-      "En utilisant un conteneur Docker.",
-      "En écrivant un script Python.",
-      "En évitant les tests."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les implications de la latence réseau sur les performances des microservices ?",
-    "options": [
-      "La latence peut ralentir les communications entre services, nécessitant des optimisations comme le caching.",
-      "La latence n'a aucun impact sur les microservices.",
-      "La latence améliore les performances.",
-      "La latence est gérée par les conteneurs.",
-      "La latence est évitée en désactivant les microservices."
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment géreriez-vous un pipeline Jenkins qui échoue fréquemment à cause de dépendances instables ?",
-    "options": [
-      "Mettre en cache les dépendances, utiliser des versions fixes, et ajouter des tests de dépendances.",
-      "Désactiver les dépendances.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les échecs."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les meilleures pratiques pour optimiser les performances d'un pipeline Jenkins ?",
-    "options": [
-      "Paralléliser les étapes, utiliser des agents légers, et minimiser les dépendances réseau.",
-      "Augmenter les tâches manuelles.",
-      "Utiliser un seul agent.",
-      "Désactiver les tests.",
-      "Éviter les pipelines."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment intégreriez-vous des tests de sécurité avancés dans un pipeline CI/CD avec SonarQube et Xray ?",
-    "options": [
-      "Configurer SonarQube pour les vulnérabilités statiques et Xray pour les tests de dépendances.",
-      "Désactiver les tests de sécurité.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les vulnérabilités."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment géreriez-vous un déploiement multi-régions avec GitHub Actions ?",
-    "options": [
-      "Utiliser des matrices pour exécuter des jobs dans plusieurs régions et des secrets pour les configurations.",
-      "Désactiver les déploiements multi-régions.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les régions."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les implications de la mise en cache des artefacts dans un pipeline CI/CD ?",
-    "options": [
-      "Réduction des temps de build, mais risque d'utiliser des artefacts obsolètes si mal géré.",
-      "Augmentation des temps de build.",
-      "Utilisation de conteneurs pour stocker les artefacts.",
-      "Désactivation des builds.",
-      "Éviter les artefacts."
-    ],
-    "correct": 0,
-    "lot": "CIBOX",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment implémenteriez-vous un système de monitoring distribué avec Prometheus et Grafana ?",
-    "options": [
-      "Utiliser Prometheus pour collecter les métriques et Grafana pour les visualiser, avec des exporters par service.",
-      "Désactiver le monitoring.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les métriques."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les meilleures pratiques pour gérer les incidents dans un environnement multi-cloud ?",
-    "options": [
-      "Centraliser les logs, utiliser des alertes unifiées, et automatiser les réponses.",
-      "Désactiver les alertes.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les incidents."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment géreriez-vous une panne réseau dans un système distribué ?",
-    "options": [
-      "Implémenter des retries, des circuit breakers, et des fallbacks.",
-      "Désactiver le réseau.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer la panne."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les implications de la latence réseau sur la fiabilité des systèmes distribués ?",
-    "options": [
-      "La latence peut causer des timeouts, nécessitant des retries et des fallbacks.",
-      "La latence n'a aucun impact.",
-      "La latence améliore la fiabilité.",
-      "La latence est gérée par les conteneurs.",
-      "La latence est évitée en désactivant les systèmes distribués."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment implémenteriez-vous une stratégie de chaos engineering pour tester la résilience d'un système ?",
-    "options": [
-      "Introduire des pannes contrôlées (comme des arrêts de service) et observer les réactions.",
-      "Désactiver les tests de résilience.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer la résilience."
-    ],
-    "correct": 0,
-    "lot": "SRE",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment géreriez-vous un déploiement ArgoCD dans un environnement multi-tenant ?",
-    "options": [
-      "Utiliser des namespaces Kubernetes et des RBAC pour isoler les tenants.",
-      "Désactiver les namespaces.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les tenants."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les meilleures pratiques pour gérer les secrets dans un pipeline de déploiement avec XL Deploy ?",
-    "options": [
-      "Utiliser des variables sécurisées et des secrets managers comme Vault.",
-      "Stocker les secrets dans le code source.",
-      "Utiliser des conteneurs.",
-      "Désactiver les secrets.",
-      "Éviter les pipelines."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment implémenteriez-vous un rollback automatique avec ArgoCD en cas d'échec de déploiement ?",
-    "options": [
-      "Configurer des health checks et utiliser la synchronisation automatique pour revenir à l'état précédent.",
-      "Désactiver les rollbacks.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les échecs."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les implications de la synchronisation continue dans ArgoCD sur les performances ?",
-    "options": [
-      "Elle peut augmenter la charge sur le cluster, nécessitant des optimisations comme des intervalles de synchronisation plus longs.",
-      "Elle n'a aucun impact sur les performances.",
-      "Elle améliore les performances.",
-      "Elle est gérée par les conteneurs.",
-      "Elle est évitée en désactivant ArgoCD."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment géreriez-vous un déploiement multi-clusters avec XL Deploy ?",
-    "options": [
-      "Configurer des environnements séparés pour chaque cluster et utiliser des pipelines multi-étapes.",
-      "Désactiver les clusters.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les clusters."
-    ],
-    "correct": 0,
-    "lot": "SYD",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment géreriez-vous une migration de JIRA vers une autre instance avec des données volumineuses ?",
-    "options": [
-      "Utiliser des outils d'export/import, optimiser les données, et tester la migration en étapes.",
-      "Désactiver la migration.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les données."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les meilleures pratiques pour optimiser les performances de JIRA dans une grande organisation ?",
-    "options": [
-      "Indexer les champs, limiter les workflows complexes, et utiliser des bases de données performantes.",
-      "Augmenter les workflows complexes.",
-      "Utiliser un conteneur Docker.",
-      "Désactiver les index.",
-      "Éviter les bases de données."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment implémenteriez-vous une automatisation avancée dans JIRA pour gérer les dépendances entre projets ?",
-    "options": [
-      "Utiliser des règles d'automatisation pour lier les incidents et déclencher des actions basées sur les dépendances.",
-      "Désactiver les dépendances.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les projets."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les implications de l'utilisation de JQL pour des recherches complexes sur les performances ?",
-    "options": [
-      "Les requêtes complexes peuvent ralentir JIRA, nécessitant des index et des optimisations.",
-      "JQL n'a aucun impact sur les performances.",
-      "JQL améliore les performances.",
-      "JQL est géré par les conteneurs.",
-      "JQL est évité en désactivant les recherches."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment géreriez-vous les permissions dans JIRA pour une organisation multi-équipes avec des projets interconnectés ?",
-    "options": [
-      "Utiliser des schémas de permissions granulaires et des rôles personnalisés.",
-      "Désactiver les permissions.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les équipes."
-    ],
-    "correct": 0,
-    "lot": "JIRA",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment implémenteriez-vous un framework de test d'automatisation pour une application multi-langages ?",
-    "options": [
-      "Utiliser des outils comme TestNG pour Java, pytest pour Python, et les intégrer dans un pipeline CI/CD.",
-      "Désactiver les tests multi-langages.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les tests."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les meilleures pratiques pour gérer les tests UI dans un environnement distribué avec Selenium ?",
-    "options": [
-      "Utiliser Selenium Grid, paralléliser les tests, et gérer les dépendances réseau.",
-      "Désactiver les tests UI.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les tests."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment géreriez-vous les tests d'API dans un système avec des microservices interconnectés ?",
-    "options": [
-      "Utiliser des mocks pour simuler les dépendances et tester chaque microservice isolément.",
-      "Désactiver les tests d'API.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les microservices."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Quelles sont les implications de l'utilisation de goroutines en Go pour des applications à haute concurrence ?",
-    "options": [
-      "Elles permettent une concurrence légère, mais nécessitent une gestion des canaux pour éviter les race conditions.",
-      "Elles n'ont aucun impact sur la concurrence.",
-      "Elles améliorent la concurrence sans gestion.",
-      "Elles sont gérées par les conteneurs.",
-      "Elles sont évitées en désactivant Go."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "[Dur] Comment optimiseriez-vous les performances d'un script Selenium pour une application web complexe ?",
-    "options": [
-      "Utiliser des sélecteurs efficaces, des attentes explicites, et paralléliser les tests.",
-      "Désactiver les tests Selenium.",
-      "Utiliser un conteneur Docker.",
-      "Écrire un script Python.",
-      "Ignorer les performances."
-    ],
-    "correct": 0,
-    "lot": "AUTOMATION",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelle est la capitale de la France ?",
-    "options": [
-      "Paris",
-      "Londres",
-      "Berlin",
-      "Madrid",
-      "Rome"
-    ],
-    "correct": 0,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel est le résultat de 2 + 2 ?",
-    "options": [
-      "3",
-      "4",
-      "5",
-      "6",
-      "7"
-    ],
-    "correct": 1,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quel langage est principalement utilisé pour le web ?",
-    "options": [
-      "Python",
-      "Java",
-      "JavaScript",
-      "C++",
-      "Ruby"
-    ],
-    "correct": 2,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Quelle est la couleur du ciel par temps clair ?",
-    "options": [
-      "Vert",
-      "Rouge",
-      "Bleu",
-      "Jaune",
-      "Noir"
-    ],
-    "correct": 2,
-    "lot": "GENERAL",
-    "type": "Choix simple"
-  },
-  {
-    "question": "Combien de planètes dans le système solaire ?",
-    "options": [
-      "7",
-      "8",
-      "9",
-      "10",
-      "11"
-    ],
-    "correct": 1,
     "lot": "GENERAL",
     "type": "Choix simple"
   }
