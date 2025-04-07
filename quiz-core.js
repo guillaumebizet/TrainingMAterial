@@ -247,7 +247,8 @@ function saveScore() {
   const token = sessionStorage.getItem('githubPAT');
   if (token) {
     saveScoresToGitHub(token);
-    return true; // Indique que la sauvegarde sur GitHub a été tentée
+    console.log("Tentative de sauvegarde sur GitHub avec PAT.");
+    return true;
   } else {
     console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
     return false;
@@ -256,9 +257,12 @@ function saveScore() {
 
 // Initialisation et événements
 document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM chargé, attachement des événements...");
+
   const startQuizButton = document.getElementById('start-quiz-button');
   if (startQuizButton) {
     startQuizButton.addEventListener('click', startQuiz);
+    console.log("Événement attaché au bouton 'start-quiz-button'");
   } else {
     console.error("Bouton 'start-quiz-button' non trouvé.");
   }
@@ -278,6 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Veuillez entrer un PAT valide.');
       }
     });
+    console.log("Événement attaché au bouton 'validate-pat-btn'");
   } else {
     console.error("Bouton 'validate-pat-btn' non trouvé.");
   }
@@ -291,6 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
       feedback.style.display = 'block';
       setTimeout(() => feedback.style.display = 'none', 3000);
     });
+    console.log("Événement attaché au bouton 'save-result-btn'");
   } else {
     console.error("Bouton 'save-result-btn' non trouvé.");
   }
@@ -298,12 +304,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveCurrentScoreButton = document.getElementById('save-current-score-btn');
   if (saveCurrentScoreButton) {
     saveCurrentScoreButton.addEventListener('click', () => {
+      console.log("Clic sur 'Sauvegarder le score actuel'");
       const saved = saveScore();
       const feedback = document.getElementById('save-current-feedback');
-      feedback.textContent = saved ? 'Score actuel sauvegardé avec succès !' : 'Score sauvegardé localement (aucun PAT fourni).';
-      feedback.style.display = 'block';
-      setTimeout(() => feedback.style.display = 'none', 3000);
+      if (feedback) {
+        feedback.textContent = saved ? 'Score actuel sauvegardé avec succès !' : 'Score sauvegardé localement (aucun PAT fourni).';
+        feedback.style.display = 'block';
+        setTimeout(() => feedback.style.display = 'none', 3000);
+      } else {
+        console.error("Élément 'save-current-feedback' non trouvé.");
+      }
     });
+    console.log("Événement attaché au bouton 'save-current-score-btn'");
   } else {
     console.error("Bouton 'save-current-score-btn' non trouvé.");
   }
