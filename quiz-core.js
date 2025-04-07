@@ -8,7 +8,21 @@ let timerInterval;
 let timeElapsed = 0;
 let candidateName = '';
 let scores = [];
-let currentLot = "Non spécifié"; // Nouvelle variable globale pour stocker le lot
+let currentLot = "Non spécifié";
+
+// Fonction pour afficher une modale stylisée (dupliquée ici pour quiz-core.js)
+function showModal(message) {
+  const modal = document.getElementById('github-modal');
+  const modalMessage = document.getElementById('modal-message');
+  const closeBtn = document.getElementById('modal-close-btn');
+
+  modalMessage.textContent = message;
+  modal.style.display = 'flex';
+
+  closeBtn.onclick = () => {
+    modal.style.display = 'none';
+  };
+}
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -46,7 +60,7 @@ function validateAnswer(index) {
   const validateBtn = document.querySelectorAll('.validate-btn')[index];
 
   if (!selected.length) {
-    alert('Veuillez sélectionner une réponse');
+    showModal('Veuillez sélectionner une réponse');
     return;
   }
 
@@ -110,26 +124,26 @@ async function startQuiz() {
   try {
     candidateName = document.getElementById('candidate-name').value.trim();
     if (!candidateName) {
-      alert('Veuillez entrer votre nom');
+      showModal('Veuillez entrer votre nom');
       return;
     }
 
     const lotSelect = document.getElementById('lot-selection');
     const selectedLot = lotSelect.value;
     if (!selectedLot) {
-      alert('Veuillez sélectionner un lot de questions');
+      showModal('Veuillez sélectionner un lot de questions');
       return;
     }
 
     if (typeof fetchQuestions !== 'function') {
-      alert("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
+      showModal("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
       return;
     }
 
     await fetchQuestions();
 
     if (!questions || questions.length === 0) {
-      alert('Aucune question chargée. Vérifiez le chargement initial.');
+      showModal('Aucune question chargée. Vérifiez le chargement initial.');
       return;
     }
 
@@ -138,13 +152,12 @@ async function startQuiz() {
     );
 
     if (selectedQuestions.length === 0) {
-      alert('Aucune question disponible pour ce lot');
+      showModal('Aucune question disponible pour ce lot');
       return;
     }
 
-    // Stocker le lot sélectionné globalement
     currentLot = selectedLot;
-    lotSelect.value = selectedLot; // Conserver la sélection dans l’élément
+    lotSelect.value = selectedLot;
 
     selectedQuestions = shuffle([...selectedQuestions]);
     score = 0;
@@ -159,7 +172,7 @@ async function startQuiz() {
     startTimer();
   } catch (error) {
     console.error("Erreur dans startQuiz :", error);
-    alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
+    showModal("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
   }
 }
 
@@ -221,7 +234,6 @@ function loadQuestions() {
 }
 
 function saveScore() {
-  // Utiliser le lot stocké globalement au lieu de dépendre de l’élément DOM
   console.log("Lot sélectionné au moment de la sauvegarde :", currentLot);
   const lotSelect = document.getElementById('lot-selection');
   console.log("Options de lot disponibles :", lotSelect ? lotSelect.innerHTML : "Élément non trouvé");
@@ -231,7 +243,7 @@ function saveScore() {
     date: new Date().toLocaleDateString('fr-FR'),
     score: `${score} / ${selectedQuestions.length}`,
     time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`,
-    lot: currentLot // Utiliser la variable globale
+    lot: currentLot
   };
   scores.push(scoreData);
 
@@ -269,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const patInput = document.getElementById('github-pat');
   const patStatus = document.getElementById('pat-status');
   const patFeedback = document.getElementById('pat-feedback');
+  const resetPatButton = document.getElementById('reset-pat-btn');
 
   if (sessionStorage.getItem('githubPAT')) {
     patInput.style.display = 'none';
@@ -291,12 +304,25 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => patFeedback.style.display = 'none', 3000);
         console.log("PAT validé et interface mise à jour.");
       } else {
-        alert('Veuillez entrer un PAT valide.');
+        showModal('Veuillez entrer un PAT valide.');
       }
     });
     console.log("Événement attaché au bouton 'validate-pat-btn'");
   } else {
     console.error("Bouton 'validate-pat-btn' non trouvé.");
+  }
+
+  if (resetPatButton) {
+    resetPatButton.addEventListener('click', () => {
+      sessionStorage.removeItem('githubPAT');
+      patInput.style.display = 'inline';
+      validatePatButton.style.display = 'inline';
+      patStatus.style.display = 'none';
+      console.log("PAT réinitialisé.");
+    });
+    console.log("Événement attaché au bouton 'reset-pat-btn'");
+  } else {
+    console.error("Bouton 'reset-pat-btn' non trouvé.");
   }
 
   const saveResultButton = document.getElementById('save-result-btn');
