@@ -1,7 +1,7 @@
 [
   {
     "question": {
-      "fr": "Quelle est la différence entre `git merge` et `git rebase` ?  test",
+      "fr": "Quelle est la différence entre `git merge` et `git rebase` ?  ",
       "us": "What is the difference between `git merge` and `git rebase`? "
     },
     "options": {
@@ -371,6 +371,56 @@
       ]
     },
     "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelle est la capitale de la France ?",
+      "us": "What is the capital of France?"
+    },
+    "options": {
+      "fr": [
+        "Paris",
+        "Londres",
+        "Berlin",
+        "Madrid",
+        "Rome"
+      ],
+      "us": [
+        "Paris",
+        "London",
+        "Berlin",
+        "Madrid",
+        "Rome"
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le résultat de 2 + 2 ?",
+      "us": "What is the result of 2 + 2?"
+    },
+    "options": {
+      "fr": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "us": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    "correct": 1,
     "lot": "GENERAL",
     "type": "Choix simple"
   },
