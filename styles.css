@@ -321,8 +321,8 @@ button {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  max-width: 400px;
+  text-align: left;
+  max-width: 500px;
   width: 90%;
 }
 
@@ -333,10 +333,26 @@ button {
   font-size: 1.2em;
 }
 
+#modal-message h3 {
+  margin: 0 0 15px;
+  font-size: 1.3em;
+  color: #3498db;
+}
+
+#modal-message p {
+  margin: 5px 0;
+}
+
+#modal-message strong {
+  color: #2c3e50;
+}
+
 #modal-close-btn {
   background-color: #3498db;
   color: white;
   padding: 10px 20px;
+  display: block;
+  margin: 0 auto;
 }
 
 #modal-close-btn:hover {
@@ -571,12 +587,21 @@ button {
   transition: background-color 0.3s;
 }
 
-.form-actions button:first-of-type {
+.form-actions button:nth-child(1) {
+  background-color: #3498db; /* Bouton "Aperçu" */
+  color: white;
+}
+
+.form-actions button:nth-child(1):hover {
+  background-color: #2980b9;
+}
+
+.form-actions button:nth-child(2) {
   background-color: #2ecc71; /* Bouton "Sauvegarder" */
   color: white;
 }
 
-.form-actions button:first-of-type:hover {
+.form-actions button:nth-child(2):hover {
   background-color: #27ae60;
 }
 
