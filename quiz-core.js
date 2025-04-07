@@ -227,7 +227,7 @@ function loadQuestions() {
 }
 
 function saveScore() {
-  const selectedLot = document.getElementById('lot-selection').value;
+  const selectedLot = document.getElementById('lot-selection').value || "Non spécifié"; // Assure que lot n'est jamais vide
   const scoreData = {
     name: candidateName,
     date: new Date().toLocaleDateString('fr-FR'),
@@ -248,6 +248,7 @@ function saveScore() {
   if (token) {
     saveScoresToGitHub(token);
     console.log("Tentative de sauvegarde sur GitHub avec PAT.");
+    loadScores(); // Recharge les scores pour mettre à jour l’interface
     return true;
   } else {
     console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
