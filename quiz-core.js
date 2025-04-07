@@ -7,13 +7,31 @@ const GITHUB_CONFIG = {
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
 };*/
 
+// Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
-  repo: "guillaumebizet/TrainingMAterial",  // Ton dépôt public sur GitHub
-  branch: "priv",                           // Branche spécifique pour GitHub Pages
-  questionsPath: "questions.json",          // Chemin du fichier questions.json
-  scoresPath: "scores.json",                // Chemin du fichier scores.json
-  apiBaseUrl: "https://api.github.com/repos" // API publique de GitHub
+  repo: "guillaumebizet/TrainingMAterial",
+  branch: "priv",
+  questionsPath: "questions.json",
+  scoresPath: "scores.json",
+  apiBaseUrl: "https://api.github.com/repos"
 };
+
+// Déplacer loadLotSelection ici
+function loadLotSelection() {
+  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
+  const select = document.getElementById('lot-selection');
+  if (!select) {
+    console.error("Élément '#lot-selection' non trouvé dans le DOM.");
+    return;
+  }
+  select.innerHTML = '<option value="">Choisir un lot</option>';
+  lots.forEach(lot => {
+    const option = document.createElement('option');
+    option.value = lot;
+    option.textContent = lot;
+    select.appendChild(option);
+  });
+}
 
 async function saveQuestionsToGitHub() {
   if (questions.length === 0) {
@@ -126,7 +144,7 @@ async function saveScoresToGitHub(token) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour scores.json :", updateData);
       alert("Scores sauvegardés avec succès sur GitHub !");
-      await loadScores(); // Recharge les scores après sauvegarde
+      await loadScores();
     } else {
       const errorData = await updateResponse.json();
       console.error("Erreur détaillée de l'API :", errorData);
@@ -155,7 +173,7 @@ async function fetchQuestions() {
     }
     console.log('Questions chargées avec succès :', questions);
     generateAdditionalQuestions();
-    loadLotSelection();
+    loadLotSelection(); // Maintenant défini dans ce fichier
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
     alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
