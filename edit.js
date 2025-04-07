@@ -1,5 +1,4 @@
-async function loadQuestionList() {
-  // Charger les questions une seule fois si elles ne sont pas déjà chargées
+async function loadQuestionList(filteredLot = '') {
   if (!questions || questions.length === 0) {
     await fetchQuestions();
   }
@@ -8,7 +7,11 @@ async function loadQuestionList() {
   if (!container) return;
   container.innerHTML = '';
 
-  questions.forEach((q, index) => {
+  const filteredQuestions = filteredLot
+    ? questions.filter(q => q.lot === filteredLot)
+    : questions;
+
+  filteredQuestions.forEach((q, index) => {
     const div = document.createElement('div');
     div.className = 'question-item';
     div.innerHTML = `
@@ -32,6 +35,16 @@ async function loadQuestionList() {
     container.appendChild(div);
 
     updateOptionsDisplay(index);
+  });
+
+  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
+  const select = document.getElementById('lot-filter');
+  select.innerHTML = '<option value="">Tous les lots</option>';
+  lots.forEach(lot => {
+    const option = document.createElement('option');
+    option.value = lot;
+    option.textContent = lot;
+    select.appendChild(option);
   });
 }
 
@@ -127,4 +140,9 @@ function addNewQuestion() {
 function deleteQuestion(index) {
   questions.splice(index, 1);
   loadQuestionList();
+}
+
+function filterQuestionsByLot() {
+  const selectedLot = document.getElementById('lot-filter').value;
+  loadQuestionList(selectedLot);
 }
