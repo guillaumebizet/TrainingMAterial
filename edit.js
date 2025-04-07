@@ -9,6 +9,10 @@ function loadQuestionList() {
     return;
   }
   questions.forEach((q, index) => {
+    if (!q.question || !q.question.fr || !q.question.us) {
+      console.error("Question mal formée à l'index", index, q);
+      return; // Ignore les questions mal formées
+    }
     const div = document.createElement('div');
     div.className = 'question-item';
     div.innerHTML = `
@@ -281,6 +285,3 @@ function filterQuestionsByLot() {
     list.appendChild(div);
   });
 }
-
-// Ne pas appeler loadQuestionList ici, il sera appelé après fetchQuestions dans quiz-core.js
-// loadQuestionList(); // Supprimé
