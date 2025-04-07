@@ -293,5 +293,3 @@ if (currentDateElement) {
   console.error("Élément 'current-date' non trouvé.");
 }
 
-fetchQuestions();
-loadScores();
