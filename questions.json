@@ -3349,8 +3349,8 @@
     "correct": 0,
     "lot": "JIRA",
     "type": "Choix simple"
-  },
-  
+  }
+  ,
   {
     "question": {
       "fr": "Décrivez comment intégrer JIRA avec Confluence.",
@@ -3375,7 +3375,7 @@
     "correct": 0,
     "lot": "JIRA",
     "type": "Choix simple"
-  },
+},
   {
     "question": {
       "fr": "Quel est le but de JIRA Service Desk ?",
@@ -4628,5 +4628,5 @@
     "lot": "SYD",
     "type": "Choix simple"
   }
-]
 
+  ]
