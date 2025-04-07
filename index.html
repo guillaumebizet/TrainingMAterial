@@ -17,12 +17,13 @@
     <label for="candidate-name">Nom du candidat :</label>
     <input type="text" id="candidate-name" placeholder="Entrez votre nom">
     <p>Date : <span id="current-date"></span></p>
-    <div id="pat-section">
-      <label for="github-pat">Token d'accès personnel GitHub (optionnel) :</label>
-      <input type="password" id="github-pat" placeholder="Collez votre PAT ici">
-      <button id="validate-pat-btn">Valider le PAT</button>
-      <p id="pat-feedback" style="display:none; color: #27ae60;"></p>
-    </div>
+<div id="pat-section">
+  <label for="github-pat">Token d'accès personnel GitHub (optionnel) :</label>
+  <input type="password" id="github-pat" placeholder="Collez votre PAT ici">
+  <button id="validate-pat-btn">Valider le PAT</button>
+  <span id="pat-status" style="display:none; color: #27ae60; margin-left: 10px;">PAT chargé</span>
+  <p id="pat-feedback" style="display:none; color: #27ae60;"></p>
+</div>
     <div id="question-selection">
       <h3>Sélectionner un lot de questions :</h3>
       <select id="lot-selection">
