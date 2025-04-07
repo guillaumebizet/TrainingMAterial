@@ -40,19 +40,39 @@ function showNotification(message) {
 
 function loadLotSelection() {
   const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
-  const select = document.getElementById('lot-selection');
-  if (!select) {
+  console.log("Lots disponibles :", lots); // Log pour déboguer
+
+  // Remplir #lot-selection (pour l'onglet "Démarrer le quiz")
+  const lotSelection = document.getElementById('lot-selection');
+  if (!lotSelection) {
     console.error("Élément '#lot-selection' non trouvé dans le DOM.");
-    return;
+  } else {
+    const chooseLotText = translations[currentLang]?.['choose_lot'] || 'Choose a lot';
+    lotSelection.innerHTML = `<option value="">${chooseLotText}</option>`;
+    lots.forEach(lot => {
+      const option = document.createElement('option');
+      option.value = lot;
+      option.textContent = lot;
+      lotSelection.appendChild(option);
+    });
+    console.log("Options ajoutées à #lot-selection :", lotSelection.innerHTML);
   }
-  const chooseLotText = translations[currentLang]?.['choose_lot'] || 'Choose a lot';
-  select.innerHTML = `<option value="">${chooseLotText}</option>`;
-  lots.forEach(lot => {
-    const option = document.createElement('option');
-    option.value = lot;
-    option.textContent = lot;
-    select.appendChild(option);
-  });
+
+  // Remplir #lot-filter (pour l'onglet "Éditer Questions")
+  const lotFilter = document.getElementById('lot-filter');
+  if (!lotFilter) {
+    console.error("Élément '#lot-filter' non trouvé dans le DOM.");
+  } else {
+    const allLotsText = translations[currentLang]?.['all_lots'] || 'Tous les lots';
+    lotFilter.innerHTML = `<option value="">${allLotsText}</option>`;
+    lots.forEach(lot => {
+      const option = document.createElement('option');
+      option.value = lot;
+      option.textContent = lot;
+      lotFilter.appendChild(option);
+    });
+    console.log("Options ajoutées à #lot-filter :", lotFilter.innerHTML);
+  }
 }
 
 async function saveQuestionsToGitHub() {
@@ -194,7 +214,7 @@ async function fetchQuestions() {
       throw new Error(`Erreur lors du parsing de questions.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
     }
     console.log('Questions chargées avec succès :', questions);
-    console.log("Nombre de questions pour SYD :", questions.filter(q => q.lot === "SYD").length); // Log ajouté
+    console.log("Nombre de questions pour SYD :", questions.filter(q => q.lot === "SYD").length);
     generateAdditionalQuestions();
     loadLotSelection();
   } catch (error) {
