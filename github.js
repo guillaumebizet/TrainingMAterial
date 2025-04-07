@@ -1,265 +1,116 @@
-// Configurations statiques
-const env = "github.com"; // Changez à "socgen" pour GitHub Enterprise SocGen
-
-const githubConfig = {
-  apiUrl: "https://api.github.com",
-  authUrl: "https://github.com/login/oauth/authorize",
-  tokenUrl: "https://github.com/login/oauth/access_token",
-  clientId: "Ov23liQj7MXBgBOqNVAE",
-  redirectUri: "https://guillaumebizet.github.io/TrainingMAterial/callback.html",
-  repo: "guillaumebizet/TrainingMAterial",
-  branch: "main",
-  questionsPath: "questions.json",
-  scoresPath: "scores.json",
-  scope: "repo",
-  org: "guillaumebizet",
-  team: "QuizEditors"
-};
-
-// Fonctions pour le flux OAuth (flux implicite)
-function loginWithGitHub() {
-  // Vérifiez si une authentification est déjà en cours
-  const existingState = localStorage.getItem("oauth_state");
-  if (existingState) {
-    console.log("Une authentification est déjà en cours avec state :", existingState);
-    return;
-  }
-
-  const state = `oauth_redirect_${Date.now()}`;
-  localStorage.setItem("oauth_state", state);
-
-  const authUrl = `${githubConfig.authUrl}?client_id=${githubConfig.clientId}&redirect_uri=${githubConfig.redirectUri}&scope=${githubConfig.scope}&response_type=token&state=${state}`;
-  window.location.href = authUrl;
-}
-
-function logout() {
-  localStorage.removeItem("github_access_token");
-  localStorage.removeItem("oauth_state");
-  window.location.reload();
-}
-
-function isAuthenticated() {
-  const token = localStorage.getItem("github_access_token");
-  return !!token;
-}
-
-function updateAuthStatus() {
-  const authStatus = document.getElementById("auth-status");
-  const loginBtn = document.getElementById("login-btn");
-  const logoutBtn = document.getElementById("logout-btn");
-
-  if (authStatus && loginBtn && logoutBtn) {
-    if (isAuthenticated()) {
-      authStatus.textContent = "Connecté";
-      loginBtn.style.display = "none";
-      logoutBtn.style.display = "inline-block";
-    } else {
-      authStatus.textContent = "Non connecté";
-      loginBtn.style.display = "inline-block";
-      logoutBtn.style.display = "none";
-    }
-  } else {
-    console.log("Éléments d'authentification non trouvés dans le DOM.");
-  }
-}
-
-// Exécuter updateAuthStatus et fetchQuestions après le chargement
-document.addEventListener("DOMContentLoaded", () => {
-  if (window.location.pathname === "/TrainingMAterial/" || window.location.pathname === "/TrainingMAterial/index.html") {
-    updateAuthStatus();
-  }
-  fetchQuestions();
-});
-
-async function checkTeamMembership() {
-  const token = localStorage.getItem("github_access_token");
-  if (!token) return false;
-
-  try {
-    const userResponse = await fetch(`${githubConfig.apiUrl}/user`, {
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: "application/vnd.github.v3+json"
-      }
-    });
-    if (!userResponse.ok) return false;
-    const userData = await userResponse.json();
-    const username = userData.login;
-
-    const teamResponse = await fetch(`${githubConfig.apiUrl}/orgs/${githubConfig.org}/teams/${githubConfig.team}/memberships/${username}`, {
-      headers: {
-        Authorization: `token ${token}`,
-        Accept: "application/vnd.github.v3+json"
-      }
-    });
-
-    return teamResponse.ok;
-  } catch (error) {
-    console.error("Erreur lors de la vérification de l'appartenance à l'équipe :", error);
-    return false;
-  }
-}
-
-async function checkUserPermissions() {
-  const token = localStorage.getItem("github_access_token");
-  if (!token) return false;
-
-  const permissionResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/collaborators/permission`, {
-    headers: {
-      Authorization: `token ${token}`,
-      Accept: "application/vnd.github.v3+json"
-    }
-  });
-
-  let hasRepoPermission = false;
-  if (permissionResponse.ok) {
-    const data = await permissionResponse.json();
-    hasRepoPermission = data.permission === "admin" || data.permission === "write";
-  }
-
-  const isTeamMember = await checkTeamMembership();
-  return hasRepoPermission && isTeamMember;
-}
 async function saveQuestionsToGitHub() {
   if (questions.length === 0) {
     alert("Aucune question à sauvegarder. Veuillez charger les questions d'abord.");
     return;
   }
 
-  const token = localStorage.getItem("github_access_token");
+  const token = prompt("Veuillez entrer votre token d'accès personnel GitHub :");
   if (!token) {
-    alert("Veuillez vous connecter avec GitHub pour sauvegarder les modifications");
+    alert("Token requis pour sauvegarder les modifications");
     return;
   }
 
-  const hasPermission = await checkUserPermissions();
-  if (!hasPermission) {
-    alert(`Vous n'avez pas les permissions nécessaires pour modifier ce dépôt. Veuillez contacter un administrateur de l'organisation ${githubConfig.org} pour demander l'accès à l'équipe ${githubConfig.team}.`);
-    return;
-  }
+  const repo = "a474881/training";
+  const branch = "coding-main";
+  const path = "questions.json";
 
   try {
-    const branchResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/branches/${githubConfig.branch}`, {
+    const response = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}?ref=${branch}`, {
       headers: {
         Authorization: `token ${token}`,
         Accept: "application/vnd.github.v3+json"
       }
     });
 
-    const branchData = await branchResponse.json();
-    const isProtected = branchData.protected;
+    let sha = null;
+    if (response.ok) {
+      const data = await response.json();
+      sha = data.sha;
+    } else if (response.status !== 404) {
+      throw new Error(`Erreur lors de la récupération du fichier : ${response.status} ${response.statusText}`);
+    }
 
-    if (isProtected) {
-      const newBranch = `update-questions-${Date.now()}`;
-      const refResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/git/refs/heads/${githubConfig.branch}`, {
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        }
-      });
-      const refData = await refResponse.json();
-      const sha = refData.object.sha;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(questions, null, 2))));
+    const updateResponse = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      },
+      body: JSON.stringify({
+        message: "Mise à jour de questions.json via l'interface d'édition",
+        content: content,
+        sha: sha,
+        branch: branch
+      })
+    });
 
-      await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/git/refs`, {
-        method: 'POST',
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          ref: `refs/heads/${newBranch}`,
-          sha: sha
-        })
-      });
-
-      const content = btoa(unescape(encodeURIComponent(JSON.stringify(questions, null, 2))));
-      const updateResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/contents/${githubConfig.questionsPath}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          message: "Mise à jour de questions.json via l'interface d'édition",
-          content: content,
-          branch: newBranch
-        })
-      });
-
-      if (!updateResponse.ok) {
-        const errorData = await updateResponse.json();
-        throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
-      }
-
-      const prResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/pulls`, {
-        method: 'POST',
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          title: "Mise à jour de questions.json",
-          head: newBranch,
-          base: githubConfig.branch,
-          body: "Mise à jour automatique de questions.json via l'interface d'édition."
-        })
-      });
-
-      if (prResponse.ok) {
-        alert("Une pull request a été créée pour vos modifications. Veuillez la faire approuver pour merger les changements.");
-        fetchQuestions();
-      } else {
-        const errorData = await prResponse.json();
-        throw new Error(`Erreur lors de la création de la pull request : ${prResponse.status} ${prResponse.statusText} - ${errorData.message}`);
-      }
+    if (updateResponse.ok) {
+      alert("Modifications sauvegardées avec succès !");
+      await fetchQuestions();
     } else {
-      const response = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/contents/${githubConfig.questionsPath}?ref=${githubConfig.branch}`, {
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        }
-      });
-
-      let sha = null;
-      if (response.ok) {
-        const data = await response.json();
-        sha = data.sha;
-      } else if (response.status !== 404) {
-        throw new Error(`Erreur lors de la récupération du fichier : ${response.status} ${response.statusText}`);
-      }
-
-      const content = btoa(unescape(encodeURIComponent(JSON.stringify(questions, null, 2))));
-      const updateResponse = await fetch(`${githubConfig.apiUrl}/repos/${githubConfig.repo}/contents/${githubConfig.questionsPath}`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `token ${token}`,
-          Accept: "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          message: "Mise à jour de questions.json via l'interface d'édition",
-          content: content,
-          sha: sha,
-          branch: githubConfig.branch
-        })
-      });
-
-      if (updateResponse.ok) {
-        alert("Modifications sauvegardées avec succès !");
-        fetchQuestions();
-      } else {
-        const errorData = await updateResponse.json();
-        throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
-      }
+      const errorData = await updateResponse.json();
+      throw new Error(`Erreur lors de la sauvegarde : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
     }
   } catch (error) {
     console.error("Erreur lors de la sauvegarde des questions :", error);
     alert("Erreur lors de la sauvegarde : " + error.message);
   }
 }
+
+async function saveScoresToGitHub(token) {
+  const repo = "a474881/training";
+  const branch = "coding-main";
+  const path = "scores.json";
+
+  try {
+    let sha = null;
+    const response = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}?ref=${branch}`, {
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      sha = data.sha;
+    } else if (response.status !== 404) {
+      throw new Error(`Erreur lors de la récupération du fichier scores.json : ${response.status} ${response.statusText}`);
+    }
+
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(scores, null, 2))));
+    const updateResponse = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json"
+      },
+      body: JSON.stringify({
+        message: "Mise à jour de scores.json via l'interface",
+        content: content,
+        sha: sha,
+        branch: branch
+      })
+    });
+
+    if (updateResponse.ok) {
+      alert("Scores sauvegardés avec succès sur GitHub !");
+    } else {
+      const errorData = await updateResponse.json();
+      throw new Error(`Erreur lors de la sauvegarde des scores : ${updateResponse.status} ${updateResponse.statusText} - ${errorData.message}`);
+    }
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde des scores :", error);
+    alert("Erreur lors de la sauvegarde des scores : " + error.message + ". Les scores seront stockés localement.");
+    localStorage.setItem('scores', JSON.stringify(scores));
+  }
+}
+
 async function fetchQuestions() {
   try {
     console.log("Tentative de chargement de questions.json...");
-    const response = await fetch(githubConfig.questionsPath);
+    const response = await fetch('questions.json');
     if (!response.ok) {
       throw new Error(`Erreur lors du chargement de questions.json : ${response.status} ${response.statusText}`);
     }
@@ -271,49 +122,103 @@ async function fetchQuestions() {
       throw new Error(`Erreur lors du parsing de questions.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
     }
     console.log('Questions chargées avec succès :', questions);
+    generateAdditionalQuestions();
     loadLotSelection();
+    // Supprimé : loadQuestionList() pour éviter la boucle infinie
   } catch (error) {
     console.error('Erreur lors du chargement des questions:', error);
     alert('Impossible de charger les questions. Vérifiez que questions.json est accessible. Détails : ' + error.message);
     questions = [];
   }
 }
-async function loadScores() {
-  try {
-    const response = await fetch(githubConfig.scoresPath);
-    if (!response.ok) {
-      throw new Error(`Erreur lors du chargement de scores.json : ${response.status} ${response.statusText}`);
-    }
-    const text = await response.text();
-    try {
-      scores = JSON.parse(text);
-    } catch (parseError) {
-      throw new Error(`Erreur lors du parsing de scores.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
-    }
-    console.log('Scores chargés avec succès :', scores);
-    displayScores();
-  } catch (error) {
-    console.error('Erreur lors du chargement des scores:', error);
-    alert('Impossible de charger les scores. Vérifiez que scores.json est accessible. Détails : ' + error.message);
-    scores = [];
-  }
-}
 
-function displayScores() {
-  const scoresBody = document.getElementById('scores-body');
-  if (!scoresBody) {
-    console.error("Élément 'scores-body' non trouvé.");
-    return;
+async function loadScores() {
+  const repo = "a474881/training";
+  const branch = "coding-main";
+  const path = "scores.json";
+
+  try {
+    const response = await fetch(`https://sgithub.fr.world.socgen/api/v3/repos/${repo}/contents/${path}?ref=${branch}`, {
+      headers: {
+        Accept: "application/vnd.github.v3+json"
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const content = atob(data.content);
+      scores = JSON.parse(content);
+    } else if (response.status === 404) {
+      scores = [];
+    } else {
+      throw new Error(`Erreur lors du chargement des scores : ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error("Erreur lors du chargement des scores :", error);
+    scores = JSON.parse(localStorage.getItem('scores')) || [];
   }
-  scoresBody.innerHTML = '';
+
+  const tbody = document.getElementById('scores-body');
+  tbody.innerHTML = '';
   scores.forEach(score => {
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>${score.name}</td>
-      <td>${score.lot}</td>
-      <td>${score.score}/${score.total}</td>
       <td>${score.date}</td>
+      <td>${score.score}</td>
+      <td>${score.time}</td>
     `;
-    scoresBody.appendChild(row);
+    tbody.appendChild(row);
   });
 }
+
+function generateAdditionalQuestions() {
+  const additionalQuestions = [
+    {
+      question: "Quelle est la capitale de la France ?",
+      options: ["Paris", "Londres", "Berlin", "Madrid", "Rome"],
+      correct: 0,
+      lot: "GENERAL",
+      type: "Choix simple"
+    },
+    {
+      question: "Quel est le résultat de 2 + 2 ?",
+      options: ["3", "4", "5", "6", "7"],
+      correct: 1,
+      lot: "GENERAL",
+      type: "Choix simple"
+    },
+    {
+      question: "Quel langage est principalement utilisé pour le web ?",
+      options: ["Python", "Java", "JavaScript", "C++", "Ruby"],
+      correct: 2,
+      lot: "GENERAL",
+      type: "Choix simple"
+    },
+    {
+      question: "Quelle est la couleur du ciel par temps clair ?",
+      options: ["Vert", "Rouge", "Bleu", "Jaune", "Noir"],
+      correct: 2,
+      lot: "GENERAL",
+      type: "Choix simple"
+    },
+    {
+      question: "Combien de planètes dans le système solaire ?",
+      options: ["7", "8", "9", "10", "11"],
+      correct: 1,
+      lot: "GENERAL",
+      type: "Choix simple"
+    }
+  ];
+  questions.push(...additionalQuestions);
+}
+
+// Initialisation
+const currentDateElement = document.getElementById('current-date');
+if (currentDateElement) {
+  currentDateElement.textContent = new Date().toLocaleDateString('fr-FR');
+} else {
+  console.error("Élément 'current-date' non trouvé.");
+}
+
+fetchQuestions();

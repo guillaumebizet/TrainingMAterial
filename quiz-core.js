@@ -18,24 +18,16 @@ function shuffle(array) {
 }
 
 function updateScoreCounter() {
-  const scoreCounter = document.getElementById('score-counter');
-  if (scoreCounter) {
-    scoreCounter.textContent = `Score : ${score}`;
-  } else {
-    console.error("Élément 'score-counter' non trouvé.");
-  }
-  // Suppression des éléments total-questions, correct-count, incorrect-count car ils ne sont pas utilisés dans index.html
+  document.getElementById('current-score').textContent = score;
+  document.getElementById('total-questions').textContent = selectedQuestions.length;
+  document.getElementById('correct-count').textContent = correctCount;
+  document.getElementById('incorrect-count').textContent = incorrectCount;
 }
 
 function updateTimer() {
   const minutes = Math.floor(timeElapsed / 60);
   const seconds = timeElapsed % 60;
-  const timerElement = document.getElementById('timer');
-  if (timerElement) {
-    timerElement.textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-  } else {
-    console.error("Élément 'timer' non trouvé.");
-  }
+  document.getElementById('timer').textContent = `Temps : ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
 function startTimer() {
@@ -91,33 +83,31 @@ function validateAnswer(index) {
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('result').style.display = 'block';
-  document.getElementById('result-container').innerHTML = `
-    <p>Score final : <span id="score">${score}</span> / <span id="total-questions-result">${selectedQuestions.length}</span></p>
-    <p>Temps écoulé : ${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}</p>
-  `;
+  document.getElementById('score').textContent = score;
+  document.getElementById('total-questions-result').textContent = selectedQuestions.length;
 }
 
-function showSection(sectionId) {
-  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-  document.getElementById(sectionId).classList.add('active');
-
-  if (sectionId === 'edit') {
+function showTab(tabId) {
+  document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
+  document.getElementById(tabId).style.display = 'block';
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  const activeTab = document.querySelector(`.tab[onclick="showTab('${tabId}')"]`);
+  if (activeTab) {
+    activeTab.classList.add('active');
+  }
+  if (tabId === 'edit-container') {
     if (typeof fetchQuestions === 'function') {
       fetchQuestions().then(() => loadQuestionList());
     } else {
       console.error("fetchQuestions n'est pas défini. Attendez que github.js soit chargé.");
     }
   }
-  if (sectionId === 'scores') loadScores();
+  if (tabId === 'scores-container') loadScores();
 }
 
 function loadLotSelection() {
   const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
   const select = document.getElementById('lot-selection');
-  if (!select) {
-    console.error("Élément 'lot-selection' non trouvé.");
-    return;
-  }
   select.innerHTML = '<option value="">Choisir un lot</option>';
   lots.forEach(lot => {
     const option = document.createElement('option');
@@ -129,7 +119,7 @@ function loadLotSelection() {
 
 async function startQuiz() {
   try {
-    candidateName = document.getElementById('user-name').value.trim();
+    candidateName = document.getElementById('candidate-name').value.trim();
     if (!candidateName) {
       alert('Veuillez entrer votre nom');
       return;
@@ -168,9 +158,9 @@ async function startQuiz() {
     incorrectCount = 0;
     timeElapsed = 0;
 
-    showSection('quiz'); // Afficher la section quiz avant de mettre à jour les éléments
     updateScoreCounter();
     updateTimer();
+    showTab('quiz-container');
     loadQuestions();
     startTimer();
   } catch (error) {
@@ -178,96 +168,7 @@ async function startQuiz() {
     alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
   }
 }
-function showResult() {
-  document.getElementById('quiz-container').style.display = 'none';
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('result-container').innerHTML = `
-    <p>Score final : <span id="score">${score}</span> / <span id="total-questions-result">${selectedQuestions.length}</span></p>
-    <p>Temps écoulé : ${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}</p>
-  `;
-}
 
-function showSection(sectionId) {
-  document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-  document.getElementById(sectionId).classList.add('active');
-
-  if (sectionId === 'edit') {
-    if (typeof fetchQuestions === 'function') {
-      fetchQuestions().then(() => loadQuestionList());
-    } else {
-      console.error("fetchQuestions n'est pas défini. Attendez que github.js soit chargé.");
-    }
-  }
-  if (sectionId === 'scores') loadScores();
-}
-
-function loadLotSelection() {
-  const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
-  const select = document.getElementById('lot-selection');
-  if (!select) {
-    console.error("Élément 'lot-selection' non trouvé.");
-    return;
-  }
-  select.innerHTML = '<option value="">Choisir un lot</option>';
-  lots.forEach(lot => {
-    const option = document.createElement('option');
-    option.value = lot;
-    option.textContent = lot;
-    select.appendChild(option);
-  });
-}
-
-async function startQuiz() {
-  try {
-    candidateName = document.getElementById('user-name').value.trim();
-    if (!candidateName) {
-      alert('Veuillez entrer votre nom');
-      return;
-    }
-
-    const selectedLot = document.getElementById('lot-selection').value;
-    if (!selectedLot) {
-      alert('Veuillez sélectionner un lot de questions');
-      return;
-    }
-
-    if (typeof fetchQuestions !== 'function') {
-      alert("Les questions ne sont pas encore chargées. Veuillez réessayer dans un instant.");
-      return;
-    }
-
-    await fetchQuestions();
-
-    if (!questions || questions.length === 0) {
-      alert('Aucune question chargée. Vérifiez le chargement initial.');
-      return;
-    }
-
-    selectedQuestions = questions.filter(q =>
-      q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
-    );
-
-    if (selectedQuestions.length === 0) {
-      alert('Aucune question disponible pour ce lot');
-      return;
-    }
-
-    selectedQuestions = shuffle([...selectedQuestions]);
-    score = 0;
-    correctCount = 0;
-    incorrectCount = 0;
-    timeElapsed = 0;
-
-    showSection('quiz'); // Afficher la section quiz avant de mettre à jour les éléments
-    updateScoreCounter();
-    updateTimer();
-    loadQuestions();
-    startTimer();
-  } catch (error) {
-    console.error("Erreur dans startQuiz :", error);
-    alert("Une erreur s'est produite lors du démarrage du quiz : " + error.message);
-  }
-}
 function loadQuestions() {
   const container = document.getElementById('quiz-container');
   container.innerHTML = '';
@@ -278,7 +179,7 @@ function loadQuestions() {
   }
 
   const shuffledSet = selectedQuestions.map((q) => {
-    const clone = JSON.parse(JSON.stringify(q)); // Remplacement de structuredClone
+    const clone = structuredClone(q);
     const shuffled = shuffle([...clone.options]);
 
     if (Array.isArray(clone.correct)) {
@@ -324,10 +225,8 @@ function loadQuestions() {
 function saveScore() {
   const scoreData = {
     name: candidateName,
-    lot: document.getElementById('lot-selection').value,
-    score: score,
-    total: selectedQuestions.length,
     date: new Date().toLocaleDateString('fr-FR'),
+    score: `${score} / ${selectedQuestions.length}`,
     time: `${Math.floor(timeElapsed / 60)}:${String(timeElapsed % 60).padStart(2, '0')}`
   };
   scores.push(scoreData);
@@ -339,8 +238,10 @@ function saveScore() {
     console.error("Erreur de sauvegarde dans localStorage :", e);
   }
 
-  // Sauvegarde sur GitHub via OAuth
-  saveScoresToGitHub();
+  const token = prompt("Veuillez entrer votre token d'accès personnel GitHub pour sauvegarder les scores sur GitHub (laisser vide pour ignorer) :");
+  if (token) {
+    saveScoresToGitHub(token);
+  }
 }
 
 // Attacher un écouteur d'événements au bouton "Démarrer le quiz"
