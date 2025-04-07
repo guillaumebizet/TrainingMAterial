@@ -7,6 +7,7 @@
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
 };*/
 
+// Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "guillaumebizet/TrainingMAterial",
   branch: "priv",
@@ -105,8 +106,9 @@ async function saveQuestionsToGitHub() {
     if (updateResponse.ok) {
       const updateData = await updateResponse.json();
       console.log("Réponse de l'API pour questions.json :", updateData);
-      showModal("questions_saved", questions);
-      showNotification("notification_questions");
+      // Suppression de l'appel à showModal pour éviter l'affichage du JSON
+      // showModal("questions_saved", questions);
+      // showNotification("notification_questions");
       await fetchQuestions();
     } else {
       const errorData = await updateResponse.json();
