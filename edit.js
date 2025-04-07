@@ -1,5 +1,6 @@
 let editingIndex = null;
 let modifiedQuestionsIndices = new Set();
+let isFilterEventAttached = false; // Pour éviter d'attacher l'événement plusieurs fois
 
 function loadQuestionList() {
   const list = document.getElementById('question-list');
@@ -272,8 +273,13 @@ function filterQuestionsByLot() {
   loadQuestionList();
 }
 
-// Attacher l’événement au filtre avec plus de robustesse
+// Attacher l’événement au filtre quand l'onglet est affiché
 function attachFilterEvent() {
+  if (isFilterEventAttached) {
+    console.log("Événement 'change' déjà attaché à #lot-filter.");
+    return;
+  }
+
   const lotFilter = document.getElementById('lot-filter');
   if (lotFilter) {
     console.log("Élément #lot-filter trouvé, attachement de l'événement...");
@@ -282,14 +288,27 @@ function attachFilterEvent() {
       filterQuestionsByLot();
     });
     console.log("Événement 'change' attaché au filtre de lot.");
+    isFilterEventAttached = true;
   } else {
-    console.error("Élément '#lot-filter' non trouvé dans le DOM, nouvelle tentative dans 1 seconde...");
-    setTimeout(attachFilterEvent, 1000); // Réessayer après 1 seconde
+    console.error("Élément '#lot-filter' non trouvé dans le DOM.");
   }
 }
 
-// Attacher l'événement après le chargement du DOM
+// Surcharger showTab pour attacher l'événement quand l'onglet "Éditer Questions" est affiché
+const originalShowTab = showTab; // Sauvegarder la fonction originale
+showTab = function(tabId) {
+  originalShowTab(tabId); // Appeler la fonction originale
+  if (tabId === 'edit-container') {
+    console.log("Onglet 'Éditer Questions' affiché, tentative d'attachement de l'événement...");
+    attachFilterEvent();
+    loadQuestionList(); // Recharger la liste au cas où
+  }
+};
+
+// Attacher l’événement au chargement initial (au cas où l'onglet est déjà affiché)
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOM chargé, tentative d'attachement de l'événement au filtre...");
-  attachFilterEvent();
+  console.log("DOM chargé, vérification initiale de l'onglet...");
+  if (document.getElementById('edit-container').style.display !== 'none') {
+    attachFilterEvent();
+  }
 });
