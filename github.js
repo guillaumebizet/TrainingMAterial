@@ -6,7 +6,6 @@
   scoresPath: "scores.json",
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
 };*/
-
 const GITHUB_CONFIG = {
   repo: "guillaumebizet/TrainingMAterial",
   branch: "priv",
@@ -194,6 +193,7 @@ async function fetchQuestions() {
       throw new Error(`Erreur lors du parsing de questions.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
     }
     console.log('Questions chargées avec succès :', questions);
+    console.log("Nombre de questions pour SYD :", questions.filter(q => q.lot === "SYD").length); // Log ajouté
     generateAdditionalQuestions();
     loadLotSelection();
   } catch (error) {
@@ -289,5 +289,3 @@ if (currentDateElement) {
 } else {
   console.error("Élément 'current-date' non trouvé.");
 }
-
-// Les appels fetchQuestions() et loadScores() sont déplacés dans quiz-core.js
