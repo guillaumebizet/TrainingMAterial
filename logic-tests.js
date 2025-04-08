@@ -1,5 +1,11 @@
 // logic-tests.js
 
+// Vérifier les dépendances
+if (typeof translations === 'undefined' || typeof currentLang === 'undefined') {
+  console.error("Erreur : Les variables globales 'translations' ou 'currentLang' ne sont pas définies. Assurez-vous que quiz-core.js est chargé et exécuté correctement avant logic-tests.js.");
+  throw new Error("Dépendances manquantes pour logic-tests.js");
+}
+
 // Définition des défis
 const challenges = {
   'challenge-1': {
@@ -898,7 +904,7 @@ const challenges = {
             // Redessiner le labyrinthe
             mazeContainer.innerHTML = '';
             for (let y = 0; y < 5; y++) {
-              for (let x = 0; x < 5; x++) {
+              for (              let x = 0; x < 5; x++) {
                 const cell = document.createElement('div');
                 cell.className = 'maze-cell';
                 if (this.maze[y][x] === 1) cell.classList.add('wall');
