@@ -1,9 +1,13 @@
+console.log("Script logic-tests.js chargé, avant waitForTranslations");
+
 // Fonction pour attendre que les traductions soient chargées
 function waitForTranslations() {
   return new Promise((resolve) => {
     if (typeof translations !== 'undefined' && typeof currentLang !== 'undefined') {
+      console.log("Traductions déjà disponibles, résolution immédiate.");
       resolve();
     } else {
+      console.log("En attente de l'événement translationsLoaded...");
       document.addEventListener('translationsLoaded', () => {
         console.log("Événement translationsLoaded reçu, les traductions sont prêtes.");
         resolve();
