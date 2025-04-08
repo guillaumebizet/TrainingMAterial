@@ -42,12 +42,19 @@ function initializeMermaidEditor() {
     mermaidInput.addEventListener('input', renderMermaid);
   }
 
+  // Assurez-vous que le bouton n'est pas désactivé
+  cheatSheetToggle.disabled = false;
+  console.log("État du bouton cheatSheetToggle :", cheatSheetToggle.disabled ? "désactivé" : "activé");
+
   // Gestion du bouton Afficher/Masquer le cheat sheet
   cheatSheetToggle.addEventListener('click', () => {
+    console.log("Bouton Afficher/Masquer cliqué");
     if (cheatSheet.style.display === 'none') {
+      console.log("Affichage du cheat sheet");
       cheatSheet.style.display = 'block';
       cheatSheetToggle.textContent = translations[currentLang]['mermaid_cheat_sheet_hide'] || 'Masquer l’aide';
     } else {
+      console.log("Masquage du cheat sheet");
       cheatSheet.style.display = 'none';
       cheatSheetToggle.textContent = translations[currentLang]['mermaid_cheat_sheet_show'] || 'Afficher l’aide';
     }
@@ -55,8 +62,10 @@ function initializeMermaidEditor() {
 
   // Gestion des boutons d'insertion d'exemples
   const insertButtons = document.querySelectorAll('.insert-example');
+  console.log("Nombre de boutons d'insertion trouvés :", insertButtons.length);
   insertButtons.forEach(button => {
     button.addEventListener('click', () => {
+      console.log("Bouton d'insertion cliqué :", button.getAttribute('data-example'));
       const exampleKey = button.getAttribute('data-example');
       const exampleCode = translations[currentLang][exampleKey] || '';
       mermaidInput.value = exampleCode;
