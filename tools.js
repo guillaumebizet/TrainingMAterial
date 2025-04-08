@@ -5,8 +5,16 @@ function initializeMermaidEditor() {
   console.log("Initialisation de Mermaid Live Editor...");
   const mermaidInput = document.getElementById('mermaid-input');
   const mermaidOutput = document.getElementById('mermaid-output');
+  const cheatSheetToggle = document.getElementById('mermaid-cheat-sheet-toggle');
+  const cheatSheet = document.getElementById('mermaid-cheat-sheet');
+
   if (!mermaidInput || !mermaidOutput) {
     console.error("Éléments pour Mermaid Live Editor non trouvés.");
+    return;
+  }
+
+  if (!cheatSheetToggle || !cheatSheet) {
+    console.error("Éléments pour le cheat sheet Mermaid non trouvés.");
     return;
   }
 
@@ -33,6 +41,28 @@ function initializeMermaidEditor() {
     renderMermaid();
     mermaidInput.addEventListener('input', renderMermaid);
   }
+
+  // Gestion du bouton Afficher/Masquer le cheat sheet
+  cheatSheetToggle.addEventListener('click', () => {
+    if (cheatSheet.style.display === 'none') {
+      cheatSheet.style.display = 'block';
+      cheatSheetToggle.textContent = translations[currentLang]['mermaid_cheat_sheet_hide'] || 'Masquer l’aide';
+    } else {
+      cheatSheet.style.display = 'none';
+      cheatSheetToggle.textContent = translations[currentLang]['mermaid_cheat_sheet_show'] || 'Afficher l’aide';
+    }
+  });
+
+  // Gestion des boutons d'insertion d'exemples
+  const insertButtons = document.querySelectorAll('.insert-example');
+  insertButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const exampleKey = button.getAttribute('data-example');
+      const exampleCode = translations[currentLang][exampleKey] || '';
+      mermaidInput.value = exampleCode;
+      renderMermaid();
+    });
+  });
 
   function renderMermaid() {
     console.log("Rendu Mermaid appelé...");
