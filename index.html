@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr"> 
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -64,14 +64,23 @@
 
   <div id="edit-container">
     <h2 data-lang="edit_questions"></h2>
-    <div id="edit-filter">
-      <label for="lot-filter" data-lang="filter_by_lot"></label>
-      <select id="lot-filter">
-        <option value="" data-lang="all_lots"></option>
-      </select>
+    <div class="edit-content">
+      <div class="question-list-container">
+        <div id="edit-filter">
+          <label for="lot-filter" data-lang="filter_by_lot"></label>
+          <select id="lot-filter">
+            <option value="" data-lang="all_lots"></option>
+          </select>
+        </div>
+        <div id="question-list"></div>
+        <button onclick="addNewQuestion()" data-lang="add_question"></button>
+      </div>
+      <div id="pending-changes-sidebar" class="sidebar" style="display:none;">
+        <h3>Modifications en attente</h3>
+        <ul id="pending-changes-list"></ul>
+        <button id="commit-all-changes-btn" onclick="commitAllChanges()">Commit All Changes</button>
+      </div>
     </div>
-    <div id="question-list"></div>
-    <button onclick="addNewQuestion()" data-lang="add_question"></button>
   </div>
 
   <div id="scores-container">
