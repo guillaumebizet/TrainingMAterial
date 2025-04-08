@@ -887,7 +887,37 @@ button {
   border-radius: 5px;
   overflow-x: auto;
 }
+/* Styles pour le cheat sheet */
+#mermaid-cheat-sheet {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
 
+#mermaid-cheat-sheet h3 {
+  margin-top: 0;
+}
+
+#mermaid-cheat-sheet pre {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+#mermaid-cheat-sheet button.insert-example {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#mermaid-cheat-sheet button.insert-example:hover {
+  background-color: #45a049;
+}
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
