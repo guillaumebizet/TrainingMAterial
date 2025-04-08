@@ -313,7 +313,12 @@ function showTab(tabId) {
   }
   if (tabId === 'logic-tests-container') {
     console.log("Affichage de l'onglet Défis Logiques et Soft Skills, initialisation...");
-    initializeLogicTests();
+    if (typeof initializeLogicTests === 'function') {
+      initializeLogicTests();
+    } else {
+      console.error("initializeLogicTests n'est pas défini. Vérifiez que logic-tests.js est correctement chargé.");
+      showModal("Erreur : Impossible d'initialiser les Défis Logiques et Soft Skills. Veuillez vérifier que tous les scripts sont chargés.");
+    }
   }
 }
 
