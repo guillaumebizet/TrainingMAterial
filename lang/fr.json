@@ -125,6 +125,7 @@
   "logic_test_1_soft_skills": "Pensée analytique, Concentration sous pression",
   "logic_test_2_title": "Défi 2 : Couleurs de chaussettes",
   "logic_test_2_description": "Vous avez un tiroir avec 6 chaussettes noires, 10 rouges, et 8 bleues, mélangées dans le noir. Combien de chaussettes devez-vous tirer pour être sûr d’avoir une paire de la même couleur ? Tirez les chaussettes en les glissant dans la zone ci-dessous !",
+  "logic_test_2_hint": "Astuce : Pensez au pire scénario pour garantir une paire !",
   "logic_test_2_correction": "Il y a 3 couleurs, donc dans le pire des cas, vous tirez une chaussette de chaque couleur (3 chaussettes). La 4e chaussette sera forcément de la même couleur qu’une des précédentes, garantissant une paire. Réponse : 4 chaussettes.",
   "logic_test_2_soft_skills": "Raisonnement probabiliste, Prise de décision rapide, Gestion des distractions",
   "start_challenge": "Lancer le défi",
