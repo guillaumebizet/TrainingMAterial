@@ -1,3 +1,4 @@
+console.log("Début de l'exécution de quiz-core.js");
 // Variables globales
 let questions = [];
 let selectedQuestions = [];
