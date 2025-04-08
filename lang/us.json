@@ -1,4 +1,7 @@
 {
+  "mermaid_empty": "Enter Mermaid code to see the rendering.",
+  "loading": "Loading...",
+  "mermaid_render_error": "Mermaid rendering error"
   "download_result": "Download the result",
   "json_empty": "Please enter a JSON to validate.",
   "json_valid": "JSON valid!",
