@@ -7,6 +7,8 @@ function initializeMermaidEditor() {
   const mermaidOutput = document.getElementById('mermaid-output');
   const cheatSheetToggle = document.getElementById('mermaid-cheat-sheet-toggle');
   const cheatSheet = document.getElementById('mermaid-cheat-sheet');
+  const exportSvgButton = document.getElementById('export-svg-button');
+  const exportPngButton = document.getElementById('export-png-button');
 
   if (!mermaidInput || !mermaidOutput) {
     console.error("Éléments pour Mermaid Live Editor non trouvés.");
@@ -15,6 +17,11 @@ function initializeMermaidEditor() {
 
   if (!cheatSheetToggle || !cheatSheet) {
     console.error("Éléments pour le cheat sheet Mermaid non trouvés.");
+    return;
+  }
+
+  if (!exportSvgButton || !exportPngButton) {
+    console.error("Boutons d'exportation non trouvés.");
     return;
   }
 
@@ -49,11 +56,19 @@ function initializeMermaidEditor() {
     mermaidInput.addEventListener('input', renderMermaid);
   }
 
+  // Autosize pour #mermaid-input (ajustement de la hauteur)
+  function autoResizeTextarea() {
+    mermaidInput.style.height = 'auto'; // Réinitialiser la hauteur
+    mermaidInput.style.height = `${Math.max(mermaidInput.scrollHeight, 300)}px`; // Ajuster à la hauteur du contenu, avec un minimum de 300px
+  }
+  mermaidInput.addEventListener('input', autoResizeTextarea);
+  autoResizeTextarea(); // Appeler au chargement initial
+
   // Assurez-vous que le bouton n'est pas désactivé
   cheatSheetToggle.disabled = false;
   console.log("État du bouton cheatSheetToggle :", cheatSheetToggle.disabled ? "désactivé" : "activé");
 
-  // Gestion du bouton Afficher/Masquer le cheat sheet
+  // Gestion du bouton Afficher/Masquer le cheat sheet (affiché par défaut)
   cheatSheetToggle.addEventListener('click', () => {
     console.log("Bouton Afficher/Masquer cliqué");
     if (cheatSheet.style.display === 'none') {
@@ -77,7 +92,49 @@ function initializeMermaidEditor() {
       const exampleCode = translations[currentLang][exampleKey] || '';
       mermaidInput.value = exampleCode;
       renderMermaid();
+      autoResizeTextarea(); // Ajuster la hauteur après insertion
     });
+  });
+
+  // Gestion de l'exportation en SVG
+  exportSvgButton.addEventListener('click', () => {
+    const svgContent = mermaidOutput.querySelector('svg');
+    if (!svgContent) {
+      alert(translations[currentLang]['mermaid_export_error'] || "Aucun diagramme à exporter. Veuillez d'abord rendre un diagramme valide.");
+      return;
+    }
+    const svgData = new XMLSerializer().serializeToString(svgContent);
+    const blob = new Blob([svgData], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'mermaid-diagram.svg';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // Gestion de l'exportation en PNG
+  exportPngButton.addEventListener('click', () => {
+    const svgContent = mermaidOutput.querySelector('svg');
+    if (!svgContent) {
+      alert(translations[currentLang]['mermaid_export_error'] || "Aucun diagramme à exporter. Veuillez d'abord rendre un diagramme valide.");
+      return;
+    }
+    const svgData = new XMLSerializer().serializeToString(svgContent);
+    const img = new Image();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      const url = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'mermaid-diagram.png';
+      a.click();
+    };
+    img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
   });
 
   function renderMermaid() {
