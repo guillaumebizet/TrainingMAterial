@@ -1,3 +1,4 @@
+console.log("Début de l'exécution de edit.js");
 let editingIndex = null;
 let modifiedQuestionsIndices = new Set();
 let deletedQuestions = [];
