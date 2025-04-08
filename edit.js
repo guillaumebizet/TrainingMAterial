@@ -24,6 +24,7 @@ function loadQuestionList() {
     }
     const div = document.createElement('div');
     div.className = 'question-item';
+    div.id = `question-item-${index}`; // Ajout d'un ID unique pour chaque question
     div.innerHTML = `
       <div class="question-block">
         <h3>${q.question.fr} / ${q.question.us}</h3>
@@ -70,7 +71,7 @@ function editQuestion(index) {
   const q = questions[index];
   const form = document.createElement('div');
   form.className = 'edit-form';
-  form.id = 'edit-form-' + index; // Ajout d'un ID unique pour le formulaire
+  form.id = 'edit-form-' + index;
   form.innerHTML = `
     <h3>Modifier la question</h3>
     <div class="form-section">
@@ -102,12 +103,12 @@ function editQuestion(index) {
       <button onclick="cancelEdit()">Annuler</button>
     </div>
   `;
-  document.getElementById('question-list').prepend(form);
+
+  // Insérer le formulaire juste après la question modifiée
+  const questionItem = document.getElementById(`question-item-${index}`);
+  questionItem.insertAdjacentElement('afterend', form);
   populateOptionsFields(q.options.fr, q.options.us);
   updateOptionsPreview();
-
-  // Faire défiler la page jusqu'au formulaire
-  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Remplir les champs d'options dans le formulaire d'édition
