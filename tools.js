@@ -1,7 +1,8 @@
 // tools.js
-
+// Mermaid Live Editor
 // Mermaid Live Editor
 function initializeMermaidEditor() {
+  console.log("Initialisation de Mermaid Live Editor...");
   const mermaidInput = document.getElementById('mermaid-input');
   const mermaidOutput = document.getElementById('mermaid-output');
   if (!mermaidInput || !mermaidOutput) {
@@ -11,8 +12,9 @@ function initializeMermaidEditor() {
 
   // Charger la bibliothèque Mermaid
   if (typeof mermaid === 'undefined') {
+    console.log("Mermaid n'est pas défini, chargement de la bibliothèque...");
     const script = document.createElement('script');
-    script.src = 'https://unpkg.com/mermaid@10/dist/mermaid.min.js';
+    script.src = 'lib/mermaid.min.js';
     script.onload = () => {
       console.log("Mermaid chargé avec succès.");
       mermaid.initialize({ startOnLoad: false, theme: 'default' });
@@ -26,27 +28,38 @@ function initializeMermaidEditor() {
     };
     document.head.appendChild(script);
   } else {
+    console.log("Mermaid est déjà défini, rendu initial...");
     renderMermaid();
     mermaidInput.addEventListener('input', renderMermaid);
   }
 
   function renderMermaid() {
+    console.log("Rendu Mermaid appelé...");
     const code = mermaidInput.value;
-    mermaidOutput.innerHTML = '';
+    if (!code.trim()) {
+      console.log("Code Mermaid vide.");
+      mermaidOutput.innerHTML = `<p style="color: gray;">${translations[currentLang]['mermaid_empty'] || 'Entrez du code Mermaid pour voir le rendu.'}</p>`;
+      return;
+    }
+
+    mermaidOutput.innerHTML = `<p>${translations[currentLang]['loading'] || 'Chargement...'}</p>`;
     try {
+      console.log("Tentative de rendu Mermaid avec le code :", code);
       // Utiliser un ID unique pour éviter les conflits
       const uniqueId = `mermaid-diagram-${Date.now()}`;
       mermaid.render(uniqueId, code).then(result => {
+        console.log("Rendu Mermaid réussi :", result);
         mermaidOutput.innerHTML = result.svg;
       }).catch(error => {
-        mermaidOutput.innerHTML = `<p style="color: red;">Erreur de rendu Mermaid : ${error.message}</p>`;
+        console.error("Erreur lors du rendu Mermaid :", error);
+        mermaidOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['mermaid_render_error'] || 'Erreur de rendu Mermaid'} : ${error.message}</p>`;
       });
     } catch (error) {
-      mermaidOutput.innerHTML = `<p style="color: red;">Erreur de rendu Mermaid : ${error.message}</p>`;
+      console.error("Erreur lors du rendu Mermaid (exception générale) :", error);
+      mermaidOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['mermaid_render_error'] || 'Erreur de rendu Mermaid'} : ${error.message}</p>`;
     }
   }
 }
-
 // Pandoc-like Document Conversion
 function initializeDocumentConverter() {
   const fileInput = document.getElementById('file-input');
