@@ -15,12 +15,16 @@ let validatedStates = []; // Pour stocker l'état des réponses validées
 
 // Charger les traductions
 async function loadTranslations(lang) {
+  console.log(`Début de loadTranslations pour ${lang}`);
   try {
+    console.log(`Tentative de fetch pour lang/${lang}.json`);
     const response = await fetch(`lang/${lang}.json`);
+    console.log(`Réponse fetch reçue : ${response.status}`);
     if (!response.ok) throw new Error(`Failed to load ${lang}.json`);
     translations[lang] = await response.json();
+    console.log(`Traductions chargées :`, translations[lang]);
     applyTranslations();
-    // Déclencher un événement personnalisé pour indiquer que les traductions sont prêtes
+    console.log(`Sur le point de déclencher l'événement translationsLoaded pour ${lang}`);
     const event = new Event('translationsLoaded');
     document.dispatchEvent(event);
     console.log(`Traductions pour ${lang} chargées avec succès.`);
