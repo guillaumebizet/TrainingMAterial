@@ -171,92 +171,90 @@ waitForTranslations().then(() => {
         correction: 'logic_test_2_correction',
         softSkills: ['logic_test_2_soft_skills']
       },
-      'challenge-3': {
-        id: 'challenge-3',
-        title: 'logic_test_3_title',
-        description: 'logic_test_3_description',
-        timeLimit: 60, // 60 secondes
-        render: function(container) {
-          container.innerHTML = `
-            <div class="logic-test">
-              <div class="timer-container">
-                <span id="timer-${this.id}">${formatTime(this.timeLimit)}</span>
-              </div>
-              <p class="challenge-description">${translations[currentLang][this.description]}</p>
-              <div class="river-container">
-                <div class="river-bank left-bank" id="left-bank-${this.id}">
-                  <div class="item farmer" id="farmer-${this.id}" draggable="true"></div>
-                  <div class="item wolf" id="wolf-${this.id}" draggable="true"></div>
-                  <div class="item goat" id="goat-${this.id}" draggable="true"></div>
-                  <div class="item cabbage" id="cabbage-${this.id}" draggable="true"></div>
-                </div>
-                <div class="river">
-                  <div class="boat" id="boat-${this.id}"></div>
-                </div>
-                <div class="river-bank right-bank" id="right-bank-${this.id}"></div>
-              </div>
-              <button id="submit-${this.id}" class="submit-challenge">${translations[currentLang]['logic_test_3_submit'] || 'Terminer'}</button>
-            </div>
-          `;
-          // Animation de la barque (oscillation)
-          const boat = document.getElementById(`boat-${this.id}`);
-          let boatOffset = 0;
-          const animateBoat = () => {
-            boatOffset += 0.1;
-            boat.style.transform = `translateY(${Math.sin(boatOffset) * 5}px)`; // Oscillation verticale
-            requestAnimationFrame(animateBoat);
-          };
-          animateBoat();
-          // Gestion du glisser-déposer
-          const leftBank = document.getElementById(`left-bank-${this.id}`);
-          const rightBank = document.getElementById(`right-bank-${this.id}`);
-          const boat = document.getElementById(`boat-${this.id}`);
-          const items = document.querySelectorAll(`#left-bank-${this.id} .item, #right-bank-${this.id} .item`);
-          items.forEach(item => {
-            item.addEventListener('dragstart', (e) => {
-              e.dataTransfer.setData('text/plain', e.target.id);
-            });
-          });
-          [leftBank, rightBank, boat].forEach(zone => {
-            zone.addEventListener('dragover', (e) => e.preventDefault());
-            zone.addEventListener('drop', (e) => {
-              e.preventDefault();
-              const itemId = e.dataTransfer.getData('text/plain');
-              const item = document.getElementById(itemId);
-              if (item) {
-                // Si on dépose dans la barque, vérifier qu'il n'y a pas déjà un autre item (sauf le fermier)
-                if (zone === boat) {
-                  const itemsInBoat = boat.querySelectorAll('.item:not(.farmer)').length;
-                  if (itemsInBoat >= 1 && itemId !== `farmer-${this.id}`) return; // Limite à 1 item + fermier
-                }
-                zone.appendChild(item);
-                // Vérifier les règles si on dépose sur une rive
-                if (zone === leftBank || zone === rightBank) {
-                  const bankItems = Array.from(zone.querySelectorAll('.item')).map(i => i.classList[1]);
-                  const hasFarmer = bankItems.includes('farmer');
-                  if (!hasFarmer) {
-                    if (bankItems.includes('wolf') && bankItems.includes('goat')) {
-                      alert(translations[currentLang]['logic_test_3_wolf_eats_goat'] || "Le loup a mangé la chèvre !");
-                      stopChallenge(this.id, false);
-                    }
-                    if (bankItems.includes('goat') && bankItems.includes('cabbage')) {
-                      alert(translations[currentLang]['logic_test_3_goat_eats_cabbage'] || "La chèvre a mangé le chou !");
-                      stopChallenge(this.id, false);
-                    }
-                  }
-                }
+    'challenge-3': {
+  id: 'challenge-3',
+  title: 'logic_test_3_title',
+  description: 'logic_test_3_description',
+  timeLimit: 60, // 60 secondes
+  render: function(container) {
+    container.innerHTML = `
+      <div class="logic-test">
+        <div class="timer-container">
+          <span id="timer-${this.id}">${formatTime(this.timeLimit)}</span>
+        </div>
+        <p class="challenge-description">${translations[currentLang][this.description]}</p>
+        <div class="river-container">
+          <div class="river-bank left-bank" id="left-bank-${this.id}">
+            <div class="item farmer" id="farmer-${this.id}" draggable="true"></div>
+            <div class="item wolf" id="wolf-${this.id}" draggable="true"></div>
+            <div class="item goat" id="goat-${this.id}" draggable="true"></div>
+            <div class="item cabbage" id="cabbage-${this.id}" draggable="true"></div>
+          </div>
+          <div class="river">
+            <div class="boat" id="boat-${this.id}"></div>
+          </div>
+          <div class="river-bank right-bank" id="right-bank-${this.id}"></div>
+        </div>
+        <button id="submit-${this.id}" class="submit-challenge">${translations[currentLang]['logic_test_3_submit'] || 'Terminer'}</button>
+      </div>
+    `;
+    // Animation de la barque (oscillation)
+    const boat = document.getElementById(`boat-${this.id}`); // Première déclaration
+    let boatOffset = 0;
+    const animateBoat = () => {
+      boatOffset += 0.1;
+      boat.style.transform = `translateY(${Math.sin(boatOffset) * 5}px)`; // Utilisation de boat
+      requestAnimationFrame(animateBoat);
+    };
+    animateBoat();
+    // Gestion du glisser-déposer
+    const leftBank = document.getElementById(`left-bank-${this.id}`);
+    const rightBank = document.getElementById(`right-bank-${this.id}`);
+    // Suppression de la deuxième déclaration de boat, on réutilise la première
+    const items = document.querySelectorAll(`#left-bank-${this.id} .item, #right-bank-${this.id} .item`);
+    items.forEach(item => {
+      item.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', e.target.id);
+      });
+    });
+    [leftBank, rightBank, boat].forEach(zone => {
+      zone.addEventListener('dragover', (e) => e.preventDefault());
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const itemId = e.dataTransfer.getData('text/plain');
+        const item = document.getElementById(itemId);
+        if (item) {
+          if (zone === boat) {
+            const itemsInBoat = boat.querySelectorAll('.item:not(.farmer)').length;
+            if (itemsInBoat >= 1 && itemId !== `farmer-${this.id}`) return;
+          }
+          zone.appendChild(item);
+          if (zone === leftBank || zone === rightBank) {
+            const bankItems = Array.from(zone.querySelectorAll('.item')).map(i => i.classList[1]);
+            const hasFarmer = bankItems.includes('farmer');
+            if (!hasFarmer) {
+              if (bankItems.includes('wolf') && bankItems.includes('goat')) {
+                alert(translations[currentLang]['logic_test_3_wolf_eats_goat'] || "Le loup a mangé la chèvre !");
+                stopChallenge(this.id, false);
               }
-            });
-          });
-        },
-        validate: function() {
-          const rightBank = document.getElementById(`right-bank-${this.id}`);
-          const itemsOnRight = Array.from(rightBank.querySelectorAll('.item')).map(i => i.classList[1]);
-          return itemsOnRight.includes('farmer') && itemsOnRight.includes('wolf') && itemsOnRight.includes('goat') && itemsOnRight.includes('cabbage');
-        },
-        correction: 'logic_test_3_correction',
-        softSkills: ['logic_test_3_soft_skills']
-      },
+              if (bankItems.includes('goat') && bankItems.includes('cabbage')) {
+                alert(translations[currentLang]['logic_test_3_goat_eats_cabbage'] || "La chèvre a mangé le chou !");
+                stopChallenge(this.id, false);
+              }
+            }
+          }
+        }
+      });
+    });
+  },
+  validate: function() {
+    const rightBank = document.getElementById(`right-bank-${this.id}`);
+    const itemsOnRight = Array.from(rightBank.querySelectorAll('.item')).map(i => i.classList[1]);
+    return itemsOnRight.includes('farmer') && itemsOnRight.includes('wolf') && itemsOnRight.includes('goat') && itemsOnRight.includes('cabbage');
+  },
+  correction: 'logic_test_3_correction',
+  softSkills: ['logic_test_3_soft_skills']
+},
       'challenge-4': {
         id: 'challenge-4',
         title: 'logic_test_4_title',
