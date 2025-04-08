@@ -31,16 +31,20 @@ function applyTranslations() {
     const key = element.getAttribute('data-lang');
     element.textContent = translations[currentLang][key] || key;
   });
+
+  // Mettre à jour les placeholders avec data-lang-placeholder
   document.querySelectorAll('[data-lang-placeholder]').forEach(element => {
     const key = element.getAttribute('data-lang-placeholder');
     element.placeholder = translations[currentLang][key] || key;
   });
-// Mettre à jour le placeholder du champ candidate-name
+
+  // Mettre à jour le placeholder du champ candidate-name
   const candidateNameInput = document.getElementById('candidate-name');
   if (candidateNameInput) {
     candidateNameInput.placeholder = translations[currentLang]['candidate_name'] || 'Enter your name';
   }
 }
+
 function changeLanguage(lang) {
   currentLang = lang;
   loadTranslations(lang).then(() => {
@@ -51,6 +55,12 @@ function changeLanguage(lang) {
       loadQuestions();
       // Restaurer l'état des réponses validées après rechargement
       restoreValidatedStates();
+    }
+    // Réinitialiser les sections dynamiques si elles sont visibles
+    const currentTab = document.querySelector('.tab.active');
+    if (currentTab) {
+      const tabId = currentTab.getAttribute('onclick').match(/'([^']+)'/)[1];
+      showTab(tabId);
     }
   });
 }
@@ -64,20 +74,20 @@ function showModal(message, details = null) {
 
   if (details && typeof details === 'object' && details.question) {
     formattedDetails = `
-      <h3>Détails de la question</h3>
-      <p><strong>Question (FR):</strong> ${details.question.fr}</p>
-      <p><strong>Question (US):</strong> ${details.question.us}</p>
-      <h4>Options:</h4>
+      <h3>${translations[currentLang]['modal_details_title'] || 'Détails de la question'}</h3>
+      <p><strong>${translations[currentLang]['modal_question_fr'] || 'Question (FR)'}:</strong> ${details.question.fr}</p>
+      <p><strong>${translations[currentLang]['modal_question_us'] || 'Question (US)'}:</strong> ${details.question.us}</p>
+      <h4>${translations[currentLang]['modal_options'] || 'Options'}:</h4>
       ${details.options.fr.map((option, i) => `
-        <p>${i + 1}. ${option} / ${details.options.us[i]} ${details.type === 'Choix simple' ? (i === parseInt(details.correct) ? '(Correct)' : '') : (Array.isArray(details.correct) && details.correct.includes(i) ? '(Correct)' : '')}</p>
+        <p>${i + 1}. ${option} / ${details.options.us[i]} ${details.type === 'Choix simple' ? (i === parseInt(details.correct) ? '(' + (translations[currentLang]['correct'] || 'Correct') + ')' : '') : (Array.isArray(details.correct) && details.correct.includes(i) ? '(' + (translations[currentLang]['correct'] || 'Correct') + ')' : '')}</p>
       `).join('')}
-      <p><strong>Lot:</strong> ${details.lot}</p>
-      <p><strong>Type:</strong> ${details.type}</p>
+      <p><strong>${translations[currentLang]['modal_lot'] || 'Lot'}:</strong> ${details.lot}</p>
+      <p><strong>${translations[currentLang]['modal_type'] || 'Type'}:</strong> ${details.type}</p>
     `;
   } else if (details && typeof details === 'string') {
     formattedDetails = `<p>${details}</p>`;
   } else if (details) {
-    formattedDetails = `<p>Détails non disponibles ou format non pris en charge.</p>`;
+    formattedDetails = `<p>${translations[currentLang]['modal_details_unavailable'] || 'Détails non disponibles ou format non pris en charge.'}</p>`;
   }
 
   modalMessage.innerHTML = `
@@ -133,7 +143,7 @@ function validateAnswer(index, forceValidation = false) {
     }
     console.log(`Aucune réponse sélectionnée pour la question ${index + 1}, considérée comme incorrecte.`);
     incorrectCount++;
-    feedback.textContent = "Incorrect (aucune réponse sélectionnée)";
+    feedback.textContent = translations[currentLang]['incorrect_no_selection'] || "Incorrect (aucune réponse sélectionnée)";
     feedback.className = 'feedback incorrect';
   } else {
     const answers = Array.from(selected).map(i => parseInt(i.value, 10));
@@ -147,12 +157,12 @@ function validateAnswer(index, forceValidation = false) {
     if (isCorrect) {
       score++;
       correctCount++;
-      feedback.textContent = "Correct !";
+      feedback.textContent = translations[currentLang]['correct'] || "Correct !";
       feedback.className = 'feedback correct';
       console.log(`Question ${index + 1} correcte, score mis à jour : ${score}`);
     } else {
       incorrectCount++;
-      feedback.textContent = "Incorrect";
+      feedback.textContent = translations[currentLang]['incorrect'] || "Incorrect";
       feedback.className = 'feedback incorrect';
       console.log(`Question ${index + 1} incorrecte, score : ${score}`);
     }
@@ -236,7 +246,6 @@ function showResult() {
   document.getElementById('total-questions-result').textContent = selectedQuestions.length;
 }
 
-// Dans quiz-core.js, remplace la fonction showTab par celle-ci
 function showTab(tabId) {
   // Liste de tous les conteneurs d'onglets
   const allTabs = [
@@ -284,6 +293,23 @@ function showTab(tabId) {
   }
   if (tabId === 'scores-container') {
     loadScores();
+  }
+  // Ajouter les initialisations pour les nouveaux onglets
+  if (tabId === 'mermaid-editor-container') {
+    console.log("Affichage de l'onglet Mermaid Live Editor, initialisation...");
+    initializeMermaidEditor();
+  }
+  if (tabId === 'converter-container') {
+    console.log("Affichage de l'onglet Convertisseur de Documents, initialisation...");
+    initializeDocumentConverter();
+  }
+  if (tabId === 'json-validator-container') {
+    console.log("Affichage de l'onglet Validateur JSON, initialisation...");
+    initializeJsonValidator();
+  }
+  if (tabId === 'cicd-course-container') {
+    console.log("Affichage de l'onglet Cours CI/CD, initialisation...");
+    initializeCICDCourse();
   }
 }
 
