@@ -1,6 +1,6 @@
 let editingIndex = null;
 let modifiedQuestionsIndices = new Set();
-let deletedQuestions = []; // Pour suivre les questions supprimées
+let deletedQuestions = [];
 let isFilterEventAttached = false;
 
 // Charger la liste des questions
@@ -40,7 +40,7 @@ function loadQuestionList() {
     list.appendChild(div);
   });
 
-  updatePendingChangesSidebar(); // Mettre à jour le volet latéral après chaque changement
+  updatePendingChangesSidebar();
 }
 
 // Rendre les options pour les questions à choix simple
@@ -70,6 +70,7 @@ function editQuestion(index) {
   const q = questions[index];
   const form = document.createElement('div');
   form.className = 'edit-form';
+  form.id = 'edit-form-' + index; // Ajout d'un ID unique pour le formulaire
   form.innerHTML = `
     <h3>Modifier la question</h3>
     <div class="form-section">
@@ -104,6 +105,9 @@ function editQuestion(index) {
   document.getElementById('question-list').prepend(form);
   populateOptionsFields(q.options.fr, q.options.us);
   updateOptionsPreview();
+
+  // Faire défiler la page jusqu'au formulaire
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Remplir les champs d'options dans le formulaire d'édition
@@ -238,7 +242,7 @@ function saveQuestionLocally() {
   editingIndex = null;
 
   showNotification("Modifications sauvegardées localement !");
-  loadQuestionList(); // Rafraîchir la liste
+  loadQuestionList();
 }
 
 // Annuler l'édition
@@ -249,8 +253,8 @@ function cancelEdit() {
 
 // Supprimer une question
 function deleteQuestion(index) {
-  const deletedQuestion = { ...questions[index], index }; // Sauvegarder la question supprimée
-  deletedQuestions.push(deletedQuestion); // Ajouter à la liste des suppressions
+  const deletedQuestion = { ...questions[index], index };
+  deletedQuestions.push(deletedQuestion);
   questions.splice(index, 1);
   modifiedQuestionsIndices.delete(index);
   const newIndices = new Set();
@@ -261,7 +265,7 @@ function deleteQuestion(index) {
   modifiedQuestionsIndices = newIndices;
 
   showNotification("Question supprimée localement !");
-  loadQuestionList(); // Rafraîchir la liste
+  loadQuestionList();
 }
 
 // Ajouter une nouvelle question
@@ -291,7 +295,6 @@ function updatePendingChangesSidebar() {
   const changesList = document.getElementById('pending-changes-list');
   changesList.innerHTML = '';
 
-  // Lister les questions modifiées
   modifiedQuestionsIndices.forEach(index => {
     const q = questions[index];
     const li = document.createElement('li');
@@ -300,7 +303,6 @@ function updatePendingChangesSidebar() {
     changesList.appendChild(li);
   });
 
-  // Lister les questions supprimées
   deletedQuestions.forEach(deleted => {
     const li = document.createElement('li');
     li.className = 'pending-change-item deleted';
@@ -308,7 +310,6 @@ function updatePendingChangesSidebar() {
     changesList.appendChild(li);
   });
 
-  // Afficher ou masquer le bouton "Commit All Changes"
   const commitButton = document.getElementById('commit-all-changes-btn');
   if (modifiedQuestionsIndices.size > 0 || deletedQuestions.length > 0) {
     sidebar.style.display = 'block';
