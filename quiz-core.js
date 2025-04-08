@@ -102,34 +102,43 @@ function startTimer() {
   }, 1000);
 }
 
-function validateAnswer(index) {
+function validateAnswer(index, forceValidation = false) {
   const question = selectedQuestions[index];
   const selected = document.querySelectorAll(`input[name="option-${index}"]:checked`);
   const feedback = document.getElementById(`feedback-${index}`);
   const validateBtn = document.querySelectorAll('.validate-btn')[index];
 
   if (!selected.length) {
-    showModal('select_answer');
-    return;
-  }
-
-  const answers = Array.from(selected).map(i => parseInt(i.value, 10));
-  const correct = Array.isArray(question.correct) ? question.correct : [question.correct];
-
-  const isCorrect = (
-    answers.length === correct.length &&
-    answers.every(ans => correct.includes(ans))
-  );
-
-  if (isCorrect) {
-    score++;
-    correctCount++;
-    feedback.textContent = "Correct !";
-    feedback.className = 'feedback correct';
-  } else {
+    if (!forceValidation) {
+      showModal('select_answer');
+      return false;
+    }
+    // Si forceValidation est true, considérer comme incorrect
+    console.log(`Aucune réponse sélectionnée pour la question ${index + 1}, considérée comme incorrecte.`);
     incorrectCount++;
-    feedback.textContent = "Incorrect";
+    feedback.textContent = "Incorrect (aucune réponse sélectionnée)";
     feedback.className = 'feedback incorrect';
+  } else {
+    const answers = Array.from(selected).map(i => parseInt(i.value, 10));
+    const correct = Array.isArray(question.correct) ? question.correct : [question.correct];
+
+    const isCorrect = (
+      answers.length === correct.length &&
+      answers.every(ans => correct.includes(ans))
+    );
+
+    if (isCorrect) {
+      score++;
+      correctCount++;
+      feedback.textContent = "Correct !";
+      feedback.className = 'feedback correct';
+      console.log(`Question ${index + 1} correcte, score mis à jour : ${score}`);
+    } else {
+      incorrectCount++;
+      feedback.textContent = "Incorrect";
+      feedback.className = 'feedback incorrect';
+      console.log(`Question ${index + 1} incorrecte, score : ${score}`);
+    }
   }
 
   feedback.style.display = 'inline-block';
@@ -138,20 +147,27 @@ function validateAnswer(index) {
   validateBtn.disabled = true;
 
   const allValidated = [...document.querySelectorAll('.validate-btn')].every(btn => btn.disabled);
-  if (allValidated) {
+  if (allValidated && !forceValidation) {
     clearInterval(timerInterval);
     showResult();
   }
+  return true;
 }
 
 function validateAllAnswers() {
   console.log("Validation de toutes les réponses non validées...");
+  let allValidated = true;
   selectedQuestions.forEach((_, index) => {
     const validateBtn = document.querySelectorAll('.validate-btn')[index];
     if (!validateBtn.disabled) {
-      validateAnswer(index);
+      const validated = validateAnswer(index, true);
+      if (!validated) {
+        allValidated = false;
+      }
     }
   });
+  console.log("Validation terminée, score final :", score);
+  return allValidated;
 }
 
 function showResult() {
@@ -294,6 +310,7 @@ function loadQuestions() {
 }
 
 async function saveScore() {
+  console.log("Début de saveScore...");
   console.log("Lot sélectionné au moment de la sauvegarde :", currentLot);
   const lotSelect = document.getElementById('lot-selection');
   console.log("Options de lot disponibles :", lotSelect ? lotSelect.innerHTML : "Élément non trouvé");
@@ -306,7 +323,10 @@ async function saveScore() {
     lot: currentLot,
     lang: currentLang
   };
+  console.log("Score à sauvegarder :", scoreData);
+
   scores.push(scoreData);
+  console.log("Scores après ajout :", scores);
 
   try {
     localStorage.setItem('scores', JSON.stringify(scores));
@@ -318,15 +338,15 @@ async function saveScore() {
   const token = sessionStorage.getItem('githubPAT');
   if (token) {
     console.log("Tentative de sauvegarde sur GitHub avec PAT:", scores);
-    await saveScoresToGitHub(token); // Attendre la fin de la sauvegarde
-    clearInterval(timerInterval);
-    showTab('scores-container');
-    return true;
+    await saveScoresToGitHub(token);
+    console.log("Sauvegarde sur GitHub terminée.");
   } else {
     console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
-    showTab('scores-container');
-    return false;
   }
+
+  clearInterval(timerInterval);
+  showTab('scores-container');
+  return true;
 }
 
 // Initialisation et événements
@@ -400,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveResultButton = document.getElementById('save-result-btn');
   if (saveResultButton) {
     saveResultButton.addEventListener('click', async () => {
-      validateAllAnswers(); // Valider toutes les réponses avant de sauvegarder
+      validateAllAnswers();
       await saveScore();
       const feedback = document.getElementById('save-result-feedback');
       feedback.textContent = translations[currentLang]['save_results_success'] || 'Résultats sauvegardés avec succès !';
@@ -416,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (saveCurrentScoreButton) {
     saveCurrentScoreButton.addEventListener('click', async () => {
       console.log("Clic sur 'Sauvegarder le score actuel'");
-      validateAllAnswers(); // Valider toutes les réponses non validées
+      validateAllAnswers();
       const saved = await saveScore();
       const feedback = document.getElementById('save-current-feedback');
       if (feedback) {
