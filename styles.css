@@ -362,16 +362,13 @@ button {
 /* Bandeau de notification */
 .notification {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #3498db;
+  top: 20px;
+  right: 20px;
+  background-color: #4CAF50;
   color: white;
   padding: 10px;
-  text-align: center;
-  z-index: 999;
-  font-size: 1.1em;
-  animation: slideDown 0.5s ease-in-out;
+  border-radius: 4px;
+  z-index: 1000;
 }
 
 .notification p {
@@ -503,6 +500,8 @@ button {
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   animation: slideIn 0.3s ease-in;
+  width: 100%; /* Prendre 100% de la largeur */
+  box-sizing: border-box;
 }
 
 .edit-form h3 {
@@ -640,6 +639,7 @@ button {
 .form-actions button:last-of-type:hover {
   background-color: #c0392b;
 }
+
 .edit-content {
   display: flex;
   gap: 20px;
@@ -654,8 +654,9 @@ button {
   background-color: #f9f9f9;
   border-left: 1px solid #ddd;
   padding: 15px;
-  height: fit-content;
-  max-height: 80vh;
+  position: sticky; /* Rendre le panneau fixe */
+  top: 20px; /* S'assurer qu'il reste en haut pendant le défilement */
+  max-height: calc(100vh - 40px); /* Ajuster la hauteur pour éviter le débordement */
   overflow-y: auto;
 }
 
@@ -702,16 +703,6 @@ button {
   background-color: #45a049;
 }
 
-.notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px;
-  border-radius: 4px;
-  z-index: 1000;
-}
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
