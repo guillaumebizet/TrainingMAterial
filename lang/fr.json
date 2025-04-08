@@ -1,4 +1,7 @@
 {
+  "mermaid_empty": "Entrez du code Mermaid pour voir le rendu.",
+  "loading": "Chargement...",
+  "mermaid_render_error": "Erreur de rendu Mermaid"
   "welcome_message": "Bienvenue sur Training Material",
   "candidate_name": "Nom du candidat",
   "choose_lot": "Choisir un lot",
