@@ -228,14 +228,45 @@ function showResult() {
   document.getElementById('total-questions-result').textContent = selectedQuestions.length;
 }
 
+// Dans quiz-core.js, remplace la fonction showTab par celle-ci
 function showTab(tabId) {
-  document.querySelectorAll('#start-screen, #quiz-container, #edit-container, #scores-container, #result').forEach(el => el.style.display = 'none');
-  document.getElementById(tabId).style.display = 'block';
+  // Liste de tous les conteneurs d'onglets
+  const allTabs = [
+    'start-screen',
+    'quiz-container',
+    'edit-container',
+    'scores-container',
+    'result',
+    'mermaid-editor-container',
+    'converter-container',
+    'json-validator-container',
+    'cicd-course-container'
+  ];
+
+  // Masquer tous les onglets
+  allTabs.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.style.display = 'none';
+    }
+  });
+
+  // Afficher l'onglet sélectionné
+  const selectedTab = document.getElementById(tabId);
+  if (selectedTab) {
+    selectedTab.style.display = 'block';
+  } else {
+    console.error(`Onglet '${tabId}' non trouvé.`);
+  }
+
+  // Mettre à jour l'état actif des onglets
   document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
   const activeTab = document.querySelector(`.tab[onclick="showTab('${tabId}')"]`);
   if (activeTab) {
     activeTab.classList.add('active');
   }
+
+  // Actions spécifiques à certains onglets
   if (tabId === 'edit-container') {
     if (typeof fetchQuestions === 'function') {
       fetchQuestions().then(() => loadQuestionList());
@@ -243,7 +274,9 @@ function showTab(tabId) {
       console.error("fetchQuestions n'est pas défini.");
     }
   }
-  if (tabId === 'scores-container') loadScores();
+  if (tabId === 'scores-container') {
+    loadScores();
+  }
 }
 
 async function startQuiz() {
