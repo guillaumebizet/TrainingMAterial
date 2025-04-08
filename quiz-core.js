@@ -26,13 +26,21 @@ async function loadTranslations(lang) {
 }
 
 function applyTranslations() {
+  // Mettre à jour les éléments avec data-lang
   document.querySelectorAll('[data-lang]').forEach(element => {
     const key = element.getAttribute('data-lang');
     element.textContent = translations[currentLang][key] || key;
   });
-  document.getElementById('candidate-name').placeholder = currentLang === "fr" ? "Entrez votre nom" : "Enter your name";
+  document.querySelectorAll('[data-lang-placeholder]').forEach(element => {
+    const key = element.getAttribute('data-lang-placeholder');
+    element.placeholder = translations[currentLang][key] || key;
+  });
+// Mettre à jour le placeholder du champ candidate-name
+  const candidateNameInput = document.getElementById('candidate-name');
+  if (candidateNameInput) {
+    candidateNameInput.placeholder = translations[currentLang]['candidate_name'] || 'Enter your name';
+  }
 }
-
 function changeLanguage(lang) {
   currentLang = lang;
   loadTranslations(lang).then(() => {
