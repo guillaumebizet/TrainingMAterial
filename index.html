@@ -193,7 +193,7 @@ graph TD
           <option value="markdown">Markdown</option>
         </select>
         <label for="convert-to" data-lang="converter_to_label">Convertir vers :</label>
-        <select id="convert-to">
+                <select id="convert-to">
           <option value="html">HTML</option>
           <option value="markdown">Markdown</option>
           <option value="text">Texte brut</option>
@@ -244,7 +244,7 @@ graph TD
         } else {
           console.log('initializeLogicTests est défini, prêt à être utilisé.');
         }
-      }, 1000); // Attendre 1 seconde pour laisser le temps aux scripts de se charger
+      }, 3000); // Augmenter le délai à 3 secondes pour laisser plus de temps aux scripts asynchrones
     });
   </script>
 </body>
