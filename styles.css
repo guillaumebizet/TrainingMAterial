@@ -119,6 +119,13 @@ button {
   cursor: pointer;
   font-size: 1em;
   transition: background-color 0.3s;
+  opacity: 1; /* Assurer que les boutons ne sont pas grisés par défaut */
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .validate-btn {
@@ -719,7 +726,6 @@ button {
 #commit-all-changes-btn:hover {
   background-color: #45a049;
 }
-/* Ajouts à styles.css */
 
 /* Mermaid Live Editor */
 .mermaid-editor {
@@ -744,6 +750,100 @@ button {
   padding: 10px;
   background-color: #f9f9f9;
   overflow: auto;
+}
+
+/* Styles pour les messages d'erreur de Mermaid */
+.mermaid-error {
+  background-color: #ffebee;
+  border: 1px solid #ef5350;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.mermaid-error p {
+  margin: 5px 0;
+}
+
+/* Styles pour le cheat sheet (général pour toutes les sections) */
+.cheat-sheet {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.cheat-sheet h3 {
+  margin-top: 0;
+}
+
+.cheat-sheet pre {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.cheat-sheet button.insert-example {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.cheat-sheet button.insert-example:hover {
+  background-color: #45a049;
+}
+
+/* Style pour les boutons Afficher/Masquer (général pour toutes les sections) */
+.cheat-sheet-toggle {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  opacity: 1;
+}
+
+.cheat-sheet-toggle:hover {
+  background-color: #007bb5;
+}
+
+.cheat-sheet-toggle:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Spécifique à Mermaid Live Editor */
+#mermaid-cheat-sheet {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+#mermaid-cheat-sheet-toggle {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  opacity: 1;
+}
+
+#mermaid-cheat-sheet-toggle:hover {
+  background-color: #007bb5;
+}
+
+#mermaid-cheat-sheet-toggle:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* Convertisseur de Documents */
@@ -802,6 +902,33 @@ button {
   word-wrap: break-word;
 }
 
+/* Spécifique au Convertisseur de Documents */
+#converter-cheat-sheet {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+#converter-cheat-sheet-toggle {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  opacity: 1;
+}
+
+#converter-cheat-sheet-toggle:hover {
+  background-color: #007bb5;
+}
+
+#converter-cheat-sheet-toggle:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 /* Validateur JSON */
 .json-validator {
   margin-top: 20px;
@@ -837,6 +964,33 @@ button {
 #json-output pre {
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+
+/* Spécifique au Validateur JSON */
+#json-validator-cheat-sheet {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+#json-validator-cheat-sheet-toggle {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  opacity: 1;
+}
+
+#json-validator-cheat-sheet-toggle:hover {
+  background-color: #007bb5;
+}
+
+#json-validator-cheat-sheet-toggle:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* Cours CI/CD avec style MkDocs */
@@ -887,37 +1041,7 @@ button {
   border-radius: 5px;
   overflow-x: auto;
 }
-/* Styles pour le cheat sheet */
-#mermaid-cheat-sheet {
-  font-family: Arial, sans-serif;
-  line-height: 1.5;
-}
 
-#mermaid-cheat-sheet h3 {
-  margin-top: 0;
-}
-
-#mermaid-cheat-sheet pre {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-#mermaid-cheat-sheet button.insert-example {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  margin: 5px 0;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-#mermaid-cheat-sheet button.insert-example:hover {
-  background-color: #45a049;
-}
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
