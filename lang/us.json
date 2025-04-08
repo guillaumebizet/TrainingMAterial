@@ -125,6 +125,7 @@
   "logic_test_1_soft_skills": "Analytical Thinking, Focus Under Pressure",
   "logic_test_2_title": "Challenge 2: Sock Colors",
   "logic_test_2_description": "You have a drawer with 6 black socks, 10 red socks, and 8 blue socks, mixed in the dark. How many socks must you draw to be sure of having a pair of the same color? Drag the socks into the area below to find out!",
+  "logic_test_2_hint": "Hint: Think about the worst-case scenario to guarantee a pair!",
   "logic_test_2_correction": "There are 3 colors, so in the worst case, you draw one sock of each color (3 socks). The 4th sock will definitely be the same color as one of the previous ones, ensuring a pair. Answer: 4 socks.",
   "logic_test_2_soft_skills": "Probabilistic Reasoning, Quick Decision-Making, Distraction Management",
   "start_challenge": "Start Challenge",
