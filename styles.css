@@ -735,16 +735,17 @@ button:disabled {
 }
 
 #mermaid-input {
-  width: 50%;
+  width: 25%; /* Réduire la largeur pour donner plus de place à la partie graphique */
+  min-width: 200px; /* Taille minimale équivalente à environ 20 caractères */
   height: 300px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  resize: vertical;
+  resize: vertical; /* Permettre le redimensionnement vertical uniquement */
 }
 
 #mermaid-output {
-  width: 50%;
+  width: 75%; /* Augmenter la largeur pour la partie graphique */
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -763,6 +764,26 @@ button:disabled {
 
 .mermaid-error p {
   margin: 5px 0;
+}
+
+/* Styles pour les actions (boutons d'exportation) */
+.mermaid-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+#export-svg-button, #export-png-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#export-svg-button:hover, #export-png-button:hover {
+  background-color: #45a049;
 }
 
 /* Styles pour le cheat sheet (général pour toutes les sections) */
