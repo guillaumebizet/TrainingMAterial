@@ -78,12 +78,12 @@ function initializeDocumentConverter() {
   }
 
   // Charger les bibliothèques nécessaires
-  loadScript('https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js', () => {
-    loadScript('https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js', () => {
-      loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js', () => {
+  loadScript('lib/mammoth.browser.min.js', () => {
+    loadScript('lib/showdown.min.js', () => {
+      loadScript('lib/pdf.min.js', () => {
         console.log("Bibliothèques de conversion chargées.");
         // Définir le worker pour pdf.js
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'lib/pdf.worker.min.js';
         // Attacher l'événement après le chargement des bibliothèques
         attachConvertEvent();
       }, () => {
@@ -192,7 +192,7 @@ function initializeJsonValidator() {
   }
 
   // Charger la bibliothèque AJV pour la validation JSON
-  loadScript('https://cdn.jsdelivr.net/npm/ajv@8.12.0/dist/ajv.min.js', () => {
+  loadScript('lib/ajv.min.js', () => {
     console.log("AJV chargé avec succès.");
     const ajv = new Ajv();
     // Attacher l'événement après le chargement
@@ -227,7 +227,7 @@ function initializeCICDCourse() {
   }
 
   // Charger la bibliothèque marked pour convertir Markdown en HTML
-  loadScript('https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.min.js', () => {
+  loadScript('lib/marked.min.js', () => {
     console.log("Marked chargé avec succès.");
     // Charger le contenu du cours depuis les traductions
     const cicdCourseMarkdown = translations[currentLang]['cicd_course_content'] || '# Error\nContent not available.';
