@@ -2,67 +2,73 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <title>Quiz Onboarding</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training Material</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="notification-banner" class="notification" style="display:none;">
-    <span id="notification-message"></span>
-  </div>
-
-  <div id="github-modal" class="modal" style="display:none;">
-    <div class="modal-content">
-      <span id="modal-message"></span>
-      <button id="modal-close-btn">OK</button>
-    </div>
-  </div>
-
   <div id="tabs">
-    <div class="tab active" onclick="showTab('start-screen')" data-lang="start_quiz"></div>
-    <div class="tab" onclick="showTab('edit-container')" data-lang="edit_questions"></div>
-    <div class="tab" onclick="showTab('scores-container')" data-lang="scores"></div>
+    <div class="tab" onclick="showTab('start-screen')">Démarrer le quiz</div>
+    <div class="tab" onclick="showTab('edit-container')">Éditer Questions</div>
+    <div class="tab" onclick="showTab('scores-container')">Scores</div>
+    <div class="tab" onclick="showTab('mermaid-editor-container')">Mermaid Live Editor</div>
+    <div class="tab" onclick="showTab('converter-container')">Convertisseur de Documents</div>
+    <div class="tab" onclick="showTab('json-validator-container')">Validateur JSON</div>
+    <div class="tab" onclick="showTab('cicd-course-container')">Cours CI/CD</div>
     <select id="language-selection" onchange="changeLanguage(this.value)">
       <option value="fr">Français</option>
       <option value="us">English</option>
     </select>
   </div>
 
-  <div id="start-screen">
-    <h2>Quiz Onboarding</h2>
-    <label for="candidate-name" data-lang="candidate_name"></label>
-    <input type="text" id="candidate-name" placeholder="Entrez votre nom">
-    <p>Date : <span id="current-date"></span></p>
-    <div id="pat-section">
-      <label for="github-pat" data-lang="github_pat"></label>
-      <input type="password" id="github-pat" placeholder="Collez votre PAT ici">
-      <button id="validate-pat-btn" data-lang="validate_pat"></button>
-      <span id="pat-status" style="display:none; color: #27ae60; margin-left: 10px;">
-        <span data-lang="pat_loaded"></span>
-        <button id="reset-pat-btn" data-lang="reset_pat"></button>
-      </span>
-      <p id="pat-feedback" style="display:none; color: #27ae60;"></p>
+  <div id="notification-banner" style="display: none;">
+    <span id="notification-message"></span>
+  </div>
+
+  <div id="github-modal" style="display: none;">
+    <div class="modal-content">
+      <span id="modal-message"></span>
+      <button id="modal-close-btn">Fermer</button>
     </div>
+  </div>
+
+  <div id="start-screen">
+    <h1 data-lang="welcome_message">Bienvenue sur Training Material</h1>
+    <p>Date : <span id="current-date"></span></p>
     <div id="question-selection">
-      <h3 data-lang="select_lot"></h3>
+      <label for="candidate-name" data-lang="candidate_name"></label>
+      <input type="text" id="candidate-name" placeholder="Entrez votre nom">
+      <label for="lot-selection" data-lang="choose_lot"></label>
       <select id="lot-selection">
         <option value="" data-lang="choose_lot"></option>
       </select>
       <button id="start-quiz-button" data-lang="start_quiz"></button>
     </div>
+    <div id="pat-section">
+      <label for="github-pat" data-lang="github_pat"></label>
+      <input type="text" id="github-pat" placeholder="Entrez votre PAT GitHub">
+      <button id="validate-pat-btn" data-lang="validate_pat"></button>
+      <span id="pat-status" style="display: none;" data-lang="pat_validated"></span>
+      <button id="reset-pat-btn" style="display: none;" data-lang="reset_pat"></button>
+      <div id="pat-feedback" style="display: none;"></div>
+    </div>
   </div>
 
-  <div id="quiz-container">
+  <div id="quiz-container" style="display: none;">
     <div id="header">
-      <div id="score-counter">Score : <span id="current-score">0</span> / <span id="total-questions">0</span> | Bonnes: <span id="correct-count">0</span> | Mauvaises: <span id="incorrect-count">0</span></div>
+      <div id="score-counter">
+        Score : <span id="current-score">0</span> / <span id="total-questions">0</span> |
+        Correctes : <span id="correct-count">0</span> |
+        Incorrectes : <span id="incorrect-count">0</span>
+      </div>
       <div id="timer">Temps : 00:00</div>
     </div>
     <button id="save-current-score-btn" data-lang="save_current_score"></button>
-    <p id="save-current-feedback" style="display:none; color: #27ae60;"></p>
+    <div id="save-current-feedback" style="display: none;"></div>
     <div id="questions-list"></div>
   </div>
 
-  <div id="edit-container">
+  <div id="edit-container" style="display: none;">
     <h2 data-lang="edit_questions"></h2>
     <div class="edit-content">
       <div class="question-list-container">
@@ -83,7 +89,7 @@
     </div>
   </div>
 
-  <div id="scores-container">
+  <div id="scores-container" style="display: none;">
     <h2 data-lang="scores"></h2>
     <table id="scores-table">
       <thead>
@@ -99,15 +105,74 @@
     </table>
   </div>
 
-  <div id="result" style="display:none;">
-    <h2 data-lang="your_final_score"><span id="score"></span> / <span id="total-questions-result"></span></h2>
+  <div id="result" style="display: none;">
+    <h2 data-lang="result"></h2>
+    <p data-lang="score_message">Votre score : <span id="score"></span> / <span id="total-questions-result"></span></p>
     <button id="save-result-btn" data-lang="save_results"></button>
-    <p id="save-result-feedback" style="display:none;"></p>
+    <div id="save-result-feedback" style="display: none;"></div>
   </div>
 
+  <!-- Mermaid Live Editor -->
+  <div id="mermaid-editor-container" style="display: none;">
+    <h2>Mermaid Live Editor</h2>
+    <div class="mermaid-editor">
+      <textarea id="mermaid-input" placeholder="Écrivez votre code Mermaid ici...">
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+      </textarea>
+      <div id="mermaid-output"></div>
+    </div>
+  </div>
+
+  <!-- Convertisseur de Documents -->
+  <div id="converter-container" style="display: none;">
+    <h2>Convertisseur de Documents</h2>
+    <div class="converter">
+      <label for="file-input">Charger un fichier :</label>
+      <input type="file" id="file-input" accept=".docx,.pdf,.md">
+      <label for="free-text-input">Ou entrez du texte libre :</label>
+      <textarea id="free-text-input" placeholder="Entrez du texte à convertir..."></textarea>
+      <div class="conversion-options">
+        <label for="convert-from">Convertir depuis :</label>
+        <select id="convert-from">
+          <option value="docx">DOCX</option>
+          <option value="pdf">PDF</option>
+          <option value="markdown">Markdown</option>
+        </select>
+        <label for="convert-to">Convertir vers :</label>
+        <select id="convert-to">
+          <option value="html">HTML</option>
+          <option value="markdown">Markdown</option>
+          <option value="text">Texte brut</option>
+        </select>
+        <button id="convert-button">Convertir</button>
+      </div>
+      <div id="convert-output"></div>
+    </div>
+  </div>
+
+  <!-- Validateur JSON -->
+  <div id="json-validator-container" style="display: none;">
+    <h2>Validateur JSON</h2>
+    <div class="json-validator">
+      <textarea id="json-input" placeholder='Entrez votre JSON ici... (ex. {"key": "value"})'></textarea>
+      <button id="validate-json-button">Valider JSON</button>
+      <div id="json-output"></div>
+    </div>
+  </div>
+
+  <!-- Cours CI/CD -->
+  <div id="cicd-course-container" style="display: none;">
+    <h2>Cours CI/CD</h2>
+    <div id="cicd-course-output" class="mkdocs-style"></div>
+  </div>
+
+  <script src="github.js"></script>
   <script src="quiz-core.js"></script>
   <script src="edit.js"></script>
-  <script src="github.js"></script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92cacf94ef714c09',t:'MTc0NDA0MjM5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+  <script src="tools.js"></script>
 </body>
 </html>
