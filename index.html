@@ -113,48 +113,48 @@
     <div id="save-result-feedback" style="display: none;"></div>
   </div>
 
- <!-- Mermaid Live Editor -->
-<div id="mermaid-editor-container" style="display: none;">
-  <h2 data-lang="mermaid_editor_title">Mermaid Live Editor</h2>
-  <div class="mermaid-editor">
-    <textarea id="mermaid-input" data-lang-placeholder="mermaid_input_placeholder">
+  <!-- Mermaid Live Editor -->
+  <div id="mermaid-editor-container" style="display: none;">
+    <h2 data-lang="mermaid_editor_title">Mermaid Live Editor</h2>
+    <div class="mermaid-editor">
+      <textarea id="mermaid-input" data-lang-placeholder="mermaid_input_placeholder">
 graph TD
     A-->B
     A-->C
     B-->D
     C-->D
-    </textarea>
-    <div id="mermaid-output"></div>
+      </textarea>
+      <div id="mermaid-output"></div>
+    </div>
+    <!-- Bouton pour afficher/masquer le cheat sheet -->
+    <button id="mermaid-cheat-sheet-toggle" data-lang="mermaid_cheat_sheet_show">Afficher l’aide</button>
+    <!-- Section collapsible pour le cheat sheet -->
+    <div id="mermaid-cheat-sheet" class="cheat-sheet" style="display: none; margin-top: 10px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9;">
+      <h3 data-lang="mermaid_cheat_sheet_title">Aide pour Mermaid Live Editor</h3>
+      <p><strong data-lang="instructions">Instructions :</strong></p>
+      <pre data-lang="mermaid_cheat_sheet_instructions"></pre>
+      <p><strong data-lang="basic_syntax">Syntaxe de base :</strong></p>
+      <pre data-lang="mermaid_cheat_sheet_basic_syntax"></pre>
+      <p><strong data-lang="example_1">Exemple 1 : Diagramme de flux simple</strong></p>
+      <pre data-lang="mermaid_cheat_sheet_example_1_title"></pre>
+      <pre class="mermaid-example" data-lang="mermaid_cheat_sheet_example_1_code"></pre>
+      <button class="insert-example" data-example="mermaid_cheat_sheet_example_1_code" data-lang="mermaid_cheat_sheet_insert_example_1">Insérer Exemple 1</button>
+      <p><strong data-lang="example_2">Exemple 2 : Diagramme avec labels et styles de flèches</strong></p>
+      <pre data-lang="mermaid_cheat_sheet_example_2_title"></pre>
+      <pre class="mermaid-example" data-lang="mermaid_cheat_sheet_example_2_code"></pre>
+      <button class="insert-example" data-example="mermaid_cheat_sheet_example_2_code" data-lang="mermaid_cheat_sheet_insert_example_2">Insérer Exemple 2</button>
+      <p><strong data-lang="example_3">Exemple 3 : Diagramme de séquence</strong></p>
+      <pre data-lang="mermaid_cheat_sheet_example_3_title"></pre>
+      <pre class="mermaid-example" data-lang="mermaid_cheat_sheet_example_3_code"></pre>
+      <button class="insert-example" data-example="mermaid_cheat_sheet_example_3_code" data-lang="mermaid_cheat_sheet_insert_example_3">Insérer Exemple 3</button>
+      <p><strong data-lang="supported_types">Types de diagrammes supportés :</strong></p>
+      <pre data-lang="mermaid_cheat_sheet_supported_types"></pre>
+      <p><strong data-lang="common_errors">Erreurs courantes à éviter :</strong></p>
+      <pre data-lang="mermaid_cheat_sheet_common_errors"></pre>
+      <p><strong data-lang="tips">Astuces :</strong></p>
+      <pre data-lang="mermaid_cheat_sheet_tips"></pre>
+    </div>
   </div>
-  <!-- Bouton pour afficher/masquer le cheat sheet -->
-  <button id="mermaid-cheat-sheet-toggle" data-lang="mermaid_cheat_sheet_show">Afficher l’aide</button>
-  <!-- Section collapsible pour le cheat sheet -->
-  <div id="mermaid-cheat-sheet" style="display: none; margin-top: 10px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9;">
-    <h3 data-lang="mermaid_cheat_sheet_title">Aide pour Mermaid Live Editor</h3>
-    <p><strong data-lang="instructions">Instructions :</strong></p>
-    <pre data-lang="mermaid_cheat_sheet_instructions"></pre>
-    <p><strong data-lang="basic_syntax">Syntaxe de base :</strong></p>
-    <pre data-lang="mermaid_cheat_sheet_basic_syntax"></pre>
-    <p><strong data-lang="example_1">Exemple 1 : Diagramme de flux simple</strong></p>
-    <pre data-lang="mermaid_cheat_sheet_example_1_title"></pre>
-    <pre class="mermaid-example" data-lang="mermaid_cheat_sheet_example_1_code"></pre>
-    <button class="insert-example" data-example="mermaid_cheat_sheet_example_1_code" data-lang="mermaid_cheat_sheet_insert_example_1">Insérer Exemple 1</button>
-    <p><strong data-lang="example_2">Exemple 2 : Diagramme avec labels et styles de flèches</strong></p>
-    <pre data-lang="mermaid_cheat_sheet_example_2_title"></pre>
-    <pre class="mermaid-example" data-lang="mermaid_cheat_sheet_example_2_code"></pre>
-    <button class="insert-example" data-example="mermaid_cheat_sheet_example_2_code" data-lang="mermaid_cheat_sheet_insert_example_2">Insérer Exemple 2</button>
-    <p><strong data-lang="example_3">Exemple 3 : Diagramme de séquence</strong></p>
-    <pre data-lang="mermaid_cheat_sheet_example_3_title"></pre>
-    <pre class="mermaid-example" data-lang="mermaid_cheat_sheet_example_3_code"></pre>
-    <button class="insert-example" data-example="mermaid_cheat_sheet_example_3_code" data-lang="mermaid_cheat_sheet_insert_example_3">Insérer Exemple 3</button>
-    <p><strong data-lang="supported_types">Types de diagrammes supportés :</strong></p>
-    <pre data-lang="mermaid_cheat_sheet_supported_types"></pre>
-    <p><strong data-lang="common_errors">Erreurs courantes à éviter :</strong></p>
-    <pre data-lang="mermaid_cheat_sheet_common_errors"></pre>
-    <p><strong data-lang="tips">Astuces :</strong></p>
-    <pre data-lang="mermaid_cheat_sheet_tips"></pre>
-  </div>
-</div>
 
   <!-- Convertisseur de Documents -->
   <div id="converter-container" style="display: none;">
