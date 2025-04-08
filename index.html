@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head> 
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
@@ -234,6 +234,18 @@ graph TD
   <script defer src="quiz-core.js"></script>
   <script defer src="edit.js"></script>
   <script defer src="tools.js"></script>
-  <script defer src="logic-tests.js"></script>
+  <script defer src="logic-tests.js" onload="console.log('logic-tests.js chargé avec succès');" onerror="console.error('Erreur lors du chargement de logic-tests.js. Vérifiez le chemin ou le contenu du fichier.');"></script>
+  <script>
+    // Vérifier si initializeLogicTests est défini après le chargement des scripts
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (typeof initializeLogicTests !== 'function') {
+          console.error('initializeLogicTests n\'est pas défini après le chargement des scripts. Vérifiez que logic-tests.js est correctement chargé et qu\'il n\'y a pas d\'erreurs dans le fichier.');
+        } else {
+          console.log('initializeLogicTests est défini, prêt à être utilisé.');
+        }
+      }, 1000); // Attendre 1 seconde pour laisser le temps aux scripts de se charger
+    });
+  </script>
 </body>
 </html>
