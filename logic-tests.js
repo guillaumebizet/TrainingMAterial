@@ -3,8 +3,9 @@ console.log("Script logic-tests.js chargé, avant waitForTranslations");
 // Fonction pour attendre que les traductions soient chargées
 function waitForTranslations() {
   return new Promise((resolve) => {
-    if (typeof translations !== 'undefined' && typeof currentLang !== 'undefined') {
-      console.log("Traductions déjà disponibles, résolution immédiate.");
+    // Vérifier si translations est défini et non vide
+    if (typeof translations !== 'undefined' && typeof currentLang !== 'undefined' && Object.keys(translations).length > 0) {
+      console.log("Traductions déjà disponibles et non vides, résolution immédiate.");
       resolve();
     } else {
       console.log("En attente de l'événement translationsLoaded...");
@@ -22,14 +23,16 @@ waitForTranslations().then(() => {
     console.log("Début de l'exécution de logic-tests.js");
 
     // Vérifier les dépendances (par sécurité)
-    if (typeof translations === 'undefined' || typeof currentLang === 'undefined') {
-      console.error("Erreur : Les variables globales 'translations' ou 'currentLang' ne sont pas définies même après translationsLoaded.");
+    if (typeof translations === 'undefined' || typeof currentLang === 'undefined' || Object.keys(translations).length === 0) {
+      console.error("Erreur : Les variables globales 'translations' ou 'currentLang' ne sont pas définies ou translations est vide après translationsLoaded.");
       throw new Error("Dépendances manquantes pour logic-tests.js");
     } else {
       console.log("Dépendances vérifiées : translations et currentLang sont définis.");
       console.log("translations :", translations);
       console.log("currentLang :", currentLang);
     }
+
+ 
 
     // Définition des défis
     const challenges = {
