@@ -257,7 +257,8 @@ function showTab(tabId) {
     'mermaid-editor-container',
     'converter-container',
     'json-validator-container',
-    'cicd-course-container'
+    'cicd-course-container',
+    'logic-tests-container'
   ];
 
   // Masquer tous les onglets
@@ -294,7 +295,6 @@ function showTab(tabId) {
   if (tabId === 'scores-container') {
     loadScores();
   }
-  // Ajouter les initialisations pour les nouveaux onglets
   if (tabId === 'mermaid-editor-container') {
     console.log("Affichage de l'onglet Mermaid Live Editor, initialisation...");
     initializeMermaidEditor();
@@ -310,6 +310,10 @@ function showTab(tabId) {
   if (tabId === 'cicd-course-container') {
     console.log("Affichage de l'onglet Cours CI/CD, initialisation...");
     initializeCICDCourse();
+  }
+  if (tabId === 'logic-tests-container') {
+    console.log("Affichage de l'onglet Défis Logiques et Soft Skills, initialisation...");
+    initializeLogicTests();
   }
 }
 
