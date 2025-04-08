@@ -68,9 +68,12 @@ const challenges = {
             <span id="timer-${this.id}">${formatTime(this.timeLimit)}</span>
           </div>
           <p class="challenge-description">${translations[currentLang][this.description]}</p>
-          <p class="challenge-hint">${translations[currentLang]['logic_test_2_hint'] || 'Astuce : Pensez au pire scénario pour garantir une paire !'}</p>
+          <p class="challenge-hint">${translations[currentLang]['logic_test_2_hint']}</p>
           <div class="sock-drawer" id="sock-drawer-${this.id}"></div>
           <div class="drop-zone" id="sock-pile-${this.id}"></div>
+          <label for="sock-answer-${this.id}">${translations[currentLang]['logic_test_2_answer_label'] || 'Combien de chaussettes faut-il tirer ?'}</label>
+          <input type="number" id="sock-answer-${this.id}" min="1" max="24" value="1">
+          <button id="submit-${this.id}" class="submit-challenge">${translations[currentLang]['logic_test_2_submit'] || 'Valider'}</button>
         </div>
       `;
       // Générer les chaussettes
@@ -94,7 +97,7 @@ const challenges = {
         // Animation des chaussettes (mouvement aléatoire, vitesse réduite)
         let x = parseFloat(sock.style.left);
         let y = parseFloat(sock.style.top);
-        let dx = (Math.random() - 0.5) * 0.2; // Réduire la vitesse (divisé par 10)
+        let dx = (Math.random() - 0.5) * 0.2; // Vitesse réduite
         let dy = (Math.random() - 0.5) * 0.2;
         const animateSock = () => {
           x += dx;
@@ -125,29 +128,14 @@ const challenges = {
           sock.style.left = '0';
           sock.style.top = '0';
           pile.appendChild(sock);
-          // Vérifier si une paire est formée
-          const socksInPile = pile.querySelectorAll('.sock');
-          const colors = {};
-          socksInPile.forEach(s => {
-            const color = s.dataset.color;
-            colors[color] = (colors[color] || 0) + 1;
-          });
-          if (Object.values(colors).some(count => count >= 2)) {
-            stopChallenge(this.id);
-          }
         }
       });
     },
     validate: function() {
-      const pile = document.getElementById(`sock-pile-${this.id}`);
-      if (!pile) return false; // Si l’élément n’existe plus, retourner false
-      const socks = pile.querySelectorAll('.sock');
-      const colors = {};
-      socks.forEach(sock => {
-        const color = sock.dataset.color;
-        colors[color] = (colors[color] || 0) + 1;
-      });
-      return Object.values(colors).some(count => count >= 2);
+      const answerInput = document.getElementById(`sock-answer-${this.id}`);
+      if (!answerInput) return false; // Si l’élément n’existe plus, retourner false
+      const answer = parseInt(answerInput.value);
+      return answer === 4; // La réponse correcte est 4 chaussettes
     },
     correction: 'logic_test_2_correction',
     softSkills: ['logic_test_2_soft_skills']
