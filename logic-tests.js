@@ -21,7 +21,7 @@ const challenges = {
             </div>
           </div>
           <label for="angle-slider-${this.id}">${translations[currentLang]['logic_test_1_answer_label']}</label>
-          <input type="range" id="angle-slider-${this.id}" min="0" max="360" value="0">
+          <input type="range" id="angle-slider-${this.id}" min="0" max="360" step="0.1" value="0">
           <p id="angle-value-${this.id}">0°</p>
           <button id="submit-${this.id}" class="submit-challenge">${translations[currentLang]['logic_test_1_submit']}</button>
         </div>
@@ -44,12 +44,13 @@ const challenges = {
       const slider = document.getElementById(`angle-slider-${this.id}`);
       const angleValue = document.getElementById(`angle-value-${this.id}`);
       slider.addEventListener('input', () => {
-        angleValue.textContent = `${slider.value}°`;
+        angleValue.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
       });
     },
     validate: function() {
       const slider = document.getElementById(`angle-slider-${this.id}`);
-      const answer = parseInt(slider.value);
+      if (!slider) return false; // Si l’élément n’existe plus, retourner false
+      const answer = parseFloat(slider.value);
       return Math.abs(answer - 7.5) <= 1; // Accepter une marge d’erreur de ±1°
     },
     correction: 'logic_test_1_correction',
@@ -67,6 +68,7 @@ const challenges = {
             <span id="timer-${this.id}">${formatTime(this.timeLimit)}</span>
           </div>
           <p class="challenge-description">${translations[currentLang][this.description]}</p>
+          <p class="challenge-hint">${translations[currentLang]['logic_test_2_hint'] || 'Astuce : Pensez au pire scénario pour garantir une paire !'}</p>
           <div class="sock-drawer" id="sock-drawer-${this.id}"></div>
           <div class="drop-zone" id="sock-pile-${this.id}"></div>
         </div>
@@ -89,11 +91,11 @@ const challenges = {
         sock.style.left = `${Math.random() * 80}%`; // Position aléatoire
         sock.style.top = `${Math.random() * 80}%`;
         sockDrawer.appendChild(sock);
-        // Animation des chaussettes (mouvement aléatoire)
+        // Animation des chaussettes (mouvement aléatoire, vitesse réduite)
         let x = parseFloat(sock.style.left);
         let y = parseFloat(sock.style.top);
-        let dx = (Math.random() - 0.5) * 2;
-        let dy = (Math.random() - 0.5) * 2;
+        let dx = (Math.random() - 0.5) * 0.2; // Réduire la vitesse (divisé par 10)
+        let dy = (Math.random() - 0.5) * 0.2;
         const animateSock = () => {
           x += dx;
           y += dy;
@@ -138,6 +140,7 @@ const challenges = {
     },
     validate: function() {
       const pile = document.getElementById(`sock-pile-${this.id}`);
+      if (!pile) return false; // Si l’élément n’existe plus, retourner false
       const socks = pile.querySelectorAll('.sock');
       const colors = {};
       socks.forEach(sock => {
@@ -197,7 +200,9 @@ function initializeLogicTests() {
 function startChallenge(challengeId) {
   const challenge = challenges[challengeId];
   const testContent = document.getElementById('logic-test-content');
+  const testResult = document.getElementById('logic-test-result');
   testContent.innerHTML = '';
+  testResult.innerHTML = ''; // Nettoyer les résultats précédents
 
   // Rendre l’interface du défi
   challenge.render(testContent);
@@ -232,11 +237,15 @@ function stopChallenge(challengeId, userSubmitted = true) {
   clearInterval(timers[challengeId]);
   delete timers[challengeId];
 
+  // Valider la réponse avant de nettoyer le DOM
+  const success = userSubmitted ? challenge.validate() : false;
+
+  // Nettoyer le contenu après validation
   const testContent = document.getElementById('logic-test-content');
   const testResult = document.getElementById('logic-test-result');
   testContent.innerHTML = '';
 
-  const success = userSubmitted ? challenge.validate() : false;
+  // Afficher le résultat
   testResult.innerHTML = `
     <div class="challenge-result ${success ? 'success' : 'failure'}">
       <h3>${success ? (translations[currentLang]['challenge_success'] || 'Succès !') : (translations[currentLang]['challenge_failure'] || 'Échec !')}</h3>
