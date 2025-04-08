@@ -14,23 +14,32 @@ function initializeMermaidEditor() {
     const script = document.createElement('script');
     script.src = 'https://unpkg.com/mermaid@10/dist/mermaid.min.js';
     script.onload = () => {
+      console.log("Mermaid chargé avec succès.");
       mermaid.initialize({ startOnLoad: false, theme: 'default' });
       renderMermaid();
+      // Attacher l'événement après le chargement
+      mermaidInput.addEventListener('input', renderMermaid);
+    };
+    script.onerror = () => {
+      console.error("Erreur lors du chargement de Mermaid.");
+      mermaidOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger Mermaid.</p>`;
     };
     document.head.appendChild(script);
   } else {
     renderMermaid();
+    mermaidInput.addEventListener('input', renderMermaid);
   }
-
-  // Rendu en temps réel
-  mermaidInput.addEventListener('input', renderMermaid);
 
   function renderMermaid() {
     const code = mermaidInput.value;
     mermaidOutput.innerHTML = '';
     try {
-      mermaid.render('mermaid-diagram', code, (svgCode) => {
-        mermaidOutput.innerHTML = svgCode;
+      // Utiliser un ID unique pour éviter les conflits
+      const uniqueId = `mermaid-diagram-${Date.now()}`;
+      mermaid.render(uniqueId, code).then(result => {
+        mermaidOutput.innerHTML = result.svg;
+      }).catch(error => {
+        mermaidOutput.innerHTML = `<p style="color: red;">Erreur de rendu Mermaid : ${error.message}</p>`;
       });
     } catch (error) {
       mermaidOutput.innerHTML = `<p style="color: red;">Erreur de rendu Mermaid : ${error.message}</p>`;
@@ -57,86 +66,101 @@ function initializeDocumentConverter() {
     loadScript('https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js', () => {
       loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js', () => {
         console.log("Bibliothèques de conversion chargées.");
+        // Définir le worker pour pdf.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+        // Attacher l'événement après le chargement des bibliothèques
+        attachConvertEvent();
+      }, () => {
+        console.error("Erreur lors du chargement de pdf.js.");
+        convertOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger pdf.js.</p>`;
       });
+    }, () => {
+      console.error("Erreur lors du chargement de Showdown.");
+      convertOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger Showdown.</p>`;
     });
+  }, () => {
+    console.error("Erreur lors du chargement de Mammoth.");
+    convertOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger Mammoth.</p>`;
   });
 
-  convertButton.addEventListener('click', async () => {
-    const fromFormat = convertFrom.value;
-    const toFormat = convertTo.value;
-    let content = freeTextInput.value.trim();
+  function attachConvertEvent() {
+    convertButton.addEventListener('click', async () => {
+      const fromFormat = convertFrom.value;
+      const toFormat = convertTo.value;
+      let content = freeTextInput.value.trim();
 
-    // Si un fichier est sélectionné, lire son contenu
-    if (fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      try {
-        if (fromFormat === 'docx') {
-          const arrayBuffer = await file.arrayBuffer();
-          const result = await mammoth.convertToHtml({ arrayBuffer });
-          content = result.value;
-        } else if (fromFormat === 'pdf') {
-          const arrayBuffer = await file.arrayBuffer();
-          const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-          let text = '';
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const textContent = await page.getTextContent();
-            text += textContent.items.map(item => item.str).join(' ') + '\n';
+      // Si un fichier est sélectionné, lire son contenu
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        try {
+          if (fromFormat === 'docx') {
+            const arrayBuffer = await file.arrayBuffer();
+            const result = await mammoth.convertToHtml({ arrayBuffer });
+            content = result.value;
+          } else if (fromFormat === 'pdf') {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            let text = '';
+            for (let i = 1; i <= pdf.numPages; i++) {
+              const page = await pdf.getPage(i);
+              const textContent = await page.getTextContent();
+              text += textContent.items.map(item => item.str).join(' ') + '\n';
+            }
+            content = text;
+          } else if (fromFormat === 'markdown') {
+            content = await file.text();
           }
-          content = text;
-        } else if (fromFormat === 'markdown') {
-          content = await file.text();
+        } catch (error) {
+          convertOutput.innerHTML = `<p style="color: red;">Erreur lors de la lecture du fichier : ${error.message}</p>`;
+          return;
         }
-      } catch (error) {
-        convertOutput.innerHTML = `<p style="color: red;">Erreur lors de la lecture du fichier : ${error.message}</p>`;
+      }
+
+      if (!content) {
+        convertOutput.innerHTML = `<p style="color: red;">Veuillez fournir un fichier ou du texte à convertir.</p>`;
         return;
       }
-    }
 
-    if (!content) {
-      convertOutput.innerHTML = `<p style="color: red;">Veuillez fournir un fichier ou du texte à convertir.</p>`;
-      return;
-    }
+      // Conversion
+      try {
+        let output;
+        if (toFormat === 'html') {
+          if (fromFormat === 'markdown') {
+            const converter = new showdown.Converter();
+            output = converter.makeHtml(content);
+          } else {
+            output = content; // Déjà en HTML si docx, ou texte brut si pdf
+          }
+        } else if (toFormat === 'markdown') {
+          if (fromFormat === 'docx' || fromFormat === 'pdf') {
+            const converter = new showdown.Converter();
+            output = converter.makeMarkdown(content);
+          } else {
+            output = content;
+          }
+        } else if (toFormat === 'text') {
+          output = content.replace(/<[^>]+>/g, ''); // Supprimer les balises HTML
+        }
 
-    // Conversion
-    try {
-      let output;
-      if (toFormat === 'html') {
-        if (fromFormat === 'markdown') {
-          const converter = new showdown.Converter();
-          output = converter.makeHtml(content);
-        } else {
-          output = content; // Déjà en HTML si docx, ou texte brut si pdf
-        }
-      } else if (toFormat === 'markdown') {
-        if (fromFormat === 'docx' || fromFormat === 'pdf') {
-          const converter = new showdown.Converter();
-          output = converter.makeMarkdown(content);
-        } else {
-          output = content;
-        }
-      } else if (toFormat === 'text') {
-        output = content.replace(/<[^>]+>/g, ''); // Supprimer les balises HTML
+        convertOutput.innerHTML = `<pre>${output}</pre>`;
+        // Ajouter un bouton pour télécharger le résultat
+        const downloadButton = document.createElement('button');
+        downloadButton.textContent = 'Télécharger le résultat';
+        downloadButton.onclick = () => {
+          const blob = new Blob([output], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `converted.${toFormat === 'html' ? 'html' : toFormat === 'markdown' ? 'md' : 'txt'}`;
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+        convertOutput.appendChild(downloadButton);
+      } catch (error) {
+        convertOutput.innerHTML = `<p style="color: red;">Erreur lors de la conversion : ${error.message}</p>`;
       }
-
-      convertOutput.innerHTML = `<pre>${output}</pre>`;
-      // Ajouter un bouton pour télécharger le résultat
-      const downloadButton = document.createElement('button');
-      downloadButton.textContent = 'Télécharger le résultat';
-      downloadButton.onclick = () => {
-        const blob = new Blob([output], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `converted.${toFormat === 'html' ? 'html' : toFormat === 'markdown' ? 'md' : 'txt'}`;
-        a.click();
-        URL.revokeObjectURL(url);
-      };
-      convertOutput.appendChild(downloadButton);
-    } catch (error) {
-      convertOutput.innerHTML = `<p style="color: red;">Erreur lors de la conversion : ${error.message}</p>`;
-    }
-  });
+    });
+  }
 }
 
 // Validateur JSON
@@ -152,8 +176,9 @@ function initializeJsonValidator() {
 
   // Charger la bibliothèque AJV pour la validation JSON
   loadScript('https://cdn.jsdelivr.net/npm/ajv@8.12.0/dist/ajv.min.js', () => {
+    console.log("AJV chargé avec succès.");
     const ajv = new Ajv();
-
+    // Attacher l'événement après le chargement
     validateButton.addEventListener('click', () => {
       const jsonText = jsonInput.value.trim();
       if (!jsonText) {
@@ -169,6 +194,9 @@ function initializeJsonValidator() {
         jsonOutput.innerHTML = `<p style="color: red;">JSON invalide : ${error.message}</p>`;
       }
     });
+  }, () => {
+    console.error("Erreur lors du chargement de AJV.");
+    jsonOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger AJV.</p>`;
   });
 }
 
@@ -182,6 +210,7 @@ function initializeCICDCourse() {
 
   // Charger la bibliothèque marked pour convertir Markdown en HTML
   loadScript('https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.min.js', () => {
+    console.log("Marked chargé avec succès.");
     // Exemple de cours CI/CD en Markdown
     const cicdCourseMarkdown = `
 # Introduction au CI/CD
@@ -239,31 +268,24 @@ jobs:
     `;
 
     // Convertir Markdown en HTML
-    const htmlContent = marked.parse(cicdCourseMarkdown);
-    courseOutput.innerHTML = htmlContent;
+    try {
+      const htmlContent = marked.parse(cicdCourseMarkdown);
+      courseOutput.innerHTML = htmlContent;
+    } catch (error) {
+      console.error("Erreur lors du rendu du cours CI/CD :", error);
+      courseOutput.innerHTML = `<p style="color: red;">Erreur lors du rendu du cours : ${error.message}</p>`;
+    }
+  }, () => {
+    console.error("Erreur lors du chargement de Marked.");
+    courseOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger Marked.</p>`;
   });
 }
 
 // Fonction utilitaire pour charger des scripts dynamiquement
-function loadScript(src, callback) {
+function loadScript(src, callback, errorCallback) {
   const script = document.createElement('script');
   script.src = src;
   script.onload = callback;
+  script.onerror = errorCallback;
   document.head.appendChild(script);
 }
-
-// Initialisation de toutes les fonctionnalités
-document.addEventListener('DOMContentLoaded', () => {
-  if (document.getElementById('mermaid-editor-container')) {
-    initializeMermaidEditor();
-  }
-  if (document.getElementById('converter-container')) {
-    initializeDocumentConverter();
-  }
-  if (document.getElementById('json-validator-container')) {
-    initializeJsonValidator();
-  }
-  if (document.getElementById('cicd-course-container')) {
-    initializeCICDCourse();
-  }
-});
