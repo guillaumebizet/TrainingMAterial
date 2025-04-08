@@ -9,7 +9,7 @@ let timeElapsed = 0;
 let candidateName = '';
 let scores = [];
 let currentLot = "Non spécifié";
-let currentLang = "fr"; // Langue par défaut
+let currentLang = "fr";
 let translations = {};
 
 // Charger les traductions
@@ -29,7 +29,6 @@ function applyTranslations() {
     const key = element.getAttribute('data-lang');
     element.textContent = translations[currentLang][key] || key;
   });
-  // Placeholder pour candidate-name
   document.getElementById('candidate-name').placeholder = currentLang === "fr" ? "Entrez votre nom" : "Enter your name";
 }
 
@@ -145,6 +144,16 @@ function validateAnswer(index) {
   }
 }
 
+function validateAllAnswers() {
+  console.log("Validation de toutes les réponses non validées...");
+  selectedQuestions.forEach((_, index) => {
+    const validateBtn = document.querySelectorAll('.validate-btn')[index];
+    if (!validateBtn.disabled) {
+      validateAnswer(index);
+    }
+  });
+}
+
 function showResult() {
   document.getElementById('quiz-container').style.display = 'none';
   document.getElementById('result').style.display = 'block';
@@ -200,7 +209,7 @@ async function startQuiz() {
     selectedQuestions = questions.filter(q =>
       q.lot && q.lot.trim().toUpperCase() === selectedLot.trim().toUpperCase()
     );
-    console.log(`Questions pour ${selectedLot} :`, selectedQuestions.length, selectedQuestions); // Log ajouté
+    console.log(`Questions pour ${selectedLot} :`, selectedQuestions.length, selectedQuestions);
 
     if (selectedQuestions.length === 0) {
       showModal('no_questions_for_lot');
@@ -284,7 +293,7 @@ function loadQuestions() {
   updateScoreCounter();
 }
 
-function saveScore() {
+async function saveScore() {
   console.log("Lot sélectionné au moment de la sauvegarde :", currentLot);
   const lotSelect = document.getElementById('lot-selection');
   console.log("Options de lot disponibles :", lotSelect ? lotSelect.innerHTML : "Élément non trouvé");
@@ -309,12 +318,13 @@ function saveScore() {
   const token = sessionStorage.getItem('githubPAT');
   if (token) {
     console.log("Tentative de sauvegarde sur GitHub avec PAT:", scores);
-    saveScoresToGitHub(token);
+    await saveScoresToGitHub(token); // Attendre la fin de la sauvegarde
     clearInterval(timerInterval);
     showTab('scores-container');
     return true;
   } else {
     console.log("Aucun PAT fourni, sauvegarde uniquement locale.");
+    showTab('scores-container');
     return false;
   }
 }
@@ -389,8 +399,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const saveResultButton = document.getElementById('save-result-btn');
   if (saveResultButton) {
-    saveResultButton.addEventListener('click', () => {
-      saveScore();
+    saveResultButton.addEventListener('click', async () => {
+      validateAllAnswers(); // Valider toutes les réponses avant de sauvegarder
+      await saveScore();
       const feedback = document.getElementById('save-result-feedback');
       feedback.textContent = translations[currentLang]['save_results_success'] || 'Résultats sauvegardés avec succès !';
       feedback.style.display = 'block';
@@ -403,9 +414,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const saveCurrentScoreButton = document.getElementById('save-current-score-btn');
   if (saveCurrentScoreButton) {
-    saveCurrentScoreButton.addEventListener('click', () => {
+    saveCurrentScoreButton.addEventListener('click', async () => {
       console.log("Clic sur 'Sauvegarder le score actuel'");
-      const saved = saveScore();
+      validateAllAnswers(); // Valider toutes les réponses non validées
+      const saved = await saveScore();
       const feedback = document.getElementById('save-current-feedback');
       if (feedback) {
         feedback.textContent = saved ? translations[currentLang]['save_current_success'] || 'Score actuel sauvegardé avec succès !' : translations[currentLang]['scores_local'] || 'Score sauvegardé localement (aucun PAT fourni).';
