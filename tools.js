@@ -1,5 +1,5 @@
 // tools.js
-// Mermaid Live Editor
+
 // Mermaid Live Editor
 function initializeMermaidEditor() {
   console.log("Initialisation de Mermaid Live Editor...");
@@ -15,6 +15,7 @@ function initializeMermaidEditor() {
     console.log("Mermaid n'est pas défini, chargement de la bibliothèque...");
     const script = document.createElement('script');
     script.src = 'lib/mermaid.min.js';
+    console.log("Chargement du script Mermaid depuis :", script.src);
     script.onload = () => {
       console.log("Mermaid chargé avec succès.");
       mermaid.initialize({ startOnLoad: false, theme: 'default' });
@@ -24,7 +25,7 @@ function initializeMermaidEditor() {
     };
     script.onerror = () => {
       console.error("Erreur lors du chargement de Mermaid.");
-      mermaidOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger Mermaid.</p>`;
+      mermaidOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['mermaid_load_error'] || 'Erreur : Impossible de charger Mermaid.'}</p>`;
     };
     document.head.appendChild(script);
   } else {
@@ -60,8 +61,10 @@ function initializeMermaidEditor() {
     }
   }
 }
+
 // Pandoc-like Document Conversion
 function initializeDocumentConverter() {
+  console.log("Initialisation du Convertisseur de Documents...");
   const fileInput = document.getElementById('file-input');
   const convertFrom = document.getElementById('convert-from');
   const convertTo = document.getElementById('convert-to');
@@ -85,15 +88,15 @@ function initializeDocumentConverter() {
         attachConvertEvent();
       }, () => {
         console.error("Erreur lors du chargement de pdf.js.");
-        convertOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger pdf.js.</p>`;
+        convertOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['pdfjs_load_error'] || 'Erreur : Impossible de charger pdf.js.'}</p>`;
       });
     }, () => {
       console.error("Erreur lors du chargement de Showdown.");
-      convertOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger Showdown.</p>`;
+      convertOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['showdown_load_error'] || 'Erreur : Impossible de charger Showdown.'}</p>`;
     });
   }, () => {
     console.error("Erreur lors du chargement de Mammoth.");
-    convertOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger Mammoth.</p>`;
+    convertOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['mammoth_load_error'] || 'Erreur : Impossible de charger Mammoth.'}</p>`;
   });
 
   function attachConvertEvent() {
@@ -124,13 +127,13 @@ function initializeDocumentConverter() {
             content = await file.text();
           }
         } catch (error) {
-          convertOutput.innerHTML = `<p style="color: red;">Erreur lors de la lecture du fichier : ${error.message}</p>`;
+          convertOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['file_read_error'] || 'Erreur lors de la lecture du fichier'} : ${error.message}</p>`;
           return;
         }
       }
 
       if (!content) {
-        convertOutput.innerHTML = `<p style="color: red;">Veuillez fournir un fichier ou du texte à convertir.</p>`;
+        convertOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['converter_empty'] || 'Veuillez fournir un fichier ou du texte à convertir.'}</p>`;
         return;
       }
 
@@ -158,7 +161,7 @@ function initializeDocumentConverter() {
         convertOutput.innerHTML = `<pre>${output}</pre>`;
         // Ajouter un bouton pour télécharger le résultat
         const downloadButton = document.createElement('button');
-        downloadButton.textContent = 'Télécharger le résultat';
+        downloadButton.textContent = translations[currentLang]['download_result'] || 'Télécharger le résultat';
         downloadButton.onclick = () => {
           const blob = new Blob([output], { type: 'text/plain' });
           const url = URL.createObjectURL(blob);
@@ -170,7 +173,7 @@ function initializeDocumentConverter() {
         };
         convertOutput.appendChild(downloadButton);
       } catch (error) {
-        convertOutput.innerHTML = `<p style="color: red;">Erreur lors de la conversion : ${error.message}</p>`;
+        convertOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['converter_error'] || 'Erreur lors de la conversion'} : ${error.message}</p>`;
       }
     });
   }
@@ -178,6 +181,7 @@ function initializeDocumentConverter() {
 
 // Validateur JSON
 function initializeJsonValidator() {
+  console.log("Initialisation du Validateur JSON...");
   const jsonInput = document.getElementById('json-input');
   const validateButton = document.getElementById('validate-json-button');
   const jsonOutput = document.getElementById('json-output');
@@ -195,26 +199,27 @@ function initializeJsonValidator() {
     validateButton.addEventListener('click', () => {
       const jsonText = jsonInput.value.trim();
       if (!jsonText) {
-        jsonOutput.innerHTML = `<p style="color: red;">Veuillez entrer un JSON à valider.</p>`;
+        jsonOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['json_empty'] || 'Veuillez entrer un JSON à valider.'}</p>`;
         return;
       }
 
       try {
         const jsonData = JSON.parse(jsonText);
-        jsonOutput.innerHTML = `<p style="color: green;">JSON valide !</p>`;
+        jsonOutput.innerHTML = `<p style="color: green;">${translations[currentLang]['json_valid'] || 'JSON valide !'}</p>`;
         jsonOutput.innerHTML += `<pre>${JSON.stringify(jsonData, null, 2)}</pre>`;
       } catch (error) {
-        jsonOutput.innerHTML = `<p style="color: red;">JSON invalide : ${error.message}</p>`;
+        jsonOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['json_invalid'] || 'JSON invalide'} : ${error.message}</p>`;
       }
     });
   }, () => {
     console.error("Erreur lors du chargement de AJV.");
-    jsonOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger AJV.</p>`;
+    jsonOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['ajv_load_error'] || 'Erreur : Impossible de charger AJV.'}</p>`;
   });
 }
 
 // Cours CI/CD en Markdown avec rendu stylisé
 function initializeCICDCourse() {
+  console.log("Initialisation du Cours CI/CD...");
   const courseOutput = document.getElementById('cicd-course-output');
   if (!courseOutput) {
     console.error("Élément pour le cours CI/CD non trouvé.");
@@ -224,73 +229,19 @@ function initializeCICDCourse() {
   // Charger la bibliothèque marked pour convertir Markdown en HTML
   loadScript('https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.min.js', () => {
     console.log("Marked chargé avec succès.");
-    // Exemple de cours CI/CD en Markdown
-    const cicdCourseMarkdown = `
-# Introduction au CI/CD
-
-## Qu'est-ce que le CI/CD ?
-
-Le **CI/CD** (Intégration Continue / Déploiement Continu) est une pratique DevOps qui permet d'automatiser le processus de développement logiciel. Elle se divise en deux parties principales :
-
-- **CI (Intégration Continue)** : Les développeurs intègrent fréquemment leur code dans un dépôt partagé, et chaque intégration est vérifiée par des tests automatisés.
-- **CD (Déploiement Continu)** : Le code testé est automatiquement déployé en production ou dans un environnement de staging.
-
-## Étapes typiques d'un pipeline CI/CD
-
-1. **Code** : Les développeurs écrivent et soumettent leur code via un système de contrôle de version (ex. Git).
-2. **Build** : Le code est compilé ou préparé pour les tests.
-3. **Test** : Des tests automatisés (unitaires, d'intégration, etc.) sont exécutés.
-4. **Déploiement** : Le code est déployé dans un environnement (staging ou production).
-
-## Outils populaires
-
-- **Jenkins** : Un serveur d'automatisation open-source.
-- **GitHub Actions** : Intégré à GitHub pour automatiser les workflows.
-- **GitLab CI/CD** : Intégré à GitLab pour gérer les pipelines.
-- **CircleCI** : Une plateforme CI/CD cloud.
-
-## Exemple de workflow GitHub Actions
-
-\`\`\`yaml
-name: CI/CD Pipeline
-on:
-  push:
-    branches: [ main ]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
-    - name: Install dependencies
-      run: npm install
-    - name: Run tests
-      run: npm test
-    - name: Deploy
-      run: echo "Déploiement en production"
-\`\`\`
-
-## Avantages du CI/CD
-
-- **Rapidité** : Les déploiements sont plus fréquents et rapides.
-- **Qualité** : Les tests automatisés réduisent les bugs.
-- **Collaboration** : Les équipes travaillent plus efficacement.
-    `;
-
+    // Charger le contenu du cours depuis les traductions
+    const cicdCourseMarkdown = translations[currentLang]['cicd_course_content'] || '# Error\nContent not available.';
     // Convertir Markdown en HTML
     try {
       const htmlContent = marked.parse(cicdCourseMarkdown);
       courseOutput.innerHTML = htmlContent;
     } catch (error) {
       console.error("Erreur lors du rendu du cours CI/CD :", error);
-      courseOutput.innerHTML = `<p style="color: red;">Erreur lors du rendu du cours : ${error.message}</p>`;
+      courseOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['cicd_render_error'] || 'Erreur lors du rendu du cours'} : ${error.message}</p>`;
     }
   }, () => {
     console.error("Erreur lors du chargement de Marked.");
-    courseOutput.innerHTML = `<p style="color: red;">Erreur : Impossible de charger Marked.</p>`;
+    courseOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['marked_load_error'] || 'Erreur : Impossible de charger Marked.'}</p>`;
   });
 }
 
