@@ -1,7 +1,9 @@
 let editingIndex = null;
 let modifiedQuestionsIndices = new Set();
-let isFilterEventAttached = false; // Pour éviter d'attacher l'événement plusieurs fois
+let deletedQuestions = []; // Pour suivre les questions supprimées
+let isFilterEventAttached = false;
 
+// Charger la liste des questions
 function loadQuestionList() {
   const list = document.getElementById('question-list');
   list.innerHTML = '';
@@ -37,8 +39,11 @@ function loadQuestionList() {
     `;
     list.appendChild(div);
   });
+
+  updatePendingChangesSidebar(); // Mettre à jour le volet latéral après chaque changement
 }
 
+// Rendre les options pour les questions à choix simple
 function renderRadioOptions(optionsFr, optionsUs, correct) {
   return optionsFr.map((option, i) => `
     <label>
@@ -48,6 +53,7 @@ function renderRadioOptions(optionsFr, optionsUs, correct) {
   `).join('');
 }
 
+// Rendre les options pour les QCM
 function renderCheckboxOptions(optionsFr, optionsUs, correct) {
   const correctIndices = Array.isArray(correct) ? correct : [correct];
   return optionsFr.map((option, i) => `
@@ -58,6 +64,7 @@ function renderCheckboxOptions(optionsFr, optionsUs, correct) {
   `).join('');
 }
 
+// Éditer une question
 function editQuestion(index) {
   editingIndex = index;
   const q = questions[index];
@@ -90,7 +97,7 @@ function editQuestion(index) {
     </div>
     <div class="form-actions">
       <button type="button" onclick="showPreviewModal()">Aperçu</button>
-      <button onclick="saveAndCommit()">Save & Commit</button>
+      <button onclick="saveQuestionLocally()">Sauvegarder</button>
       <button onclick="cancelEdit()">Annuler</button>
     </div>
   `;
@@ -99,6 +106,7 @@ function editQuestion(index) {
   updateOptionsPreview();
 }
 
+// Remplir les champs d'options dans le formulaire d'édition
 function populateOptionsFields(optionsFr, optionsUs) {
   const optionsList = document.getElementById('edit-options-list');
   optionsList.innerHTML = '';
@@ -114,6 +122,7 @@ function populateOptionsFields(optionsFr, optionsUs) {
   });
 }
 
+// Ajouter un champ d'option
 function addOptionField() {
   const optionsList = document.getElementById('edit-options-list');
   const optionDiv = document.createElement('div');
@@ -127,11 +136,13 @@ function addOptionField() {
   updateOptionsPreview();
 }
 
+// Supprimer un champ d'option
 function removeOptionField(button) {
   button.parentElement.remove();
   updateOptionsPreview();
 }
 
+// Mettre à jour l'aperçu des options
 function updateOptionsPreview() {
   const optionsFr = Array.from(document.getElementsByClassName('option-fr')).map(input => input.value || '');
   const optionsUs = Array.from(document.getElementsByClassName('option-us')).map(input => input.value || '');
@@ -140,6 +151,7 @@ function updateOptionsPreview() {
   preview.innerHTML = type === 'Choix simple' ? renderRadioOptionsPreview(optionsFr, optionsUs) : renderCheckboxOptionsPreview(optionsFr, optionsUs);
 }
 
+// Rendre l'aperçu pour les options à choix simple
 function renderRadioOptionsPreview(optionsFr, optionsUs) {
   const currentCorrect = questions[editingIndex].correct;
   return optionsFr.map((option, i) => `
@@ -150,6 +162,7 @@ function renderRadioOptionsPreview(optionsFr, optionsUs) {
   `).join('');
 }
 
+// Rendre l'aperçu pour les QCM
 function renderCheckboxOptionsPreview(optionsFr, optionsUs) {
   const currentCorrect = Array.isArray(questions[editingIndex].correct) ? questions[editingIndex].correct : [questions[editingIndex].correct];
   return optionsFr.map((option, i) => `
@@ -160,6 +173,7 @@ function renderCheckboxOptionsPreview(optionsFr, optionsUs) {
   `).join('');
 }
 
+// Mettre à jour la réponse correcte dans l'aperçu
 function updateCorrect(input) {
   const type = document.getElementById('edit-type').value;
   if (type === 'Choix simple') {
@@ -170,6 +184,7 @@ function updateCorrect(input) {
   }
 }
 
+// Afficher un aperçu de la question dans une modale
 function showPreviewModal() {
   const questionFr = document.getElementById('edit-question-fr').value;
   const questionUs = document.getElementById('edit-question-us').value;
@@ -200,6 +215,7 @@ function showPreviewModal() {
   document.body.appendChild(modal);
 }
 
+// Afficher une notification
 function showNotification(message) {
   const notification = document.createElement('div');
   notification.className = 'notification';
@@ -208,7 +224,8 @@ function showNotification(message) {
   setTimeout(() => notification.remove(), 5000);
 }
 
-function saveAndCommit() {
+// Sauvegarder les modifications localement
+function saveQuestionLocally() {
   const q = questions[editingIndex];
   q.question.fr = document.getElementById('edit-question-fr').value;
   q.question.us = document.getElementById('edit-question-us').value;
@@ -220,26 +237,20 @@ function saveAndCommit() {
   modifiedQuestionsIndices.add(editingIndex);
   editingIndex = null;
 
-  if (modifiedQuestionsIndices.size > 0) {
-    saveQuestionsToGitHub().then(() => {
-      showNotification("Modifications sauvegardées et poussées sur GitHub avec succès !");
-      modifiedQuestionsIndices.clear();
-      loadQuestionList();
-    }).catch(error => {
-      console.error("Erreur lors du commit :", error);
-      showNotification("Erreur lors de la sauvegarde sur GitHub.");
-    });
-  } else {
-    loadQuestionList();
-  }
+  showNotification("Modifications sauvegardées localement !");
+  loadQuestionList(); // Rafraîchir la liste
 }
 
+// Annuler l'édition
 function cancelEdit() {
   editingIndex = null;
   loadQuestionList();
 }
 
+// Supprimer une question
 function deleteQuestion(index) {
+  const deletedQuestion = { ...questions[index], index }; // Sauvegarder la question supprimée
+  deletedQuestions.push(deletedQuestion); // Ajouter à la liste des suppressions
   questions.splice(index, 1);
   modifiedQuestionsIndices.delete(index);
   const newIndices = new Set();
@@ -248,16 +259,14 @@ function deleteQuestion(index) {
     else if (i < index) newIndices.add(i);
   });
   modifiedQuestionsIndices = newIndices;
-  saveQuestionsToGitHub().then(() => {
-    showNotification("Question supprimée et modifications poussées sur GitHub !");
-    loadQuestionList();
-  }).catch(error => {
-    console.error("Erreur lors de la suppression :", error);
-    showNotification("Erreur lors de la suppression sur GitHub.");
-  });
+
+  showNotification("Question supprimée localement !");
+  loadQuestionList(); // Rafraîchir la liste
 }
 
+// Ajouter une nouvelle question
 function addNewQuestion() {
+  const newQuestionIndex = questions.length;
   questions.push({
     question: { "fr": "", "us": "" },
     options: { "fr": [""], "us": [""] },
@@ -265,12 +274,68 @@ function addNewQuestion() {
     lot: "GENERAL",
     type: "Choix simple"
   });
+  modifiedQuestionsIndices.add(newQuestionIndex);
+  showNotification("Nouvelle question ajoutée localement !");
   loadQuestionList();
 }
 
+// Filtrer les questions par lot
 function filterQuestionsByLot() {
   console.log("filterQuestionsByLot appelé");
   loadQuestionList();
+}
+
+// Mettre à jour le volet latéral des modifications en attente
+function updatePendingChangesSidebar() {
+  const sidebar = document.getElementById('pending-changes-sidebar');
+  const changesList = document.getElementById('pending-changes-list');
+  changesList.innerHTML = '';
+
+  // Lister les questions modifiées
+  modifiedQuestionsIndices.forEach(index => {
+    const q = questions[index];
+    const li = document.createElement('li');
+    li.className = 'pending-change-item modified';
+    li.textContent = `Modifiée : ${q.question.fr || 'Question sans titre'} / ${q.question.us || 'Question sans titre'}`;
+    changesList.appendChild(li);
+  });
+
+  // Lister les questions supprimées
+  deletedQuestions.forEach(deleted => {
+    const li = document.createElement('li');
+    li.className = 'pending-change-item deleted';
+    li.textContent = `Supprimée : ${deleted.question.fr || 'Question sans titre'} / ${deleted.question.us || 'Question sans titre'}`;
+    changesList.appendChild(li);
+  });
+
+  // Afficher ou masquer le bouton "Commit All Changes"
+  const commitButton = document.getElementById('commit-all-changes-btn');
+  if (modifiedQuestionsIndices.size > 0 || deletedQuestions.length > 0) {
+    sidebar.style.display = 'block';
+    commitButton.style.display = 'block';
+  } else {
+    sidebar.style.display = 'none';
+    commitButton.style.display = 'none';
+  }
+}
+
+// Commettre toutes les modifications sur GitHub
+function commitAllChanges() {
+  if (modifiedQuestionsIndices.size === 0 && deletedQuestions.length === 0) {
+    showNotification("Aucune modification à committer.");
+    return;
+  }
+
+  saveQuestionsToGitHub().then(() => {
+    showNotification("Modifications committées sur GitHub avec succès !");
+    modifiedQuestionsIndices.clear();
+    deletedQuestions = [];
+    updatePendingChangesSidebar();
+    loadQuestionList();
+  }).catch(error => {
+    console.error("Erreur lors du commit :", error);
+    showNotification("Erreur lors du commit sur GitHub.");
+  });
 }
 
 // Attacher l’événement au filtre quand l'onglet est affiché
@@ -295,17 +360,17 @@ function attachFilterEvent() {
 }
 
 // Surcharger showTab pour attacher l'événement quand l'onglet "Éditer Questions" est affiché
-const originalShowTab = showTab; // Sauvegarder la fonction originale
+const originalShowTab = showTab;
 showTab = function(tabId) {
-  originalShowTab(tabId); // Appeler la fonction originale
+  originalShowTab(tabId);
   if (tabId === 'edit-container') {
     console.log("Onglet 'Éditer Questions' affiché, tentative d'attachement de l'événement...");
     attachFilterEvent();
-    loadQuestionList(); // Recharger la liste au cas où
+    loadQuestionList();
   }
 };
 
-// Attacher l’événement au chargement initial (au cas où l'onglet est déjà affiché)
+// Attacher l’événement au chargement initial
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM chargé, vérification initiale de l'onglet...");
   if (document.getElementById('edit-container').style.display !== 'none') {
