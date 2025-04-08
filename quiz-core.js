@@ -11,6 +11,7 @@ let scores = [];
 let currentLot = "Non spécifié";
 let currentLang = "fr";
 let translations = {};
+let validatedStates = []; // Pour stocker l'état des réponses validées
 
 // Charger les traductions
 async function loadTranslations(lang) {
@@ -34,7 +35,16 @@ function applyTranslations() {
 
 function changeLanguage(lang) {
   currentLang = lang;
-  loadTranslations(lang);
+  loadTranslations(lang).then(() => {
+    // Si un quiz est actif, recharger les questions avec la nouvelle langue
+    if (document.getElementById('quiz-container').style.display === 'block') {
+      // Sauvegarder l'état des réponses validées avant de recharger
+      saveValidatedStates();
+      loadQuestions();
+      // Restaurer l'état des réponses validées après rechargement
+      restoreValidatedStates();
+    }
+  });
 }
 
 function showModal(message, details = null) {
@@ -113,7 +123,6 @@ function validateAnswer(index, forceValidation = false) {
       showModal('select_answer');
       return false;
     }
-    // Si forceValidation est true, considérer comme incorrect
     console.log(`Aucune réponse sélectionnée pour la question ${index + 1}, considérée comme incorrecte.`);
     incorrectCount++;
     feedback.textContent = "Incorrect (aucune réponse sélectionnée)";
@@ -168,6 +177,48 @@ function validateAllAnswers() {
   });
   console.log("Validation terminée, score final :", score);
   return allValidated;
+}
+
+function saveValidatedStates() {
+  validatedStates = [];
+  selectedQuestions.forEach((_, index) => {
+    const selected = document.querySelectorAll(`input[name="option-${index}"]:checked`);
+    const validateBtn = document.querySelectorAll('.validate-btn')[index];
+    const feedback = document.getElementById(`feedback-${index}`);
+    validatedStates[index] = {
+      selected: Array.from(selected).map(input => parseInt(input.value)),
+      validated: validateBtn.disabled,
+      feedbackText: feedback ? feedback.textContent : '',
+      feedbackClass: feedback ? feedback.className : ''
+    };
+  });
+  console.log("État des réponses sauvegardé :", validatedStates);
+}
+
+function restoreValidatedStates() {
+  selectedQuestions.forEach((_, index) => {
+    const state = validatedStates[index];
+    if (state) {
+      // Restaurer les réponses sélectionnées
+      state.selected.forEach(value => {
+        const input = document.querySelector(`input[name="option-${index}"][value="${value}"]`);
+        if (input) input.checked = true;
+      });
+      // Restaurer l'état de validation
+      const validateBtn = document.querySelectorAll('.validate-btn')[index];
+      const feedback = document.getElementById(`feedback-${index}`);
+      if (state.validated) {
+        validateBtn.disabled = true;
+        document.querySelectorAll(`input[name="option-${index}"]`).forEach(input => input.disabled = true);
+      }
+      if (state.feedbackText) {
+        feedback.textContent = state.feedbackText;
+        feedback.className = state.feedbackClass;
+        feedback.style.display = 'inline-block';
+      }
+    }
+  });
+  console.log("État des réponses restauré.");
 }
 
 function showResult() {
@@ -240,6 +291,7 @@ async function startQuiz() {
     correctCount = 0;
     incorrectCount = 0;
     timeElapsed = 0;
+    validatedStates = []; // Réinitialiser l'état des réponses
 
     updateScoreCounter();
     updateTimer();
@@ -265,23 +317,7 @@ function loadQuestions() {
     return;
   }
 
-  const shuffledSet = selectedQuestions.map((q) => {
-    const clone = structuredClone(q);
-    const shuffled = shuffle([...clone.options[currentLang]]);
-
-    if (Array.isArray(clone.correct)) {
-      clone.correct = clone.correct.map(c => shuffled.indexOf(clone.options[currentLang][c]));
-    } else {
-      clone.correct = shuffled.indexOf(clone.options[currentLang][clone.correct]);
-    }
-
-    clone.options[currentLang] = shuffled;
-    return clone;
-  });
-
-  selectedQuestions = shuffledSet;
-
-  shuffledSet.forEach((q, index) => {
+  selectedQuestions.forEach((q, index) => {
     const questionDiv = document.createElement('div');
     questionDiv.className = 'question';
     questionDiv.innerHTML = `
