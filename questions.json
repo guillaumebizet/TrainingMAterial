@@ -27,7 +27,7 @@
   {
     "question": {
       "fr": "Comment annuler le dernier commit dans Git sans perdre les changements ?",
-      "us": "How do you undo the last commit in Git without losing changes?"
+      "us": "How do you undo the last commit in Git without losing changes? test"
     },
     "options": {
       "fr": [
