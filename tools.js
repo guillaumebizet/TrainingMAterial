@@ -1,5 +1,5 @@
 // tools.js
-
+console.log("Début de l'exécution de tools.js");
 // Mermaid Live Editor
 function initializeMermaidEditor() {
   console.log("Initialisation de Mermaid Live Editor...");
