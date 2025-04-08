@@ -192,9 +192,15 @@ function initializeJsonValidator() {
   }
 
   // Charger la bibliothèque AJV pour la validation JSON
-  loadScript('lib/ajv.min.js', () => {
+  loadScript('lib/ajv.bundle.js', () => {
     console.log("AJV chargé avec succès.");
-    const ajv = new Ajv();
+    console.log("Ajv est défini :", typeof window.Ajv !== 'undefined');
+    if (typeof window.Ajv === 'undefined') {
+      console.error("Ajv n'est pas défini dans window. Vérifie que lib/ajv.bundle.js expose Ajv comme une variable globale.");
+      jsonOutput.innerHTML = `<p style="color: red;">${translations[currentLang]['ajv_load_error'] || 'Erreur : Impossible de charger AJV.'}</p>`;
+      return;
+    }
+    const ajv = new window.Ajv();
     // Attacher l'événement après le chargement
     validateButton.addEventListener('click', () => {
       const jsonText = jsonInput.value.trim();
