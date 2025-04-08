@@ -1,4 +1,5 @@
-// logic-tests.js
+// Ajout d'un log pour confirmer que le script est exécuté
+console.log("Début de l'exécution de logic-tests.js");
 
 // Vérifier les dépendances
 if (typeof translations === 'undefined' || typeof currentLang === 'undefined') {
@@ -904,7 +905,7 @@ const challenges = {
             // Redessiner le labyrinthe
             mazeContainer.innerHTML = '';
             for (let y = 0; y < 5; y++) {
-              for (              let x = 0; x < 5; x++) {
+              for (let x = 0; x < 5; x++) {
                 const cell = document.createElement('div');
                 cell.className = 'maze-cell';
                 if (this.maze[y][x] === 1) cell.classList.add('wall');
@@ -1041,3 +1042,6 @@ function stopChallenge(challengeId, userSubmitted = true) {
     </div>
   `;
 }
+
+// Log pour confirmer que le script a atteint la fin
+console.log("Fin de l'exécution de logic-tests.js");
