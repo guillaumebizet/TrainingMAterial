@@ -15,7 +15,6 @@ body {
   display: none;
 }
 
-/* Supprimer max-width pour #edit-container afin de permettre une pleine largeur */
 #edit-container {
   margin: 0 auto;
   background: white;
@@ -23,6 +22,7 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 30px;
   display: none;
+  overflow-x: auto; /* Permettre le défilement horizontal si nécessaire */
 }
 
 #quiz-container {
@@ -510,13 +510,9 @@ button {
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   animation: slideIn 0.3s ease-in;
-  width: 100vw; /* Prendre 100% de la largeur de la fenêtre */
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 100%; /* Prendre 100% de la largeur du conteneur parent */
   box-sizing: border-box;
+  overflow-x: auto; /* Permettre le défilement horizontal si nécessaire */
 }
 
 .edit-form h3 {
@@ -532,6 +528,8 @@ button {
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   background-color: #fafafa;
+  min-width: 100%; /* S'assurer que le contenu ne déborde pas */
+  box-sizing: border-box;
 }
 
 .form-section h4 {
@@ -559,6 +557,7 @@ button {
   border-radius: 5px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s;
+  box-sizing: border-box;
 }
 
 .form-section input:focus,
@@ -578,10 +577,12 @@ button {
   gap: 10px;
   margin-bottom: 10px;
   align-items: center;
+  flex-wrap: wrap; /* Permettre le retour à la ligne si nécessaire */
 }
 
 .option-field input {
   flex: 1;
+  min-width: 200px; /* S'assurer que les champs ne deviennent pas trop petits */
 }
 
 .option-field button {
@@ -618,6 +619,7 @@ button {
   gap: 10px;
   justify-content: center;
   margin-top: 20px;
+  flex-wrap: wrap; /* Permettre le retour à la ligne si nécessaire */
 }
 
 .form-actions button {
