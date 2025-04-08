@@ -40,9 +40,8 @@ function showNotification(message) {
 
 function loadLotSelection() {
   const lots = [...new Set(questions.map(q => q.lot).filter(Boolean))];
-  console.log("Lots disponibles :", lots); // Log pour déboguer
+  console.log("Lots disponibles :", lots);
 
-  // Remplir #lot-selection (pour l'onglet "Démarrer le quiz")
   const lotSelection = document.getElementById('lot-selection');
   if (!lotSelection) {
     console.error("Élément '#lot-selection' non trouvé dans le DOM.");
@@ -58,7 +57,6 @@ function loadLotSelection() {
     console.log("Options ajoutées à #lot-selection :", lotSelection.innerHTML);
   }
 
-  // Remplir #lot-filter (pour l'onglet "Éditer Questions")
   const lotFilter = document.getElementById('lot-filter');
   if (!lotFilter) {
     console.error("Élément '#lot-filter' non trouvé dans le DOM.");
@@ -141,12 +139,27 @@ async function saveScoresToGitHub(token) {
   const pat = token || sessionStorage.getItem('githubPAT');
   if (!pat) {
     console.log("Aucun PAT disponible, sauvegarde uniquement locale.");
+    try {
+      localStorage.setItem('scores', JSON.stringify(scores));
+      console.log("Scores sauvegardés localement :", scores);
+    } catch (e) {
+      console.error("Erreur lors de la sauvegarde dans localStorage :", e);
+    }
     return;
   }
 
   try {
     console.log("Tentative de sauvegarde de scores.json...");
     console.log("Scores actuels avant sauvegarde :", scores);
+    if (!Array.isArray(scores)) {
+      console.error("Les scores ne sont pas un tableau :", scores);
+      scores = [];
+    }
+    if (scores.length === 0) {
+      console.log("Aucun score à sauvegarder.");
+      return;
+    }
+
     let sha = null;
     const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}?ref=${GITHUB_CONFIG.branch}`, {
       headers: {
@@ -195,7 +208,12 @@ async function saveScoresToGitHub(token) {
   } catch (error) {
     console.error("Erreur lors de la sauvegarde des scores :", error);
     showModal("scores_error" + error.message + " " + translations[currentLang]?.["scores_local"]);
-    localStorage.setItem('scores', JSON.stringify(scores));
+    try {
+      localStorage.setItem('scores', JSON.stringify(scores));
+      console.log("Scores sauvegardés localement après erreur :", scores);
+    } catch (e) {
+      console.error("Erreur lors de la sauvegarde dans localStorage après erreur :", e);
+    }
   }
 }
 
@@ -225,52 +243,119 @@ async function fetchQuestions() {
 }
 
 async function loadScores() {
-  try {
-    console.log("Tentative de chargement de scores.json...");
-    const response = await fetch(GITHUB_CONFIG.scoresPath);
-    if (!response.ok) {
-      if (response.status === 404) {
-        console.log("scores.json non trouvé, initialisation à un tableau vide.");
-        scores = [];
-      } else {
-        throw new Error(`Erreur lors du chargement de scores.json : ${response.status} ${response.statusText}`);
-      }
-    } else {
-      const text = await response.text();
-      console.log("Contenu brut de scores.json :", text);
-      try {
-        scores = JSON.parse(text);
-      } catch (parseError) {
-        throw new Error(`Erreur lors du parsing de scores.json : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
-      }
-      console.log('Scores chargés avec succès :', scores);
-    }
-  } catch (error) {
-    console.error('Erreur lors du chargement des scores:', error);
+  const token = sessionStorage.getItem('githubPAT');
+  let scoresFromGitHub = [];
+  let scoresFromLocal = [];
+
+  // Étape 1 : Charger les scores depuis GitHub si un PAT est disponible
+  if (token) {
     try {
-      const localScores = localStorage.getItem('scores');
-      scores = localScores ? JSON.parse(localScores) : [];
-      console.log("Scores chargés depuis localStorage :", scores);
-    } catch (localError) {
-      console.error("Erreur lors du chargement des scores depuis localStorage :", localError);
-      scores = [];
+      console.log("Tentative de chargement de scores.json via l'API GitHub...");
+      const response = await fetch(`${GITHUB_CONFIG.apiBaseUrl}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.scoresPath}?ref=${GITHUB_CONFIG.branch}`, {
+        headers: {
+          Authorization: `token ${token}`,
+          Accept: "application/vnd.github.v3+json"
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const content = atob(data.content);
+        console.log("Contenu brut de scores.json depuis GitHub :", content);
+        try {
+          scoresFromGitHub = JSON.parse(content);
+          console.log('Scores chargés avec succès depuis GitHub :', scoresFromGitHub);
+        } catch (parseError) {
+          throw new Error(`Erreur lors du parsing de scores.json depuis GitHub : ${parseError.message}. Contenu reçu : ${content.substring(0, 100)}...`);
+        }
+      } else if (response.status === 404) {
+        console.log("scores.json non trouvé sur GitHub, initialisation à un tableau vide.");
+        scoresFromGitHub = [];
+      } else {
+        throw new Error(`Erreur lors du chargement de scores.json depuis GitHub : ${response.status} ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des scores depuis GitHub :', error);
+      scoresFromGitHub = [];
+    }
+  } else {
+    console.log("Aucun PAT disponible, tentative de chargement via fetch direct...");
+    try {
+      const response = await fetch(GITHUB_CONFIG.scoresPath);
+      if (!response.ok) {
+        if (response.status === 404) {
+          console.log("scores.json non trouvé via fetch direct, initialisation à un tableau vide.");
+          scoresFromGitHub = [];
+        } else {
+          throw new Error(`Erreur lors du chargement de scores.json via fetch direct : ${response.status} ${response.statusText}`);
+        }
+      } else {
+        const text = await response.text();
+        console.log("Contenu brut de scores.json via fetch direct :", text);
+        try {
+          scoresFromGitHub = JSON.parse(text);
+          console.log('Scores chargés avec succès via fetch direct :', scoresFromGitHub);
+        } catch (parseError) {
+          throw new Error(`Erreur lors du parsing de scores.json via fetch direct : ${parseError.message}. Contenu reçu : ${text.substring(0, 100)}...`);
+        }
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des scores via fetch direct :', error);
+      scoresFromGitHub = [];
     }
   }
 
+  // Étape 2 : Charger les scores depuis localStorage
+  try {
+    const localScores = localStorage.getItem('scores');
+    if (localScores) {
+      scoresFromLocal = JSON.parse(localScores);
+      console.log("Scores chargés depuis localStorage :", scoresFromLocal);
+    } else {
+      console.log("Aucun score trouvé dans localStorage.");
+      scoresFromLocal = [];
+    }
+  } catch (localError) {
+    console.error("Erreur lors du chargement des scores depuis localStorage :", localError);
+    scoresFromLocal = [];
+  }
+
+  // Étape 3 : Fusionner les scores (GitHub a priorité)
+  if (!Array.isArray(scoresFromGitHub)) {
+    console.error("scoresFromGitHub n'est pas un tableau, initialisation à un tableau vide :", scoresFromGitHub);
+    scoresFromGitHub = [];
+  }
+  if (!Array.isArray(scoresFromLocal)) {
+    console.error("scoresFromLocal n'est pas un tableau, initialisation à un tableau vide :", scoresFromLocal);
+    scoresFromLocal = [];
+  }
+
+  // Fusionner les scores : GitHub a priorité, mais on ajoute les scores locaux non présents dans GitHub
+  const githubScoreKeys = new Set(scoresFromGitHub.map(s => `${s.name}-${s.date}-${s.lot}`));
+  const newLocalScores = scoresFromLocal.filter(s => !githubScoreKeys.has(`${s.name}-${s.date}-${s.lot}`));
+  scores = [...scoresFromGitHub, ...newLocalScores];
+  console.log("Scores fusionnés (GitHub + local) :", scores);
+
+  // Étape 4 : Afficher les scores
   const tbody = document.getElementById('scores-body');
   if (!tbody) {
     console.error("Élément '#scores-body' non trouvé dans le DOM.");
     return;
   }
   tbody.innerHTML = '';
+  if (scores.length === 0) {
+    console.log("Aucun score à afficher.");
+    tbody.innerHTML = '<tr><td colspan="5">Aucun score disponible.</td></tr>';
+    return;
+  }
   scores.forEach(score => {
     console.log("Ajout d'une ligne pour le score :", score);
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td>${score.name}</td>
-      <td>${score.date}</td>
-      <td>${score.score}</td>
-      <td>${score.time}</td>
+      <td>${score.name || 'Inconnu'}</td>
+      <td>${score.date || 'N/A'}</td>
+      <td>${score.score || '0'}</td>
+      <td>${score.time || 'N/A'}</td>
       <td>${score.lot || 'Non spécifié'}</td>
     `;
     tbody.appendChild(row);
