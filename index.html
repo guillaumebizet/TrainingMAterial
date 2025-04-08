@@ -111,64 +111,63 @@
     <button id="save-result-btn" data-lang="save_results"></button>
     <div id="save-result-feedback" style="display: none;"></div>
   </div>
-
-  <!-- Mermaid Live Editor -->
-  <div id="mermaid-editor-container" style="display: none;">
-    <h2>Mermaid Live Editor</h2>
-    <div class="mermaid-editor">
-      <textarea id="mermaid-input" placeholder="Écrivez votre code Mermaid ici...">
+<!-- Mermaid Live Editor -->
+<div id="mermaid-editor-container" style="display: none;">
+  <h2>Mermaid Live Editor</h2>
+  <div class="mermaid-editor">
+    <textarea id="mermaid-input" placeholder="Écrivez votre code Mermaid ici...">
 graph TD;
   A-->B;
   A-->C;
   B-->D;
   C-->D;
-      </textarea>
-      <div id="mermaid-output"></div>
-    </div>
+    </textarea>
+    <div id="mermaid-output"></div>
   </div>
+</div>
 
-  <!-- Convertisseur de Documents -->
-  <div id="converter-container" style="display: none;">
-    <h2>Convertisseur de Documents</h2>
-    <div class="converter">
-      <label for="file-input">Charger un fichier :</label>
-      <input type="file" id="file-input" accept=".docx,.pdf,.md">
-      <label for="free-text-input">Ou entrez du texte libre :</label>
-      <textarea id="free-text-input" placeholder="Entrez du texte à convertir..."></textarea>
-      <div class="conversion-options">
-        <label for="convert-from">Convertir depuis :</label>
-        <select id="convert-from">
-          <option value="docx">DOCX</option>
-          <option value="pdf">PDF</option>
-          <option value="markdown">Markdown</option>
-        </select>
-        <label for="convert-to">Convertir vers :</label>
-        <select id="convert-to">
-          <option value="html">HTML</option>
-          <option value="markdown">Markdown</option>
-          <option value="text">Texte brut</option>
-        </select>
-        <button id="convert-button">Convertir</button>
-      </div>
-      <div id="convert-output"></div>
+<!-- Convertisseur de Documents -->
+<div id="converter-container" style="display: none;">
+  <h2>Convertisseur de Documents</h2>
+  <div class="converter">
+    <label for="file-input">Charger un fichier :</label>
+    <input type="file" id="file-input" accept=".docx,.pdf,.md">
+    <label for="free-text-input">Ou entrez du texte libre :</label>
+    <textarea id="free-text-input" placeholder="Entrez du texte à convertir..."></textarea>
+    <div class="conversion-options">
+      <label for="convert-from">Convertir depuis :</label>
+      <select id="convert-from">
+        <option value="docx">DOCX</option>
+        <option value="pdf">PDF</option>
+        <option value="markdown">Markdown</option>
+      </select>
+      <label for="convert-to">Convertir vers :</label>
+      <select id="convert-to">
+        <option value="html">HTML</option>
+        <option value="markdown">Markdown</option>
+        <option value="text">Texte brut</option>
+      </select>
+      <button id="convert-button">Convertir</button>
     </div>
+    <div id="convert-output"></div>
   </div>
+</div>
 
-  <!-- Validateur JSON -->
-  <div id="json-validator-container" style="display: none;">
-    <h2>Validateur JSON</h2>
-    <div class="json-validator">
-      <textarea id="json-input" placeholder='Entrez votre JSON ici... (ex. {"key": "value"})'></textarea>
-      <button id="validate-json-button">Valider JSON</button>
-      <div id="json-output"></div>
-    </div>
+<!-- Validateur JSON -->
+<div id="json-validator-container" style="display: none;">
+  <h2>Validateur JSON</h2>
+  <div class="json-validator">
+    <textarea id="json-input" placeholder='Entrez votre JSON ici... (ex. {"key": "value"})'></textarea>
+    <button id="validate-json-button">Valider JSON</button>
+    <div id="json-output"></div>
   </div>
+</div>
 
-  <!-- Cours CI/CD -->
-  <div id="cicd-course-container" style="display: none;">
-    <h2>Cours CI/CD</h2>
-    <div id="cicd-course-output" class="mkdocs-style"></div>
-  </div>
+<!-- Cours CI/CD -->
+<div id="cicd-course-container" style="display: none;">
+  <h2>Cours CI/CD</h2>
+  <div id="cicd-course-output" class="mkdocs-style"></div>
+</div>
 
   <script src="github.js"></script>
   <script src="quiz-core.js"></script>
