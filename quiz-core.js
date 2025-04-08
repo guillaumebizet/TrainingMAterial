@@ -20,6 +20,10 @@ async function loadTranslations(lang) {
     if (!response.ok) throw new Error(`Failed to load ${lang}.json`);
     translations[lang] = await response.json();
     applyTranslations();
+    // Déclencher un événement personnalisé pour indiquer que les traductions sont prêtes
+    const event = new Event('translationsLoaded');
+    document.dispatchEvent(event);
+    console.log(`Traductions pour ${lang} chargées avec succès.`);
   } catch (error) {
     console.error(`Erreur lors du chargement des traductions pour ${lang}:`, error);
   }
@@ -313,11 +317,23 @@ function showTab(tabId) {
   }
   if (tabId === 'logic-tests-container') {
     console.log("Affichage de l'onglet Défis Logiques et Soft Skills, initialisation...");
-    if (typeof initializeLogicTests === 'function') {
-      initializeLogicTests();
+    // Attendre que les traductions soient chargées avant d'appeler initializeLogicTests
+    if (typeof translations[currentLang] === 'undefined') {
+      document.addEventListener('translationsLoaded', () => {
+        if (typeof initializeLogicTests === 'function') {
+          initializeLogicTests();
+        } else {
+          console.error("initializeLogicTests n'est pas défini même après le chargement des traductions. Vérifiez que logic-tests.js est correctement chargé.");
+          showModal("Erreur : Impossible d'initialiser les Défis Logiques et Soft Skills. Veuillez vérifier que tous les scripts sont chargés.");
+        }
+      }, { once: true });
     } else {
-      console.error("initializeLogicTests n'est pas défini. Vérifiez que logic-tests.js est correctement chargé.");
-      showModal("Erreur : Impossible d'initialiser les Défis Logiques et Soft Skills. Veuillez vérifier que tous les scripts sont chargés.");
+      if (typeof initializeLogicTests === 'function') {
+        initializeLogicTests();
+      } else {
+        console.error("initializeLogicTests n'est pas défini. Vérifiez que logic-tests.js est correctement chargé.");
+        showModal("Erreur : Impossible d'initialiser les Défis Logiques et Soft Skills. Veuillez vérifier que tous les scripts sont chargés.");
+      }
     }
   }
 }
