@@ -6,6 +6,7 @@ const GITHUB_CONFIG = {
   scoresPath: "scores.json",
   apiBaseUrl: "https://sgithub.fr.world.socgen/api/v3/repos"
 };*/
+console.log("Début de l'exécution de github.js");
 // Constantes globales pour le dépôt
 const GITHUB_CONFIG = {
   repo: "guillaumebizet/TrainingMAterial",
