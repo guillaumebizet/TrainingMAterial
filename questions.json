@@ -1,7 +1,7 @@
 [
   {
     "question": {
-      "fr": "Quelle est la différence entre `git merge` et `git rebase` ? test",
+      "fr": "Quelle est la différence entre `git merge` et `git rebase` ? ",
       "us": "What is the difference between `git merge` and `git rebase`?"
     },
     "options": {
@@ -27,7 +27,7 @@
   {
     "question": {
       "fr": "Comment annuler le dernier commit dans Git sans perdre les changements ?",
-      "us": "How do you undo the last commit in Git without losing changes? test"
+      "us": "How do you undo the last commit in Git without losing changes?"
     },
     "options": {
       "fr": [
@@ -60,9 +60,19 @@
         "Une branche est une copie complète du repository.",
         "Les branches sont pour les versions stables uniquement.",
         "Le branchement n'est pas supporté dans Git.",
+        "Les branches ne peuvent pas être fusionnées.",
+        "Une branche est un pointeur vers un commit, permettant de développer des fonctionnalités isolément.",
+        "Une branche est une copie complète du repository.",
+        "Les branches sont pour les versions stables uniquement.",
+        "Le branchement n'est pas supporté dans Git.",
         "Les branches ne peuvent pas être fusionnées."
       ],
       "us": [
+        "A branch is a pointer to a commit, allowing isolated feature development.",
+        "A branch is a full copy of the repository.",
+        "Branches are only for stable versions.",
+        "Branching is not supported in Git.",
+        "Branches cannot be merged.",
         "A branch is a pointer to a commit, allowing isolated feature development.",
         "A branch is a full copy of the repository.",
         "Branches are only for stable versions.",
@@ -4597,6 +4607,56 @@
     },
     "correct": 0,
     "lot": "SYD",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quelle est la capitale de la France ?",
+      "us": "What is the capital of France?"
+    },
+    "options": {
+      "fr": [
+        "Paris",
+        "Londres",
+        "Berlin",
+        "Madrid",
+        "Rome"
+      ],
+      "us": [
+        "Paris",
+        "London",
+        "Berlin",
+        "Madrid",
+        "Rome"
+      ]
+    },
+    "correct": 0,
+    "lot": "GENERAL",
+    "type": "Choix simple"
+  },
+  {
+    "question": {
+      "fr": "Quel est le résultat de 2 + 2 ?",
+      "us": "What is the result of 2 + 2?"
+    },
+    "options": {
+      "fr": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "us": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    "correct": 1,
+    "lot": "GENERAL",
     "type": "Choix simple"
   },
   {
