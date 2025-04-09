@@ -1115,8 +1115,8 @@ waitForTranslations().then(() => {
           let fakeExitCount = 0;
           const maxFakeExits = 2;
           const addFakeExit = () => {
-            if (fakeExitCount >= maxFakeExits) return;
-            const fakeExit = document.createElement('div');
+            if (fakeExitCount >= maxFakeExits) return
+                        const fakeExit = document.createElement('div');
             fakeExit.className = 'fake-exit space-fake-exit';
             fakeExit.textContent = translations[currentLang]['logic_test_10_fake_exit'] || 'Sortie';
             fakeExit.style.left = `${Math.random() * 80}%`;
@@ -1280,9 +1280,12 @@ waitForTranslations().then(() => {
         return;
       }
 
+      // Ajouter la classe space-theme au conteneur parent
+      testList.classList.add('space-theme');
+
       // Afficher la liste des défis avec un thème spatial
       testList.innerHTML = `
-        <div class="mission-board space-theme">
+        <div class="mission-board">
           <h2 class="board-title">Missions Spatiales</h2>
           <div class="progress-bar">
             <div class="progress" style="width: 0%"></div>
@@ -1306,18 +1309,34 @@ waitForTranslations().then(() => {
 
     // Définir startChallenge dans le scope global
     window.startChallenge = function(challengeId) {
+      console.log(`startChallenge appelé avec challengeId : ${challengeId}`);
       const challenge = challenges[challengeId];
+      if (!challenge) {
+        console.error(`Défi non trouvé pour l'ID : ${challengeId}`);
+        return;
+      }
+
       const testContent = document.getElementById('logic-test-content');
       const testResult = document.getElementById('logic-test-result');
+      if (!testContent || !testResult) {
+        console.error("Éléments logic-test-content ou logic-test-result non trouvés.");
+        return;
+      }
+
+      console.log("Nettoyage des éléments existants...");
       testContent.innerHTML = '';
       testResult.innerHTML = '';
 
-      // Rendre l’interface du défi
+      console.log("Rendu du défi...");
       challenge.render(testContent);
 
-      // Lancer le timer
+      console.log("Lancement du timer...");
       let timeLeft = challenge.timeLimit;
       const timerElement = document.getElementById(`timer-${challengeId}`);
+      if (!timerElement) {
+        console.error(`Élément timer-${challengeId} non trouvé.`);
+        return;
+      }
       timerElement.textContent = formatTime(timeLeft);
       timers[challengeId] = setInterval(() => {
         timeLeft--;
@@ -1330,17 +1349,20 @@ waitForTranslations().then(() => {
         }
       }, 1000);
 
-      // Attacher l’événement de validation
+      console.log("Attachement de l'événement de validation...");
       const submitButton = document.getElementById(`submit-${challengeId}`);
       if (submitButton) {
         submitButton.addEventListener('click', () => {
           stopChallenge(challengeId);
         });
+      } else {
+        console.error(`Bouton submit-${challengeId} non trouvé.`);
       }
     };
 
     // Définir stopChallenge dans le scope global
     window.stopChallenge = function(challengeId, userSubmitted = true) {
+      console.log(`stopChallenge appelé avec challengeId : ${challengeId}, userSubmitted : ${userSubmitted}`);
       const challenge = challenges[challengeId];
       clearInterval(timers[challengeId]);
       delete timers[challengeId];
