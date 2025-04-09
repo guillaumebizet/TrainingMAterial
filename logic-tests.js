@@ -1269,43 +1269,48 @@ waitForTranslations().then(() => {
     // Variables globales pour gérer les timers
     const timers = {};
 
-    // Définir initializeLogicTests dans le scope global
-    window.initializeLogicTests = function() {
-      console.log("Initialisation des Défis Logiques et Soft Skills...");
-      const testList = document.getElementById('logic-test-list');
-      const testContent = document.getElementById('logic-test-result');
+ // Définir initializeLogicTests dans le scope global
+window.initializeLogicTests = function() {
+  console.log("Initialisation des Défis Logiques et Soft Skills...");
+  const testList = document.getElementById('logic-test-list');
+  const testContent = document.getElementById('logic-test-result');
 
-      if (!testList || !testContent) {
-        console.error("Éléments pour les défis logiques non trouvés.");
-        return;
-      }
+  if (!testList || !testContent) {
+    console.error("Éléments pour les défis logiques non trouvés.");
+    return;
+  }
 
-      // Ajouter la classe space-theme au conteneur parent
-      testList.classList.add('space-theme');
+  // Ajouter la classe space-theme au conteneur parent
+  testList.classList.add('space-theme');
 
-      // Afficher la liste des défis avec un thème spatial
-      testList.innerHTML = `
-        <div class="mission-board">
-          <h2 class="board-title">Missions Spatiales</h2>
-          <div class="progress-bar">
-            <div class="progress" style="width: 0%"></div>
-          </div>
-        </div>
-      `;
-      const missionBoard = testList.querySelector('.mission-board');
-      Object.values(challenges).forEach((challenge, index) => {
-        const challengeItem = document.createElement('div');
-        challengeItem.className = 'challenge-item space-mission';
-        challengeItem.innerHTML = `
-          <h3>Mission ${index + 1} : ${translations[currentLang][challenge.title]}</h3>
-          <button onclick="startChallenge('${challenge.id}')" aria-label="Lancer la mission ${index + 1}">${translations[currentLang]['start_challenge'] || 'Lancer le défi'}</button>
-        `;
-        missionBoard.appendChild(challengeItem);
-      });
-      // Mettre à jour la barre de progression (simulée)
-      const progress = (Object.keys(challenges).length / 10) * 100; // 10 missions au total
-      missionBoard.querySelector('.progress').style.width = `${progress}%`;
-    };
+  // Afficher la liste des défis avec un thème spatial
+  testList.innerHTML = `
+    <div class="mission-board">
+      <h2 class="board-title">Missions Spatiales</h2>
+      <div class="progress-bar">
+        <div class="progress" style="width: 0%"></div>
+      </div>
+    </div>
+  `;
+  const missionBoard = testList.querySelector('.mission-board');
+  Object.values(challenges).forEach((challenge, index) => {
+    const challengeItem = document.createElement('div');
+    challengeItem.className = 'challenge-item space-mission';
+    challengeItem.innerHTML = `
+      <h3>Mission ${index + 1} : ${translations[currentLang][challenge.title]}</h3>
+      <button aria-label="Lancer la mission ${index + 1}">${translations[currentLang]['start_challenge'] || 'Lancer le défi'}</button>
+    `;
+    const button = challengeItem.querySelector('button');
+    button.addEventListener('click', () => {
+      console.log(`Bouton cliqué pour lancer le défi : ${challenge.id}`);
+      startChallenge(challenge.id);
+    });
+    missionBoard.appendChild(challengeItem);
+  });
+  // Mettre à jour la barre de progression (simulée)
+  const progress = (Object.keys(challenges).length / 10) * 100; // 10 missions au total
+  missionBoard.querySelector('.progress').style.width = `${progress}%`;
+};
 
     // Définir startChallenge dans le scope global
     window.startChallenge = function(challengeId) {
