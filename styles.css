@@ -1723,6 +1723,675 @@ button:disabled {
   background-color: #27ae60;
 }
 
+/* Thème spatial global */
+.space-theme {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Étoiles en arrière-plan */
+.space-theme::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+/* En-tête de mission */
+.mission-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mission-title {
+  font-size: 24px;
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.timer-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #00d4ff;
+}
+
+/* Instructions tooltip */
+.instructions-tooltip {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.info-btn {
+  background: #00d4ff;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.info-btn:hover {
+  transform: scale(1.2);
+}
+
+.tooltip-content {
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.8);
+  color: #e0e0e0;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  width: 200px;
+  top: 30px;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.info-btn:hover + .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Boutons spatiaux */
+.space-button {
+  background: #00d4ff;
+  color: #1a1a2e;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.space-button:hover {
+  background: #00b4d8;
+  transform: scale(1.05);
+}
+
+.space-button:active {
+  transform: scale(0.95);
+}
+
+/* Challenge 1 : Horloge */
+.space-clock {
+  background: radial-gradient(circle, #0f3460 0%, #1a1a2e 100%);
+  border: 2px solid #00d4ff;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  margin: 20px auto;
+}
+
+.hour-hand, .minute-hand {
+  background: #00d4ff;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+}
+
+.hour-hand {
+  width: 4px;
+  height: 60px;
+}
+
+.minute-hand {
+  width: 2px;
+  height: 80px;
+}
+
+/* Challenge 2 : Chaussettes */
+.space-drawer {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #00d4ff;
+  border-radius: 10px;
+  height: 200px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.space-sock {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  position: absolute;
+  cursor: move;
+  transition: transform 0.2s ease;
+}
+
+.space-sock:hover {
+  transform: scale(1.1);
+}
+
+.space-drop-zone {
+  background: rgba(0, 212, 255, 0.1);
+  border: 2px dashed #00d4ff;
+  border-radius: 10px;
+  height: 100px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.space-drop-zone.highlight-drop {
+  background: rgba(0, 212, 255, 0.3);
+  border-color: #00ff00;
+}
+
+/* Challenge 3 : Transport */
+.space-river {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.space-planet {
+  background: radial-gradient(circle, #0f3460 0%, #1a1a2e 100%);
+  border: 2px solid #00d4ff;
+  border-radius: 10px;
+  width: 150px;
+  height: 200px;
+  position: relative;
+}
+
+.space-planet.highlight-drop {
+  background: rgba(0, 212, 255, 0.3);
+  border-color: #00ff00;
+}
+
+.space-warp {
+  background: linear-gradient(90deg, #1a1a2e, #0f3460);
+  width: 100px;
+  height: 200px;
+  position: relative;
+}
+
+.space-shuttle {
+  background: #00d4ff;
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.space-shuttle.highlight-drop {
+  background: #00ff00;
+}
+
+.item {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  position: absolute;
+  cursor: move;
+  transition: transform 0.2s ease;
+}
+
+.item:hover {
+  transform: scale(1.1);
+}
+
+.farmer { background: #ffeb3b; }
+.wolf { background: #ff4d4d; }
+.goat { background: #4caf50; }
+.cabbage { background: #ab47bc; }
+
+/* Challenge 4 : Signaux */
+.space-orbit {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #00d4ff;
+  border-radius: 10px;
+  height: 200px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.space-signal {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.space-signal:hover {
+  transform: scale(1.2);
+}
+
+.space-signal:focus {
+  outline: 2px solid #00ff00;
+}
+
+/* Challenge 5 : Connexions */
+.space-stations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.space-station {
+  background: #0f3460;
+  border: 2px solid #00d4ff;
+  border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.space-station.highlight {
+  background: #00d4ff;
+  color: #1a1a2e;
+}
+
+.canvas-container {
+  border: 2px solid #00d4ff;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.space-resource {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00d4ff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 5px;
+}
+
+/* Challenge 6 : Balance */
+.space-samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.space-sample {
+  background: #0f3460;
+  border: 2px solid #00d4ff;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+}
+
+.space-scale {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.scale-pan {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #00d4ff;
+  border-radius: 5px;
+  width: 100px;
+  height: 50px;
+  margin: 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 5px;
+}
+
+.scale-pan.highlight-drop {
+  background: rgba(0, 212, 255, 0.3);
+  border-color: #00ff00;
+}
+
+/* Challenge 7 : Code */
+.space-clues {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #00d4ff;
+  border-radius: 10px;
+  height: 200px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.space-clue {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px 10px;
+  position: absolute;
+  color: #00d4ff;
+}
+
+.space-safe {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.space-safe input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00d4ff;
+  border-radius: 5px;
+  color: #e0e0e0;
+  padding: 5px;
+  width: 50px;
+  text-align: center;
+}
+
+/* Challenge 8 : Exploration */
+.space-moon {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #00d4ff;
+  border-radius: 10px;
+  height: 200px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.space-drone {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  cursor: move;
+  font-size: 24px;
+}
+
+.space-oasis {
+  background: #00d4ff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.space-oasis.disappear {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.space-mirage {
+  background: #ff4d4d;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0.5;
+}
+
+.space-gauge {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00d4ff;
+  border-radius: 5px;
+  height: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.water-level {
+  background: #00d4ff;
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+/* Challenge 9 : Relais */
+.space-switches {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.space-switch {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00d4ff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.space-switch.active {
+  background: #00d4ff;
+  color: #1a1a2e;
+}
+
+.space-relays {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.space-relay {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00d4ff;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.space-relay.active {
+  background: #00ff00;
+  color: #1a1a2e;
+}
+
+.space-answers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.space-answers select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00d4ff;
+  border-radius: 5px;
+  color: #e0e0e0;
+  padding: 5px;
+}
+
+/* Challenge 10 : Labyrinthe */
+.space-maze {
+  display: grid;
+  grid-template-columns: repeat(5, 50px);
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #00d4ff;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+.space-cell {
+  background: #0f3460;
+  width: 50px;
+  height: 50px;
+  border-radius: 3px;
+}
+
+.space-cell.wall {
+  background: #ff4d4d;
+}
+
+.space-cell.entrance {
+  background: #00ff00;
+}
+
+.space-cell.exit {
+  background: #00d4ff;
+}
+
+.space-cell.player {
+  background: #ffeb3b;
+}
+
+.space-fake-exit {
+  background: #ff4d4d;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0.5;
+}
+
+.space-clue-display {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  color: #00d4ff;
+}
+
+.space-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.space-controls button {
+  background: #00d4ff;
+  color: #1a1a2e;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.space-controls button:hover {
+  background: #00b4d8;
+}
+
+/* Animation de succès */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.success-animation {
+  text-align: center;
+  color: #00ff00;
+  font-size: 24px;
+  animation: fadeInOut 2s ease;
+}
+
+.star-burst {
+  width: 100px;
+  height: 100px;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  border-radius: 50%;
+  animation: burst 1s ease infinite;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+
+@keyframes burst {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Mission Board */
+.mission-board {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #00d4ff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.board-title {
+  font-size: 28px;
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  height: 10px;
+  margin-bottom: 20px;
+}
+
+.progress {
+  background: #00d4ff;
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.space-mission {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.space-mission h3 {
+  color: #00d4ff;
+}
+
+/* Résultat */
+.challenge-result {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid #00d4ff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.challenge-result.success {
+  border-color: #00ff00;
+}
+
+.challenge-result.failure {
+  border-color: #ff4d4d;
+}
+
 /* Animations */
 @keyframes wobble {
   0% { transform: rotate(-5deg); }
